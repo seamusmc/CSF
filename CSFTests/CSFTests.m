@@ -6,7 +6,10 @@
 //  Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
+#define EXP_SHORTHAND
+
 #import <XCTest/XCTest.h>
+#import "Expecta.h"
 
 @interface CSFTests : XCTestCase
 
@@ -28,7 +31,8 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    expect(@"foo").to.equal(@"foo");
+    // XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end
