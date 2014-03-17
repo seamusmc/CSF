@@ -35,4 +35,32 @@
     // XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
+- (void)testGetItemTypes
+{
+    NSArray *types = [self getItemTypes:nil];
+    expect(types).will.beNil();
+}
+
+NSString* const kGetItemTypesURI = @"http://www.ohiorawmilk.info/mobileoerest/RestService.svc/foe/itemtypes/?farm=%@";
+- (NSArray*) getItemTypes:(NSError**)error
+{
+    NSURLResponse* response;
+
+    NSString* uri = [NSString stringWithFormat:kGetItemTypesURI, @"FARM2U"];
+    uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSURL* url = [NSURL URLWithString:uri];
+
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
+    NSArray* types;
+    if (data)
+    {
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        types = [json objectForKey:@"Types"];
+    }
+
+    return types;
+}
+
 @end
