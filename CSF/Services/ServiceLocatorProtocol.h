@@ -7,7 +7,7 @@
 
 @protocol FarmDataServiceProtocol;
 
-@protocol ServicesManagerProtocol <NSObject>
+@protocol ServiceLocatorProtocol <NSObject>
 
 @property (nonatomic, strong, readonly) id <FarmDataServiceProtocol> farmDataService;
 

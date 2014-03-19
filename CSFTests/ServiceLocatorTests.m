@@ -9,13 +9,13 @@
 
 #import <XCTest/XCTest.h>
 #import <Expecta/Expecta.h>
-#import "ServicesManager.h"
+#import "ServiceLocator.h"
 
-@interface ServicesManagerTests : XCTestCase
+@interface ServiceLocatorTests : XCTestCase
 
 @end
 
-@implementation ServicesManagerTests
+@implementation ServiceLocatorTests
 
 - (void)setUp
 {
@@ -31,7 +31,7 @@
 
 - (void)testConformance
 {
-    expect([ServicesManager sharedInstance]).to.conformTo(@protocol(ServicesManagerProtocol));
+    expect([ServiceLocator sharedInstance]).to.conformTo(@protocol(ServiceLocatorProtocol));
 }
 
 

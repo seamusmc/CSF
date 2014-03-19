@@ -7,10 +7,10 @@
 // and lifetime management of the services.
 
 #import <Foundation/Foundation.h>
-#import "ServicesManagerProtocol.h"
+#import "ServiceLocatorProtocol.h"
 
-@interface ServicesManager : NSObject <ServicesManagerProtocol>
+@interface ServiceLocator : NSObject <ServiceLocatorProtocol>
 
-+ (id <ServicesManagerProtocol>) sharedInstance;
++ (id <ServiceLocatorProtocol>) sharedInstance;
 
 @end

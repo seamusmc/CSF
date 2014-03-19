@@ -3,11 +3,10 @@
 // Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
-#import "ServicesManager.h"
+#import "ServiceLocator.h"
 #import "FarmDataService.h"
-#import "FarmDataServiceProtocol.h"
 
-@implementation ServicesManager
+@implementation ServiceLocator
 
 - (id <FarmDataServiceProtocol>)farmDataService
 {
@@ -15,14 +14,14 @@
     return service;
 }
 
-+ (id <ServicesManagerProtocol>)sharedInstance
++ (id <ServiceLocatorProtocol>)sharedInstance
 {
-    static ServicesManager *sharedInstance = nil;
+    static ServiceLocator *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^
     {
-        sharedInstance = [[ServicesManager alloc] init];
+        sharedInstance = [[ServiceLocator alloc] init];
     });
 
     return sharedInstance;

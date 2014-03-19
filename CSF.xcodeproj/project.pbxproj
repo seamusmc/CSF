@@ -10,8 +10,8 @@
 		8567E98A17974A0091D9AE5F /* libPods-CSFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 416A32901B9642959BDD3640 /* libPods-CSFTests.a */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
-		C9FA5DF873B38B60722DF306 /* ServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServicesManager.m */; };
-		F10E084418DA2B3600A70217 /* ServicesManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServicesManagerTests.m */; };
+		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
+		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
 		F1A91A5518D39602008395EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5418D39602008395EE /* CoreGraphics.framework */; };
 		F1A91A5718D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
@@ -42,15 +42,15 @@
 		416A32901B9642959BDD3640 /* libPods-CSFTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSFTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
-		C9FA53F35EA5A26414F4213D /* ServicesManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServicesManagerProtocol.h; sourceTree = "<group>"; };
-		C9FA56F3A77BA0ECBEB9ED22 /* ServicesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServicesManager.h; sourceTree = "<group>"; };
-		C9FA573953EFF1B5186F6511 /* ServicesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesManager.m; sourceTree = "<group>"; };
+		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
+		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
+		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		C9FA58821501F91470DED679 /* ServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConstants.m; sourceTree = "<group>"; };
 		C9FA59B5C4C9B148829B162F /* FarmDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataService.h; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5FD37705F1745D20A497 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		EA667D3034A74CDC980C82EB /* Pods-CSFTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSFTests.xcconfig"; path = "Pods/Pods-CSFTests.xcconfig"; sourceTree = "<group>"; };
-		F10E084318DA2B3600A70217 /* ServicesManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesManagerTests.m; sourceTree = "<group>"; };
+		F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocatorTests.m; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,14 +107,14 @@
 		C9FA5CBF3D3D7E405BCF8DD9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C9FA573953EFF1B5186F6511 /* ServicesManager.m */,
-				C9FA56F3A77BA0ECBEB9ED22 /* ServicesManager.h */,
+				C9FA573953EFF1B5186F6511 /* ServiceLocator.m */,
+				C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */,
 				C9FA5028ABC406D04F291E30 /* FarmDataService.m */,
 				C9FA59B5C4C9B148829B162F /* FarmDataService.h */,
 				C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */,
 				C9FA58821501F91470DED679 /* ServiceConstants.m */,
 				C9FA526F81D491D69FF8F812 /* ServiceConstants.h */,
-				C9FA53F35EA5A26414F4213D /* ServicesManagerProtocol.h */,
+				C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -184,7 +184,7 @@
 			children = (
 				F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */,
 				F1A91A7818D39602008395EE /* Supporting Files */,
-				F10E084318DA2B3600A70217 /* ServicesManagerTests.m */,
+				F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */,
 			);
 			path = CSFTests;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 				F1A91A6918D39602008395EE /* ViewController.m in Sources */,
 				F1A91A6318D39602008395EE /* AppDelegate.m in Sources */,
 				F1A91A5F18D39602008395EE /* main.m in Sources */,
-				C9FA5DF873B38B60722DF306 /* ServicesManager.m in Sources */,
+				C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */,
 				C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */,
 				C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */,
 			);
@@ -344,7 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1A91A7E18D39602008395EE /* FarmDataServiceTests.m in Sources */,
-				F10E084418DA2B3600A70217 /* ServicesManagerTests.m in Sources */,
+				F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
