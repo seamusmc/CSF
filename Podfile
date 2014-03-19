@@ -2,6 +2,6 @@ target :CSF do
 #your app dependencies
 end
 
-target :CSFTests do
+target :FarmDataServiceTests do
   pod 'Expecta',     '~> 0.3.0'   # expecta matchers
 end
