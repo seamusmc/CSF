@@ -12,6 +12,7 @@
 #import "Expecta.h"
 #import "FarmDataServiceProtocol.h"
 #import "FarmDataService.h"
+#import "ServiceLocator.h"
 
 @interface FarmDataServiceTests : XCTestCase
 
@@ -33,12 +34,13 @@
 
 - (void)testConformance
 {
-    expect([FarmDataService sharedInstance]).to.conformTo(@protocol(FarmDataServiceProtocol));
+    id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
+    expect(service).to.conformTo(@protocol(FarmDataServiceProtocol));
 }
 
 - (void)testFarmsProperty
 {
-    id <FarmDataServiceProtocol> service = [FarmDataService sharedInstance];
+    id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
     NSArray *farms = service.farms;
 
     NSArray *list = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
@@ -47,7 +49,7 @@
 
 - (void)testGetItemTypes
 {
-    id <FarmDataServiceProtocol> service = [FarmDataService sharedInstance];
+    id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *types;
     [service getItemTypesForFarm:@"FARM2U" withCompletionHandler:^(NSArray *typeList){
