@@ -10,5 +10,6 @@
 @property (nonatomic, strong, readonly) NSArray *farms;
 
 - (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler;
+- (void)getItemsForFarm:(NSString *)farm forType:(NSString *)type withCompletionHandler:(void (^)(NSArray *items))completionHandler;
 
 @end

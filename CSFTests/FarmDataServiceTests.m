@@ -11,8 +11,10 @@
 #import <XCTest/XCTest.h>
 #import "Expecta.h"
 #import "FarmDataServiceProtocol.h"
-#import "FarmDataService.h"
 #import "ServiceLocator.h"
+
+NSString *const testFarm = @"FARM2U";
+NSString *const testType = @"Beef";
 
 @interface FarmDataServiceTests : XCTestCase
 
@@ -41,22 +43,38 @@
 - (void)testFarmsProperty
 {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
-    NSArray *farms = service.farms;
+    NSArray                      *farms  = service.farms;
 
     NSArray *list = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
     expect(farms).to.beSupersetOf(list);
 }
 
-- (void)testGetItemTypes
+- (void)testGetItemTypesForFarm
 {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *types;
-    [service getItemTypesForFarm:@"FARM2U" withCompletionHandler:^(NSArray *typeList){
+    [service getItemTypesForFarm:testFarm withCompletionHandler:^(NSArray *typeList)
+    {
         types = typeList;
+        NSLog(@"Types: %@", types);
     }];
 
-    expect([types count]).will.beGreaterThan(0);
+    expect(types).willNot.beNil();
+}
+
+- (void)testGetItemsForFarmForType
+{
+    id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
+
+    __block NSArray *items;
+    [service getItemsForFarm:testFarm forType:testType withCompletionHandler:^(NSArray *itemList)
+    {
+        items = itemList;
+        NSLog(@"Items: %@", items);
+    }];
+
+    expect(items).willNot.beNil();
 }
 
 @end

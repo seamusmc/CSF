@@ -15,9 +15,6 @@
 @end
 
 @implementation FarmDataService
-{
-
-}
 
 - (id)init
 {
@@ -49,17 +46,50 @@
     uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
 
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithURL:url
-                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-                                            if (data)
-                                            {
-                                                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                                                NSArray *types = [json objectForKey:@"Types"];
+    NSURLSession         *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task    = [session dataTaskWithURL:url
+                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                           {
+                                               if (data)
+                                               {
+                                                   NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                         options:0
+                                                                                                           error:nil];
+                                                   NSArray      *types = [json objectForKey:@"Types"];
 
-                                                completionHandler(types);
-                                            }
-                                        }];
+                                                   completionHandler(types);
+                                               }
+                                           }];
+    [task resume];
+}
+
+- (void)getItemsForFarm:(NSString *)farm forType:(NSString *)type withCompletionHandler:(void (^)(NSArray *items))completionHandler
+{
+    NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
+
+    [self getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    {
+        NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSArray      *items = [json objectForKey:@"Items"];
+
+        completionHandler(items);
+    }];
+}
+
+- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(NSData *data))completionHandler
+{
+    uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:uri];
+
+    NSURLSession         *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task    = [session dataTaskWithURL:url
+                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                           {
+                                               if (data)
+                                               {
+                                                   completionHandler(data);
+                                               }
+                                           }];
     [task resume];
 }
 
