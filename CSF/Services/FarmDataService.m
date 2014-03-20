@@ -5,6 +5,8 @@
 
 #import "FarmDataService.h"
 #import "ServiceConstants.h"
+#import "NetworkingServiceProtocol.h"
+#import "ServiceLocator.h"
 
 @interface FarmDataService ()
 
@@ -15,13 +17,17 @@
 @end
 
 @implementation FarmDataService
+{
+    id <NetworkingServiceProtocol> _networkingService;
+}
 
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        _farms = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
+        _farms             = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
+        _networkingService = [[ServiceLocator sharedInstance] networkingService];
     }
 
     return self;
@@ -43,8 +49,7 @@
 - (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
-
-    [self getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
     {
         if (data)
         {
@@ -58,7 +63,7 @@
 - (void)getItemsForFarm:(NSString *)farm forType:(NSString *)type withCompletionHandler:(void (^)(NSArray *items))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
-    [self getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
     {
         if (data)
         {
@@ -68,20 +73,6 @@
             completionHandler(items);
         }
     }];
-}
-
-- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(NSData *data))completionHandler
-{
-    uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:uri];
-
-    NSURLSession         *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task    = [session dataTaskWithURL:url
-                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-                                           {
-                                               completionHandler(data);
-                                           }];
-    [task resume];
 }
 
 @end

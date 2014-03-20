@@ -5,12 +5,20 @@
 
 #import "ServiceLocator.h"
 #import "FarmDataService.h"
+#import "NetworkingServiceProtocol.h"
+#import "NetworkingService.h"
 
 @implementation ServiceLocator
 
 - (id <FarmDataServiceProtocol>)farmDataService
 {
     id <FarmDataServiceProtocol> service = [FarmDataService sharedInstance];
+    return service;
+}
+
+- (id <NetworkingServiceProtocol>)networkingService
+{
+    id <NetworkingServiceProtocol> service = [NetworkingService sharedInstance];
     return service;
 }
 

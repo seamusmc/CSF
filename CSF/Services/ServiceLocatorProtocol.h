@@ -6,9 +6,11 @@
 #import <Foundation/Foundation.h>
 
 @protocol FarmDataServiceProtocol;
+@protocol NetworkingServiceProtocol;
 
 @protocol ServiceLocatorProtocol <NSObject>
 
 @property (nonatomic, strong, readonly) id <FarmDataServiceProtocol> farmDataService;
+@property (nonatomic, strong, readonly) id <NetworkingServiceProtocol> networkingService;
 
 @end
