@@ -17,6 +17,7 @@
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
+		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
 		F1A91A5518D39602008395EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5418D39602008395EE /* CoreGraphics.framework */; };
 		F1A91A5718D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
@@ -68,6 +69,7 @@
 		C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataService.h; sourceTree = "<group>"; };
 		EA667D3034A74CDC980C82EB /* Pods-CSFTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSFTests.xcconfig"; path = "Pods/Pods-CSFTests.xcconfig"; sourceTree = "<group>"; };
 		F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocatorTests.m; sourceTree = "<group>"; };
+		F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataServiceTests.m; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -214,6 +216,7 @@
 				F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */,
 				F1A91A7818D39602008395EE /* Supporting Files */,
 				F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */,
+				F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */,
 			);
 			path = CSFTests;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */,
 				F1A91A7E18D39602008395EE /* FarmDataServiceTests.m in Sources */,
 				F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */,
 			);
