@@ -6,9 +6,13 @@
 #import <Foundation/Foundation.h>
 
 @class User;
+@class Order;
 
 @protocol OrderDataServiceProtocol <NSObject>
 
-- (void)getOrderForUser:(User *)user forFarm:(NSString *)farm forDate:(NSDate *)date;
+- (void)getOrderForUser:(User *)user
+                forFarm:(NSString *)farm
+                forDate:(NSDate *)date
+  withCompletionHandler:(void (^)(Order *order))completionHandler;
 
 @end

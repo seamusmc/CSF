@@ -1,0 +1,91 @@
+//
+// Created by Seamus McGowan on 3/20/14.
+// Copyright (c) 2014 Seamus McGowan. All rights reserved.
+//
+
+#import "OrderDataService.h"
+#import "User.h"
+#import "Order.h"
+#import "ServiceConstants.h"
+#import "NetworkingServiceProtocol.h"
+#import "ServiceLocator.h"
+#import "OrderItem.h"
+
+@implementation OrderDataService
+{
+    id <NetworkingServiceProtocol> _networkingService;
+    NSDateFormatter *_dateFormatter;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        _networkingService = [[ServiceLocator sharedInstance] networkingService];
+
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    }
+
+    return self;
+}
+
++ (id <OrderDataServiceProtocol>)sharedInstance
+{
+    static OrderDataService *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^
+    {
+        sharedInstance = [[OrderDataService alloc] init];
+    });
+
+    return sharedInstance;
+}
+
+- (void)getOrderForUser:(User *)user forFarm:(NSString *)farm forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
+{
+    NSString *stringFromDate = [_dateFormatter stringFromDate:date];
+    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, farm, nil, user.firstname, user.lastname, stringFromDate];
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    {
+        if (data)
+        {
+            NSMutableArray *items = [NSMutableArray array];
+            BOOL locked = NO;
+
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+            NSLog(@"%@", json);
+
+            locked = [[json objectForKey:@"Locked"] boolValue];
+
+            NSArray *tempItems = [json objectForKey:@"Items"];
+            for (id item in tempItems)
+            {
+                OrderItem *orderItem = [[OrderItem alloc] init];
+                orderItem.type = [item objectForKey:@"Type"];
+                orderItem.name = [item objectForKey:@"Item"];
+                orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
+                orderItem.comment = [item objectForKey:@"Comment"];
+
+/*
+                Item* farmItem = [self findItemWithFarmData:farmData andOrderItem:orderItem];
+
+                orderItem.price = farmItem.price;
+                orderItem.outOfStock = farmItem.outOfStock;
+                orderItem.fractions = farmItem.fractions;*/
+
+                [items addObject:orderItem];
+            }
+
+            Order *order = [[Order alloc] initWithLocked:locked items:items];
+            completionHandler(order);
+        }
+    }];
+
+}
+
+@end

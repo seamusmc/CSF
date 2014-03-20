@@ -3,18 +3,17 @@
 // Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
-#import "User.h"
 #import "Order.h"
 
-@implementation User
+@implementation Order
 
-- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname
+- (instancetype)initWithLocked:(BOOL)locked items:(NSArray *)items
 {
     self = [super init];
     if (self)
     {
-        _firstname = firstname;
-        _lastname  = lastname;
+        _locked = locked;
+        _items  = items;
     }
 
     return self;
