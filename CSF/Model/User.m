@@ -4,17 +4,17 @@
 //
 
 #import "User.h"
-#import "Order.h"
 
 @implementation User
 
-- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname
+- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname group:(NSString *)group
 {
     self = [super init];
     if (self)
     {
         _firstname = firstname;
         _lastname  = lastname;
+        _group = group;
     }
 
     return self;

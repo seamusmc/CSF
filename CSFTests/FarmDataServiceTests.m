@@ -12,9 +12,7 @@
 #import "Expecta.h"
 #import "FarmDataServiceProtocol.h"
 #import "ServiceLocator.h"
-
-NSString *const testFarm = @"FARM2U";
-NSString *const testType = @"Beef";
+#import "TestConstants.h"
 
 @interface FarmDataServiceTests : XCTestCase
 
@@ -54,7 +52,7 @@ NSString *const testType = @"Beef";
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *types;
-    [service getItemTypesForFarm:testFarm withCompletionHandler:^(NSArray *typeList)
+    [service getItemTypesForFarm:TestFarm withCompletionHandler:^(NSArray *typeList)
     {
         types = typeList;
         NSLog(@"Types: %@", types);
@@ -68,7 +66,7 @@ NSString *const testType = @"Beef";
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *items;
-    [service getItemsForFarm:testFarm forType:testType withCompletionHandler:^(NSArray *itemList)
+    [service getItemsForFarm:TestFarm forType:TestType withCompletionHandler:^(NSArray *itemList)
     {
         items = itemList;
         NSLog(@"Items: %@", items);

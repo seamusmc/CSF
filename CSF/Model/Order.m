@@ -19,4 +19,16 @@
     return self;
 }
 
+- (NSString *)description
+{
+    NSString *locked = (self.locked) ? @"YES" : @"NO";
+    NSMutableString *description = [NSMutableString stringWithFormat:@"< %@: Locked: %@ Items: %@",
+                                                                     NSStringFromClass([self class]),
+                                                                     locked,
+                                                                     self.items];
+    [description appendString:@" >"];
+
+    return description;
+}
+
 @end

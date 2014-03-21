@@ -13,6 +13,7 @@
 		C9FA53EA297BA9295AE13E2F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5687440B9DB7CF211B2F /* User.m */; };
 		C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52D06BD7481A26257822 /* OrderDataService.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
+		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
@@ -54,12 +55,14 @@
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C9FA5687440B9DB7CF211B2F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		C9FA569433E799F0C2BA8D3F /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		C9FA58821501F91470DED679 /* ServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConstants.m; sourceTree = "<group>"; };
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		C9FA598B04729792C519FCD5 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		C9FA59B5C4C9B148829B162F /* FarmDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataService.h; sourceTree = "<group>"; };
+		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				F1A91A7818D39602008395EE /* Supporting Files */,
 				F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */,
 				F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */,
+				C9FA5B198F2E0592EDD548BD /* TestConstants.m */,
+				C9FA569433E799F0C2BA8D3F /* TestConstants.h */,
 			);
 			path = CSFTests;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */,
 				F1A91A7E18D39602008395EE /* FarmDataServiceTests.m in Sources */,
 				F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */,
+				C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

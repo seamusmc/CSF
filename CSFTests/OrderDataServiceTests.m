@@ -6,7 +6,15 @@
 //  Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
+#define EXP_SHORTHAND
+
 #import <XCTest/XCTest.h>
+#import <Expecta/Expecta.h>
+#import "OrderDataServiceProtocol.h"
+#import "ServiceLocator.h"
+#import "User.h"
+#import "Order.h"
+#import "TestConstants.h"
 
 @interface OrderDataServiceTests : XCTestCase
 
@@ -26,9 +34,32 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testGetOrderForUserForFarmForDateWithCompletionHandler
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
+
+    __block Order *order;
+
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup];
+
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setMonth:3];
+    [components setDay:20];
+    [components setYear:2014];
+
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate     *date  = [gregorian dateFromComponents:components];
+
+    [service getOrderForUser:user
+                     forFarm:TestFarm
+                     forDate:date
+       withCompletionHandler:^(Order *tempOrder)
+       {
+           order = tempOrder;
+           NSLog(@"%@", order);
+       }];
+
+    expect(order.items.count).will.beGreaterThan(1);
 }
 
 @end

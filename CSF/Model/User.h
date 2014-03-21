@@ -9,8 +9,9 @@
 
 @property (nonatomic, strong, readonly) NSString *firstname;
 @property (nonatomic, strong, readonly) NSString *lastname;
+@property (nonatomic, strong, readonly) NSString *group;
 
 // Default initializer
-- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname;
+- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname group:(NSString *)group;
 
 @end

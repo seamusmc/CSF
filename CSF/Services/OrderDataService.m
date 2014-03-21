@@ -24,9 +24,9 @@
     {
         _networkingService = [[ServiceLocator sharedInstance] networkingService];
 
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     }
 
     return self;
@@ -48,7 +48,7 @@
 - (void)getOrderForUser:(User *)user forFarm:(NSString *)farm forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
 {
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
-    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, farm, nil, user.firstname, user.lastname, stringFromDate];
+    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, farm, user.group, user.firstname, user.lastname, stringFromDate];
     [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
     {
         if (data)
@@ -58,7 +58,7 @@
 
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 
-            NSLog(@"%@", json);
+            NSLog(@"Order JSON: %@", json);
 
             locked = [[json objectForKey:@"Locked"] boolValue];
 
@@ -85,7 +85,6 @@
             completionHandler(order);
         }
     }];
-
 }
 
 @end
