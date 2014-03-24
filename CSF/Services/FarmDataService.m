@@ -7,6 +7,7 @@
 #import "ServiceConstants.h"
 #import "NetworkingServiceProtocol.h"
 #import "ServiceLocator.h"
+#import "InventoryItem.h"
 
 @interface FarmDataService ()
 
@@ -70,7 +71,22 @@
             NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSArray      *items = [json objectForKey:@"Items"];
 
-            completionHandler(items);
+            NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
+            for (id item in items)
+            {
+                InventoryItem *inventoryItem = [[InventoryItem alloc] init];
+                inventoryItem.fractionalUnits = [[item objectForKey:@"Fractions"] boolValue];
+                inventoryItem.name = [item objectForKey:@"Name"];
+                inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
+                inventoryItem.type = type;
+
+                NSString* price = [[item objectForKey:@"RetailPrice"] stringValue];
+                inventoryItem.price = [NSDecimalNumber decimalNumberWithString:price];
+
+                [inventoryItems addObject:inventoryItem];
+            }
+
+            completionHandler(inventoryItems);
         }
     }];
 }

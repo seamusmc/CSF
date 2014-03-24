@@ -7,14 +7,11 @@
 
 @interface OrderItem : NSObject
 
-@property BOOL fractions;
-@property BOOL outOfStock;
-
 @property (strong, nonatomic) NSDecimalNumber           *price;
 @property (strong, nonatomic) NSString                  *name;
 @property (strong, nonatomic) NSDecimalNumber           *quantity;
 @property (strong, nonatomic) NSString                  *comment;
 @property (strong, nonatomic) NSString                  *type;
-@property (strong, nonatomic, readonly) NSDecimalNumber *subtotal;
+@property (strong, nonatomic, readonly) NSDecimalNumber *subtotal;      // qty * price.
 
 @end
