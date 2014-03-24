@@ -16,7 +16,21 @@
     NSURLSessionDataTask *task    = [session dataTaskWithURL:url
                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                            {
-                                               completionHandler(data);
+                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                               if (httpResponse.statusCode == 200 && !error)
+                                               {
+                                                   completionHandler(data);
+                                               }
+                                               else
+                                               {
+                                                   NSString *class = NSStringFromClass([self class]);
+                                                   NSLog(@"%@:%s Bad Status: %d.", class, __PRETTY_FUNCTION__, httpResponse.statusCode);
+
+                                                   if (error)
+                                                   {
+                                                       NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
+                                                   }
+                                               }
                                            }];
     [task resume];
 }
