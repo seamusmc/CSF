@@ -67,6 +67,7 @@
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		C9FA598B04729792C519FCD5 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		C9FA59B5C4C9B148829B162F /* FarmDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataService.h; sourceTree = "<group>"; };
+		C9FA5A01D0283598EB3E5998 /* UserServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 				C9FA5FCCDC976D97A52D1D0B /* OrderDataServiceProtocol.h */,
 				C9FA52D06BD7481A26257822 /* OrderDataService.m */,
 				C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */,
+				C9FA5A01D0283598EB3E5998 /* UserServiceProtocol.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";

@@ -45,10 +45,10 @@
     return sharedInstance;
 }
 
-- (void)getOrderForUser:(User *)user forFarm:(NSString *)farm forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
+- (void)getOrderForUser:(User *)user forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
 {
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
-    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, farm, user.group, user.firstname, user.lastname, stringFromDate];
+    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
     [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
     {
         if (data)

@@ -40,7 +40,7 @@
 
     __block Order *order;
 
-    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup];
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setMonth:3];
@@ -51,7 +51,6 @@
     NSDate     *date  = [gregorian dateFromComponents:components];
 
     [service getOrderForUser:user
-                     forFarm:TestFarm
                      forDate:date
        withCompletionHandler:^(Order *tempOrder)
        {

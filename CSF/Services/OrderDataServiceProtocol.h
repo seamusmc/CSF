@@ -11,7 +11,6 @@
 @protocol OrderDataServiceProtocol <NSObject>
 
 - (void)getOrderForUser:(User *)user
-                forFarm:(NSString *)farm
                 forDate:(NSDate *)date
   withCompletionHandler:(void (^)(Order *order))completionHandler;
 
