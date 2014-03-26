@@ -15,6 +15,7 @@
 #import "User.h"
 #import "Order.h"
 #import "TestConstants.h"
+#import "UserServiceProtocol.h"
 
 @interface OrderDataServiceTests : XCTestCase
 
@@ -26,6 +27,9 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
+    [[ServiceLocator sharedInstance].userService authenticateUser:user];
+
 }
 
 - (void)tearDown
@@ -40,8 +44,6 @@
 
     __block Order *order;
 
-    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
-
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setMonth:3];
     [components setDay:20];
@@ -50,7 +52,7 @@
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate     *date  = [gregorian dateFromComponents:components];
 
-    [service getOrderForUser:user
+    [service getOrderForUser:[ServiceLocator sharedInstance].userService.currentUser
                      forDate:date
        withCompletionHandler:^(Order *tempOrder)
        {

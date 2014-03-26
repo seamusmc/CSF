@@ -9,7 +9,7 @@
 
 @protocol UserServiceProtocol <NSObject>
 
-@property (nonatomic, strong) User *currentUser;
+@property (nonatomic, strong, readonly) User *currentUser;
 
 - (BOOL)authenticateUser:(User *)user;
 
