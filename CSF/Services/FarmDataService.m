@@ -69,13 +69,14 @@
         if (data)
         {
             NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSArray      *items = [json objectForKey:@"Items"];
 
+            NSLog(@"Order JSON: %@", json);
+
+            NSArray      *items = [json objectForKey:@"Items"];
             NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
             for (id item in items)
             {
                 InventoryItem *inventoryItem = [[InventoryItem alloc] init];
-                inventoryItem.fractionalUnits = [[item objectForKey:@"Fractions"] boolValue];
                 inventoryItem.name = [item objectForKey:@"Name"];
                 inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
                 inventoryItem.type = type;

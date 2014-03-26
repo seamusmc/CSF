@@ -4,14 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 
-@interface OrderItem : NSObject
+@interface OrderItem : Item
 
-@property (strong, nonatomic) NSDecimalNumber           *price;
-@property (strong, nonatomic) NSString                  *name;
-@property (strong, nonatomic) NSDecimalNumber           *quantity;
-@property (strong, nonatomic) NSString                  *comment;
-@property (strong, nonatomic) NSString                  *type;
-@property (strong, nonatomic, readonly) NSDecimalNumber *subtotal;      // qty * price.
+@property (nonatomic, strong) NSDecimalNumber           *quantity;
+@property (nonatomic, strong) NSString                  *comment;
+@property (nonatomic, strong, readonly) NSDecimalNumber *subtotal;      // qty * price.
 
 @end
