@@ -32,6 +32,25 @@
     return self;
 }
 
+- (User *)currentUser
+{
+    if (!_currentUser)
+    {
+        [NSException raise:@"Ccurrent User Property Not Set." format:@"The current user property has not been set."];
+    }
+
+    return _currentUser;
+}
+
+- (BOOL)storeCurrentUserCredentials
+{
+    return NO;
+}
+
+- (void)authenticateWithStoredUserCredentialsWithCompletionHandler:(void (^)(BOOL authenticated))completionHandler
+{
+    completionHandler(YES);
+}
 
 - (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler
 {

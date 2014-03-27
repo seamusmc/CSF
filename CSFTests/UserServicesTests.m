@@ -56,7 +56,6 @@
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
-        NSLog(@"%@", [ServiceLocator sharedInstance].userService.currentUser);
     }];
 
     expect(authenticated).willNot.beTruthy();
@@ -71,7 +70,6 @@
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
-        NSLog(@"%@", [ServiceLocator sharedInstance].userService.currentUser);
     }];
 
     expect(authenticated).willNot.beTruthy();
@@ -85,7 +83,6 @@
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
-        NSLog(@"%@", [ServiceLocator sharedInstance].userService.currentUser);
     }];
 
     expect(authenticated).willNot.beTruthy();
