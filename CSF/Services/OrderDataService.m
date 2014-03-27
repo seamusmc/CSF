@@ -84,6 +84,10 @@
             Order *order = [[Order alloc] initWithLocked:locked items:items];
             completionHandler(order);
         }
+        else
+        {
+            completionHandler(NULL);
+        }
     }];
 }
 

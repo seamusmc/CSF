@@ -1,7 +1,7 @@
 target :CSF do
-#your app dependencies
+  pod 'FXKeychain', '~> 1.5'
 end
 
-target :FarmDataServiceTests do
-  pod 'Expecta',     '~> 0.3.0'   # expecta matchers
+target :CSFTests do
+  pod 'Expecta',    '~> 0.3.0'   # expecta matchers
 end

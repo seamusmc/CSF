@@ -21,4 +21,16 @@
     return self;
 }
 
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: Firstname: %@ Lastname: %@ Group: %@ Farm: %@",
+                                                    NSStringFromClass([self class]),
+                                                    self.firstname,
+                                                    self.lastname,
+                                                    self.group,
+                                                    self.farm];
+    [description appendString:@">"];
+    return description;
+}
+
 @end

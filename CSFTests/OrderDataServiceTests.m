@@ -15,21 +15,28 @@
 #import "User.h"
 #import "Order.h"
 #import "TestConstants.h"
-#import "UserServiceProtocol.h"
 
 @interface OrderDataServiceTests : XCTestCase
 
 @end
 
 @implementation OrderDataServiceTests
+{
+    NSDate *_date;
+}
 
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
-    [[ServiceLocator sharedInstance].userService authenticateUser:user];
 
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setMonth:3];
+    [components setDay:20];
+    [components setYear:2014];
+
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _date = [gregorian dateFromComponents:components];
 }
 
 - (void)tearDown
@@ -38,29 +45,67 @@
     [super tearDown];
 }
 
-- (void)testGetOrderForUserForFarmForDateWithCompletionHandler
+- (void)testGetOrderForUserForDateWithCompletionHandler
 {
     id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
 
     __block Order *order;
 
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setMonth:3];
-    [components setDay:20];
-    [components setYear:2014];
-
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate     *date  = [gregorian dateFromComponents:components];
-
-    [service getOrderForUser:[ServiceLocator sharedInstance].userService.currentUser
-                     forDate:date
-       withCompletionHandler:^(Order *tempOrder)
-       {
-           order = tempOrder;
-           NSLog(@"%@", order);
-       }];
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
+    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
+    {
+        order = tempOrder;
+        NSLog(@"%@", order);
+    }];
 
     expect(order.items.count).will.beGreaterThan(1);
+}
+
+- (void)testGetOrderForNilUserForDateWithCompletionHandler
+{
+    id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
+
+    __block Order *order;
+
+    [service getOrderForUser:nil forDate:_date withCompletionHandler:^(Order *tempOrder)
+    {
+        order = tempOrder;
+        NSLog(@"%@", order);
+    }];
+
+    expect(order).will.beNil();
+}
+
+- (void)testGetOrderForBadUserForDateWithCompletionHandler
+{
+    id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
+
+    __block Order *order;
+
+    User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
+    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
+    {
+        order = tempOrder;
+        NSLog(@"%@", order);
+    }];
+
+    expect(order.items.count).will.equal(0);
+}
+
+- (void)testGetOrderForUserForDateWithBadFarmWithCompletionHandler
+{
+    id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
+
+    __block Order *order;
+
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOO"];
+    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
+    {
+        order = tempOrder;
+        NSLog(@"%@", order);
+    }];
+
+    expect(order).will.beNil();
 }
 
 @end

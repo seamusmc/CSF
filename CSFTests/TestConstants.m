@@ -8,3 +8,4 @@ NSString *const TestType = @"Beef";
 NSString *const TestFirstname = @"Bill";
 NSString *const TestLastname = @"Smith";
 NSString *const TestGroup = @"SMITH";
+NSString *const TestPassword = @"1234";

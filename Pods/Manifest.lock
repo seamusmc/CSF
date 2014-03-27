@@ -1,10 +1,13 @@
 PODS:
   - Expecta (0.3.0)
+  - FXKeychain (1.5)
 
 DEPENDENCIES:
   - Expecta (~> 0.3.0)
+  - FXKeychain (~> 1.5)
 
 SPEC CHECKSUMS:
   Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
+  FXKeychain: 90cc7bf9ba005e4d099a113a194792e7983c5778
 
 COCOAPODS: 0.29.0

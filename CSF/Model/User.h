@@ -10,7 +10,7 @@
 @property (nonatomic, strong, readonly) NSString *firstname;
 @property (nonatomic, strong, readonly) NSString *lastname;
 @property (nonatomic, strong, readonly) NSString *group;
-@property (nonatomic, strong) NSString *farm;
+@property (nonatomic, strong, readonly) NSString *farm;
 
 // Default initializer
 - (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname group:(NSString *)group farm:(NSString *)farm;

@@ -7,6 +7,7 @@
 #import "User.h"
 #import "NetworkingServiceProtocol.h"
 #import "ServiceLocator.h"
+#import "ServiceConstants.h"
 
 @interface UserService ()
 
@@ -32,16 +33,57 @@
 }
 
 
-- (BOOL)authenticateUser:(User *)user
+- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler
 {
-    _currentUser = user;
+    self.currentUser = nil;
 
-    return YES;
+    if (!completionHandler)
+    {
+        return;
+    }
+
+    NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    {
+        if (data)
+        {
+            // We may get data back, an error page for example, but it won't serialize to json.
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:0
+                                                                   error:nil];
+            if (!json)
+            {
+                completionHandler(NO);
+            }
+            else
+            {
+                NSLog(@"Order JSON: %@", json);
+
+                // A code of 2 indicates authentication failed. Could be because firstname, lastname,
+                // password or farm were not set correctly.
+                NSDictionary *errorInfo = [json objectForKey:@"ErrorInfo"];
+                int code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+                if (code == 2)
+                {
+                    completionHandler(NO);
+                }
+                else
+                {
+                    self.currentUser = user;
+                    completionHandler(YES);
+                }
+            }
+        }
+        else
+        {
+            completionHandler(NO);
+        }
+    }];
 }
 
 + (id <UserServiceProtocol>)sharedInstance
 {
-    static UserService *sharedInstance = nil;
+    static UserService     *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^
@@ -51,6 +93,5 @@
 
     return sharedInstance;
 }
-
 
 @end

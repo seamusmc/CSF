@@ -34,5 +34,4 @@
     expect([ServiceLocator sharedInstance]).to.conformTo(@protocol(ServiceLocatorProtocol));
 }
 
-
 @end

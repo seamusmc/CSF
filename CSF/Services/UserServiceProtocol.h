@@ -11,6 +11,6 @@
 
 @property (nonatomic, strong, readonly) User *currentUser;
 
-- (BOOL)authenticateUser:(User *)user;
+- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler;
 
 @end

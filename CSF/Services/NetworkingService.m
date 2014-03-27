@@ -30,6 +30,8 @@
                                                    {
                                                        NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
                                                    }
+
+                                                   completionHandler(NULL);
                                                }
                                            }];
     [task resume];

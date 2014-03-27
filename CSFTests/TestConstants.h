@@ -10,3 +10,4 @@ extern NSString *const TestType;
 extern NSString *const TestFirstname;
 extern NSString *const TestLastname;
 extern NSString *const TestGroup;
+extern NSString *const TestPassword;
