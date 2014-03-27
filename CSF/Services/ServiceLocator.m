@@ -8,7 +8,7 @@
 #import "NetworkingServiceProtocol.h"
 #import "NetworkingService.h"
 #import "OrderDataService.h"
-#import "UserService.h"
+#import "AuthenticationService.h"
 
 @implementation ServiceLocator
 
@@ -30,9 +30,9 @@
     return service;
 }
 
-- (id <UserServiceProtocol>)userService
+- (id <AuthenticationServiceProtocol>)userService
 {
-    id <UserServiceProtocol> service = [UserService sharedInstance];
+    id <AuthenticationServiceProtocol> service = [AuthenticationService sharedInstance];
     return service;
 }
 

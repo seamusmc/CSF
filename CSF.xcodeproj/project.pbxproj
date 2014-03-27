@@ -10,7 +10,7 @@
 		20B5BF9820664E1FA9EBCC3B /* libPods-CSF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1090561750A48A6AD18B9E2 /* libPods-CSF.a */; };
 		8567E98A17974A0091D9AE5F /* libPods-CSFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 416A32901B9642959BDD3640 /* libPods-CSFTests.a */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
-		C9FA522CA00454882F890EBC /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserService.m */; };
+		C9FA522CA00454882F890EBC /* AuthenticationService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* AuthenticationService.m */; };
 		C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */; };
 		C9FA53EA297BA9295AE13E2F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5687440B9DB7CF211B2F /* User.m */; };
 		C9FA546C158B74E4B0F8E144 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5F0CBF974E1BAACEC263 /* Item.m */; };
@@ -21,7 +21,7 @@
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
-		F108CE2718E31E9C00A19A28 /* UserServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F108CE2618E31E9C00A19A28 /* UserServiceTests.m */; };
+		F108CE2718E31E9C00A19A28 /* AuthenticationServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F108CE2618E31E9C00A19A28 /* AuthenticationServiceTests.m */; };
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
 		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
@@ -59,7 +59,7 @@
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
 		C9FA52D06BD7481A26257822 /* OrderDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataService.m; sourceTree = "<group>"; };
-		C9FA53D267F112EB8298509F /* UserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserService.m; sourceTree = "<group>"; };
+		C9FA53D267F112EB8298509F /* AuthenticationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationService.m; sourceTree = "<group>"; };
 		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
 		C9FA54CC16BEEC549BB6E116 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
@@ -69,12 +69,12 @@
 		C9FA569433E799F0C2BA8D3F /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
-		C9FA57890E6BF6B5146F5B0A /* UserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserService.h; sourceTree = "<group>"; };
+		C9FA57890E6BF6B5146F5B0A /* AuthenticationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationService.h; sourceTree = "<group>"; };
 		C9FA58821501F91470DED679 /* ServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConstants.m; sourceTree = "<group>"; };
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		C9FA598B04729792C519FCD5 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		C9FA59B5C4C9B148829B162F /* FarmDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataService.h; sourceTree = "<group>"; };
-		C9FA5A01D0283598EB3E5998 /* UserServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServiceProtocol.h; sourceTree = "<group>"; };
+		C9FA5A01D0283598EB3E5998 /* AuthenticationServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		C9FA5FD37705F1745D20A497 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataService.h; sourceTree = "<group>"; };
 		EA667D3034A74CDC980C82EB /* Pods-CSFTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSFTests.xcconfig"; path = "Pods/Pods-CSFTests.xcconfig"; sourceTree = "<group>"; };
-		F108CE2618E31E9C00A19A28 /* UserServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServiceTests.m; sourceTree = "<group>"; };
+		F108CE2618E31E9C00A19A28 /* AuthenticationServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationServiceTests.m; sourceTree = "<group>"; };
 		F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocatorTests.m; sourceTree = "<group>"; };
 		F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataServiceTests.m; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,9 +169,9 @@
 				C9FA5FCCDC976D97A52D1D0B /* OrderDataServiceProtocol.h */,
 				C9FA52D06BD7481A26257822 /* OrderDataService.m */,
 				C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */,
-				C9FA5A01D0283598EB3E5998 /* UserServiceProtocol.h */,
-				C9FA53D267F112EB8298509F /* UserService.m */,
-				C9FA57890E6BF6B5146F5B0A /* UserService.h */,
+				C9FA5A01D0283598EB3E5998 /* AuthenticationServiceProtocol.h */,
+				C9FA53D267F112EB8298509F /* AuthenticationService.m */,
+				C9FA57890E6BF6B5146F5B0A /* AuthenticationService.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 				F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */,
 				C9FA5B198F2E0592EDD548BD /* TestConstants.m */,
 				C9FA569433E799F0C2BA8D3F /* TestConstants.h */,
-				F108CE2618E31E9C00A19A28 /* UserServiceTests.m */,
+				F108CE2618E31E9C00A19A28 /* AuthenticationServiceTests.m */,
 			);
 			path = CSFTests;
 			sourceTree = "<group>";
@@ -440,7 +440,7 @@
 				C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */,
 				C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */,
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
-				C9FA522CA00454882F890EBC /* UserService.m in Sources */,
+				C9FA522CA00454882F890EBC /* AuthenticationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +451,7 @@
 				F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */,
 				F1A91A7E18D39602008395EE /* FarmDataServiceTests.m in Sources */,
 				F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */,
-				F108CE2718E31E9C00A19A28 /* UserServiceTests.m in Sources */,
+				F108CE2718E31E9C00A19A28 /* AuthenticationServiceTests.m in Sources */,
 				C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

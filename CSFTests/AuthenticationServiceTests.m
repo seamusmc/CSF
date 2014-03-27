@@ -12,14 +12,14 @@
 #import <Expecta/Expecta.h>
 #import "TestConstants.h"
 #import "ServiceLocator.h"
-#import "UserServiceProtocol.h"
+#import "AuthenticationServiceProtocol.h"
 #import "User.h"
 
-@interface UserServiceTests : XCTestCase
+@interface AuthenticationServiceTests : XCTestCase
 
 @end
 
-@implementation UserServiceTests
+@implementation AuthenticationServiceTests
 {
 
 }
