@@ -30,6 +30,8 @@
     [super setUp];
 
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    [Expecta setAsynchronousTestTimeout:5];
+
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setMonth:3];
     [components setDay:20];

@@ -14,6 +14,7 @@
 #import "ServiceLocator.h"
 #import "UserServicesProtocol.h"
 #import "User.h"
+#import "FXKeychain.h"
 
 @interface UserServicesTests : XCTestCase
 
@@ -26,6 +27,7 @@
     [super setUp];
 
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    [Expecta setAsynchronousTestTimeout:5];
 }
 
 - (void)tearDown
@@ -34,9 +36,48 @@
     [super tearDown];
 }
 
+- (void)testStoreUserWithPassword
+{
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
+    [[ServiceLocator sharedInstance].userService storeUser:user withPassword:TestPassword];
+
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    User *usr = [[User alloc] initWithFirstname:keychain[@"firstname"]
+                                       lastname:keychain[@"lastname"]
+                                          group:keychain[@"group"]
+                                           farm:keychain[@"farm"]];
+
+    expect(usr.firstname).to.equal(user.firstname);
+    expect(usr.lastname).to.equal(user.lastname);
+    expect(usr.group).to.equal(user.group);
+    expect(usr.farm).to.equal(user.farm);
+    expect(keychain[@"password"]).to.equal(TestPassword);
+}
+
+- (void)testAuthenticateWithStoredUserCredentialsWithCompletionHandler
+{
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    keychain[@"firstname"] = TestFirstname;
+    keychain[@"lastname"]  = TestLastname;
+    keychain[@"group"]     = TestGroup;
+    keychain[@"farm"]      = TestFarm;
+    keychain[@"password"]  = TestPassword;
+
+    __block BOOL authenticated;
+    [[ServiceLocator sharedInstance].userService authenticateWithStoredUserCredentialsWithCompletionHandler:^(BOOL isAuthenticated)
+    {
+        authenticated = isAuthenticated;
+    }];
+
+
+    expect(authenticated).will.beTruthy();
+}
+
 - (void)testAuthenticateUserWithPassword
 {
-    User * user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = NO;
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
@@ -50,7 +91,7 @@
 
 - (void)testAuthenticateUserWithBadPassword
 {
-    User * user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
@@ -61,10 +102,9 @@
     expect(authenticated).willNot.beTruthy();
 }
 
-
 - (void)testAuthenticateUserWithBadFarm
 {
-    User * user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOOL"];
+    User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOOL"];
 
     __block BOOL authenticated = YES;
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
@@ -77,7 +117,7 @@
 
 - (void)testAuthenticateUserWithBadName
 {
-    User * user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
+    User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
     [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)

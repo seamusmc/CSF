@@ -8,6 +8,7 @@
 #import "NetworkingServiceProtocol.h"
 #import "ServiceLocator.h"
 #import "ServiceConstants.h"
+#import "FXKeychain.h"
 
 @interface UserServices ()
 
@@ -42,14 +43,27 @@
     return _currentUser;
 }
 
-- (BOOL)storeCurrentUserCredentials
+- (void)storeUser:(User *)user withPassword:(NSString *)password
 {
-    return NO;
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    keychain[@"firstname"] = user.firstname;
+    keychain[@"lastname"]  = user.lastname;
+    keychain[@"group"]     = user.group;
+    keychain[@"farm"]      = user.farm;
+    keychain[@"password"]  = password;
 }
 
 - (void)authenticateWithStoredUserCredentialsWithCompletionHandler:(void (^)(BOOL authenticated))completionHandler
 {
-    completionHandler(YES);
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    User *user = [[User alloc] initWithFirstname:keychain[@"firstname"]
+                                        lastname:keychain[@"lastname"]
+                                           group:keychain[@"group"]
+                                            farm:keychain[@"farm"]];
+
+    [self authenticateUser:user withPassword:keychain[@"password"] withCompletionHandler:completionHandler];
 }
 
 - (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler
@@ -81,7 +95,7 @@
                 // A code of 2 indicates authentication failed. Could be because firstname, lastname,
                 // password or farm were not set correctly.
                 NSDictionary *errorInfo = [json objectForKey:@"ErrorInfo"];
-                int code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+                int          code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
                 if (code == 2)
                 {
                     completionHandler(NO);
@@ -102,7 +116,7 @@
 
 + (id <UserServicesProtocol>)sharedInstance
 {
-    static UserServices *sharedInstance = nil;
+    static UserServices    *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^
