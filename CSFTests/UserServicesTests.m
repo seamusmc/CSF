@@ -12,17 +12,14 @@
 #import <Expecta/Expecta.h>
 #import "TestConstants.h"
 #import "ServiceLocator.h"
-#import "AuthenticationServiceProtocol.h"
+#import "UserServicesProtocol.h"
 #import "User.h"
 
-@interface AuthenticationServiceTests : XCTestCase
+@interface UserServicesTests : XCTestCase
 
 @end
 
-@implementation AuthenticationServiceTests
-{
-
-}
+@implementation UserServicesTests
 
 - (void)setUp
 {

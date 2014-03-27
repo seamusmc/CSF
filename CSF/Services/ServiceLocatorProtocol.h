@@ -8,13 +8,13 @@
 @protocol FarmDataServiceProtocol;
 @protocol NetworkingServiceProtocol;
 @protocol OrderDataServiceProtocol;
-@protocol AuthenticationServiceProtocol;
+@protocol UserServicesProtocol;
 
 @protocol ServiceLocatorProtocol <NSObject>
 
 @property (nonatomic, strong, readonly) id <OrderDataServiceProtocol>  orderDataService;
 @property (nonatomic, strong, readonly) id <FarmDataServiceProtocol>   farmDataService;
 @property (nonatomic, strong, readonly) id <NetworkingServiceProtocol> networkingService;
-@property (nonatomic, strong, readonly) id <AuthenticationServiceProtocol>       userService;
+@property (nonatomic, strong, readonly) id <UserServicesProtocol>       userService;
 
 @end

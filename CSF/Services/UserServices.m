@@ -3,20 +3,20 @@
 // Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
-#import "AuthenticationService.h"
+#import "UserServices.h"
 #import "User.h"
 #import "NetworkingServiceProtocol.h"
 #import "ServiceLocator.h"
 #import "ServiceConstants.h"
 
-@interface AuthenticationService ()
+@interface UserServices ()
 
 // Define this because we can't auto-synthesize protocol properties
 @property (nonatomic, strong) User *currentUser;
 
 @end
 
-@implementation AuthenticationService
+@implementation UserServices
 {
     id <NetworkingServiceProtocol> _networkingService;
 }
@@ -81,14 +81,14 @@
     }];
 }
 
-+ (id <AuthenticationServiceProtocol>)sharedInstance
++ (id <UserServicesProtocol>)sharedInstance
 {
-    static AuthenticationService *sharedInstance = nil;
+    static UserServices *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^
     {
-        sharedInstance = [[AuthenticationService alloc] init];
+        sharedInstance = [[UserServices alloc] init];
     });
 
     return sharedInstance;

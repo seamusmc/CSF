@@ -7,7 +7,7 @@
 
 @class User;
 
-@protocol AuthenticationServiceProtocol <NSObject>
+@protocol UserServicesProtocol <NSObject>
 
 @property (nonatomic, strong, readonly) User *currentUser;
 
