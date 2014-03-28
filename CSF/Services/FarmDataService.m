@@ -54,7 +54,7 @@
     {
         if (responseObject)
         {
-            NSArray      *types = [responseObject objectForKey:@"Types"];
+            NSArray *types = [responseObject objectForKey:@"Types"];
             completionHandler(types);
         }
     }];
@@ -63,22 +63,24 @@
 - (void)getItemsForFarm:(NSString *)farm forType:(NSString *)type withCompletionHandler:(void (^)(NSArray *items))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
+
     [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
             NSLog(@"Order JSON: %@", responseObject);
 
-            NSArray      *items = [responseObject objectForKey:@"Items"];
+            NSArray        *items          = [responseObject objectForKey:@"Items"];
             NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
+
             for (id item in items)
             {
                 InventoryItem *inventoryItem = [[InventoryItem alloc] init];
-                inventoryItem.name = [item objectForKey:@"Name"];
+                inventoryItem.name       = [item objectForKey:@"Name"];
                 inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
-                inventoryItem.type = type;
+                inventoryItem.type       = type;
 
-                NSString* price = [[item objectForKey:@"RetailPrice"] stringValue];
+                NSString *price = [[item objectForKey:@"RetailPrice"] stringValue];
                 inventoryItem.price = [NSDecimalNumber decimalNumberWithString:price];
 
                 [inventoryItems addObject:inventoryItem];

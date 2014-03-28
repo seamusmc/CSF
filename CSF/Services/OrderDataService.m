@@ -14,7 +14,7 @@
 @implementation OrderDataService
 {
     id <NetworkingServiceProtocol> _networkingService;
-    NSDateFormatter *_dateFormatter;
+    NSDateFormatter                *_dateFormatter;
 }
 
 - (id)init
@@ -35,7 +35,7 @@
 + (id <OrderDataServiceProtocol>)sharedInstance
 {
     static OrderDataService *sharedInstance = nil;
-    static dispatch_once_t onceToken;
+    static dispatch_once_t  onceToken;
 
     dispatch_once(&onceToken, ^
     {
@@ -48,13 +48,14 @@
 - (void)getOrderForUser:(User *)user forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
 {
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
-    NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
+    NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
+
     [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
             NSMutableArray *items = [NSMutableArray array];
-            BOOL locked;
+            BOOL           locked;
 
             NSLog(@"Order JSON: %@", responseObject);
 
@@ -64,10 +65,11 @@
             for (id item in tempItems)
             {
                 OrderItem *orderItem = [[OrderItem alloc] init];
-                orderItem.type = [item objectForKey:@"Type"];
-                orderItem.name = [item objectForKey:@"Item"];
+
+                orderItem.type     = [item objectForKey:@"Type"];
+                orderItem.name     = [item objectForKey:@"Item"];
                 orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
-                orderItem.comment = [item objectForKey:@"Comment"];
+                orderItem.comment  = [item objectForKey:@"Comment"];
 
 /*
                 Item* farmItem = [self findItemWithFarmData:farmData andOrderItem:orderItem];
