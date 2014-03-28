@@ -7,7 +7,7 @@
 
 @implementation NetworkingService
 
-- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(NSData *data))completionHandler
+- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler
 {
     uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
@@ -19,7 +19,8 @@
                                                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                                if (httpResponse.statusCode == 200 && !error)
                                                {
-                                                   completionHandler(data);
+                                                   id responseObject  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                                                   completionHandler(responseObject);
                                                }
                                                else
                                                {

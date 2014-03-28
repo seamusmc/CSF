@@ -49,20 +49,18 @@
 {
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
     NSString *uri = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
-        if (data)
+        if (responseObject)
         {
             NSMutableArray *items = [NSMutableArray array];
-            BOOL locked = NO;
+            BOOL locked;
 
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"Order JSON: %@", responseObject);
 
-            NSLog(@"Order JSON: %@", json);
+            locked = [[responseObject objectForKey:@"Locked"] boolValue];
 
-            locked = [[json objectForKey:@"Locked"] boolValue];
-
-            NSArray *tempItems = [json objectForKey:@"Items"];
+            NSArray *tempItems = [responseObject objectForKey:@"Items"];
             for (id item in tempItems)
             {
                 OrderItem *orderItem = [[OrderItem alloc] init];

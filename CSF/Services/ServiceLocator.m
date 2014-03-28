@@ -9,6 +9,7 @@
 #import "NetworkingService.h"
 #import "OrderDataService.h"
 #import "UserServices.h"
+#import "AFNetworkingService.h"
 
 @implementation ServiceLocator
 

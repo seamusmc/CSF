@@ -50,12 +50,11 @@
 - (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
-        if (data)
+        if (responseObject)
         {
-            NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSArray      *types = [json objectForKey:@"Types"];
+            NSArray      *types = [responseObject objectForKey:@"Types"];
             completionHandler(types);
         }
     }];
@@ -64,15 +63,13 @@
 - (void)getItemsForFarm:(NSString *)farm forType:(NSString *)type withCompletionHandler:(void (^)(NSArray *items))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
-        if (data)
+        if (responseObject)
         {
-            NSDictionary *json  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"Order JSON: %@", responseObject);
 
-            NSLog(@"Order JSON: %@", json);
-
-            NSArray      *items = [json objectForKey:@"Items"];
+            NSArray      *items = [responseObject objectForKey:@"Items"];
             NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
             for (id item in items)
             {

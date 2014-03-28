@@ -76,25 +76,21 @@
     }
 
     NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(NSData *data)
+    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
-        if (data)
+        if (responseObject)
         {
-            // We may get data back, an error page for example, but it won't serialize to json.
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                 options:0
-                                                                   error:nil];
-            if (!json)
+            if (!responseObject)
             {
                 completionHandler(NO);
             }
             else
             {
-                NSLog(@"Order JSON: %@", json);
+                NSLog(@"Order JSON: %@", responseObject);
 
                 // A code of 2 indicates authentication failed. Could be because firstname, lastname,
                 // password or farm were not set correctly.
-                NSDictionary *errorInfo = [json objectForKey:@"ErrorInfo"];
+                NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
                 int          code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
                 if (code == 2)
                 {

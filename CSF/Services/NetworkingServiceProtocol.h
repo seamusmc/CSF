@@ -7,6 +7,6 @@
 
 @protocol NetworkingServiceProtocol <NSObject>
 
-- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(NSData *data))completionHandler;
+- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler;
 
 @end

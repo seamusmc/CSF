@@ -1,0 +1,49 @@
+//
+// Created by Seamus McGowan on 3/28/14.
+// Copyright (c) 2014 Seamus McGowan. All rights reserved.
+//
+
+#import "AFNetworkingService.h"
+#import "AFHTTPRequestOperation.h"
+
+@implementation AFNetworkingService
+{
+
+}
+- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler
+{
+    uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:uri];
+
+    NSURLRequest           *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *op      = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        NSLog(@"JSON: %@", responseObject);
+        completionHandler(responseObject);
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+      NSLog(@"Error: %@", error);
+      completionHandler(NULL);
+    }];
+
+    [op start];
+}
+
++ (id <NetworkingServiceProtocol>)sharedInstance
+{
+    static AFNetworkingService *sharedInstance = nil;
+    static dispatch_once_t     onceToken;
+
+    dispatch_once(&onceToken, ^
+    {
+        sharedInstance = [[AFNetworkingService alloc] init];
+    });
+
+    return sharedInstance;
+}
+
+@end

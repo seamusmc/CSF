@@ -16,6 +16,7 @@
 		C9FA546C158B74E4B0F8E144 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5F0CBF974E1BAACEC263 /* Item.m */; };
 		C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52D06BD7481A26257822 /* OrderDataService.m */; };
 		C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */; };
+		C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
@@ -81,9 +82,11 @@
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
 		C9FA5F0CBF974E1BAACEC263 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		C9FA5F1234EEB17F0F20CC2A /* NetworkingServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceProtocol.h; sourceTree = "<group>"; };
+		C9FA5F2015E75AAFDEEDE132 /* AFNetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingService.h; sourceTree = "<group>"; };
 		C9FA5FCCDC976D97A52D1D0B /* OrderDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5FD37705F1745D20A497 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataService.h; sourceTree = "<group>"; };
+		C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkingService.m; sourceTree = "<group>"; };
 		EA667D3034A74CDC980C82EB /* Pods-CSFTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSFTests.xcconfig"; path = "Pods/Pods-CSFTests.xcconfig"; sourceTree = "<group>"; };
 		F108CE2618E31E9C00A19A28 /* UserServicesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServicesTests.m; sourceTree = "<group>"; };
 		F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocatorTests.m; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 				C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */,
 				C9FA53D267F112EB8298509F /* UserServices.m */,
 				C9FA57890E6BF6B5146F5B0A /* UserServices.h */,
+				C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */,
+				C9FA5F2015E75AAFDEEDE132 /* AFNetworkingService.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */,
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
+				C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,7 +621,7 @@
 				INFOPLIST_FILE = "CSFTests/CSFTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -635,7 +641,7 @@
 				INFOPLIST_FILE = "CSFTests/CSFTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
