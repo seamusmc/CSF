@@ -20,6 +20,12 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSDictionary *textAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:19.0]};    
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
