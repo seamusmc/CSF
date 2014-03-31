@@ -25,7 +25,7 @@
                                                else
                                                {
                                                    NSString *class = NSStringFromClass([self class]);
-                                                   NSLog(@"%@:%s Bad Status: %d.", class, __PRETTY_FUNCTION__, httpResponse.statusCode);
+                                                   NSLog(@"%@:%s Bad Status: %ld.", class, __PRETTY_FUNCTION__, (long)httpResponse.statusCode);
 
                                                    if (error)
                                                    {

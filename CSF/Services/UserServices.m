@@ -91,7 +91,8 @@
                 // A code of 2 indicates authentication failed. Could be because firstname, lastname,
                 // password or farm were not set correctly.
                 NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
-                int          code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+                
+                NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
                 if (code == 2)
                 {
                     completionHandler(NO);

@@ -246,10 +246,10 @@
 		F1A91A7718D39602008395EE /* CSFTests */ = {
 			isa = PBXGroup;
 			children = (
-				F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */,
 				F1A91A7818D39602008395EE /* Supporting Files */,
-				F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */,
+				F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */,
 				F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */,
+				F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */,
 				C9FA5B198F2E0592EDD548BD /* TestConstants.m */,
 				C9FA569433E799F0C2BA8D3F /* TestConstants.h */,
 				F108CE2618E31E9C00A19A28 /* UserServicesTests.m */,
@@ -333,8 +333,6 @@
 			mainGroup = F1A91A4618D39602008395EE;
 			productRefGroup = F1A91A5018D39602008395EE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				F1A91A4E18D39602008395EE /* CSF */,
