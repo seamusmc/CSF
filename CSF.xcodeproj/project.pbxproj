@@ -22,6 +22,7 @@
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
+		C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */; };
 		F108CE2718E31E9C00A19A28 /* UserServicesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F108CE2618E31E9C00A19A28 /* UserServicesTests.m */; };
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
 		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
@@ -59,6 +60,7 @@
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
+		C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extended.h"; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
 		C9FA52D06BD7481A26257822 /* OrderDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataService.m; sourceTree = "<group>"; };
 		C9FA53D267F112EB8298509F /* UserServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServices.m; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
+		C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extended.m"; sourceTree = "<group>"; };
 		C9FA5F0CBF974E1BAACEC263 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		C9FA5F1234EEB17F0F20CC2A /* NetworkingServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5F2015E75AAFDEEDE132 /* AFNetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingService.h; sourceTree = "<group>"; };
@@ -184,6 +187,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C9FA5EDF245F7E68ACF2F2DE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */,
+				C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		F1A91A4618D39602008395EE = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +244,7 @@
 				F16B83C618EA00CB00B45036 /* LoginView.h */,
 				F16B83C718EA00CB00B45036 /* LoginView.m */,
 				F1A91A6418D39602008395EE /* Main.storyboard */,
+				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -451,6 +464,7 @@
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
 				C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */,
+				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
