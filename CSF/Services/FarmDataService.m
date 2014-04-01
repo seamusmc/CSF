@@ -27,7 +27,7 @@
     self = [super init];
     if (self)
     {
-        _farms             = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
+        _farms             = @[@"hhaven", @"jubilee", @"yoder", @"farm2u"];
         _networkingService = [[ServiceLocator sharedInstance] networkingService];
     }
 

@@ -11,8 +11,9 @@
 #import "UserServices.h"
 #import "User.h"
 #import "UITextField+Extended.h"
+#import "FarmDataServiceProtocol.h"
 
-@interface LoginViewController ()  <UITextFieldDelegate>
+@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -21,11 +22,14 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
+@property (strong, nonatomic) NSArray *farms;
+@property (assign, nonatomic) BOOL    rememberMe;
+
 @end
 
 @implementation LoginViewController
 
-- (void) enableOrDisableLoginButton
+- (void)enableOrDisableLoginButton
 {
     if ([self.firstNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
     {
@@ -51,17 +55,28 @@
 {
     [super viewDidLoad];
 
+    // Customize the nav bar title font
+    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+
     // Set up 'Next' field order
     self.firstNameField.nextTextField = self.lastNameField;
-    self.lastNameField.nextTextField = self.passwordField;
-    self.passwordField.nextTextField = self.farmField;
-    self.farmField.nextTextField = nil;
-}
+    self.lastNameField.nextTextField  = self.passwordField;
+    self.passwordField.nextTextField  = self.farmField;
+    self.farmField.nextTextField      = nil;
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:19.0]};
-    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+    self.farms = [ServiceLocator sharedInstance].farmDataService.farms;
+
+    // Create and set the input view for the farmTextField
+    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
+    farmPicker.delegate   = self;
+    farmPicker.dataSource = self;
+    [farmPicker setShowsSelectionIndicator:YES];
+
+    //farmPicker.backgroundColor = [UIColor whiteColor];
+    farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+
+    self.farmField.inputView = farmPicker;
 }
 
 #pragma mark - Gesture Handling
@@ -72,7 +87,7 @@
     [self.view endEditing:YES];
 }
 
-#pragma mark - Event Handlers
+#pragma mark - UIButton Actions
 
 - (IBAction)loginButtonTap:(UIButton *)sender
 {
@@ -109,6 +124,53 @@
 
     [self enableOrDisableLoginButton];
     return NO;
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    //UIColor *foregroundColor   = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+    UIColor *foregroundColor = [UIColor whiteColor];
+
+    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
+                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor}];
+    return string;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.farms count];
+}
+
+- (BOOL)rememberMe
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
+}
+
+- (void)setRememberMe:(BOOL)rememberMe
+{
+    [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - UISwitch Actions
+
+- (IBAction)switchValueChanged:(UISwitch *)sender
+{
+    self.rememberMe = sender.on;
 }
 
 @end
