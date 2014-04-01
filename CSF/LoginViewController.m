@@ -10,8 +10,9 @@
 #import "ServiceLocator.h"
 #import "UserServices.h"
 #import "User.h"
+#import "UITextField+Extended.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()  <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -25,7 +26,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    // Set up 'Next' field order
+    self.firstNameField.nextTextField = self.lastNameField;
+    self.lastNameField.nextTextField = self.passwordField;
+    self.passwordField.nextTextField = self.farmField;
+    self.farmField.nextTextField = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,6 +62,23 @@
                                                      NSLog(@"Did not successfully log in.");
                                                  }
                                              }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    UITextField *next = textField.nextTextField;
+    if (next)
+    {
+        [next becomeFirstResponder];
+    }
+    else
+    {
+        [textField resignFirstResponder];
+    }
+
+    return NO;
 }
 
 @end
