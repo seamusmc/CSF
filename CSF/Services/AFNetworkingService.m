@@ -12,6 +12,8 @@
 }
 - (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
 
@@ -22,11 +24,15 @@
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         NSLog(@"JSON: %@", responseObject);
+
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completionHandler(responseObject);
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
       NSLog(@"Error: %@", error);
+
+      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
       completionHandler(NULL);
     }];
 

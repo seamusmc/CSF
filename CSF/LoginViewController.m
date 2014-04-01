@@ -7,8 +7,16 @@
 //
 
 #import "LoginViewController.h"
+#import "ServiceLocator.h"
+#import "UserServices.h"
+#import "User.h"
 
 @interface LoginViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *firstNameField;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *farmField;
 
 @end
 
@@ -17,19 +25,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSDictionary *textAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:19.0]};    
+    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:19.0]};
     self.navigationController.navigationBar.titleTextAttributes = textAttributes;
 }
 
-- (void)didReceiveMemoryWarning
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.view endEditing:YES];
+}
+
+- (IBAction)loginButtonTap:(UIButton *)sender
+{
+    User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
+
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user
+                                                      withPassword:@"1234"
+                                             withCompletionHandler:^(BOOL authenticated)
+                                             {
+                                                 if (authenticated)
+                                                 {
+                                                     NSLog(@"Successfully logged in.");
+                                                 }
+                                                 else
+                                                 {
+                                                     NSLog(@"Did not successfully log in.");
+                                                 }
+                                             }];
 }
 
 @end

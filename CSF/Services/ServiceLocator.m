@@ -31,7 +31,7 @@
     return service;
 }
 
-- (id <UserServicesProtocol>)userService
+- (id <UserServicesProtocol>)userServices
 {
     id <UserServicesProtocol> service = [UserServices sharedInstance];
     return service;

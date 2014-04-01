@@ -9,6 +9,8 @@
 
 - (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
 
@@ -16,6 +18,8 @@
     NSURLSessionDataTask *task    = [session dataTaskWithURL:url
                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                            {
+                                               [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
                                                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                                if (httpResponse.statusCode == 200 && !error)
                                                {

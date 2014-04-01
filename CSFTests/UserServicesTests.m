@@ -39,7 +39,7 @@
 - (void)testStoreUserWithPassword
 {
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
-    [[ServiceLocator sharedInstance].userService storeUser:user withPassword:TestPassword];
+    [[ServiceLocator sharedInstance].userServices storeUser:user withPassword:TestPassword];
 
     FXKeychain *keychain = [FXKeychain defaultKeychain];
 
@@ -66,7 +66,7 @@
     keychain[@"password"]  = TestPassword;
 
     __block BOOL authenticated;
-    [[ServiceLocator sharedInstance].userService authenticateWithStoredUserCredentialsWithCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateWithStoredUserCredentialsWithCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
@@ -80,10 +80,10 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = NO;
-    [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
-        NSLog(@"%@", [ServiceLocator sharedInstance].userService.currentUser);
+        NSLog(@"%@", [ServiceLocator sharedInstance].userServices.currentUser);
     }];
 
     expect(authenticated).will.beTruthy();
@@ -94,7 +94,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
@@ -107,7 +107,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOOL"];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
@@ -120,7 +120,7 @@
     User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userService authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
