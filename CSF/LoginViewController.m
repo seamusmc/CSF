@@ -19,9 +19,33 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *farmField;
 
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+
 @end
 
 @implementation LoginViewController
+
+- (void) enableOrDisableLoginButton
+{
+    if ([self.firstNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
+    {
+        if ([self.lastNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
+        {
+            if ([self.passwordField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
+            {
+                if ([self.farmField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
+                {
+                    self.loginButton.enabled = YES;
+                    return;
+                }
+            }
+        }
+    }
+
+    self.loginButton.enabled = NO;
+}
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
@@ -40,10 +64,15 @@
     self.navigationController.navigationBar.titleTextAttributes = textAttributes;
 }
 
+#pragma mark - Gesture Handling
+
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer
 {
+    [self enableOrDisableLoginButton];
     [self.view endEditing:YES];
 }
+
+#pragma mark - Event Handlers
 
 - (IBAction)loginButtonTap:(UIButton *)sender
 {
@@ -78,6 +107,7 @@
         [textField resignFirstResponder];
     }
 
+    [self enableOrDisableLoginButton];
     return NO;
 }
 
