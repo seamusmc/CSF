@@ -94,7 +94,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMK-Rn-Raq">
-                                <rect key="frame" x="127" y="439" width="66" height="35"/>
+                                <rect key="frame" x="127" y="429" width="66" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="login">
@@ -143,7 +143,7 @@
             </objects>
             <point key="canvasLocation" x="618" y="322"/>
         </scene>
-        <!--Order View Controller-->
+        <!--Order View Controller - order-->
         <scene sceneID="K08-CY-ltb">
             <objects>
                 <viewController id="moH-Hp-ojt" customClass="OrderViewController" sceneMemberID="viewController">
@@ -156,7 +156,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PTC-nS-AR5"/>
+                    <navigationItem key="navigationItem" title="order" id="PTC-nS-AR5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

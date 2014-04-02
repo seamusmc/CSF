@@ -62,9 +62,7 @@ static const int LastnameMaxLength  = 15;
 {
     [super viewDidLoad];
 
-    // Customize the nav bar title font
-    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
-    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     // Set up 'Next' field order
     self.firstNameField.nextTextField = self.lastNameField;
@@ -97,6 +95,11 @@ static const int LastnameMaxLength  = 15;
     farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
 
     self.farmField.inputView = farmPicker;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
     // Setup this keyboard notification so that we know when the farms UIPickerView/inputView
     // is shown. We'll pre-select the appropriate farm as show in the farmsTextField. IOW, we want
