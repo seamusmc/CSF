@@ -13,6 +13,10 @@
 #import "UITextField+Extended.h"
 #import "FarmDataServiceProtocol.h"
 
+static const int PasswordMaxLength = 20;
+static const int FirstnameMaxLength = 15;
+static const int LastnameMaxLength = 15;
+
 @interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
@@ -128,6 +132,29 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+// We implement this delegate method in order to enforce max lengths of text fields.
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    BOOL returnValue = YES;
+
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range
+                                                                  withString:string];
+    if (textField == self.passwordField)
+    {
+        returnValue = newString.length <= PasswordMaxLength;
+    }
+    else if (textField == self.firstNameField)
+    {
+        returnValue = newString.length <= FirstnameMaxLength;
+    }
+    else if (textField == self.lastNameField)
+    {
+        returnValue = newString.length <= LastnameMaxLength;
+    }
+
+    return returnValue;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

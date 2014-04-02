@@ -27,7 +27,6 @@
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
 		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
 		F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */; };
-		F16B83C818EA00CB00B45036 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = F16B83C718EA00CB00B45036 /* LoginView.m */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
 		F1A91A5518D39602008395EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5418D39602008395EE /* CoreGraphics.framework */; };
 		F1A91A5718D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
@@ -98,8 +97,6 @@
 		F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataServiceTests.m; sourceTree = "<group>"; };
 		F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
-		F16B83C618EA00CB00B45036 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
-		F16B83C718EA00CB00B45036 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		F16B83C918EB4FE200B45036 /* CSF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CSF.entitlements; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -246,8 +243,6 @@
 				F1A91A6218D39602008395EE /* AppDelegate.m */,
 				F1A91A6718D39602008395EE /* LoginViewController.h */,
 				F1A91A6818D39602008395EE /* LoginViewController.m */,
-				F16B83C618EA00CB00B45036 /* LoginView.h */,
-				F16B83C718EA00CB00B45036 /* LoginView.m */,
 				F1A91A6418D39602008395EE /* Main.storyboard */,
 				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 				F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */,
@@ -473,7 +468,6 @@
 				C9FA53EA297BA9295AE13E2F /* User.m in Sources */,
 				C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */,
 				C9FA58F50414CABEF28B556B /* Order.m in Sources */,
-				F16B83C818EA00CB00B45036 /* LoginView.m in Sources */,
 				C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */,
 				C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */,
 				F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */,
