@@ -13,9 +13,9 @@
 #import "UITextField+Extended.h"
 #import "FarmDataServiceProtocol.h"
 
-static const int PasswordMaxLength = 20;
+static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
-static const int LastnameMaxLength = 15;
+static const int LastnameMaxLength  = 15;
 
 @interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
@@ -97,7 +97,23 @@ static const int LastnameMaxLength = 15;
     farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
 
     self.farmField.inputView = farmPicker;
+
+    // Setup this keyboard notification so that we know when the farms UIPickerView/inputView
+    // is shown. We'll pre-select the appropriate farm as show in the farmsTextField. IOW, we want
+    // to keep the farmsTextField in sync with the picker inputView.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputViewWillShowNotification:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
 }
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [super viewDidDisappear:animated];
+}
+
 
 #pragma mark - Gesture Handling
 
@@ -234,6 +250,29 @@ static const int LastnameMaxLength = 15;
 {
     [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Notifications
+
+- (void)inputViewWillShowNotification:(NSNotification *)notification
+{
+    // Only handle this notification if the farmsTextField inputView, a UIPickerView,
+    // is being shown. We want to keep the picker and textField in sync.
+    for (UIView *view in self.view.subviews)
+    {
+        if ([view.inputView isMemberOfClass:[UIPickerView class]])
+        {
+            if ([view isFirstResponder])
+            {
+                UIPickerView *pickerView = (UIPickerView *) view.inputView;
+
+                int index = [self.farms indexOfObject:self.farmField.text];
+                [pickerView selectRow:index inComponent:0 animated:NO];
+            }
+
+            break;
+        }
+    }
 }
 
 @end
