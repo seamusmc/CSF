@@ -15,22 +15,13 @@
 // Define this because we can't auto-synthesize protocol properties
 @property (strong, nonatomic) User *currentUser;
 
+@property (strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
+
 @end
 
 @implementation UserServices
 {
-    id <NetworkingServiceProtocol> _networkingService;
-}
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        _networkingService = [[ServiceLocator sharedInstance] networkingService];
-    }
-
-    return self;
 }
 
 - (User *)currentUser
@@ -76,7 +67,7 @@
     }
 
     NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
+    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
@@ -99,13 +90,17 @@
                                                               farm:user.farm];
                 completionHandler(YES);
             }
-
         }
         else
         {
             completionHandler(NO);
         }
     }];
+}
+
+- (id <NetworkingServiceProtocol>)networkingService
+{
+    return [ServiceLocator sharedInstance].networkingService;
 }
 
 + (id <UserServicesProtocol>)sharedInstance

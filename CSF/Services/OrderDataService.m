@@ -11,10 +11,14 @@
 #import "ServiceLocator.h"
 #import "OrderItem.h"
 
+@interface OrderDataService ()
+
+@property (strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
+
+@end
+
 @implementation OrderDataService
 {
-    id <NetworkingServiceProtocol> _networkingService;
-
     NSDateFormatter *_dateFormatter;
 }
 
@@ -23,8 +27,6 @@
     self = [super init];
     if (self)
     {
-        _networkingService = [[ServiceLocator sharedInstance] networkingService];
-
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -51,7 +53,7 @@
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
     NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
 
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
+    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
@@ -90,6 +92,11 @@
             completionHandler(NULL);
         }
     }];
+}
+
+- (id <NetworkingServiceProtocol>)networkingService
+{
+    return [ServiceLocator sharedInstance].networkingService;
 }
 
 @end

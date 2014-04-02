@@ -11,27 +11,13 @@
 
 @interface FarmDataService ()
 
-// Declaring these properties, defined by FarmDatServiceProtocol,
-// so that the ivar, getter and setter are generated
-@property (nonatomic, strong) NSArray *farms;
+@property (strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
 
 @end
 
 @implementation FarmDataService
 {
-    id <NetworkingServiceProtocol> _networkingService;
-}
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        _farms             = @[@"hhaven", @"jubilee", @"yoder", @"farm2u"];
-        _networkingService = [[ServiceLocator sharedInstance] networkingService];
-    }
-
-    return self;
 }
 
 + (id <FarmDataServiceProtocol>)sharedInstance
@@ -47,10 +33,15 @@
     return sharedInstance;
 }
 
+- (NSArray *)farms
+{
+    return @[@"hhaven", @"jubilee", @"yoder", @"farm2u"];
+}
+
 - (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler
 {
     NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
+    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
@@ -64,7 +55,7 @@
 {
     NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
 
-    [_networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
+    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
     {
         if (responseObject)
         {
@@ -89,6 +80,11 @@
             completionHandler(inventoryItems);
         }
     }];
+}
+
+- (id <NetworkingServiceProtocol>)networkingService
+{
+    return [ServiceLocator sharedInstance].networkingService;
 }
 
 @end

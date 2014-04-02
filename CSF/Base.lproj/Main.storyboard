@@ -130,6 +130,8 @@
                         <outlet property="lastNameField" destination="k9M-Og-Aki" id="fiC-48-xVo"/>
                         <outlet property="loginButton" destination="tMK-Rn-Raq" id="1FO-4j-euE"/>
                         <outlet property="passwordField" destination="9iB-sF-0px" id="xFY-Pu-mxT"/>
+                        <outlet property="rememberMeSwitch" destination="OnZ-Vd-Vlg" id="shZ-es-Ap2"/>
+                        <segue destination="moH-Hp-ojt" kind="push" identifier="CreateOrderSegue" id="1Ii-1O-nXJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -140,6 +142,25 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="618" y="322"/>
+        </scene>
+        <!--Order View Controller-->
+        <scene sceneID="K08-CY-ltb">
+            <objects>
+                <viewController id="moH-Hp-ojt" customClass="OrderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qqu-04-0Fc"/>
+                        <viewControllerLayoutGuide type="bottom" id="wZb-eB-hYc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ORo-qM-t2I">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PTC-nS-AR5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056" y="322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wMH-03-fCN">

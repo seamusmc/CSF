@@ -20,10 +20,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *farmField;
 
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
+@property (weak, nonatomic) IBOutlet UIButton   *loginButton;
+@property (weak, nonatomic) IBOutlet UISwitch   *rememberMeSwitch;
 @property (strong, nonatomic, readonly) NSArray *farms;
-@property (assign, nonatomic) BOOL              rememberMe;
+
+@property (assign, nonatomic) BOOL rememberMe;
 
 @property (strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
 
@@ -77,6 +78,9 @@
             weakSelf.passwordField.text  = password;
             weakSelf.farmField.text      = user.farm;
         }];
+
+        self.rememberMeSwitch.on = self.rememberMe;
+        [self enableOrDisableLoginButton];
     }
 
     // Create and set the input view for the farmTextField
@@ -105,22 +109,20 @@
 {
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
+    __typeof (self) __weak weakSelf = self;
     [self.userServices authenticateUser:user withPassword:self.passwordField.text withCompletionHandler:^(BOOL authenticated)
     {
         if (authenticated)
         {
-            if (self.rememberMe)
+            if (weakSelf.rememberMe)
             {
-                [self.userServices storeUser:user withPassword:self.passwordField.text];
+                [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
             }
 
-            // segue to order scene
-
-            NSLog(@"Successfully logged in.");
-        }
-        else
-        {
-            NSLog(@"Did not successfully log in.");
+            dispatch_async(dispatch_get_main_queue(), ^
+                                                      {
+                                                          [weakSelf performSegueWithIdentifier:@"CreateOrderSegue" sender:nil];
+                                                      });
         }
     }];
 }
@@ -177,6 +179,11 @@
 - (IBAction)switchValueChanged:(UISwitch *)sender
 {
     self.rememberMe = sender.on;
+
+    if (!sender.on)
+    {
+        [self.userServices storeUser:nil withPassword:nil];
+    }
 }
 
 #pragma mark - Property Overrides
@@ -186,14 +193,14 @@
     return [ServiceLocator sharedInstance].farmDataService.farms;
 }
 
-- (BOOL)rememberMe
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
-}
-
 - (id <UserServicesProtocol>)userServices
 {
     return [ServiceLocator sharedInstance].userServices;
+}
+
+- (BOOL)rememberMe
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
 }
 
 - (void)setRememberMe:(BOOL)rememberMe

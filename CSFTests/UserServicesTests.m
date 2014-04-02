@@ -50,18 +50,25 @@
 
     FXKeychain *keychain = [FXKeychain defaultKeychain];
 
-    User *usr = [[User alloc] initWithFirstname:keychain[@"firstname"]
-                                       lastname:keychain[@"lastname"]
-                                          group:keychain[@"group"]
-                                           farm:keychain[@"farm"]];
-
-    NSLog(@"User: %@", usr);
-
-    expect(usr.firstname).to.equal(user.firstname);
-    expect(usr.lastname).to.equal(user.lastname);
-    expect(usr.group).to.equal(user.group);
-    expect(usr.farm).to.equal(user.farm);
+    expect(keychain[@"firstname"]).to.equal(user.firstname);
+    expect(keychain[@"lastname"]).to.equal(user.lastname);
+    expect(keychain[@"group"]).to.equal(user.group);
+    expect(keychain[@"farm"]).to.equal(user.farm);
     expect(keychain[@"password"]).to.equal(TestPassword);
+}
+
+- (void)testStoreUserWithPasswordWithNil
+{
+    // Useful for clearing user data from the store
+    [[ServiceLocator sharedInstance].userServices storeUser:nil withPassword:nil];
+
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    expect(keychain[@"firstname"]).to.beNil();
+    expect(keychain[@"lastname"]).to.beNil();
+    expect(keychain[@"group"]).to.beNil();
+    expect(keychain[@"farm"]).to.beNil();
+    expect(keychain[@"password"]).to.beNil();
 }
 
 - (void)testRetrieveUserAndPasswordFromStoreWithCompletionHandler
