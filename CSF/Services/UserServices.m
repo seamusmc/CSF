@@ -10,13 +10,6 @@
 #import "ServiceConstants.h"
 #import "FXKeychain.h"
 
-@interface UserServices ()
-
-// Define this because we can't auto-synthesize protocol properties
-@property (nonatomic, strong) User *currentUser;
-
-@end
-
 @implementation UserServices
 {
     id <NetworkingServiceProtocol> _networkingService;
@@ -33,16 +26,6 @@
     return self;
 }
 
-- (User *)currentUser
-{
-    if (!_currentUser)
-    {
-        [NSException raise:@"Ccurrent User Property Not Set." format:@"The current user property has not been set."];
-    }
-
-    return _currentUser;
-}
-
 - (void)storeUser:(User *)user withPassword:(NSString *)password
 {
     FXKeychain *keychain = [FXKeychain defaultKeychain];
@@ -54,22 +37,8 @@
     keychain[@"password"]  = password;
 }
 
-- (void)authenticateWithStoredUserCredentialsWithCompletionHandler:(void (^)(BOOL authenticated))completionHandler
+- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL, User *))completionHandler
 {
-    FXKeychain *keychain = [FXKeychain defaultKeychain];
-
-    User *user = [[User alloc] initWithFirstname:keychain[@"firstname"]
-                                        lastname:keychain[@"lastname"]
-                                           group:keychain[@"group"]
-                                            farm:keychain[@"farm"]];
-
-    [self authenticateUser:user withPassword:keychain[@"password"] withCompletionHandler:completionHandler];
-}
-
-- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler
-{
-    self.currentUser = nil;
-
     if (!completionHandler)
     {
         return;
@@ -80,33 +49,30 @@
     {
         if (responseObject)
         {
-            if (!responseObject)
+            NSLog(@"Order JSON: %@", responseObject);
+
+            // A code of 2 indicates authentication failed. Could be because firstname, lastname,
+            // password or farm were not set correctly.
+            NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
+
+            NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+            if (code == 2)
             {
-                completionHandler(NO);
+                completionHandler(NO, nil);
             }
             else
             {
-                NSLog(@"Order JSON: %@", responseObject);
-
-                // A code of 2 indicates authentication failed. Could be because firstname, lastname,
-                // password or farm were not set correctly.
-                NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
-                
-                NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
-                if (code == 2)
-                {
-                    completionHandler(NO);
-                }
-                else
-                {
-                    self.currentUser = user;
-                    completionHandler(YES);
-                }
+                User *authenticatedUser = [[User alloc] initWithFirstname:user.firstname
+                                                                 lastname:user.lastname
+                                                                    group:[responseObject objectForKey:@"Group"]
+                                                                     farm:user.farm];
+                completionHandler(YES, authenticatedUser);
             }
+
         }
         else
         {
-            completionHandler(NO);
+            completionHandler(NO, nil);
         }
     }];
 }

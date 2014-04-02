@@ -95,7 +95,7 @@
 
     [[ServiceLocator sharedInstance].userServices authenticateUser:user
                                                       withPassword:@"1234"
-                                             withCompletionHandler:^(BOOL authenticated)
+                                             withCompletionHandler:^(BOOL authenticated, User *authenticatedUser)
                                              {
                                                  if (authenticated)
                                                  {
@@ -105,8 +105,7 @@
                                                  {
                                                      NSLog(@"Did not successfully log in.");
                                                  }
-                                             }];
-}
+                                             }];}
 
 #pragma mark - UITextFieldDelegate
 

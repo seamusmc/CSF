@@ -45,7 +45,7 @@
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
     NSArray                      *farms  = service.farms;
 
-    NSArray *list = @[@"FARM2U", @"HHAVEN", @"JUBILEE", @"YODER"];
+    NSArray *list = @[@"farm2u", @"hhaven", @"jubilee", @"yoder"];
     expect(farms).to.beSupersetOf(list);
 }
 
