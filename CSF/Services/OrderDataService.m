@@ -14,7 +14,8 @@
 @implementation OrderDataService
 {
     id <NetworkingServiceProtocol> _networkingService;
-    NSDateFormatter                *_dateFormatter;
+
+    NSDateFormatter *_dateFormatter;
 }
 
 - (id)init

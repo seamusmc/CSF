@@ -22,8 +22,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
-@property (strong, nonatomic) NSArray *farms;
-@property (assign, nonatomic) BOOL    rememberMe;
+@property (strong, nonatomic, readonly) NSArray *farms;
+@property (assign, nonatomic) BOOL              rememberMe;
+
+@property (strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
 
 @end
 
@@ -65,7 +67,17 @@
     self.passwordField.nextTextField  = self.farmField;
     self.farmField.nextTextField      = nil;
 
-    self.farms = [ServiceLocator sharedInstance].farmDataService.farms;
+    if (self.rememberMe)
+    {
+        __typeof (self) __weak weakSelf = self;
+        [self.userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *user, NSString *password)
+        {
+            weakSelf.firstNameField.text = user.firstname;
+            weakSelf.lastNameField.text  = user.lastname;
+            weakSelf.passwordField.text  = password;
+            weakSelf.farmField.text      = user.farm;
+        }];
+    }
 
     // Create and set the input view for the farmTextField
     UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -93,19 +105,25 @@
 {
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user
-                                                      withPassword:self.passwordField.text
-                                             withCompletionHandler:^(BOOL authenticated)
-                                             {
-                                                 if (authenticated)
-                                                 {
-                                                     NSLog(@"Successfully logged in.");
-                                                 }
-                                                 else
-                                                 {
-                                                     NSLog(@"Did not successfully log in.");
-                                                 }
-                                             }];}
+    [self.userServices authenticateUser:user withPassword:self.passwordField.text withCompletionHandler:^(BOOL authenticated)
+    {
+        if (authenticated)
+        {
+            if (self.rememberMe)
+            {
+                [self.userServices storeUser:user withPassword:self.passwordField.text];
+            }
+
+            // segue to order scene
+
+            NSLog(@"Successfully logged in.");
+        }
+        else
+        {
+            NSLog(@"Did not successfully log in.");
+        }
+    }];
+}
 
 #pragma mark - UITextFieldDelegate
 
@@ -154,22 +172,34 @@
     return [self.farms count];
 }
 
+#pragma mark - UISwitch Actions
+
+- (IBAction)switchValueChanged:(UISwitch *)sender
+{
+    self.rememberMe = sender.on;
+}
+
+#pragma mark - Property Overrides
+
+- (NSArray *)farms
+{
+    return [ServiceLocator sharedInstance].farmDataService.farms;
+}
+
 - (BOOL)rememberMe
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
+}
+
+- (id <UserServicesProtocol>)userServices
+{
+    return [ServiceLocator sharedInstance].userServices;
 }
 
 - (void)setRememberMe:(BOOL)rememberMe
 {
     [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-#pragma mark - UISwitch Actions
-
-- (IBAction)switchValueChanged:(UISwitch *)sender
-{
-    self.rememberMe = sender.on;
 }
 
 @end
