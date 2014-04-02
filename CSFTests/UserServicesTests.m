@@ -57,15 +57,67 @@
     expect(keychain[@"password"]).to.equal(TestPassword);
 }
 
+- (void)testRetrieveUserAndPasswordFromStoreWithCompletionHandler
+{
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    keychain[@"firstname"] = TestFirstname;
+    keychain[@"lastname"]  = TestLastname;
+    keychain[@"group"]     = TestGroup;
+    keychain[@"farm"]      = TestFarm;
+    keychain[@"password"]  = TestPassword;
+
+    __block User *user;
+    __block NSString *password;
+
+    [[ServiceLocator sharedInstance].userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *usr, NSString *pword)
+    {
+        user = usr;
+        password = pword;
+    }];
+
+    expect(user.firstname).to.equal(TestFirstname);
+    expect(user.lastname).to.equal(TestLastname);
+    expect(user.group).to.equal(TestGroup);
+    expect(user.farm).to.equal(TestFarm);
+    expect(password).to.equal(TestPassword);
+}
+
+- (void)testNegativeRetrieveUserAndPasswordFromStoreWithCompletionHandler
+{
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    keychain[@"firstname"] = TestFirstname;
+    keychain[@"lastname"]  = TestLastname;
+    keychain[@"group"]     = TestGroup;
+    keychain[@"farm"]      = TestFarm;
+    keychain[@"password"]  = TestPassword;
+
+    __block User *user;
+    __block NSString *password;
+
+    [[ServiceLocator sharedInstance].userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *usr, NSString *pword)
+    {
+        user = usr;
+        password = pword;
+    }];
+
+    expect(user.firstname).toNot.equal(@"Firstname");
+    expect(user.lastname).toNot.equal(@"Lastname");
+    expect(user.group).toNot.equal(@"Groupe");
+    expect(user.farm).toNot.equal(@"Farm");
+    expect(password).toNot.equal(@"Password");
+}
+
 - (void)testAuthenticateUserWithPassword
 {
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = NO;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, User *authUser)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
-        NSLog(@"%@", authUser);
+        NSLog(@"%@", [ServiceLocator sharedInstance].userServices.currentUser);
     }];
 
     expect(authenticated).will.beTruthy();
@@ -76,7 +128,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated, User *authUser)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
@@ -89,7 +141,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOOL"];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, User *authUser)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];
@@ -102,7 +154,7 @@
     User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, User *authUser)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
     {
         authenticated = isAuthenticated;
     }];

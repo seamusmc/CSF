@@ -12,10 +12,17 @@
     self = [super init];
     if (self)
     {
-        _firstname = firstname;
-        _lastname  = lastname;
-        _group = group;
-        _farm = farm;
+        if ([firstname length] > 0 && [lastname length] > 0 && [group length] > 0 && [farm length] > 0)
+        {
+            _firstname = firstname;
+            _lastname  = lastname;
+            _group = group;
+            _farm = farm;
+        }
+        else
+        {
+            self = nil;
+        }
     }
 
     return self;

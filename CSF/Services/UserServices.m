@@ -10,6 +10,13 @@
 #import "ServiceConstants.h"
 #import "FXKeychain.h"
 
+@interface UserServices ()
+
+// Define this because we can't auto-synthesize protocol properties
+@property (strong, nonatomic) User *currentUser;
+
+@end
+
 @implementation UserServices
 {
     id <NetworkingServiceProtocol> _networkingService;
@@ -26,6 +33,16 @@
     return self;
 }
 
+- (User *)currentUser
+{
+    if (!_currentUser)
+    {
+        [NSException raise:@"Ccurrent User Property Not Set." format:@"The current user property has not been set."];
+    }
+
+    return _currentUser;
+}
+
 - (void)storeUser:(User *)user withPassword:(NSString *)password
 {
     FXKeychain *keychain = [FXKeychain defaultKeychain];
@@ -37,7 +54,21 @@
     keychain[@"password"]  = password;
 }
 
-- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL, User *))completionHandler
+- (void)retrieveUserAndPasswordFromStoreWithCompletionHandler:(void (^)(User *user, NSString *password))completionHandler
+{
+    FXKeychain *keychain = [FXKeychain defaultKeychain];
+
+    User *usr = [[User alloc] initWithFirstname:keychain[@"firstname"]
+                                       lastname:keychain[@"lastname"]
+                                          group:keychain[@"group"]
+                                           farm:keychain[@"farm"]];
+
+    NSString *password = keychain[@"password"];
+
+    completionHandler(usr, password);
+}
+
+- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL))completionHandler
 {
     if (!completionHandler)
     {
@@ -58,21 +89,21 @@
             NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
             if (code == 2)
             {
-                completionHandler(NO, nil);
+                completionHandler(NO);
             }
             else
             {
-                User *authenticatedUser = [[User alloc] initWithFirstname:user.firstname
-                                                                 lastname:user.lastname
-                                                                    group:[responseObject objectForKey:@"Group"]
-                                                                     farm:user.farm];
-                completionHandler(YES, authenticatedUser);
+                self.currentUser = [[User alloc] initWithFirstname:user.firstname
+                                                          lastname:user.lastname
+                                                             group:[responseObject objectForKey:@"Group"]
+                                                              farm:user.farm];
+                completionHandler(YES);
             }
 
         }
         else
         {
-            completionHandler(NO, nil);
+            completionHandler(NO);
         }
     }];
 }

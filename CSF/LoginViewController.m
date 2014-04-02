@@ -94,8 +94,8 @@
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
     [[ServiceLocator sharedInstance].userServices authenticateUser:user
-                                                      withPassword:@"1234"
-                                             withCompletionHandler:^(BOOL authenticated, User *authenticatedUser)
+                                                      withPassword:self.passwordField.text
+                                             withCompletionHandler:^(BOOL authenticated)
                                              {
                                                  if (authenticated)
                                                  {
