@@ -36,6 +36,13 @@
     [super tearDown];
 }
 
+- (void)testBadUserInitialization
+{
+    User *user = [[User alloc] initWithFirstname:nil lastname:TestLastname group:TestGroup farm:TestFarm];
+
+    expect(user).to.beNil();
+}
+
 - (void)testStoreUserWithPassword
 {
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
