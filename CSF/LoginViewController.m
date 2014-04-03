@@ -179,9 +179,6 @@ static const int LastnameMaxLength  = 15;
                          self.notificationLabel.frame  = frame;
                      }];
 
-
-    // self.notificationLabel.hidden = YES;
-
     UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
     self.firstNameField.textColor = textColor;
     self.lastNameField.textColor  = textColor;
