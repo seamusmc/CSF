@@ -83,7 +83,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="7SZ-L4-fk9"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yoder" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qqb-uS-Ut0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="yoder" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qqb-uS-Ut0">
                                 <rect key="frame" x="174" y="197" width="130" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
@@ -116,6 +116,13 @@
                                     <action selector="switchValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="DWA-m5-DnH"/>
                                 </connections>
                             </switch>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="failed to login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q28-8J-hfn">
+                                <rect key="frame" x="104" y="251" width="113" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -129,6 +136,7 @@
                         <outlet property="firstNameField" destination="R0T-wt-xOf" id="yIQ-rx-xed"/>
                         <outlet property="lastNameField" destination="k9M-Og-Aki" id="fiC-48-xVo"/>
                         <outlet property="loginButton" destination="tMK-Rn-Raq" id="1FO-4j-euE"/>
+                        <outlet property="notificationLabel" destination="Q28-8J-hfn" id="ap3-aY-OSr"/>
                         <outlet property="passwordField" destination="9iB-sF-0px" id="xFY-Pu-mxT"/>
                         <outlet property="rememberMeSwitch" destination="OnZ-Vd-Vlg" id="shZ-es-Ap2"/>
                         <segue destination="moH-Hp-ojt" kind="push" identifier="CreateOrderSegue" id="1Ii-1O-nXJ"/>

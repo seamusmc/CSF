@@ -10,6 +10,8 @@
 #import "ServiceConstants.h"
 #import "FXKeychain.h"
 
+NSString *const FailedAuthentication = @"FailedAuthentication";
+
 @interface UserServices ()
 
 // Define this because we can't auto-synthesize protocol properties
@@ -80,6 +82,10 @@
             NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
             if (code == 2)
             {
+                dispatch_async(dispatch_get_main_queue(), ^
+                                                          {
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:FailedAuthentication object:self];
+                                                          });
                 completionHandler(NO);
             }
             else

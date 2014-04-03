@@ -24,8 +24,10 @@ static const int LastnameMaxLength  = 15;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *farmField;
 
-@property (weak, nonatomic) IBOutlet UIButton   *loginButton;
-@property (weak, nonatomic) IBOutlet UISwitch   *rememberMeSwitch;
+@property (weak, nonatomic) IBOutlet UILabel  *notificationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UISwitch *rememberMeSwitch;
+
 @property (strong, nonatomic, readonly) NSArray *farms;
 
 @property (assign, nonatomic) BOOL rememberMe;
@@ -108,6 +110,12 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(inputViewWillShowNotification:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
+
+    // This message indicates a failed authentication.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleInvalidLogin:)
+                                                 name:FailedAuthentication
+                                               object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -151,6 +159,19 @@ static const int LastnameMaxLength  = 15;
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    self.notificationLabel.hidden = YES;
+
+    UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+    self.firstNameField.textColor = textColor;
+    self.lastNameField.textColor  = textColor;
+    self.passwordField.textColor  = textColor;
+    self.farmField.textColor      = textColor;
+
+    return YES;
+}
 
 // We implement this delegate method in order to enforce max lengths of text fields.
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -269,13 +290,35 @@ static const int LastnameMaxLength  = 15;
             {
                 UIPickerView *pickerView = (UIPickerView *) view.inputView;
 
-                int index = [self.farms indexOfObject:self.farmField.text];
+                NSInteger index = [self.farms indexOfObject:self.farmField.text];
+
                 [pickerView selectRow:index inComponent:0 animated:NO];
             }
 
             break;
         }
     }
+}
+
+- (void)handleInvalidLogin:(NSNotification *)notification
+{
+    // Save the current frame
+    CGRect frame = self.notificationLabel.frame;
+    self.notificationLabel.frame = CGRectMake(self.notificationLabel.frame.origin.x -self.notificationLabel.frame.size.width,
+                                              self.notificationLabel.frame.origin.y,
+                                              self.notificationLabel.frame.size.width,
+                                              self.notificationLabel.frame.size.height);
+    [UIView animateWithDuration:1.0
+                     animations:^
+                     {
+                         self.notificationLabel.hidden = NO;
+                         self.notificationLabel.frame  = frame;
+                     }];
+
+    self.firstNameField.textColor = [UIColor redColor];
+    self.lastNameField.textColor  = [UIColor redColor];
+    self.passwordField.textColor  = [UIColor redColor];
+    self.farmField.textColor      = [UIColor redColor];
 }
 
 @end

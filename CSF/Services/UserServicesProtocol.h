@@ -7,6 +7,8 @@
 
 @class User;
 
+extern NSString *const FailedAuthentication;
+
 @protocol UserServicesProtocol <NSObject>
 
 @property (strong, nonatomic, readonly) User *currentUser;
