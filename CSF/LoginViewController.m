@@ -162,7 +162,25 @@ static const int LastnameMaxLength  = 15;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    self.notificationLabel.hidden = YES;
+    // Save the current frame
+    CGRect frame = self.notificationLabel.frame;
+    [UIView animateWithDuration:1.0
+                     animations:^
+                     {
+                         self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+                                                                   self.notificationLabel.frame.origin.y,
+                                                                   self.notificationLabel.frame.size.width,
+                                                                   self.notificationLabel.frame.size.height);
+
+                     }
+                     completion:^(BOOL finished)
+                     {
+                         self.notificationLabel.hidden = YES;
+                         self.notificationLabel.frame  = frame;
+                     }];
+
+
+    // self.notificationLabel.hidden = YES;
 
     UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
     self.firstNameField.textColor = textColor;
