@@ -97,7 +97,6 @@
 		F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataServiceTests.m; sourceTree = "<group>"; };
 		F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
-		F16B83C918EB4FE200B45036 /* CSF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CSF.entitlements; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -235,7 +234,6 @@
 		F1A91A5818D39602008395EE /* CSF */ = {
 			isa = PBXGroup;
 			children = (
-				F16B83C918EB4FE200B45036 /* CSF.entitlements */,
 				C9FA51DA4B46C2DE291C220C /* Model */,
 				C9FA5CBF3D3D7E405BCF8DD9 /* Services */,
 				F1A91A5918D39602008395EE /* Supporting Files */,

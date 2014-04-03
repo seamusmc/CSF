@@ -34,6 +34,8 @@ static const int LastnameMaxLength  = 15;
 
 @property (strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
 
+@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
+
 @end
 
 @implementation LoginViewController
@@ -97,6 +99,8 @@ static const int LastnameMaxLength  = 15;
     farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
 
     self.farmField.inputView = farmPicker;
+
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -162,9 +166,11 @@ static const int LastnameMaxLength  = 15;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    [self.dynamicAnimator removeAllBehaviors];
+
     // Save the current frame
     CGRect frame = self.notificationLabel.frame;
-    [UIView animateWithDuration:1.0
+    [UIView animateWithDuration:0.5
                      animations:^
                      {
                          self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
@@ -317,18 +323,30 @@ static const int LastnameMaxLength  = 15;
 
 - (void)handleInvalidLogin:(NSNotification *)notification
 {
-    // Save the current frame
-    CGRect frame = self.notificationLabel.frame;
-    self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
-                                              self.notificationLabel.frame.origin.y,
-                                              self.notificationLabel.frame.size.width,
-                                              self.notificationLabel.frame.size.height);
-    [UIView animateWithDuration:1.0
-                     animations:^
-                     {
-                         self.notificationLabel.hidden = NO;
-                         self.notificationLabel.frame  = frame;
-                     }];
+    UIPushBehavior      *pushBehavior;
+    UICollisionBehavior *collisionBehavior;
+
+    self.notificationLabel.frame  = CGRectMake(-self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.origin.y,
+                                               self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.size.height);
+    self.notificationLabel.hidden = NO;
+
+    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];
+
+    float x = self.view.frame.size.width / 2 + self.notificationLabel.frame.size.width / 2;
+
+    [collisionBehavior addBoundaryWithIdentifier:@"barrier"
+                                       fromPoint:CGPointMake(x, 0)
+                                         toPoint:CGPointMake(x, self.view.frame.size.height)];
+
+    [self.dynamicAnimator addBehavior:collisionBehavior];
+
+    pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.notificationLabel] mode:UIPushBehaviorModeContinuous];
+    pushBehavior.angle     = 0;
+    pushBehavior.magnitude = 5;
+
+    [self.dynamicAnimator addBehavior:pushBehavior];
 
     self.firstNameField.textColor = [UIColor redColor];
     self.lastNameField.textColor  = [UIColor redColor];
