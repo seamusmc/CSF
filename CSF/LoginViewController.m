@@ -80,7 +80,7 @@ static const int LastnameMaxLength  = 15;
             weakSelf.firstNameField.text = user.firstname;
             weakSelf.lastNameField.text  = user.lastname;
             weakSelf.passwordField.text  = password;
-            weakSelf.farmField.text      = user.farm;
+            weakSelf.farmField.text      = user.farm ? user.farm : @"yoder";
         }];
 
         self.rememberMeSwitch.on = self.rememberMe;
