@@ -304,7 +304,7 @@ static const int LastnameMaxLength  = 15;
 {
     // Save the current frame
     CGRect frame = self.notificationLabel.frame;
-    self.notificationLabel.frame = CGRectMake(self.notificationLabel.frame.origin.x -self.notificationLabel.frame.size.width,
+    self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
                                               self.notificationLabel.frame.origin.y,
                                               self.notificationLabel.frame.size.width,
                                               self.notificationLabel.frame.size.height);
