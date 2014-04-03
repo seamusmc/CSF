@@ -142,6 +142,8 @@ static const int LastnameMaxLength  = 15;
 
 - (IBAction)loginButtonTap:(UIButton *)sender
 {
+    [self.dynamicAnimator removeAllBehaviors];
+
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
     __typeof (self) __weak weakSelf = self;
