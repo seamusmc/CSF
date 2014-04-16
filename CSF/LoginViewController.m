@@ -28,6 +28,8 @@ static const int LastnameMaxLength  = 15;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UISwitch *rememberMeSwitch;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
 @property (strong, nonatomic, readonly) NSArray *farms;
 
 @property (assign, nonatomic) BOOL rememberMe;
@@ -120,6 +122,8 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(handleInvalidLogin:)
                                                  name:FailedAuthentication
                                                object:nil];
+    
+    [self.spinner stopAnimating];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -146,9 +150,16 @@ static const int LastnameMaxLength  = 15;
 
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
+    [self.spinner startAnimating];
+    
     __typeof (self) __weak weakSelf = self;
     [self.userServices authenticateUser:user withPassword:self.passwordField.text withCompletionHandler:^(BOOL authenticated)
     {
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [weakSelf.spinner stopAnimating];
+                       });
+
         if (authenticated)
         {
             if (weakSelf.rememberMe)
