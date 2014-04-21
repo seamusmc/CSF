@@ -30,7 +30,8 @@ static const int LastnameMaxLength  = 15;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (strong, nonatomic, readonly) NSArray *farms;
+@property (strong, nonatomic) NSArray *farms;
+@property (strong, nonatomic) NSArray *controls;
 
 @property (assign, nonatomic) BOOL rememberMe;
 
@@ -75,6 +76,8 @@ static const int LastnameMaxLength  = 15;
     self.lastNameField.nextTextField  = self.passwordField;
     self.passwordField.nextTextField  = self.farmField;
     self.farmField.nextTextField      = nil;
+
+    self.controls = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField, self.rememberMeSwitch];
 
     if (self.rememberMe)
     {
@@ -122,7 +125,7 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(handleInvalidLogin:)
                                                  name:FailedAuthentication
                                                object:nil];
-    
+
     [self.spinner stopAnimating];
 }
 
@@ -150,15 +153,24 @@ static const int LastnameMaxLength  = 15;
 
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
+    // Don't use @NO ! Only nil will be interpreted as NO in your method with bool argument.
+    [self.controls makeObjectsPerformSelector:@selector(setEnabled:) withObject:nil];
+
     [self.spinner startAnimating];
-    
+
     __typeof (self) __weak weakSelf = self;
     [self.userServices authenticateUser:user withPassword:self.passwordField.text withCompletionHandler:^(BOOL authenticated)
     {
         dispatch_async(dispatch_get_main_queue(), ^
-                       {
-                           [weakSelf.spinner stopAnimating];
-                       });
+                                                  {
+                                                      // Cannot get makeObjectsPerformSelector to work?
+                                                      for (UIControl *control in weakSelf.controls)
+                                                      {
+                                                          control.enabled = YES;
+                                                      }
+
+                                                      [weakSelf.spinner stopAnimating];
+                                                  });
 
         if (authenticated)
         {
