@@ -98,7 +98,7 @@ static const int LastnameMaxLength  = 15;
     UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     farmPicker.delegate   = self;
     farmPicker.dataSource = self;
-    [farmPicker setShowsSelectionIndicator:YES];
+    farmPicker.showsSelectionIndicator = YES;
 
     //farmPicker.backgroundColor = [UIColor whiteColor];
     farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
@@ -153,8 +153,11 @@ static const int LastnameMaxLength  = 15;
 
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
 
-    // Don't use @NO ! Only nil will be interpreted as NO in your method with bool argument.
-    [self.controls makeObjectsPerformSelector:@selector(setEnabled:) withObject:nil];
+    for (UIControl *control in self.controls)
+    {
+        control.enabled = NO;
+        control.alpha = 0.5f;
+    }
 
     [self.spinner startAnimating];
 
@@ -163,10 +166,10 @@ static const int LastnameMaxLength  = 15;
     {
         dispatch_async(dispatch_get_main_queue(), ^
                                                   {
-                                                      // Cannot get makeObjectsPerformSelector to work?
                                                       for (UIControl *control in weakSelf.controls)
                                                       {
                                                           control.enabled = YES;
+                                                          control.alpha = 1.0f;
                                                       }
 
                                                       [weakSelf.spinner stopAnimating];
