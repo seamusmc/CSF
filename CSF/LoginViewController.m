@@ -43,6 +43,15 @@ static const int LastnameMaxLength  = 15;
 
 @implementation LoginViewController
 
+- (void)setTextDefaultColor
+{
+    UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+    self.firstNameField.textColor = textColor;
+    self.lastNameField.textColor  = textColor;
+    self.passwordField.textColor  = textColor;
+    self.farmField.textColor      = textColor;
+}
+
 - (void)enableOrDisableLoginButton
 {
     if ([self.firstNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
@@ -216,15 +225,6 @@ static const int LastnameMaxLength  = 15;
     [self setTextDefaultColor];
 
     return YES;
-}
-
-- (void)setTextDefaultColor
-{
-    UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
-    self.firstNameField.textColor = textColor;
-    self.lastNameField.textColor  = textColor;
-    self.passwordField.textColor  = textColor;
-    self.farmField.textColor      = textColor;
 }
 
 // We implement this delegate method in order to enforce max lengths of text fields.
