@@ -12,7 +12,7 @@
     self = [super init];
     if (self)
     {
-        if ([firstname length] > 0 && [lastname length] > 0 && [group length] > 0 && [farm length] > 0)
+        if ([firstname length] > 0 && [lastname length] > 0 && [farm length] > 0)
         {
             _firstname = firstname;
             _lastname  = lastname;

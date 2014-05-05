@@ -151,7 +151,7 @@ static const int LastnameMaxLength  = 15;
 {
     [self.dynamicAnimator removeAllBehaviors];
 
-    User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:@"SMITH" farm:self.farmField.text];
+    User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:nil farm:self.farmField.text];
 
     for (UIControl *control in self.controls)
     {
@@ -213,13 +213,18 @@ static const int LastnameMaxLength  = 15;
                          self.notificationLabel.frame  = frame;
                      }];
 
+    [self setTextDefaultColor];
+
+    return YES;
+}
+
+- (void)setTextDefaultColor
+{
     UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
     self.firstNameField.textColor = textColor;
     self.lastNameField.textColor  = textColor;
     self.passwordField.textColor  = textColor;
     self.farmField.textColor      = textColor;
-
-    return YES;
 }
 
 // We implement this delegate method in order to enforce max lengths of text fields.
