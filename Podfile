@@ -1,6 +1,7 @@
 target :CSF do
   pod 'FXKeychain', '~> 1.5'
   pod 'AFNetworking', '~> 2.2.1'
+  pod 'FLKAutoLayout'
 end
 
 target :CSFTests do
