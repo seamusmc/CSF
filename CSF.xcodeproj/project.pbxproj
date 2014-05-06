@@ -16,6 +16,7 @@
 		C9FA546C158B74E4B0F8E144 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5F0CBF974E1BAACEC263 /* Item.m */; };
 		C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52D06BD7481A26257822 /* OrderDataService.m */; };
 		C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */; };
+		C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */; };
 		C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
@@ -69,6 +70,7 @@
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C9FA55816860AF76FCEF09AC /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
 		C9FA5687440B9DB7CF211B2F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C9FA569433E799F0C2BA8D3F /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServicesProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
+		C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
 		C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extended.m"; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 				F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */,
 				F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */,
+				C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */,
+				C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
 				C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
+				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +617,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -630,6 +637,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -12,6 +12,7 @@
 #import "User.h"
 #import "UITextField+Extended.h"
 #import "FarmDataServiceProtocol.h"
+#import "UIView+FLKAutoLayout.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
@@ -50,6 +51,51 @@ static const int LastnameMaxLength  = 15;
     self.lastNameField.textColor  = textColor;
     self.passwordField.textColor  = textColor;
     self.farmField.textColor      = textColor;
+}
+
+- (void)setupFarmPicker
+{
+    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+    farmPicker.delegate                = self;
+    farmPicker.dataSource              = self;
+    farmPicker.showsSelectionIndicator = YES;
+
+    farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+
+    self.farmField.inputView = farmPicker;
+
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    toolBar.barStyle     = UIBarStyleBlack;
+    toolBar.translucent  = NO;
+    toolBar.barTintColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+
+    UILabel *title = [[UILabel alloc] init];
+    title.text = @"  Select a Farm";
+    title.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0f]; //[UIFont boldSystemFontOfSize:18];
+    [title sizeToFit];
+    title.textColor = [UIColor whiteColor];
+
+    // Making my own because the system ones are not centering vertically????
+    UIButton *button = [[UIButton alloc] init];
+    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+    [button setTitle:@"Done" forState:UIControlStateNormal];
+    //[button addTarget:self action:@selector(myAction) forControlEvents:UIControlEventTouchUpInside];
+    [button sizeToFit];
+
+    UIBarButtonItem *flexible     = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
+    //UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTouched:)];
+    UIBarButtonItem *doneButton   = [[UIBarButtonItem alloc] initWithCustomView:button];
+    doneButton.tintColor = [UIColor whiteColor];
+    //[doneButton alignCenterYWithView:toolBar predicate:@"0"];
+
+    // the middle button is to make the Done button align to right
+    [toolBar setItems:[NSArray arrayWithObjects:flexible,
+                                                toolBarTitle,
+                                                flexible,
+                                                doneButton,
+                                                nil]];
+    self.farmField.inputAccessoryView = toolBar;
 }
 
 - (void)enableOrDisableLoginButton
@@ -103,16 +149,7 @@ static const int LastnameMaxLength  = 15;
         [self enableOrDisableLoginButton];
     }
 
-    // Create and set the input view for the farmTextField
-    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
-    farmPicker.delegate   = self;
-    farmPicker.dataSource = self;
-    farmPicker.showsSelectionIndicator = YES;
-
-    //farmPicker.backgroundColor = [UIColor whiteColor];
-    farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
-
-    self.farmField.inputView = farmPicker;
+    [self setupFarmPicker];
 
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 }
@@ -165,7 +202,7 @@ static const int LastnameMaxLength  = 15;
     for (UIControl *control in self.controls)
     {
         control.enabled = NO;
-        control.alpha = 0.5f;
+        control.alpha   = 0.5f;
     }
 
     [self.spinner startAnimating];
@@ -178,7 +215,7 @@ static const int LastnameMaxLength  = 15;
                                                       for (UIControl *control in weakSelf.controls)
                                                       {
                                                           control.enabled = YES;
-                                                          control.alpha = 1.0f;
+                                                          control.alpha   = 1.0f;
                                                       }
 
                                                       [weakSelf.spinner stopAnimating];
