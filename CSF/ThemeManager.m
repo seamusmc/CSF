@@ -7,10 +7,20 @@
 
 @implementation ThemeManager
 
-+ (id)sharedInstance
+- (UIColor *)tintColor
 {
-    static ThemeManager *sharedInstance = nil;
-    static dispatch_once_t     onceToken;
+    return [UIColor colorWithRed:0.09f green:0.34f blue:0.58f alpha:1.0f];
+}
+
+- (UIFont *)fontWithSize:(CGFloat)size;
+{
+    return [UIFont fontWithName:@"HelveticaNeue" size:size];
+}
+
++ (instancetype)sharedInstance
+{
+    static ThemeManager    *sharedInstance = nil;
+    static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^
     {

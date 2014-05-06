@@ -12,7 +12,7 @@
 #import "User.h"
 #import "UITextField+Extended.h"
 #import "FarmDataServiceProtocol.h"
-#import "UIView+FLKAutoLayout.h"
+#import "ThemeManager.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
@@ -46,7 +46,7 @@ static const int LastnameMaxLength  = 15;
 
 - (void)setTextDefaultColor
 {
-    UIColor *textColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+    UIColor *textColor = [ThemeManager sharedInstance].tintColor;
     self.firstNameField.textColor = textColor;
     self.lastNameField.textColor  = textColor;
     self.passwordField.textColor  = textColor;
@@ -55,39 +55,37 @@ static const int LastnameMaxLength  = 15;
 
 - (void)setupFarmPicker
 {
-    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 178.0f)];
     farmPicker.delegate                = self;
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
 
-    farmPicker.backgroundColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
+    farmPicker.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
     self.farmField.inputView = farmPicker;
 
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 44.0f)];
     toolBar.barStyle     = UIBarStyleBlack;
     toolBar.translucent  = NO;
-    toolBar.barTintColor = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
-
-    UILabel *title = [[UILabel alloc] init];
-    title.text = @"  Select a Farm";
-    title.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0f]; //[UIFont boldSystemFontOfSize:18];
-    [title sizeToFit];
-    title.textColor = [UIColor whiteColor];
+    toolBar.barTintColor = [ThemeManager sharedInstance].tintColor;
 
     // Making my own because the system ones are not centering vertically????
     UIButton *button = [[UIButton alloc] init];
-    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+    button.tintColor       = [UIColor whiteColor];
+    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:19.0f];
     [button setTitle:@"Done" forState:UIControlStateNormal];
     //[button addTarget:self action:@selector(myAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
 
+    UILabel *title = [[UILabel alloc] init];
+    title.text = @"Select a Farm";            // Need the spaces for the title to center horizontally?
+    title.font = [[ThemeManager sharedInstance] fontWithSize:19.0f];
+    [title sizeToFit];
+    title.textColor = [UIColor whiteColor];
+
     UIBarButtonItem *flexible     = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
-    //UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTouched:)];
     UIBarButtonItem *doneButton   = [[UIBarButtonItem alloc] initWithCustomView:button];
-    doneButton.tintColor = [UIColor whiteColor];
-    //[doneButton alignCenterYWithView:toolBar predicate:@"0"];
 
     // the middle button is to make the Done button align to right
     [toolBar setItems:[NSArray arrayWithObjects:flexible,
@@ -199,6 +197,7 @@ static const int LastnameMaxLength  = 15;
 
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:nil farm:self.farmField.text];
 
+    // Disable the controls
     for (UIControl *control in self.controls)
     {
         control.enabled = NO;
@@ -307,11 +306,11 @@ static const int LastnameMaxLength  = 15;
 
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    //UIColor *foregroundColor   = [UIColor colorWithRed:0.09 green:0.34 blue:0.58 alpha:1];
     UIColor *foregroundColor = [UIColor whiteColor];
 
     NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
-                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor}];
+                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
+                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:18.0f]}];
     return string;
 }
 

@@ -7,6 +7,10 @@
 
 @interface ThemeManager : NSObject
 
-+ (id)sharedInstance;
+@property (strong, nonatomic,readonly) UIColor *tintColor;
+
+- (UIFont *)fontWithSize:(CGFloat)size;
+
++ (instancetype)sharedInstance;
 
 @end
