@@ -24,7 +24,7 @@ NSString *const FailedAuthentication = @"FailedAuthentication";
 
 - (User *)currentUser {
     if (!_currentUser) {
-        [NSException raise:@"Ccurrent User Property Not Set." format:@"The current user property has not been set."];
+        [NSException raise:@"Current User Property Not Set." format:@"The current user property has not been set."];
     }
 
     return _currentUser;
