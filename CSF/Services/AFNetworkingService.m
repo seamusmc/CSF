@@ -28,7 +28,8 @@
         completionHandler(responseObject);
     }
                               failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        NSLog(@"Error: %@", error);
+        NSString *class = NSStringFromClass([self class]);
+        NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completionHandler(NULL);
