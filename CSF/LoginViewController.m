@@ -20,32 +20,30 @@ static const int LastnameMaxLength  = 15;
 
 @interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *firstNameField;
-@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UITextField *farmField;
+@property(weak, nonatomic) IBOutlet UITextField *firstNameField;
+@property(weak, nonatomic) IBOutlet UITextField *lastNameField;
+@property(weak, nonatomic) IBOutlet UITextField *passwordField;
+@property(weak, nonatomic) IBOutlet UITextField *farmField;
+@property(weak, nonatomic) IBOutlet UILabel     *notificationLabel;
+@property(weak, nonatomic) IBOutlet UIButton    *loginButton;
+@property(weak, nonatomic) IBOutlet UISwitch    *rememberMeSwitch;
 
-@property (weak, nonatomic) IBOutlet UILabel  *notificationLabel;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UISwitch *rememberMeSwitch;
+@property(weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property(copy, nonatomic) NSArray *farms;
+@property(copy, nonatomic) NSArray *controls;
 
-@property (strong, nonatomic) NSArray *farms;
-@property (strong, nonatomic) NSArray *controls;
+@property(assign, nonatomic) BOOL rememberMe;
 
-@property (assign, nonatomic) BOOL rememberMe;
+@property(strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
 
-@property (strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
-
-@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
+@property(strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 
 @end
 
 @implementation LoginViewController
 
-- (void)setTextDefaultColor
-{
+- (void)setTextDefaultColor {
     UIColor *textColor = [ThemeManager sharedInstance].tintColor;
     self.firstNameField.textColor = textColor;
     self.lastNameField.textColor  = textColor;
@@ -53,9 +51,11 @@ static const int LastnameMaxLength  = 15;
     self.farmField.textColor      = textColor;
 }
 
-- (void)setupFarmPicker
-{
-    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 178.0f)];
+- (void)setupFarmPicker {
+    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f,
+                                                                              0.0f,
+                                                                              self.view.frame.size.width,
+                                                                              178.0f)];
     farmPicker.delegate                = self;
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
@@ -83,7 +83,9 @@ static const int LastnameMaxLength  = 15;
     [title sizeToFit];
     title.textColor = [UIColor whiteColor];
 
-    UIBarButtonItem *flexible     = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *flexible     = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                                  target:nil
+                                                                                  action:nil];
     UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
     UIBarButtonItem *doneButton   = [[UIBarButtonItem alloc] initWithCustomView:button];
 
@@ -96,52 +98,55 @@ static const int LastnameMaxLength  = 15;
     self.farmField.inputAccessoryView = toolBar;
 }
 
-- (void)enableOrDisableLoginButton
-{
-    if ([self.firstNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
-    {
-        if ([self.lastNameField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
-        {
-            if ([self.passwordField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
-            {
-                if ([self.farmField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0)
-                {
-                    self.loginButton.enabled = YES;
-                    return;
-                }
+- (void)enableOrDisableLoginButton {
+
+    // Check all the text fields for content.
+    for (id control in self.controls) {
+        if ([control isKindOfClass:[UITextField class]]) {
+            UITextField *field = (UITextField *) control;
+
+            NSString *text = [field.text stringByReplacingOccurrencesOfString:@" "
+                                                                   withString:@""];
+            if ([text length] == 0) {
+                self.loginButton.enabled = NO;
+                return;
             }
         }
     }
 
-    self.loginButton.enabled = NO;
+    self.loginButton.enabled = YES;
 }
 
 #pragma mark - Lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout" style:UIBarButtonItemStylePlain target:nil action:nil];
-
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
     // Set up 'Next' field order
     self.firstNameField.nextTextField = self.lastNameField;
     self.lastNameField.nextTextField  = self.passwordField;
     self.passwordField.nextTextField  = self.farmField;
     self.farmField.nextTextField      = nil;
 
-    self.controls = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField, self.rememberMeSwitch];
+    self.controls = @[self.firstNameField,
+                      self.lastNameField,
+                      self.passwordField,
+                      self.farmField,
+                      self.rememberMeSwitch];
 
-    if (self.rememberMe)
-    {
-        __typeof (self) __weak weakSelf = self;
+    if (self.rememberMe) {
+        __typeof(self) __weak weakSelf = self;
         [self.userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *user, NSString *password)
-        {
-            weakSelf.firstNameField.text = user.firstname;
-            weakSelf.lastNameField.text  = user.lastname;
-            weakSelf.passwordField.text  = password;
-            weakSelf.farmField.text      = user.farm ? user.farm : @"yoder";
-        }];
+                {
+                    weakSelf.firstNameField.text = user.firstname;
+                    weakSelf.lastNameField.text  = user.lastname;
+                    weakSelf.passwordField.text  = password;
+                    weakSelf.farmField.text      = user.farm ? user.farm : @"yoder";
+                }];
 
         self.rememberMeSwitch.on = self.rememberMe;
         [self enableOrDisableLoginButton];
@@ -152,8 +157,7 @@ static const int LastnameMaxLength  = 15;
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     // Setup this keyboard notification so that we know when the farms UIPickerView/inputView
@@ -169,12 +173,10 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(handleInvalidLogin:)
                                                  name:FailedAuthentication
                                                object:nil];
-
     [self.spinner stopAnimating];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [super viewDidDisappear:animated];
@@ -183,80 +185,75 @@ static const int LastnameMaxLength  = 15;
 
 #pragma mark - Gesture Handling
 
-- (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer
-{
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
     [self enableOrDisableLoginButton];
     [self.view endEditing:YES];
 }
 
 #pragma mark - UIButton Actions
 
-- (IBAction)loginButtonTap:(UIButton *)sender
-{
+- (IBAction)loginButtonTap:(UIButton *)sender {
     [self.dynamicAnimator removeAllBehaviors];
 
-    User *user = [[User alloc] initWithFirstname:self.firstNameField.text lastname:self.lastNameField.text group:nil farm:self.farmField.text];
+    User *user = [[User alloc] initWithFirstname:self.firstNameField.text
+                                        lastname:self.lastNameField.text
+                                           group:nil
+                                            farm:self.farmField.text];
 
     // Disable the controls
-    for (UIControl *control in self.controls)
-    {
+    for (UIControl *control in self.controls) {
         control.enabled = NO;
         control.alpha   = 0.5f;
     }
 
     [self.spinner startAnimating];
 
-    __typeof (self) __weak weakSelf = self;
-    [self.userServices authenticateUser:user withPassword:self.passwordField.text withCompletionHandler:^(BOOL authenticated)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^
-                                                  {
-                                                      for (UIControl *control in weakSelf.controls)
-                                                      {
-                                                          control.enabled = YES;
-                                                          control.alpha   = 1.0f;
-                                                      }
-
-                                                      [weakSelf.spinner stopAnimating];
-                                                  });
-
-        if (authenticated)
-        {
-            if (weakSelf.rememberMe)
+    __typeof(self) __weak weakSelf = self;
+    [self.userServices authenticateUser:user
+                           withPassword:self.passwordField.text
+                  withCompletionHandler:^(BOOL authenticated)
             {
-                [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
-            }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for (UIControl *control in weakSelf.controls) {
+                        control.enabled = YES;
+                        control.alpha   = 1.0f;
+                    }
 
-            dispatch_async(dispatch_get_main_queue(), ^
-                                                      {
-                                                          [weakSelf performSegueWithIdentifier:@"CreateOrderSegue" sender:nil];
-                                                      });
-        }
-    }];
+                    [weakSelf.spinner stopAnimating];
+                });
+
+                if (authenticated) {
+                    if (weakSelf.rememberMe) {
+                        [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
+                    }
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf performSegueWithIdentifier:@"CreateOrderSegue" sender:nil];
+                    });
+                }
+            }];
 }
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [self.dynamicAnimator removeAllBehaviors];
 
     // Save the current frame
     CGRect frame = self.notificationLabel.frame;
     [UIView animateWithDuration:0.5
                      animations:^
-                     {
-                         self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
-                                                                   self.notificationLabel.frame.origin.y,
-                                                                   self.notificationLabel.frame.size.width,
-                                                                   self.notificationLabel.frame.size.height);
-
-                     }
+            {
+                self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+                                                          self.notificationLabel.frame.origin.y,
+                                                          self.notificationLabel.frame.size.width,
+                                                          self.notificationLabel.frame.size.height);
+            }
                      completion:^(BOOL finished)
-                     {
-                         self.notificationLabel.hidden = YES;
-                         self.notificationLabel.frame  = frame;
-                     }];
+            {
+                self.notificationLabel.hidden = YES;
+                self.notificationLabel.frame  = frame;
+            }];
 
     [self setTextDefaultColor];
 
@@ -264,37 +261,32 @@ static const int LastnameMaxLength  = 15;
 }
 
 // We implement this delegate method in order to enforce max lengths of text fields.
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
+- (BOOL)            textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+            replacementString:(NSString *)string {
     BOOL returnValue = YES;
 
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
-    if (textField == self.passwordField)
-    {
+    if (textField == self.passwordField) {
         returnValue = newString.length <= PasswordMaxLength;
     }
-    else if (textField == self.firstNameField)
-    {
+    else if (textField == self.firstNameField) {
         returnValue = newString.length <= FirstnameMaxLength;
     }
-    else if (textField == self.lastNameField)
-    {
+    else if (textField == self.lastNameField) {
         returnValue = newString.length <= LastnameMaxLength;
     }
 
     return returnValue;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     UITextField *next = textField.nextTextField;
-    if (next)
-    {
+    if (next) {
         [next becomeFirstResponder];
     }
-    else
-    {
+    else {
         [textField resignFirstResponder];
     }
 
@@ -304,8 +296,9 @@ static const int LastnameMaxLength  = 15;
 
 #pragma mark - UIPickerViewDelegate
 
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
+             attributedTitleForRow:(NSInteger)row
+                      forComponent:(NSInteger)component {
     UIColor *foregroundColor = [UIColor whiteColor];
 
     NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
@@ -314,70 +307,57 @@ static const int LastnameMaxLength  = 15;
     return string;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
 }
 
 #pragma mark - UIPickerViewDataSource
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return [self.farms count];
 }
 
 #pragma mark - UISwitch Actions
 
-- (IBAction)switchValueChanged:(UISwitch *)sender
-{
+- (IBAction)switchValueChanged:(UISwitch *)sender {
     self.rememberMe = sender.on;
 
-    if (!sender.on)
-    {
+    if (!sender.on) {
         [self.userServices storeUser:nil withPassword:nil];
     }
 }
 
 #pragma mark - Property Overrides
 
-- (NSArray *)farms
-{
+- (NSArray *)farms {
     return [ServiceLocator sharedInstance].farmDataService.farms;
 }
 
-- (id <UserServicesProtocol>)userServices
-{
+- (id <UserServicesProtocol>)userServices {
     return [ServiceLocator sharedInstance].userServices;
 }
 
-- (BOOL)rememberMe
-{
+- (BOOL)rememberMe {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
 }
 
-- (void)setRememberMe:(BOOL)rememberMe
-{
+- (void)setRememberMe:(BOOL)rememberMe {
     [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Notifications
 
-- (void)inputViewWillShowNotification:(NSNotification *)notification
-{
+- (void)inputViewWillShowNotification:(NSNotification *)notification {
     // Only handle this notification if the farmsTextField inputView, a UIPickerView,
     // is being shown. We want to keep the picker and textField in sync.
-    for (UIView *view in self.view.subviews)
-    {
-        if ([view.inputView isMemberOfClass:[UIPickerView class]])
-        {
-            if ([view isFirstResponder])
-            {
+    for (UIView *view in self.view.subviews) {
+        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
+            if ([view isFirstResponder]) {
                 UIPickerView *pickerView = (UIPickerView *) view.inputView;
 
                 NSInteger index = [self.farms indexOfObject:self.farmField.text];
@@ -390,8 +370,7 @@ static const int LastnameMaxLength  = 15;
     }
 }
 
-- (void)handleInvalidLogin:(NSNotification *)notification
-{
+- (void)handleInvalidLogin:(NSNotification *)notification {
     UIPushBehavior      *pushBehavior;
     UICollisionBehavior *collisionBehavior;
 
