@@ -17,8 +17,11 @@
     uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
 
-    NSURLRequest           *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *op      = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                         timeoutInterval:10.0];
+
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 
     op.responseSerializer = [AFJSONResponseSerializer serializer];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)

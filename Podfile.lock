@@ -21,17 +21,20 @@ PODS:
   - Expecta (0.3.0)
   - FLKAutoLayout (0.1.1)
   - FXKeychain (1.5)
+  - Tweaks (1.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2.3)
   - Expecta (~> 0.3.0)
   - FLKAutoLayout
   - FXKeychain (~> 1.5)
+  - Tweaks
 
 SPEC CHECKSUMS:
-  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
-  Expecta: 322f1dc42610106a5ba9871b4924cf1635d80833
-  FLKAutoLayout: fc04b932009174d4118ef4bda9dc8fedf1369efc
-  FXKeychain: 90cc7bf9ba005e4d099a113a194792e7983c5778
+  AFNetworking: 47947303319594706f48a55185ea95a95159ab94
+  Expecta: ce8a51b9fad15a2cd573b291cb2909aaed865350
+  FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
+  FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
+  Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1

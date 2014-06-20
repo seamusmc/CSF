@@ -7,48 +7,48 @@
 
 @implementation NetworkingService
 
-- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler
-{
+- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-    uri        = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
 
-    NSURLSession         *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task    = [session dataTaskWithURL:url
-                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-                                           {
-                                               [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfig setHTTPAdditionalHeaders:@{@"Accept" : @"application/json"}];
+    sessionConfig.timeoutIntervalForRequest = 10.0;
+    sessionConfig.timeoutIntervalForResource = 10.0;
 
-                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                               if (httpResponse.statusCode == 200 && !error)
-                                               {
-                                                   id responseObject  = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                                                   completionHandler(responseObject);
-                                               }
-                                               else
-                                               {
-                                                   NSString *class = NSStringFromClass([self class]);
-                                                   NSLog(@"%@:%s Bad Status: %ld.", class, __PRETTY_FUNCTION__, (long)httpResponse.statusCode);
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
 
-                                                   if (error)
-                                                   {
-                                                       NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
-                                                   }
+    NSURLSessionDataTask *task = [session dataTaskWithURL:url
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
-                                                   completionHandler(NULL);
-                                               }
-                                           }];
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                if (httpResponse.statusCode == 200 && !error) {
+                    id responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    completionHandler(responseObject);
+                }
+                else {
+                    NSString *class = NSStringFromClass([self class]);
+                    NSLog(@"%@:%s Bad Status: %ld.", class, __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
+
+                    if (error) {
+                        NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
+                    }
+
+                    completionHandler(NULL);
+                }
+            }];
+
     [task resume];
 }
 
-+ (id <NetworkingServiceProtocol>)sharedInstance
-{
++ (id <NetworkingServiceProtocol>)sharedInstance {
     static NetworkingService *sharedInstance = nil;
     static dispatch_once_t   onceToken;
 
-    dispatch_once(&onceToken, ^
-    {
+    dispatch_once(&onceToken, ^{
         sharedInstance = [[NetworkingService alloc] init];
     });
 
