@@ -1,40 +1,42 @@
 PODS:
-  - AFNetworking (2.2.3):
+  - AFNetworking (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.3):
+  - AFNetworking/NSURLConnection (2.3.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.3):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.3)
-  - AFNetworking/Security (2.2.3)
-  - AFNetworking/Serialization (2.2.3)
-  - AFNetworking/UIKit (2.2.3):
+  - AFNetworking/NSURLSession (2.3.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.3.1)
+  - AFNetworking/Security (2.3.1)
+  - AFNetworking/Serialization (2.3.1)
+  - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Expecta (0.3.0)
   - FLKAutoLayout (0.1.1)
-  - FXKeychain (1.5)
+  - FXKeychain (1.5.1)
   - Tweaks (1.1.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.2.3)
-  - Expecta (~> 0.3.0)
+  - AFNetworking
+  - Expecta
   - FLKAutoLayout
-  - FXKeychain (~> 1.5)
+  - FXKeychain
   - Tweaks
 
 SPEC CHECKSUMS:
-  AFNetworking: 47947303319594706f48a55185ea95a95159ab94
+  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   Expecta: ce8a51b9fad15a2cd573b291cb2909aaed865350
   FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
-  FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
+  FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
   Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
 
 COCOAPODS: 0.33.1

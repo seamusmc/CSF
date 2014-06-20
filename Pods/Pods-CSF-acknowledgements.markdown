@@ -50,7 +50,7 @@ THE SOFTWARE.
 
 FXKeychain
 
-Version 1.5, January 30th, 2014
+Version 1.5.1, May 30th, 2014
 
 Copyright (C) 2012 Charcoal Design
 
