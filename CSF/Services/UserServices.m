@@ -67,7 +67,7 @@ NSString *const FailedAuthentication = @"FailedAuthentication";
                     NSLog(@"Order JSON: %@", responseObject);
 
                     // A code of 2 indicates authentication failed. Could be because firstname, lastname,
-                    // password or farm were not set correctly.
+                    // password and/or farm were not set correctly.
                     NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
 
                     NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
