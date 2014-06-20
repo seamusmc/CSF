@@ -3,6 +3,7 @@ target :CSF do
   pod 'AFNetworking'
   pod 'FLKAutoLayout'
   pod 'Tweaks'
+  pod 'CocoaLumberjack'
 end
 
 target :CSFTests do

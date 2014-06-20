@@ -20,6 +20,11 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CocoaLumberjack (1.9.0):
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.9.0)
+  - CocoaLumberjack/Extensions (1.9.0):
+    - CocoaLumberjack/Core
   - Expecta (0.3.0)
   - FLKAutoLayout (0.1.1)
   - FXKeychain (1.5.1)
@@ -27,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - CocoaLumberjack
   - Expecta
   - FLKAutoLayout
   - FXKeychain
@@ -34,6 +40,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  CocoaLumberjack: 5766cdd1d0a24bcf15a133c6023747346bf786dd
   Expecta: ce8a51b9fad15a2cd573b291cb2909aaed865350
   FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
   FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
