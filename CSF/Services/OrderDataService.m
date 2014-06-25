@@ -13,20 +13,17 @@
 
 @interface OrderDataService ()
 
-@property (strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
+@property(strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
 
 @end
 
-@implementation OrderDataService
-{
+@implementation OrderDataService {
     NSDateFormatter *_dateFormatter;
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -35,67 +32,68 @@
     return self;
 }
 
-+ (id <OrderDataServiceProtocol>)sharedInstance
-{
++ (id <OrderDataServiceProtocol>)sharedInstance {
     static OrderDataService *sharedInstance = nil;
     static dispatch_once_t  onceToken;
 
-    dispatch_once(&onceToken, ^
-    {
+    dispatch_once(&onceToken, ^{
         sharedInstance = [[OrderDataService alloc] init];
     });
 
     return sharedInstance;
 }
 
-- (void)getOrderForUser:(User *)user forDate:(NSDate *)date withCompletionHandler:(void (^)(Order *order))completionHandler
-{
+- (void)getOrderForUser:(User *)user
+                forDate:(NSDate *)date
+  withCompletionHandler:(void (^)(Order *order))completionHandler {
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
-    NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI, user.farm, user.group, user.firstname, user.lastname, stringFromDate];
+    NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI,
+                                                          user.farm,
+                                                          user.group,
+                                                          user.firstname,
+                                                          user.lastname,
+                                                          stringFromDate];
 
     [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
-    {
-        if (responseObject)
-        {
-            NSMutableArray *items = [NSMutableArray array];
-            BOOL           locked;
-
-            DDLogInfo(@"Order JSON: %@", responseObject);
-
-            locked = [[responseObject objectForKey:@"Locked"] boolValue];
-
-            NSArray *tempItems = [responseObject objectForKey:@"Items"];
-            for (id item in tempItems)
             {
-                OrderItem *orderItem = [[OrderItem alloc] init];
+                if (responseObject) {
+                    NSMutableArray *items = [NSMutableArray array];
+                    BOOL           locked;
 
-                orderItem.type     = [item objectForKey:@"Type"];
-                orderItem.name     = [item objectForKey:@"Item"];
-                orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
-                orderItem.comment  = [item objectForKey:@"Comment"];
+                    DDLogInfo(@"Order JSON: %@", responseObject);
+
+                    locked = [[responseObject objectForKey:@"Locked"] boolValue];
+
+                    NSArray *tempItems = [responseObject objectForKey:@"Items"];
+                    for (id item in tempItems) {
+                        OrderItem *orderItem = [[OrderItem alloc] init];
+
+                        orderItem.type     = [item objectForKey:@"Type"];
+                        orderItem.name     = [item objectForKey:@"Item"];
+                        orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
+                        orderItem.comment  = [item objectForKey:@"Comment"];
 
 /*
                 Item* farmItem = [self findItemWithFarmData:farmData andOrderItem:orderItem];
 
                 orderItem.price = farmItem.price;
                 orderItem.outOfStock = farmItem.outOfStock;
-                orderItem.fractions = farmItem.fractions;*/
+                orderItem.fractions = farmItem.fractions;
+*/
 
-                [items addObject:orderItem];
-            }
+                        [items addObject:orderItem];
+                    }
 
-            Order *order = [[Order alloc] initWithLocked:locked items:items];
-            completionHandler(order);
-        }
-        else
-        {
-            completionHandler(NULL);
-        }
-    }];
+                    Order *order = [[Order alloc] initWithLocked:locked items:items];
+                    completionHandler(order);
+                }
+                else {
+                    completionHandler(NULL);
+                }
+            }];
 }
 
-- (id <NetworkingServiceProtocol>)networkingService
-{
+- (id <NetworkingServiceProtocol>)networkingService {
     return [ServiceLocator sharedInstance].networkingService;
 }
 
