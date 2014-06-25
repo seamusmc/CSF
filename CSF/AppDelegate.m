@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "DDTTYLogger.h"
+#import "DDASLLogger.h"
 
 @implementation AppDelegate
 
@@ -17,6 +19,10 @@
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
 
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
 
     return YES;
 }

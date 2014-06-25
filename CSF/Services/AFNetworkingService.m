@@ -22,14 +22,13 @@
 
     op.responseSerializer = [AFJSONResponseSerializer serializer];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
-        NSLog(@"JSON: %@", responseObject);
+        DDLogInfo(@"JSON: %@", responseObject);
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completionHandler(responseObject);
     }
                               failure:^(AFHTTPRequestOperation *operation, NSError *error){
-        NSString *class = NSStringFromClass([self class]);
-        NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
+        DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
 
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         completionHandler(NULL);

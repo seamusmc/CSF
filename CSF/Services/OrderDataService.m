@@ -60,7 +60,7 @@
             NSMutableArray *items = [NSMutableArray array];
             BOOL           locked;
 
-            NSLog(@"Order JSON: %@", responseObject);
+            DDLogInfo(@"Order JSON: %@", responseObject);
 
             locked = [[responseObject objectForKey:@"Locked"] boolValue];
 

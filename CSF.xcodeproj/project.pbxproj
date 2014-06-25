@@ -19,6 +19,7 @@
 		C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */; };
 		C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
+		C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
@@ -64,6 +65,7 @@
 		C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extended.h"; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
 		C9FA52D06BD7481A26257822 /* OrderDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataService.m; sourceTree = "<group>"; };
+		C9FA5305BDD4EAD4944DC8B2 /* UIColor+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extended.h"; sourceTree = "<group>"; };
 		C9FA53D267F112EB8298509F /* UserServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServices.m; sourceTree = "<group>"; };
 		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
 		C9FA54CC16BEEC549BB6E116 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServicesProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
+		C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extended.m"; sourceTree = "<group>"; };
 		C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 			children = (
 				C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */,
 				C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */,
+				C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */,
+				C9FA5305BDD4EAD4944DC8B2 /* UIColor+Extended.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
+				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,7 +59,7 @@
     {
         if (responseObject)
         {
-            NSLog(@"Order JSON: %@", responseObject);
+            DDLogInfo(@"Order JSON: %@", responseObject);
 
             NSArray        *items          = [responseObject objectForKey:@"Items"];
             NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];

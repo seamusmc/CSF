@@ -30,11 +30,10 @@
                     completionHandler(responseObject);
                 }
                 else {
-                    NSString *class = NSStringFromClass([self class]);
-                    NSLog(@"%@:%s Bad Status: %ld.", class, __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
+                    DDLogWarn(@"WARN: %s Bad Status: %ld.", __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
 
                     if (error) {
-                        NSLog(@"%@:%s Error: %@.", class, __PRETTY_FUNCTION__, error);
+                        DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
                     }
 
                     completionHandler(NULL);

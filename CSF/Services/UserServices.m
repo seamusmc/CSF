@@ -61,35 +61,34 @@ NSString *const FailedAuthentication = @"FailedAuthentication";
     }
 
     NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
-    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
-            {
-                if (responseObject) {
-                    NSLog(@"Order JSON: %@", responseObject);
+    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)            {
+        if (responseObject) {
+            DDLogInfo(@"Order JSON: %@", responseObject);
 
-                    // A code of 2 indicates authentication failed. Could be because firstname, lastname,
-                    // password and/or farm were not set correctly.
-                    NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
+            // A code of 2 indicates authentication failed. Could be because firstname, lastname,
+            // password and/or farm were not set correctly.
+            NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
 
-                    NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
-                    if (code == 2) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:FailedAuthentication
-                                                                                object:self];
-                        });
-                        completionHandler(NO);
-                    }
-                    else {
-                        self.currentUser = [[User alloc] initWithFirstname:user.firstname
-                                                                  lastname:user.lastname
-                                                                     group:[responseObject objectForKey:@"Group"]
-                                                                      farm:user.farm];
-                        completionHandler(YES);
-                    }
-                }
-                else {
-                    completionHandler(NO);
-                }
-            }];
+            NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+            if (code == 2) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:FailedAuthentication
+                                                                        object:self];
+                });
+                completionHandler(NO);
+            }
+            else {
+                self.currentUser = [[User alloc] initWithFirstname:user.firstname
+                                                          lastname:user.lastname
+                                                             group:[responseObject objectForKey:@"Group"]
+                                                              farm:user.farm];
+                completionHandler(YES);
+            }
+        }
+        else {
+            completionHandler(NO);
+        }
+    }];
 }
 
 - (id <NetworkingServiceProtocol>)networkingService {
