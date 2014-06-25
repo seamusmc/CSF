@@ -9,6 +9,7 @@ extern NSString *const kNetworkingServiceDomain;
 
 // Codes
 typedef NS_ENUM(NSUInteger, NetworkingServiceCode) {
+    NetworkingServiceCodeUnknown            = 0,
     NetworkingServiceCodeSuccess            = 200,
     NetworkingServiceCodeBadRequest         = 400,
     NetworkingServiceCodeServiceUnavailable = 503,
