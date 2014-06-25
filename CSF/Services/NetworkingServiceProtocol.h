@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NetworkingServiceConstants.h"
 
 @protocol NetworkingServiceProtocol <NSObject>
 
