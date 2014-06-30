@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
+#import "UIColor+Extended.h"
 
 @implementation AppDelegate
 
