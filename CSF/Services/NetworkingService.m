@@ -100,14 +100,14 @@
                         DDLogError(@"ERROR: %s Bad Status: %ld Message: %@", __PRETTY_FUNCTION__, (long) httpResponse.statusCode, description);
 
                         NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeBadRequest
-                                                              description:@"An error occured with the service. Please try again later."];
+                                                              description:@"Something has gone wrong"];
                         failureBlock(serviceError);
                         break;
                     }
                     case NetworkingServiceCodeServiceUnavailable: {
                         DDLogWarn(@"WARN: %s Bad Status: %ld.", __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
                         NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeServiceUnavailable
-                                                              description:@"The service is unavailable. Please try again later."];
+                                                              description:@"The service is unavailable"];
                         failureBlock(serviceError);
                         break;
                     }
@@ -120,14 +120,14 @@
                                                __PRETTY_FUNCTION__,
                                                [error localizedDescription]);
                                     NSError *serviceError = [self createErrorWithCode:NSURLErrorTimedOut
-                                                                          description:@"Request timed out. Please make sure you are connected to the internet."];
+                                                                          description:@"Request timed out"];
                                     failureBlock(serviceError);
                                     break;
                                 }
                                 default: {
                                     DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
                                     NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
-                                                                          description:@"Something has gone wrong. Please try again later."];
+                                                                          description:@"Something has gone wrong"];
                                     failureBlock(serviceError);
                                     break;
                                 }
@@ -135,7 +135,7 @@
                         } else {
                             DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
                             NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
-                                                                  description:@"Something has gone wrong. Please try again later."];
+                                                                  description:@"Something has gone wrong"];
                             failureBlock(serviceError);
                             break;
                         }

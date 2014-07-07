@@ -100,7 +100,7 @@ static const int LastnameMaxLength  = 15;
 
 - (void)enableOrDisableLoginButton {
 
-    // Check all the text fields for content.
+    // Check all of the text fields for content.
     for (id control in self.controls) {
         if ([control isKindOfClass:[UITextField class]]) {
             UITextField *field = (UITextField *) control;
@@ -380,7 +380,8 @@ shouldChangeCharactersInRange:(NSRange)range
                                                self.notificationLabel.frame.origin.y,
                                                self.notificationLabel.frame.size.width,
                                                self.notificationLabel.frame.size.height);
-    self.notificationLabel.text = message;
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
     self.notificationLabel.hidden = NO;
 
     collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];
@@ -399,10 +400,12 @@ shouldChangeCharactersInRange:(NSRange)range
 
     [self.dynamicAnimator addBehavior:pushBehavior];
 
-    self.firstNameField.textColor = [UIColor redColor];
-    self.lastNameField.textColor  = [UIColor redColor];
-    self.passwordField.textColor  = [UIColor redColor];
-    self.farmField.textColor      = [UIColor redColor];
+    if ([self.notificationLabel.text isEqualToString:@"failed to login"]) {
+        self.firstNameField.textColor = [UIColor redColor];
+        self.lastNameField.textColor  = [UIColor redColor];
+        self.passwordField.textColor  = [UIColor redColor];
+        self.farmField.textColor      = [UIColor redColor];
+    }
 }
 
 @end
