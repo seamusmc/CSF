@@ -34,6 +34,29 @@
     return @[@"hhaven", @"jubilee", @"yoder", @"farm2u"];
 }
 
+- (void)getItemTypesForFarm:(NSString *)farm
+               successBlock:(void (^)(NSArray *types))successBlock
+               failureBlock:(void (^)(NSString *message))failureBlock {
+    if (!successBlock) {
+        return;
+    }
+
+    NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
+    [self.networkingService getDataWithURI:uri
+                              successBlock:^(id response){
+        if (response) {
+            NSArray *types = [response objectForKey:@"Types"];
+            successBlock(types);
+        }
+    }
+                              failureBlock:^(NSError *error){
+        if (failureBlock) {
+            failureBlock([error localizedDescription]);
+        }
+    }];
+}
+
+
 - (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler {
     NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
     [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)

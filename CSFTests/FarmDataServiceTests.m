@@ -20,28 +20,24 @@
 
 @implementation FarmDataServiceTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
     [Expecta setAsynchronousTestTimeout:5];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     // Put tear down code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testConformance
-{
+- (void)testConformance {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
     expect(service).to.conformTo(@protocol(FarmDataServiceProtocol));
 }
 
-- (void)testFarmsProperty
-{
+- (void)testFarmsProperty {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
     NSArray                      *farms  = service.farms;
 
@@ -49,30 +45,29 @@
     expect(farms).to.beSupersetOf(list);
 }
 
-- (void)testGetItemTypesForFarm
-{
+- (void)testGetItemTypesForFarm {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *types;
-    [service getItemTypesForFarm:TestFarm withCompletionHandler:^(NSArray *typeList)
-    {
+    [service getItemTypesForFarm:TestFarm
+                    successBlock:^(NSArray *typeList){
         types = typeList;
         NSLog(@"Types: %@", types);
-    }];
+    }
+                    failureBlock:nil];
 
     expect(types).willNot.beNil();
 }
 
-- (void)testGetItemsForFarmForType
-{
+- (void)testGetItemsForFarmForType {
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *items;
     [service getItemsForFarm:TestFarm forType:TestType withCompletionHandler:^(NSArray *itemList)
-    {
-        items = itemList;
-        NSLog(@"Items: %@", items);
-    }];
+            {
+                items = itemList;
+                NSLog(@"Items: %@", items);
+            }];
 
     expect(items).willNot.beNil();
 }
