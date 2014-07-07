@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
-#import "UIColor+Extended.h"
 
 @implementation AppDelegate
 
@@ -20,11 +19,22 @@
 
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
+    [self configureDDLog];
+
+    return YES;
+}
+
+- (void)configureDDLog {
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+}
 
-    return YES;
+- (void)configureGoogleAnalytics {
+//    [GAI sharedInstance].trackUncaughtExceptions = YES;
+//    [GAI sharedInstance].logger.logLevel         = kGAILogLevelNone;
+//    [GAI sharedInstance].dispatchInterval        = 120;
+//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-51852117-1"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
