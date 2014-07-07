@@ -11,13 +11,11 @@
 
 @interface FarmDataService ()
 
-@property(strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
+@property(nonatomic, strong, readonly) id <NetworkingServiceProtocol> networkingService;
 
 @end
 
-@implementation FarmDataService {
-
-}
+@implementation FarmDataService
 
 + (id <FarmDataServiceProtocol>)sharedInstance {
     static FarmDataService *sharedInstance = nil;
@@ -56,46 +54,42 @@
     }];
 }
 
-
-- (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler {
-    NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
-    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
-            {
-                if (responseObject) {
-                    NSArray *types = [responseObject objectForKey:@"Types"];
-                    completionHandler(types);
-                }
-            }];
-}
-
 - (void)getItemsForFarm:(NSString *)farm
-                forType:(NSString *)type
-  withCompletionHandler:(void (^)(NSArray *items))completionHandler {
+                   type:(NSString *)type
+           successBlock:(void (^)(NSArray *items))successBlock
+           failureBlock:(void (^)(NSString *message))failureBlock {
+    if (!successBlock) {
+        return;
+    }
+
     NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
+    [self.networkingService getDataWithURI:uri
+                              successBlock:^(id response){
+        if (response) {
+            NSArray        *items          = [response objectForKey:@"Items"];
+            NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
 
-    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
-            {
-                if (responseObject) {
-                    DDLogInfo(@"Order JSON: %@", responseObject);
+            for (id item in items) {
+                InventoryItem *inventoryItem = [[InventoryItem alloc] init];
+                inventoryItem.name       = [item objectForKey:@"Name"];
+                inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
+                inventoryItem.type       = type;
 
-                    NSArray        *items          = [responseObject objectForKey:@"Items"];
-                    NSMutableArray *inventoryItems = [[NSMutableArray alloc] init];
+                NSString *price = [[item objectForKey:@"RetailPrice"] stringValue];
+                inventoryItem.price = [NSDecimalNumber decimalNumberWithString:price];
 
-                    for (id item in items) {
-                        InventoryItem *inventoryItem = [[InventoryItem alloc] init];
-                        inventoryItem.name       = [item objectForKey:@"Name"];
-                        inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
-                        inventoryItem.type       = type;
+                [inventoryItems addObject:inventoryItem];
+            }
 
-                        NSString *price = [[item objectForKey:@"RetailPrice"] stringValue];
-                        inventoryItem.price = [NSDecimalNumber decimalNumberWithString:price];
+            successBlock(inventoryItems);
+        }
+    }
+                              failureBlock:^(NSError *error){
+        if (failureBlock) {
+            failureBlock([error localizedDescription]);
+        }
+    }];
 
-                        [inventoryItems addObject:inventoryItem];
-                    }
-
-                    completionHandler(inventoryItems);
-                }
-            }];
 }
 
 - (id <NetworkingServiceProtocol>)networkingService {

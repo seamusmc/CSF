@@ -13,10 +13,8 @@
                successBlock:(void (^)(NSArray *types))successBlock
                failureBlock:(void (^)(NSString *message))failureBlock;
 
-- (void)getItemTypesForFarm:(NSString *)farm withCompletionHandler:(void (^)(NSArray *types))completionHandler;
-
 - (void)getItemsForFarm:(NSString *)farm
-                forType:(NSString *)type
-  withCompletionHandler:(void (^)(NSArray *items))completionHandler;
-
+                   type:(NSString *)type
+           successBlock:(void (^)(NSArray *items))successBlock
+           failureBlock:(void (^)(NSString *message))failureBlock;
 @end

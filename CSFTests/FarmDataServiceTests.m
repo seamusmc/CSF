@@ -63,11 +63,13 @@
     id <FarmDataServiceProtocol> service = [ServiceLocator sharedInstance].farmDataService;
 
     __block NSArray *items;
-    [service getItemsForFarm:TestFarm forType:TestType withCompletionHandler:^(NSArray *itemList)
-            {
-                items = itemList;
-                NSLog(@"Items: %@", items);
-            }];
+    [service getItemsForFarm:TestFarm
+                        type:TestType
+                successBlock:^(NSArray *itemList){
+        items = itemList;
+        NSLog(@"Items: %@", items);
+    }
+                failureBlock:nil];
 
     expect(items).willNot.beNil();
 }

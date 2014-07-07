@@ -59,20 +59,21 @@
     }
 
     NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
-    [self.networkingService getDataWithURI:uri successBlock:^(id responseObject){
-
-        // A code of 2 indicates authentication failed. Could be because first name, last name,
-        // password and/or farm were not set correctly.
-        NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
-        NSInteger    code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
-        if (code == 2) {
-            completionHandler(NO, @"failed to login");
-        } else {
-            self.currentUser = [[User alloc] initWithFirstname:user.firstname
-                                                      lastname:user.lastname
-                                                         group:[responseObject objectForKey:@"Group"]
-                                                          farm:user.farm];
-            completionHandler(YES, nil);
+    [self.networkingService getDataWithURI:uri successBlock:^(id response){
+        if (response) {
+            // A code of 2 indicates authentication failed. Could be because first name, last name,
+            // password and/or farm were not set correctly.
+            NSDictionary *errorInfo = [response objectForKey:@"ErrorInfo"];
+            NSInteger    code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+            if (code == 2) {
+                completionHandler(NO, @"failed to login");
+            } else {
+                self.currentUser = [[User alloc] initWithFirstname:user.firstname
+                                                          lastname:user.lastname
+                                                             group:[response objectForKey:@"Group"]
+                                                              farm:user.farm];
+                completionHandler(YES, nil);
+            }
         }
     }
                               failureBlock:^(NSError *error) {
