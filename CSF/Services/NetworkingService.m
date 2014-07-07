@@ -4,8 +4,21 @@
 //
 
 #import "NetworkingService.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAITracker.h"
+#import "GAI.h"
+
+@interface NetworkingService ()
+
+@property(nonatomic, strong, readonly) id <GAITracker> gaiTracker;
+
+@end
 
 @implementation NetworkingService
+
+- (id <GAITracker>)gaiTracker {
+    return [GAI sharedInstance].defaultTracker;;
+}
 
 - (NSError *)createErrorWithCode:(NSUInteger)code description:(NSString *)description {
     NSError *newError;
@@ -41,6 +54,11 @@
                         NSString *description = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         DDLogError(@"ERROR: %s Bad Status: %ld Message: %@", __PRETTY_FUNCTION__, (long) httpResponse.statusCode, description);
 
+                        [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
+                                                                                      action:@"getData"
+                                                                                       label:@"bad request"
+                                                                                       value:@(httpResponse.statusCode)] build]];
+
                         NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeBadRequest
                                                               description:@"Something has gone wrong"];
                         failureBlock(serviceError);
@@ -48,6 +66,12 @@
                     }
                     case NetworkingServiceCodeServiceUnavailable: {
                         DDLogWarn(@"WARN: %s Bad Status: %ld.", __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
+
+                        [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
+                                                                                      action:@"getData"
+                                                                                       label:@"service unavailable"
+                                                                                       value:@(httpResponse.statusCode)] build]];
+
                         NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeServiceUnavailable
                                                               description:@"The service is unavailable"];
                         failureBlock(serviceError);
@@ -58,26 +82,42 @@
                         if (error) {
                             switch (error.code) {
                                 case NSURLErrorTimedOut: {
-                                    DDLogError(@"ERROR: %s Timeout: %@.",
-                                               __PRETTY_FUNCTION__,
-                                               [error localizedDescription]);
-                                    NSError *serviceError = [self createErrorWithCode:NSURLErrorTimedOut
-                                                                          description:@"Request timed out"];
+                                    DDLogError(@"ERROR: %s Timeout: %@.", __PRETTY_FUNCTION__, [error localizedDescription]);
+
+                                    [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
+                                                                                                  action:@"getData"
+                                                                                                   label:@"timeout"
+                                                                                                   value:nil] build]];
+
+
+                                    NSError *serviceError = [self createErrorWithCode:NSURLErrorTimedOut description:@"Request timed out"];
                                     failureBlock(serviceError);
                                     break;
                                 }
                                 default: {
                                     DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
-                                    NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
-                                                                          description:@"Something has gone wrong"];
+
+                                    NSString *message = [NSString stringWithFormat:@"Error: %@", error];
+                                    [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
+                                                                                                  action:@"getData"
+                                                                                                   label:message
+                                                                                                   value:nil] build]];
+
+                                    NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:@"Something has gone wrong"];
                                     failureBlock(serviceError);
                                     break;
                                 }
                             }
                         } else {
                             DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
-                            NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
-                                                                  description:@"Something has gone wrong"];
+
+                            NSString *message = [NSString stringWithFormat:@"Error: %@", error];
+                            [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
+                                                                                          action:@"getData"
+                                                                                           label:message
+                                                                                           value:nil] build]];
+
+                            NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:@"Something has gone wrong"];
                             failureBlock(serviceError);
                             break;
                         }

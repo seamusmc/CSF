@@ -34,7 +34,7 @@
 
 - (void)configureGoogleAnalytics {
     [GAI sharedInstance].trackUncaughtExceptions = YES;
-    [GAI sharedInstance].logger.logLevel         = kGAILogLevelVerbose;
+    [GAI sharedInstance].logger.logLevel         = kGAILogLevelNone;
     [GAI sharedInstance].dispatchInterval        = 120;
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-52609602-1"];
 }
