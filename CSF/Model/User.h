@@ -7,12 +7,15 @@
 
 @interface User : NSObject
 
-@property (nonatomic, strong, readonly) NSString *firstname;
-@property (nonatomic, strong, readonly) NSString *lastname;
-@property (nonatomic, strong, readonly) NSString *group;
-@property (nonatomic, strong, readonly) NSString *farm;
+@property(nonatomic, copy, readonly) NSString *firstname;
+@property(nonatomic, copy, readonly) NSString *lastname;
+@property(nonatomic, copy, readonly) NSString *group;
+@property(nonatomic, copy, readonly) NSString *farm;
 
 // Default initializer
-- (instancetype)initWithFirstname:(NSString *)firstname lastname:(NSString *)lastname group:(NSString *)group farm:(NSString *)farm;
+- (instancetype)initWithFirstname:(NSString *)firstname
+                         lastname:(NSString *)lastname
+                            group:(NSString *)group
+                             farm:(NSString *)farm;
 
 @end

@@ -12,8 +12,8 @@
 
 @interface Item : NSObject
 
-@property (nonatomic, strong) NSString        *name;
-@property (nonatomic, strong) NSString        *type;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *type;
 @property (nonatomic, strong) NSDecimalNumber *price;
 
 @end

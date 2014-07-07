@@ -7,8 +7,8 @@
 
 @interface Order : NSObject
 
-@property (nonatomic, readonly) BOOL locked;
-@property (nonatomic, strong, readonly) NSArray *items;
+@property(nonatomic, assign, readonly) BOOL  locked;
+@property(nonatomic, copy, readonly) NSArray *items;
 
 // Default initializer
 - (instancetype)initWithLocked:(BOOL)locked items:(NSArray *)items;
