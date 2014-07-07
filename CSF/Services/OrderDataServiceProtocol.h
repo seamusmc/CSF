@@ -11,7 +11,8 @@
 @protocol OrderDataServiceProtocol <NSObject>
 
 - (void)getOrderForUser:(User *)user
-                forDate:(NSDate *)date
-  withCompletionHandler:(void (^)(Order *order))completionHandler;
+                   date:(NSDate *)date
+           successBlock:(void (^)(Order *order))successBlock
+           failureBlock:(void (^)(NSString *message))failureBlock;
 
 @end

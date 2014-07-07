@@ -13,7 +13,7 @@
 
 @interface OrderDataService ()
 
-@property(strong, nonatomic, readonly) id <NetworkingServiceProtocol> networkingService;
+@property(nonatomic, strong, readonly) id <NetworkingServiceProtocol> networkingService;
 
 @end
 
@@ -44,8 +44,13 @@
 }
 
 - (void)getOrderForUser:(User *)user
-                forDate:(NSDate *)date
-  withCompletionHandler:(void (^)(Order *order))completionHandler {
+                   date:(NSDate *)date
+           successBlock:(void (^)(Order *order))successBlock
+           failureBlock:(void (^)(NSString *message))failureBlock {
+    if (!successBlock) {
+        return;
+    }
+
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
     NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI,
                                                           user.farm,
@@ -53,25 +58,22 @@
                                                           user.firstname,
                                                           user.lastname,
                                                           stringFromDate];
+    [self.networkingService getDataWithURI:uri
+                              successBlock:^(id response){
+        if (response) {
+            NSMutableArray *items = [NSMutableArray array];
+            BOOL           locked;
 
-    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)
-            {
-                if (responseObject) {
-                    NSMutableArray *items = [NSMutableArray array];
-                    BOOL           locked;
+            locked = [[response objectForKey:@"Locked"] boolValue];
 
-                    DDLogInfo(@"Order JSON: %@", responseObject);
+            NSArray *tempItems = [response objectForKey:@"Items"];
+            for (id item in tempItems) {
+                OrderItem *orderItem = [[OrderItem alloc] init];
 
-                    locked = [[responseObject objectForKey:@"Locked"] boolValue];
-
-                    NSArray *tempItems = [responseObject objectForKey:@"Items"];
-                    for (id item in tempItems) {
-                        OrderItem *orderItem = [[OrderItem alloc] init];
-
-                        orderItem.type     = [item objectForKey:@"Type"];
-                        orderItem.name     = [item objectForKey:@"Item"];
-                        orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
-                        orderItem.comment  = [item objectForKey:@"Comment"];
+                orderItem.type     = [item objectForKey:@"Type"];
+                orderItem.name     = [item objectForKey:@"Item"];
+                orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
+                orderItem.comment  = [item objectForKey:@"Comment"];
 
 /*
                 Item* farmItem = [self findItemWithFarmData:farmData andOrderItem:orderItem];
@@ -81,17 +83,20 @@
                 orderItem.fractions = farmItem.fractions;
 */
 
-                        [items addObject:orderItem];
-                    }
+                [items addObject:orderItem];
+            }
 
-                    Order *order = [[Order alloc] initWithLocked:locked items:items];
-                    completionHandler(order);
-                }
-                else {
-                    completionHandler(NULL);
-                }
-            }];
+            Order *order = [[Order alloc] initWithLocked:locked items:items];
+            successBlock(order);
+        }
+    }
+                              failureBlock:^(NSError *error){
+        if (failureBlock) {
+            failureBlock([error localizedDescription]);
+        }
+    }];
 }
+
 
 - (id <NetworkingServiceProtocol>)networkingService {
     return [ServiceLocator sharedInstance].networkingService;

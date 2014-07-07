@@ -20,13 +20,11 @@
 
 @end
 
-@implementation OrderDataServiceTests
-{
+@implementation OrderDataServiceTests {
     NSDate *_date;
 }
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -41,73 +39,82 @@
     _date = [gregorian dateFromComponents:components];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     // Put tear down code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testGetOrderForUserForDateWithCompletionHandler
-{
+- (void)testGetOrderForUserDateSuccessBlockFailureBlock {
     id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
 
     __block Order *order;
 
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
-    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
-    {
+    [service getOrderForUser:user
+                        date:_date
+                successBlock:^(Order *tempOrder) {
         order = tempOrder;
         NSLog(@"%@", order);
-    }];
+    }
+                failureBlock:nil];
 
     expect(order.items.count).will.beGreaterThan(1);
 }
 
-- (void)testGetOrderForNilUserForDateWithCompletionHandler
-{
+- (void)testGetOrderForNilUserDateSuccessBlockFailureBlock {
     id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
 
-    __block Order *order;
+    __block NSString *message;
 
-    [service getOrderForUser:nil forDate:_date withCompletionHandler:^(Order *tempOrder)
-    {
-        order = tempOrder;
-        NSLog(@"%@", order);
+    [service getOrderForUser:nil
+                        date:_date
+                successBlock:^(Order *tempOrder){
+        NSLog(@"Should not reach this!");
+    }
+                failureBlock:^(NSString *tempMessage){
+        message = tempMessage;
+        NSLog(@"Message: %@", tempMessage);
     }];
 
-    expect(order).will.beNil();
+    expect(message).will.equal(@"Something has gone wrong");
 }
 
-- (void)testGetOrderForBadUserForDateWithCompletionHandler
-{
+- (void)testGetOrderForBadUserForDateWithCompletionHandler {
     id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
 
     __block Order *order;
 
     User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
-    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
-    {
+    [service getOrderForUser:user
+                        date:_date
+                successBlock:^(Order *tempOrder){
         order = tempOrder;
-        NSLog(@"%@", order);
+    }
+                failureBlock:^(NSString *message){
+
+        NSLog(@"Should not reach this!");
     }];
 
     expect(order.items.count).will.equal(0);
 }
 
-- (void)testGetOrderForUserForDateWithBadFarmWithCompletionHandler
-{
+- (void)testGetOrderForUserForDateWithBadFarmWithCompletionHandler {
     id <OrderDataServiceProtocol> service = [ServiceLocator sharedInstance].orderDataService;
 
-    __block Order *order;
+    __block NSString *message;
 
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOO"];
-    [service getOrderForUser:user forDate:_date withCompletionHandler:^(Order *tempOrder)
-    {
-        order = tempOrder;
-        NSLog(@"%@", order);
+    [service getOrderForUser:user
+                        date:_date
+                successBlock:^(Order *tempOrder){
+        NSLog(@"Should not reach this!");
+    }
+                failureBlock:^(NSString *tempMessage){
+        message = tempMessage;
+        NSLog(@"Message: %@", tempMessage);
     }];
 
-    expect(order).will.beNil();
+    expect(message).will.equal(@"Something has gone wrong");
 }
 
 @end
