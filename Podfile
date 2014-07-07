@@ -4,6 +4,7 @@ target :CSF do
   pod 'FLKAutoLayout'
   pod 'Tweaks'
   pod 'CocoaLumberjack'
+  pod 'GoogleAnalytics-iOS-SDK'
 end
 
 target :CSFTests do

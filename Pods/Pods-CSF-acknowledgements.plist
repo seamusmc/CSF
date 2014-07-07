@@ -120,6 +120,15 @@ freely, subject to the following restrictions:
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright 2009 - 2014 Google, Inc. All rights reserved.
+</string>
+			<key>Title</key>
+			<string>GoogleAnalytics-iOS-SDK</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>BSD License
 
 For Tweaks software
