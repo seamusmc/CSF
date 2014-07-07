@@ -7,15 +7,13 @@
 
 @class User;
 
-extern NSString *const FailedAuthentication;
-
 @protocol UserServicesProtocol <NSObject>
 
 @property (strong, nonatomic, readonly) User *currentUser;
 
 // Authenticates the specified user with password. Sets the currentUser property if successful.
 // The completionHandler provides a flag indicating if the user was successfully authenticated.
-- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated))completionHandler;
+- (void)authenticateUser:(User *)user withPassword:(NSString *)password withCompletionHandler:(void (^)(BOOL authenticated, NSString *message))completionHandler;
 
 // Stores the specified user and password to some store, (KeyChain for example)
 - (void)storeUser:(User *)user withPassword:(NSString *)password;

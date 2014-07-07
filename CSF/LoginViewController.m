@@ -167,12 +167,6 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(inputViewWillShowNotification:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-
-    // This message indicates a failed authentication.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleInvalidLogin:)
-                                                 name:FailedAuthentication
-                                               object:nil];
     [self.spinner stopAnimating];
 }
 
@@ -211,7 +205,7 @@ static const int LastnameMaxLength  = 15;
     __typeof(self) __weak weakSelf = self;
     [self.userServices authenticateUser:user
                            withPassword:self.passwordField.text
-                  withCompletionHandler:^(BOOL authenticated)
+                  withCompletionHandler:^(BOOL authenticated, NSString *message)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     for (UIControl *control in weakSelf.controls) {
@@ -228,7 +222,12 @@ static const int LastnameMaxLength  = 15;
                     }
 
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf resetView];
                         [weakSelf performSegueWithIdentifier:@"CreateOrderSegue" sender:nil];
+                    });
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf handleInvalidLogin:message];
                     });
                 }
             }];
@@ -237,6 +236,11 @@ static const int LastnameMaxLength  = 15;
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self resetView];
+    return YES;
+}
+
+- (void)resetView {
     [self.dynamicAnimator removeAllBehaviors];
 
     // Save the current frame
@@ -256,8 +260,6 @@ static const int LastnameMaxLength  = 15;
             }];
 
     [self setTextDefaultColor];
-
-    return YES;
 }
 
 // We implement this delegate method in order to enforce max lengths of text fields.
@@ -370,7 +372,7 @@ shouldChangeCharactersInRange:(NSRange)range
     }
 }
 
-- (void)handleInvalidLogin:(NSNotification *)notification {
+- (void)handleInvalidLogin:(NSString *)message {
     UIPushBehavior      *pushBehavior;
     UICollisionBehavior *collisionBehavior;
 
@@ -378,6 +380,7 @@ shouldChangeCharactersInRange:(NSRange)range
                                                self.notificationLabel.frame.origin.y,
                                                self.notificationLabel.frame.size.width,
                                                self.notificationLabel.frame.size.height);
+    self.notificationLabel.text = message;
     self.notificationLabel.hidden = NO;
 
     collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];

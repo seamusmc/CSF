@@ -23,6 +23,7 @@
                 switch (httpResponse.statusCode) {
                     case NetworkingServiceCodeSuccess: {
                         id responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                        DDLogInfo(@"INFO: %s Response JSON: %@", __PRETTY_FUNCTION__, responseObject);
                         completionHandler(responseObject);
                         break;
                     }
@@ -64,10 +65,10 @@
     [task resume];
 }
 
-- (NSError *)createError:(NSError *)error code:(NSUInteger)code description:(NSString *)description {
+- (NSError *)createErrorWithCode:(NSUInteger)code description:(NSString *)description {
     NSError *newError;
 
-    NSDictionary *userInfo = @{NSUnderlyingErrorKey : error, NSLocalizedDescriptionKey : description};
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : description};
     newError = [[NSError alloc] initWithDomain:kNetworkingServiceDomain code:code userInfo:userInfo];
     return newError;
 }
@@ -90,6 +91,7 @@
                 switch (httpResponse.statusCode) {
                     case NetworkingServiceCodeSuccess: {
                         id responseObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                        DDLogInfo(@"INFO: %s Response JSON: %@", __PRETTY_FUNCTION__, responseObject);
                         successBlock(responseObject);
                         break;
                     }
@@ -97,16 +99,15 @@
                         NSString *description = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         DDLogError(@"ERROR: %s Bad Status: %ld Message: %@", __PRETTY_FUNCTION__, (long) httpResponse.statusCode, description);
 
-                        NSError *serviceError = [self createError:error
-                                                      code:NetworkingServiceCodeBadRequest
-                                               description:@"An error occured with the service. Please try again later."];
+                        NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeBadRequest
+                                                              description:@"An error occured with the service. Please try again later."];
                         failureBlock(serviceError);
                         break;
                     }
                     case NetworkingServiceCodeServiceUnavailable: {
-                        NSError *serviceError = [self createError:error
-                                                             code:NetworkingServiceCodeServiceUnavailable
-                                                      description:@"The service is unavailable. Please try again later."];
+                        DDLogWarn(@"WARN: %s Bad Status: %ld.", __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
+                        NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeServiceUnavailable
+                                                              description:@"The service is unavailable. Please try again later."];
                         failureBlock(serviceError);
                         break;
                     }
@@ -115,39 +116,35 @@
                         if (error) {
                             switch (error.code) {
                                 case NSURLErrorTimedOut: {
-                                    DDLogError(@"ERROR: %s Timeout: %@.", __PRETTY_FUNCTION__, [error localizedDescription]);
-                                    NSError *serviceError = [self createError:error
-                                                                         code:NSURLErrorTimedOut
-                                                                  description:@"Request timed out. Please make sure you are connected to the internet."];
+                                    DDLogError(@"ERROR: %s Timeout: %@.",
+                                               __PRETTY_FUNCTION__,
+                                               [error localizedDescription]);
+                                    NSError *serviceError = [self createErrorWithCode:NSURLErrorTimedOut
+                                                                          description:@"Request timed out. Please make sure you are connected to the internet."];
                                     failureBlock(serviceError);
                                     break;
                                 }
                                 default: {
                                     DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
+                                    NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
+                                                                          description:@"Something has gone wrong. Please try again later."];
+                                    failureBlock(serviceError);
                                     break;
                                 }
                             }
+                        } else {
+                            DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
+                            NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown
+                                                                  description:@"Something has gone wrong. Please try again later."];
+                            failureBlock(serviceError);
+                            break;
                         }
-
-                        NSError *serviceError = [self createError:error
-                                                             code:NetworkingServiceCodeUnknown
-                                                      description:@"Something has gone wrong. Please try again later."];
-                        failureBlock(serviceError);
-                        break;
                     }
                 }
             }];
 
     [task resume];
 }
-
-- (void)postDataWithURI:(NSString *)uri
-         withParameters:(NSDictionary *)parameters
-           successBlock:(void (^)(id response))successBlock
-           failureBlock:(void (^)(NSError *error))failureBlock {
-
-}
-
 
 - (NSURLSession *)createSession {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];

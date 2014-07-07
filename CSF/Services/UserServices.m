@@ -10,8 +10,6 @@
 #import "ServiceConstants.h"
 #import "FXKeychain.h"
 
-NSString *const FailedAuthentication = @"FailedAuthentication";
-
 @interface UserServices ()
 
 // Define this because we can't auto-synthesize protocol properties
@@ -55,39 +53,30 @@ NSString *const FailedAuthentication = @"FailedAuthentication";
 
 - (void)authenticateUser:(User *)user
             withPassword:(NSString *)password
-   withCompletionHandler:(void (^)(BOOL))completionHandler {
+   withCompletionHandler:(void (^)(BOOL, NSString *))completionHandler {
     if (!completionHandler) {
         return;
     }
 
     NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
-    [self.networkingService getDataWithURI:uri withCompletionHandler:^(id responseObject)            {
-        if (responseObject) {
-            DDLogInfo(@"INFO: %s Response JSON: %@", __PRETTY_FUNCTION__, responseObject);
+    [self.networkingService getDataWithURI:uri successBlock:^(id responseObject){
 
-            // A code of 2 indicates authentication failed. Could be because firstname, lastname,
-            // password and/or farm were not set correctly.
-            NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
-
-            NSInteger code = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
-            if (code == 2) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:FailedAuthentication
-                                                                        object:self];
-                });
-                completionHandler(NO);
-            }
-            else {
-                self.currentUser = [[User alloc] initWithFirstname:user.firstname
-                                                          lastname:user.lastname
-                                                             group:[responseObject objectForKey:@"Group"]
-                                                              farm:user.farm];
-                completionHandler(YES);
-            }
+        // A code of 2 indicates authentication failed. Could be because first name, last name,
+        // password and/or farm were not set correctly.
+        NSDictionary *errorInfo = [responseObject objectForKey:@"ErrorInfo"];
+        NSInteger    code       = [((NSString *) [errorInfo objectForKey:@"Code"]) integerValue];
+        if (code == 2) {
+            completionHandler(NO, @"failed to login");
+        } else {
+            self.currentUser = [[User alloc] initWithFirstname:user.firstname
+                                                      lastname:user.lastname
+                                                         group:[responseObject objectForKey:@"Group"]
+                                                          farm:user.farm];
+            completionHandler(YES, nil);
         }
-        else {
-            completionHandler(NO);
-        }
+    }
+                              failureBlock:^(NSError *error) {
+        completionHandler(NO, [error localizedDescription]);
     }];
 }
 

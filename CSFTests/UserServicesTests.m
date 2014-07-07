@@ -128,7 +128,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = NO;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, NSString *message)
     {
         authenticated = isAuthenticated;
         NSLog(@"%@", [ServiceLocator sharedInstance].userServices.currentUser);
@@ -142,7 +142,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:@"4321" withCompletionHandler:^(BOOL isAuthenticated, NSString *message)
     {
         authenticated = isAuthenticated;
     }];
@@ -155,7 +155,7 @@
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:@"FOOL"];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, NSString *message)
     {
         authenticated = isAuthenticated;
     }];
@@ -168,7 +168,7 @@
     User *user = [[User alloc] initWithFirstname:@"NoOne" lastname:@"Special" group:TestGroup farm:TestFarm];
 
     __block BOOL authenticated = YES;
-    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated)
+    [[ServiceLocator sharedInstance].userServices authenticateUser:user withPassword:TestPassword withCompletionHandler:^(BOOL isAuthenticated, NSString *message)
     {
         authenticated = isAuthenticated;
     }];
