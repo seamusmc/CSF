@@ -10,6 +10,7 @@
 		20B5BF9820664E1FA9EBCC3B /* libPods-CSF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1090561750A48A6AD18B9E2 /* libPods-CSF.a */; };
 		8567E98A17974A0091D9AE5F /* libPods-CSFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 416A32901B9642959BDD3640 /* libPods-CSFTests.a */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
+		C9FA5078177FF09CDBC1FFA4 /* CLSlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* CLSlideFromRightAnimationController.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
 		C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */; };
 		C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */; };
@@ -20,6 +21,7 @@
 		C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
 		C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */; };
+		C9FA59B572F39DA7602D1597 /* CLSlideToRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E26A846E1A1FCF86303 /* CLSlideToRightAnimationController.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
@@ -70,6 +72,7 @@
 		C9FA53D267F112EB8298509F /* UserServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServices.m; sourceTree = "<group>"; };
 		C9FA53DA83129FF19B7F68FC /* NetworkingServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceConstants.h; sourceTree = "<group>"; };
 		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
+		C9FA53FD1DE49414CD73EEF8 /* CLSlideToRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSlideToRightAnimationController.h; sourceTree = "<group>"; };
 		C9FA54CC16BEEC549BB6E116 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		C9FA598B04729792C519FCD5 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		C9FA59B5C4C9B148829B162F /* FarmDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataService.h; sourceTree = "<group>"; };
+		C9FA59EE96903BE296CB3FA9 /* CLSlideFromRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSlideFromRightAnimationController.h; sourceTree = "<group>"; };
 		C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServicesProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
 		C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingServiceConstants.m; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extended.m"; sourceTree = "<group>"; };
 		C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
+		C9FA5E26A846E1A1FCF86303 /* CLSlideToRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSlideToRightAnimationController.m; sourceTree = "<group>"; };
+		C9FA5E88F6393B0B20D9963F /* CLSlideFromRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSlideFromRightAnimationController.m; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
 		C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extended.m"; sourceTree = "<group>"; };
 		C9FA5F0CBF974E1BAACEC263 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
@@ -168,6 +174,17 @@
 				C9FA55816860AF76FCEF09AC /* Item.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C9FA5E88F6393B0B20D9963F /* CLSlideFromRightAnimationController.m */,
+				C9FA59EE96903BE296CB3FA9 /* CLSlideFromRightAnimationController.h */,
+				C9FA53FD1DE49414CD73EEF8 /* CLSlideToRightAnimationController.h */,
+				C9FA5E26A846E1A1FCF86303 /* CLSlideToRightAnimationController.m */,
+			);
+			path = "Animation Controllers";
 			sourceTree = "<group>";
 		};
 		C9FA5CBF3D3D7E405BCF8DD9 /* Services */ = {
@@ -260,6 +277,7 @@
 				F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */,
 				C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */,
 				C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */,
+				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -491,6 +509,8 @@
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
 				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
 				C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */,
+				C9FA5078177FF09CDBC1FFA4 /* CLSlideFromRightAnimationController.m in Sources */,
+				C9FA59B572F39DA7602D1597 /* CLSlideToRightAnimationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
