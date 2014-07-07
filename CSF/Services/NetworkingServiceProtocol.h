@@ -8,8 +8,6 @@
 
 @protocol NetworkingServiceProtocol <NSObject>
 
-- (void)getDataWithURI:(NSString *)uri withCompletionHandler:(void (^)(id responseObject))completionHandler;
-
 - (void)getDataWithURI:(NSString *)uri
           successBlock:(void (^)(id response))successBlock
           failureBlock:(void (^)(NSError *error))failureBlock;
