@@ -18,7 +18,6 @@
 		C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52D06BD7481A26257822 /* OrderDataService.m */; };
 		C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */; };
 		C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */; };
-		C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
 		C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
@@ -95,11 +94,9 @@
 		C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extended.m"; sourceTree = "<group>"; };
 		C9FA5F0CBF974E1BAACEC263 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		C9FA5F1234EEB17F0F20CC2A /* NetworkingServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceProtocol.h; sourceTree = "<group>"; };
-		C9FA5F2015E75AAFDEEDE132 /* AFNetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingService.h; sourceTree = "<group>"; };
 		C9FA5FCCDC976D97A52D1D0B /* OrderDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5FD37705F1745D20A497 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataService.h; sourceTree = "<group>"; };
-		C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkingService.m; sourceTree = "<group>"; };
 		EA667D3034A74CDC980C82EB /* Pods-CSFTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSFTests.xcconfig"; path = "Pods/Pods-CSFTests.xcconfig"; sourceTree = "<group>"; };
 		F108CE2618E31E9C00A19A28 /* UserServicesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServicesTests.m; sourceTree = "<group>"; };
 		F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocatorTests.m; sourceTree = "<group>"; };
@@ -190,8 +187,6 @@
 				C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */,
 				C9FA53D267F112EB8298509F /* UserServices.m */,
 				C9FA57890E6BF6B5146F5B0A /* UserServices.h */,
-				C9FA5FDF9E06371BD573D459 /* AFNetworkingService.m */,
-				C9FA5F2015E75AAFDEEDE132 /* AFNetworkingService.h */,
 				C9FA53DA83129FF19B7F68FC /* NetworkingServiceConstants.h */,
 				C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */,
 			);
@@ -486,7 +481,6 @@
 				F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */,
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
-				C9FA585A230E07FBA4B02EB9 /* AFNetworkingService.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
 				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
