@@ -123,7 +123,7 @@
     expect(password).toNot.equal(@"Password");
 }
 
-- (void)testAuthenticateUserWithPassword
+- (void)testValidAuthenticateUser
 {
     User *user = [[User alloc] initWithFirstname:TestFirstname lastname:TestLastname group:TestGroup farm:TestFarm];
 
