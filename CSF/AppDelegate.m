@@ -10,15 +10,31 @@
 #import "DDTTYLogger.h"
 #import "DDASLLogger.h"
 #import "GAI.h"
+#import "FBTweakShakeWindow.h"
+#import "ThemeManager.h"
 
 @implementation AppDelegate
+
+- (UIWindow *)window
+{
+    if (!_window) {
+        #ifdef DEBUG
+            self.window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        #else
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        #endif
+    }
+
+    return _window;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Customize the nav bar title font
     NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
-
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].barStyle = UIBarStyleBlack;
 
     [self configureDDLog];
     [self configureGoogleAnalytics];

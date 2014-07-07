@@ -4,13 +4,12 @@
 //
 
 #import "CLSlideFromRightAnimationController.h"
-//#import "CLTweaksService.h"
+#import "TweaksService.h"
 
 @implementation CLSlideFromRightAnimationController
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    //return [CLTweaksService sharedInstance].slideRightAnimationDuration;
-    return 0.5;
+    return [TweaksService sharedInstance].slideRightAnimationDuration;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
