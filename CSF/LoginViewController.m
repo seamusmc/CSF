@@ -42,7 +42,7 @@ static const int LastnameMaxLength  = 15;
 @property(nonatomic, strong) UIDynamicAnimator *dynamicAnimator;
 
 @property(nonatomic, strong) SlideFromRightAnimationController *slideFromRightAnimationController;
-@property(nonatomic, strong) SlideToRightAnimationController *slideToRightAnimationController;
+@property(nonatomic, strong) SlideToRightAnimationController   *slideToRightAnimationController;
 
 @end
 
@@ -66,7 +66,7 @@ static const int LastnameMaxLength  = 15;
     [self fillUserData];
     [self configureFarmPicker];
 
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.dynamicAnimator               = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     self.navigationController.delegate = self;
 }
 
@@ -315,7 +315,7 @@ shouldChangeCharactersInRange:(NSRange)range
     button.tintColor       = [UIColor whiteColor];
     button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:19.0f];
     [button setTitle:@"Done" forState:UIControlStateNormal];
-    //[button addTarget:self action:@selector(myAction) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(pickerDoneAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
 
     UILabel *title = [[UILabel alloc] init];
@@ -337,6 +337,10 @@ shouldChangeCharactersInRange:(NSRange)range
                                                 doneButton,
                                                 nil]];
     self.farmField.inputAccessoryView = toolBar;
+}
+
+- (void)pickerDoneAction {
+    [self.farmField resignFirstResponder];
 }
 
 - (void)enableOrDisableLoginButton {
@@ -441,18 +445,16 @@ shouldChangeCharactersInRange:(NSRange)range
     // Save the current frame
     CGRect frame = self.notificationLabel.frame;
     [UIView animateWithDuration:0.5
-                     animations:^
-            {
-                self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
-                                                          self.notificationLabel.frame.origin.y,
-                                                          self.notificationLabel.frame.size.width,
-                                                          self.notificationLabel.frame.size.height);
-            }
-                     completion:^(BOOL finished)
-            {
-                self.notificationLabel.hidden = YES;
-                self.notificationLabel.frame  = frame;
-            }];
+                     animations:^            {
+        self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+                                                  self.notificationLabel.frame.origin.y,
+                                                  self.notificationLabel.frame.size.width,
+                                                  self.notificationLabel.frame.size.height);
+    }
+                     completion:^(BOOL finished)            {
+        self.notificationLabel.hidden = YES;
+        self.notificationLabel.frame  = frame;
+    }];
 
     [self setFieldsDefaultColor];
 }
