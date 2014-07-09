@@ -3,10 +3,10 @@
 // Copyright (c) 2014 Clover. All rights reserved.
 //
 
-#import "CLSlideFromRightAnimationController.h"
+#import "SlideFromRightAnimationController.h"
 #import "TweaksService.h"
 
-@implementation CLSlideFromRightAnimationController
+@implementation SlideFromRightAnimationController
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
     return [TweaksService sharedInstance].slideRightAnimationDuration;

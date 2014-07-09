@@ -151,7 +151,7 @@
                         <outlet property="passwordField" destination="9iB-sF-0px" id="xFY-Pu-mxT"/>
                         <outlet property="rememberMeSwitch" destination="OnZ-Vd-Vlg" id="shZ-es-Ap2"/>
                         <outlet property="spinner" destination="N1c-0R-cMu" id="fG5-th-ioP"/>
-                        <segue destination="moH-Hp-ojt" kind="push" identifier="CreateOrderSegue" id="1Ii-1O-nXJ"/>
+                        <segue destination="moH-Hp-ojt" kind="push" identifier="OrderSegue" id="1Ii-1O-nXJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

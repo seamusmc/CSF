@@ -20,24 +20,24 @@ static const int LastnameMaxLength  = 15;
 
 @interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
-@property(weak, nonatomic) IBOutlet UITextField *firstNameField;
-@property(weak, nonatomic) IBOutlet UITextField *lastNameField;
-@property(weak, nonatomic) IBOutlet UITextField *passwordField;
-@property(weak, nonatomic) IBOutlet UITextField *farmField;
-@property(weak, nonatomic) IBOutlet UILabel     *notificationLabel;
-@property(weak, nonatomic) IBOutlet UIButton    *loginButton;
-@property(weak, nonatomic) IBOutlet UISwitch    *rememberMeSwitch;
+@property(nonatomic, weak) IBOutlet UITextField *firstNameField;
+@property(nonatomic, weak) IBOutlet UITextField *lastNameField;
+@property(nonatomic, weak) IBOutlet UITextField *passwordField;
+@property(nonatomic, weak) IBOutlet UITextField *farmField;
+@property(nonatomic, weak) IBOutlet UILabel     *notificationLabel;
+@property(nonatomic, weak) IBOutlet UIButton    *loginButton;
+@property(nonatomic, weak) IBOutlet UISwitch    *rememberMeSwitch;
 
-@property(weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property(nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
 
-@property(copy, nonatomic) NSArray *farms;
-@property(copy, nonatomic) NSArray *controls;
+@property(nonatomic, copy) NSArray *farms;
+@property(nonatomic, copy) NSArray *controls;
 
-@property(assign, nonatomic) BOOL rememberMe;
+@property(nonatomic, assign) BOOL rememberMe;
 
-@property(strong, nonatomic, readonly) id <UserServicesProtocol> userServices;
+@property(nonatomic, strong, readonly) id <UserServicesProtocol> userServices;
 
-@property(strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
+@property(nonatomic, strong) UIDynamicAnimator *dynamicAnimator;
 
 @end
 
@@ -118,6 +118,12 @@ static const int LastnameMaxLength  = 15;
 }
 
 #pragma mark - Lifecycle
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *toVC = segue.destinationViewController;
+    toVC.transitioningDelegate = self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

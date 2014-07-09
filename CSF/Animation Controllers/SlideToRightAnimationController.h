@@ -5,6 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CLSlideFromRightAnimationController : NSObject <UIViewControllerAnimatedTransitioning>
+@interface SlideToRightAnimationController : NSObject <UIViewControllerAnimatedTransitioning>
 
 @end
