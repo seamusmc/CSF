@@ -24,7 +24,11 @@
     [containerView addSubview:toViewController.view];
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:duration
+                          delay:[TweaksService sharedInstance].slideRightAnimationDelay
+         usingSpringWithDamping:[TweaksService sharedInstance].slideRightAnimationDamping
+          initialSpringVelocity:[TweaksService sharedInstance].slideRightAnimationVelocity
+                        options:UIViewAnimationOptionCurveEaseOut animations:^{
 
         CGRect frame = fromViewController.view.frame;
         frame.origin.x += frame.size.width;

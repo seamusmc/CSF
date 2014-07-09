@@ -38,15 +38,28 @@
 #define TweakGroupFade @"Fade"
 
 - (CGFloat)fadeAnimationDuration {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupFade, @"Duration", 0.5f, 0.0f, 2.0f);
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupFade, @"Duration", 0.6f, 0.0f, 2.0f);
 }
 
 #pragma mark - Slide Right Transitions
 #define TweakGroupSlideRight @"Slide Right"
 
 - (CGFloat)slideRightAnimationDuration {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.5f, 0.0f, 2.0f);
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.6f, 0.0f, 2.0f);
 }
+
+- (CGFloat)slideRightAnimationDelay {
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Delay", 0.0f, 0.0f, 1.0f);
+}
+
+- (CGFloat)slideRightAnimationDamping {
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Damping", 0.85f, 0.0f, 1.0f);
+}
+
+- (CGFloat)slideRightAnimationVelocity {
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Velocity", 0.0f, 0.0f, 1.0f);
+}
+
 
 + (id<TweaksServiceProtocol>)sharedInstance
 {

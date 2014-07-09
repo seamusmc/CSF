@@ -6,6 +6,12 @@
 #import "SlideFromRightAnimationController.h"
 #import "TweaksService.h"
 
+@interface SlideFromRightAnimationController ()
+
+
+
+@end
+
 @implementation SlideFromRightAnimationController
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -24,7 +30,11 @@
     [containerView addSubview:toViewController.view];
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-    [UIView animateWithDuration:duration animations:^{
+    [UIView animateWithDuration:duration
+                          delay:[TweaksService sharedInstance].slideRightAnimationDelay
+         usingSpringWithDamping:[TweaksService sharedInstance].slideRightAnimationDamping
+          initialSpringVelocity:[TweaksService sharedInstance].slideRightAnimationVelocity
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
 
         CGRect frame = fromViewController.view.frame;
         frame.origin.x -= frame.size.width;
