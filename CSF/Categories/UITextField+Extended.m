@@ -10,13 +10,11 @@ static char defaultHashKey;
 
 @implementation UITextField (Extended)
 
-- (UITextField*) nextTextField
-{
+- (UITextField *)nextTextField {
     return objc_getAssociatedObject(self, &defaultHashKey);
 }
 
-- (void) setNextTextField:(UITextField *)nextTextField
-{
+- (void)setNextTextField:(UITextField *)nextTextField {
     objc_setAssociatedObject(self, &defaultHashKey, nextTextField, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
