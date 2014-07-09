@@ -48,6 +48,233 @@ static const int LastnameMaxLength  = 15;
 
 @implementation LoginViewController
 
+#pragma mark - Lifecycle
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *toVC = segue.destinationViewController;
+    toVC.transitioningDelegate = self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
+    [self configureFields];
+    [self fillUserData];
+    [self configureFarmPicker];
+
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.navigationController.delegate = self;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC {
+    if (operation == UINavigationControllerOperationPush) {
+        if (!self.slideFromRightAnimationController) {
+            self.slideFromRightAnimationController = [SlideFromRightAnimationController new];
+        }
+        return self.slideFromRightAnimationController;
+    } else {
+        if (!self.slideToRightAnimationController) {
+            self.slideToRightAnimationController = [SlideToRightAnimationController new];
+        }
+        return self.slideToRightAnimationController;
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    // Setup this keyboard notification so that we know when the farms UIPickerView/inputView
+    // is shown. We'll pre-select the appropriate farm as show in the farmsTextField. IOW, we want
+    // to keep the farmsTextField in sync with the picker inputView.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputViewWillShowNotification:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [self.spinner stopAnimating];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [super viewDidDisappear:animated];
+}
+
+
+#pragma mark - Gesture Handling
+
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
+    [self enableOrDisableLoginButton];
+    [self.view endEditing:YES];
+}
+
+#pragma mark - UIButton Actions
+
+- (IBAction)loginButtonTap:(UIButton *)sender {
+    [self.dynamicAnimator removeAllBehaviors];
+
+    User *user = [[User alloc] initWithFirstname:self.firstNameField.text
+                                        lastname:self.lastNameField.text
+                                           group:nil
+                                            farm:self.farmField.text];
+    [self disableControls];
+
+    [self.spinner startAnimating];
+
+    __typeof(self) __weak weakSelf = self;
+    [self.userServices authenticateUser:user
+                           withPassword:self.passwordField.text
+                  withCompletionHandler:^(BOOL authenticated, NSString *message)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for (UIControl *control in weakSelf.controls) {
+                        control.enabled = YES;
+                        control.alpha   = 1.0f;
+                    }
+
+                    [weakSelf.spinner stopAnimating];
+                });
+
+                if (authenticated) {
+                    if (weakSelf.rememberMe) {
+                        [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
+                    }
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf resetView];
+                        [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
+                    });
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf handleInvalidLogin:message];
+                    });
+                }
+            }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self resetView];
+    return YES;
+}
+
+// We implement this delegate method in order to enforce max lengths of text fields.
+- (BOOL)            textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+            replacementString:(NSString *)string {
+    BOOL returnValue = YES;
+
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range
+                                                                  withString:string];
+    if (textField == self.passwordField) {
+        returnValue = newString.length <= PasswordMaxLength;
+    }
+    else if (textField == self.firstNameField) {
+        returnValue = newString.length <= FirstnameMaxLength;
+    }
+    else if (textField == self.lastNameField) {
+        returnValue = newString.length <= LastnameMaxLength;
+    }
+
+    return returnValue;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    UITextField *next = textField.nextTextField;
+    if (next) {
+        [next becomeFirstResponder];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+
+    [self enableOrDisableLoginButton];
+    return NO;
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
+             attributedTitleForRow:(NSInteger)row
+                      forComponent:(NSInteger)component {
+    UIColor *foregroundColor = [UIColor whiteColor];
+
+    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
+                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
+                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:18.0f]}];
+    return string;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [self.farms count];
+}
+
+#pragma mark - UISwitch Actions
+
+- (IBAction)switchValueChanged:(UISwitch *)sender {
+    self.rememberMe = sender.on;
+
+    if (!sender.on) {
+        [self.userServices storeUser:nil withPassword:nil];
+    }
+}
+
+#pragma mark - Property Overrides
+
+- (NSArray *)farms {
+    return [ServiceLocator sharedInstance].farmDataService.farms;
+}
+
+- (id <UserServicesProtocol>)userServices {
+    return [ServiceLocator sharedInstance].userServices;
+}
+
+- (BOOL)rememberMe {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
+}
+
+- (void)setRememberMe:(BOOL)rememberMe {
+    [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Notifications
+
+- (void)inputViewWillShowNotification:(NSNotification *)notification {
+    // Only handle this notification if the farmsTextField inputView, a UIPickerView,
+    // is being shown. We want to keep the picker and textField in sync.
+    for (UIView *view in self.view.subviews) {
+        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
+            if ([view isFirstResponder]) {
+                UIPickerView *pickerView = (UIPickerView *) view.inputView;
+
+                NSInteger index = [self.farms indexOfObject:self.farmField.text];
+
+                [pickerView selectRow:index inComponent:0 animated:NO];
+            }
+
+            break;
+        }
+    }
+}
+
 #pragma mark - Private Methods
 
 - (void)setFieldsDefaultColor {
@@ -208,123 +435,6 @@ static const int LastnameMaxLength  = 15;
     }
 }
 
-#pragma mark - Lifecycle
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UIViewController *toVC = segue.destinationViewController;
-    toVC.transitioningDelegate = self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-    [self configureFields];
-    [self fillUserData];
-    [self configureFarmPicker];
-
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    self.navigationController.delegate = self;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                fromViewController:(UIViewController *)fromVC
-                                                  toViewController:(UIViewController *)toVC {
-    if (operation == UINavigationControllerOperationPush) {
-        if (!self.slideFromRightAnimationController) {
-            self.slideFromRightAnimationController = [SlideFromRightAnimationController new];
-        }
-        return self.slideFromRightAnimationController;
-    } else {
-        if (!self.slideToRightAnimationController) {
-            self.slideToRightAnimationController = [SlideToRightAnimationController new];
-        }
-        return self.slideToRightAnimationController;
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // Setup this keyboard notification so that we know when the farms UIPickerView/inputView
-    // is shown. We'll pre-select the appropriate farm as show in the farmsTextField. IOW, we want
-    // to keep the farmsTextField in sync with the picker inputView.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inputViewWillShowNotification:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [self.spinner stopAnimating];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [super viewDidDisappear:animated];
-}
-
-
-#pragma mark - Gesture Handling
-
-- (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
-    [self enableOrDisableLoginButton];
-    [self.view endEditing:YES];
-}
-
-#pragma mark - UIButton Actions
-
-- (IBAction)loginButtonTap:(UIButton *)sender {
-    [self.dynamicAnimator removeAllBehaviors];
-
-    User *user = [[User alloc] initWithFirstname:self.firstNameField.text
-                                        lastname:self.lastNameField.text
-                                           group:nil
-                                            farm:self.farmField.text];
-    [self disableControls];
-
-    [self.spinner startAnimating];
-
-    __typeof(self) __weak weakSelf = self;
-    [self.userServices authenticateUser:user
-                           withPassword:self.passwordField.text
-                  withCompletionHandler:^(BOOL authenticated, NSString *message)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    for (UIControl *control in weakSelf.controls) {
-                        control.enabled = YES;
-                        control.alpha   = 1.0f;
-                    }
-
-                    [weakSelf.spinner stopAnimating];
-                });
-
-                if (authenticated) {
-                    if (weakSelf.rememberMe) {
-                        [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
-                    }
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf resetView];
-                        [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
-                    });
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf handleInvalidLogin:message];
-                    });
-                }
-            }];
-}
-
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self resetView];
-    return YES;
-}
-
 - (void)resetView {
     [self.dynamicAnimator removeAllBehaviors];
 
@@ -345,116 +455,6 @@ static const int LastnameMaxLength  = 15;
             }];
 
     [self setFieldsDefaultColor];
-}
-
-// We implement this delegate method in order to enforce max lengths of text fields.
-- (BOOL)            textField:(UITextField *)textField
-shouldChangeCharactersInRange:(NSRange)range
-            replacementString:(NSString *)string {
-    BOOL returnValue = YES;
-
-    NSString *newString = [textField.text stringByReplacingCharactersInRange:range
-                                                                  withString:string];
-    if (textField == self.passwordField) {
-        returnValue = newString.length <= PasswordMaxLength;
-    }
-    else if (textField == self.firstNameField) {
-        returnValue = newString.length <= FirstnameMaxLength;
-    }
-    else if (textField == self.lastNameField) {
-        returnValue = newString.length <= LastnameMaxLength;
-    }
-
-    return returnValue;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    UITextField *next = textField.nextTextField;
-    if (next) {
-        [next becomeFirstResponder];
-    }
-    else {
-        [textField resignFirstResponder];
-    }
-
-    [self enableOrDisableLoginButton];
-    return NO;
-}
-
-#pragma mark - UIPickerViewDelegate
-
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
-             attributedTitleForRow:(NSInteger)row
-                      forComponent:(NSInteger)component {
-    UIColor *foregroundColor = [UIColor whiteColor];
-
-    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
-                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
-                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:18.0f]}];
-    return string;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
-}
-
-#pragma mark - UIPickerViewDataSource
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.farms count];
-}
-
-#pragma mark - UISwitch Actions
-
-- (IBAction)switchValueChanged:(UISwitch *)sender {
-    self.rememberMe = sender.on;
-
-    if (!sender.on) {
-        [self.userServices storeUser:nil withPassword:nil];
-    }
-}
-
-#pragma mark - Property Overrides
-
-- (NSArray *)farms {
-    return [ServiceLocator sharedInstance].farmDataService.farms;
-}
-
-- (id <UserServicesProtocol>)userServices {
-    return [ServiceLocator sharedInstance].userServices;
-}
-
-- (BOOL)rememberMe {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"rememberMe"];
-}
-
-- (void)setRememberMe:(BOOL)rememberMe {
-    [[NSUserDefaults standardUserDefaults] setBool:rememberMe forKey:@"rememberMe"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-#pragma mark - Notifications
-
-- (void)inputViewWillShowNotification:(NSNotification *)notification {
-    // Only handle this notification if the farmsTextField inputView, a UIPickerView,
-    // is being shown. We want to keep the picker and textField in sync.
-    for (UIView *view in self.view.subviews) {
-        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
-            if ([view isFirstResponder]) {
-                UIPickerView *pickerView = (UIPickerView *) view.inputView;
-
-                NSInteger index = [self.farms indexOfObject:self.farmField.text];
-
-                [pickerView selectRow:index inComponent:0 animated:NO];
-            }
-
-            break;
-        }
-    }
 }
 
 @end
