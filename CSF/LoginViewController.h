@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface LoginViewController : BaseViewController <UIViewControllerTransitioningDelegate>
+@interface LoginViewController : BaseViewController
 
 @end

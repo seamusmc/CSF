@@ -13,12 +13,14 @@
 #import "UITextField+Extended.h"
 #import "FarmDataServiceProtocol.h"
 #import "ThemeManager.h"
+#import "SlideFromRightAnimationController.h"
+#import "SlideToRightAnimationController.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
 static const int LastnameMaxLength  = 15;
 
-@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
+@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *firstNameField;
 @property(nonatomic, weak) IBOutlet UITextField *lastNameField;
@@ -39,11 +41,16 @@ static const int LastnameMaxLength  = 15;
 
 @property(nonatomic, strong) UIDynamicAnimator *dynamicAnimator;
 
+@property(nonatomic, strong) SlideFromRightAnimationController *slideFromRightAnimationController;
+@property(nonatomic, strong) SlideToRightAnimationController *slideToRightAnimationController;
+
 @end
 
 @implementation LoginViewController
 
-- (void)setTextDefaultColor {
+#pragma mark - Private Methods
+
+- (void)setFieldsDefaultColor {
     UIColor *textColor = [ThemeManager sharedInstance].tintColor;
     self.firstNameField.textColor = textColor;
     self.lastNameField.textColor  = textColor;
@@ -51,7 +58,14 @@ static const int LastnameMaxLength  = 15;
     self.farmField.textColor      = textColor;
 }
 
-- (void)setupFarmPicker {
+- (void)setFieldsErrorColor {
+    self.firstNameField.textColor = [UIColor redColor];
+    self.lastNameField.textColor  = [UIColor redColor];
+    self.passwordField.textColor  = [UIColor redColor];
+    self.farmField.textColor      = [UIColor redColor];
+}
+
+- (void)configureFarmPicker {
     UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f,
                                                                               0.0f,
                                                                               self.view.frame.size.width,
@@ -99,7 +113,6 @@ static const int LastnameMaxLength  = 15;
 }
 
 - (void)enableOrDisableLoginButton {
-
     // Check all of the text fields for content.
     for (id control in self.controls) {
         if ([control isKindOfClass:[UITextField class]]) {
@@ -117,33 +130,7 @@ static const int LastnameMaxLength  = 15;
     self.loginButton.enabled = YES;
 }
 
-#pragma mark - Lifecycle
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UIViewController *toVC = segue.destinationViewController;
-    toVC.transitioningDelegate = self;
-}
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-    // Set up 'Next' field order
-    self.firstNameField.nextTextField = self.lastNameField;
-    self.lastNameField.nextTextField  = self.passwordField;
-    self.passwordField.nextTextField  = self.farmField;
-    self.farmField.nextTextField      = nil;
-
-    self.controls = @[self.firstNameField,
-                      self.lastNameField,
-                      self.passwordField,
-                      self.farmField,
-                      self.rememberMeSwitch];
-
+- (void)fillUserData {
     if (self.rememberMe) {
         __typeof(self) __weak weakSelf = self;
         [self.userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *user, NSString *password)
@@ -157,10 +144,107 @@ static const int LastnameMaxLength  = 15;
         self.rememberMeSwitch.on = self.rememberMe;
         [self enableOrDisableLoginButton];
     }
+}
 
-    [self setupFarmPicker];
+- (void)configureFields {
+    // Set up 'Next' field order
+    self.firstNameField.nextTextField = self.lastNameField;
+    self.lastNameField.nextTextField  = self.passwordField;
+    self.passwordField.nextTextField  = self.farmField;
+    self.farmField.nextTextField      = nil;
+
+    self.controls = @[self.firstNameField,
+                      self.lastNameField,
+                      self.passwordField,
+                      self.farmField,
+                      self.rememberMeSwitch];
+}
+
+- (void)handleInvalidLogin:(NSString *)message {
+    [self configureNotificationLabel:message];
+    [self configureNotificationLabelAnimation];
+
+    // Only color the fields red if the issue is a login failure.
+    if ([self.notificationLabel.text isEqualToString:@"failed to login"]) {
+        [self setFieldsErrorColor];
+    }
+}
+
+- (void)configureNotificationLabelAnimation {
+    UIPushBehavior      *pushBehavior;
+    UICollisionBehavior *collisionBehavior;
+
+    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];
+
+    float x = self.view.frame.size.width / 2 + self.notificationLabel.frame.size.width / 2;
+
+    [collisionBehavior addBoundaryWithIdentifier:@"barrier"
+                                       fromPoint:CGPointMake(x, 0)
+                                         toPoint:CGPointMake(x, self.view.frame.size.height)];
+
+    [self.dynamicAnimator addBehavior:collisionBehavior];
+
+    pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.notificationLabel] mode:UIPushBehaviorModeContinuous];
+    pushBehavior.angle     = 0;
+    pushBehavior.magnitude = 5;
+
+    [self.dynamicAnimator addBehavior:pushBehavior];
+}
+
+- (void)configureNotificationLabel:(NSString *)message {
+    self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+                                              self.notificationLabel.frame.origin.y,
+                                              self.notificationLabel.frame.size.width,
+                                              self.notificationLabel.frame.size.height);
+    self.notificationLabel.text  = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
+    self.notificationLabel.hidden = NO;
+}
+
+- (void)disableControls {
+    for (UIControl *control in self.controls) {
+        control.enabled = NO;
+        control.alpha   = 0.5f;
+    }
+}
+
+#pragma mark - Lifecycle
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *toVC = segue.destinationViewController;
+    toVC.transitioningDelegate = self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
+    [self configureFields];
+    [self fillUserData];
+    [self configureFarmPicker];
 
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.navigationController.delegate = self;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC {
+    if (operation == UINavigationControllerOperationPush) {
+        if (!self.slideFromRightAnimationController) {
+            self.slideFromRightAnimationController = [SlideFromRightAnimationController new];
+        }
+        return self.slideFromRightAnimationController;
+    } else {
+        if (!self.slideToRightAnimationController) {
+            self.slideToRightAnimationController = [SlideToRightAnimationController new];
+        }
+        return self.slideToRightAnimationController;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -199,12 +283,7 @@ static const int LastnameMaxLength  = 15;
                                         lastname:self.lastNameField.text
                                            group:nil
                                             farm:self.farmField.text];
-
-    // Disable the controls
-    for (UIControl *control in self.controls) {
-        control.enabled = NO;
-        control.alpha   = 0.5f;
-    }
+    [self disableControls];
 
     [self.spinner startAnimating];
 
@@ -229,7 +308,7 @@ static const int LastnameMaxLength  = 15;
 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [weakSelf resetView];
-                        [weakSelf performSegueWithIdentifier:@"CreateOrderSegue" sender:nil];
+                        [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
                     });
                 } else {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -265,7 +344,7 @@ static const int LastnameMaxLength  = 15;
                 self.notificationLabel.frame  = frame;
             }];
 
-    [self setTextDefaultColor];
+    [self setFieldsDefaultColor];
 }
 
 // We implement this delegate method in order to enforce max lengths of text fields.
@@ -375,42 +454,6 @@ shouldChangeCharactersInRange:(NSRange)range
 
             break;
         }
-    }
-}
-
-- (void)handleInvalidLogin:(NSString *)message {
-    UIPushBehavior      *pushBehavior;
-    UICollisionBehavior *collisionBehavior;
-
-    self.notificationLabel.frame  = CGRectMake(-self.notificationLabel.frame.size.width,
-                                               self.notificationLabel.frame.origin.y,
-                                               self.notificationLabel.frame.size.width,
-                                               self.notificationLabel.frame.size.height);
-    self.notificationLabel.text = [message lowercaseString];
-    [self.notificationLabel sizeToFit];
-    self.notificationLabel.hidden = NO;
-
-    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];
-
-    float x = self.view.frame.size.width / 2 + self.notificationLabel.frame.size.width / 2;
-
-    [collisionBehavior addBoundaryWithIdentifier:@"barrier"
-                                       fromPoint:CGPointMake(x, 0)
-                                         toPoint:CGPointMake(x, self.view.frame.size.height)];
-
-    [self.dynamicAnimator addBehavior:collisionBehavior];
-
-    pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.notificationLabel] mode:UIPushBehaviorModeContinuous];
-    pushBehavior.angle     = 0;
-    pushBehavior.magnitude = 5;
-
-    [self.dynamicAnimator addBehavior:pushBehavior];
-
-    if ([self.notificationLabel.text isEqualToString:@"failed to login"]) {
-        self.firstNameField.textColor = [UIColor redColor];
-        self.lastNameField.textColor  = [UIColor redColor];
-        self.passwordField.textColor  = [UIColor redColor];
-        self.farmField.textColor      = [UIColor redColor];
     }
 }
 
