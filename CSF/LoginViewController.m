@@ -68,16 +68,9 @@ static const int LastnameMaxLength  = 15;
 
     self.view.backgroundColor = [UIColor clearColor];
 
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-
     self.rememberMeSwitch.onTintColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.10f];
 
-    [self.loginButton setTitleColor:[ThemeManager sharedInstance].fontColor forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-
+    [self configureLoginButton];
     [self configureLabels];
     [self configureFields];
     [self fillUserData];
@@ -88,13 +81,6 @@ static const int LastnameMaxLength  = 15;
     self.navigationController.delegate = self;
 
     [self configureTransparentNavigationBar];
-}
-
-- (void)configureTransparentNavigationBar {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
@@ -183,7 +169,7 @@ static const int LastnameMaxLength  = 15;
 - (void)enableControls {
     [self enableFields];
     self.rememberMeSwitch.enabled = YES;
-    self.loginButton.enabled = YES;
+    self.loginButton.enabled      = YES;
 }
 
 - (void)disableControls {
@@ -316,14 +302,14 @@ shouldChangeCharactersInRange:(NSRange)range
 #pragma mark - Private Methods
 
 - (void)setFieldsDefaultColor {
-    UIColor *textColor = [ThemeManager sharedInstance].fontColor;
+    UIColor          *textColor = [ThemeManager sharedInstance].fontColor;
     for (UITextField *field in self.fields) {
         field.textColor = textColor;
     }
 }
 
 - (void)setFieldsErrorColor {
-    UIColor *textColor = [ThemeManager sharedInstance].fontErrorColor;
+    UIColor          *textColor = [ThemeManager sharedInstance].fontErrorColor;
     for (UITextField *field in self.fields) {
         field.textColor = textColor;
     }
@@ -420,8 +406,15 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
 
+    UIColor          *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
-        field.textColor = [ThemeManager sharedInstance].fontColor;
+        field.textColor             = [ThemeManager sharedInstance].fontColor;
+
+        NSString *placeholder = field.placeholder;
+        if (placeholder) {
+            field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
+                                                                          attributes:@{NSForegroundColorAttributeName : color}];
+        }
     }
 }
 
@@ -505,6 +498,22 @@ shouldChangeCharactersInRange:(NSRange)range
     }];
 
     [self setFieldsDefaultColor];
+}
+
+- (void)configureLoginButton {
+    [self.loginButton setTitleColor:[ThemeManager sharedInstance].fontColor forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+
+//    self.loginButton.layer.cornerRadius = 5.0f;
+//    self.loginButton.layer.borderWidth  = 0.5f;
+//    self.loginButton.layer.borderColor  = [ThemeManager sharedInstance].fontColor.CGColor;
+}
+
+- (void)configureTransparentNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 @end

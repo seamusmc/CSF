@@ -86,7 +86,7 @@
 
 - (void)configureWindowBackgroundImage {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"farm"]];
-    [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.7f]];
+    [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.5f]];
     imageView.frame = self.window.bounds;
     [self.window addSubview:imageView];
 }
