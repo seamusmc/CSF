@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Login View Controller - login-->
+        <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="LoginViewController" sceneMemberID="viewController">
@@ -93,7 +93,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="tbQ-f8-VT0"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMK-Rn-Raq">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMK-Rn-Raq">
                                 <rect key="frame" x="137" y="511" width="46" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
@@ -142,7 +142,7 @@
                             <outletCollection property="gestureRecognizers" destination="Pyg-8O-ASf" appends="YES" id="gqv-EK-YIi"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="login" id="d67-02-7cA"/>
+                    <navigationItem key="navigationItem" id="d67-02-7cA"/>
                     <connections>
                         <outlet property="farmField" destination="Qqb-uS-Ut0" id="vBQ-mJ-YAc"/>
                         <outlet property="farmLabel" destination="2dR-fK-VrC" id="Umc-VA-hbY"/>

@@ -183,9 +183,7 @@ static const int LastnameMaxLength  = 15;
 - (void)enableControls {
     [self enableFields];
     self.rememberMeSwitch.enabled = YES;
-
     self.loginButton.enabled = YES;
-    self.loginButton.userInteractionEnabled = YES;
 }
 
 - (void)disableControls {
@@ -193,7 +191,6 @@ static const int LastnameMaxLength  = 15;
     self.rememberMeSwitch.enabled = NO;
 
     self.loginButton.enabled = NO;
-    self.loginButton.userInteractionEnabled = NO;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -384,9 +381,7 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)enableOrDisableLoginButton {
-
     self.loginButton.enabled = [self doAllFieldsHaveContent];
-    self.loginButton.userInteractionEnabled = self.loginButton.enabled;
 }
 
 - (BOOL)doAllFieldsHaveContent {

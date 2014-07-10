@@ -23,6 +23,7 @@
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
 		C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */; };
 		C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */; };
+		C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5440E552EC584FC6D83D /* UIImageView+Extended.m */; };
 		C9FA5C1E704F2C25602CE11E /* TestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5B198F2E0592EDD548BD /* TestConstants.m */; };
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
@@ -65,6 +66,7 @@
 		A7D47CEDEE9345EE83AB9689 /* Pods-CSF.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSF.xcconfig"; path = "Pods/Pods-CSF.xcconfig"; sourceTree = "<group>"; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
+		C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extended.h"; sourceTree = "<group>"; };
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
 		C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extended.h"; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		C9FA53DA83129FF19B7F68FC /* NetworkingServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceConstants.h; sourceTree = "<group>"; };
 		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
 		C9FA53FD1DE49414CD73EEF8 /* SlideToRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideToRightAnimationController.h; sourceTree = "<group>"; };
+		C9FA5440E552EC584FC6D83D /* UIImageView+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Extended.m"; sourceTree = "<group>"; };
 		C9FA54CC16BEEC549BB6E116 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 				C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */,
 				C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */,
 				C9FA5305BDD4EAD4944DC8B2 /* UIColor+Extended.h */,
+				C9FA5440E552EC584FC6D83D /* UIImageView+Extended.m */,
+				C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */,
 				C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */,
 				C9FA5613C2B39830434D7E9B /* TweaksService.m in Sources */,
+				C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
