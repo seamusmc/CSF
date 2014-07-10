@@ -42,7 +42,7 @@
 }
 
 - (void)configureNavigationBar {
-    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
+    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0]};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
     [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
     [UINavigationBar appearance].tintColor = [ThemeManager sharedInstance].fontColor;
