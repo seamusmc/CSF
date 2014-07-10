@@ -4,12 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ThemeManagerProtocol.h"
 
-@interface ThemeManager : NSObject
-
-@property (strong, nonatomic,readonly) UIColor *tintColor;
-
-- (UIFont *)fontWithSize:(CGFloat)size;
+@interface ThemeManager : NSObject <ThemeManagerProtocol>
 
 + (instancetype)sharedInstance;
 

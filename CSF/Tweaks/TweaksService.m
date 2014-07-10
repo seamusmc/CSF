@@ -31,6 +31,17 @@
     return TweakColor(TweakCategoryColors, TweakGroupTint, @"104082", 1.0f);
 }
 
+#define TweakGroupFont @"Font Color"
+- (UIColor *)fontColor {
+    return TweakColor(TweakCategoryColors, TweakGroupFont, @"FFFFFF", 1.0f);
+}
+
+#define TweakGroupFontError @"Font Error Color"
+- (UIColor *)fontErrorColor {
+    return TweakColor(TweakCategoryColors, TweakGroupFontError, @"FF0000", 1.0f);
+}
+
+
 #pragma mark - Transition Animations
 #define TweakCategoryAnimationTransition @"Animation Transitions"
 

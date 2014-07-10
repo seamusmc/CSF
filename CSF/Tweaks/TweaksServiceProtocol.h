@@ -12,6 +12,8 @@
 
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
+@property(nonatomic, strong, readonly) UIColor *fontColor;
+@property(nonatomic, strong, readonly) UIColor *fontErrorColor;
 
 #pragma mark - Transition Animations
 

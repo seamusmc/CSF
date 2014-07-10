@@ -58,6 +58,8 @@ static const int LastnameMaxLength  = 15;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor clearColor];
+
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"logout"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil
@@ -66,8 +68,18 @@ static const int LastnameMaxLength  = 15;
     [self fillUserData];
     [self configureFarmPicker];
 
-    self.dynamicAnimator               = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+
     self.navigationController.delegate = self;
+
+    [self configureTransparentNavigationBar];
+}
+
+- (void)configureTransparentNavigationBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController

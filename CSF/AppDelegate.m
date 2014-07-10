@@ -31,17 +31,26 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Customize the nav bar title font
+
+    [self configureNavigationBar];
+    [self configureWindowBackgroundImage];
+    [self configureDDLog];
+    [self configureGoogleAnalytics];
+
+    return YES;
+}
+
+- (void)configureNavigationBar {
     NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
     [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].barStyle = UIBarStyleBlack;
 
-    [self configureDDLog];
-    [self configureGoogleAnalytics];
-
-    return YES;
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [UINavigationBar appearance].shadowImage = [UIImage new];
+//    [UINavigationBar appearance].translucent = YES;
+//    [UINavigationBar appearance].backgroundColor = [UIColor clearColor];
 }
 
 - (void)configureDDLog {
@@ -77,6 +86,13 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)configureWindowBackgroundImage {
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"farm"]];
+    //[imageView clTintWithColor:[UIColor clBlackTintColor]];
+    imageView.frame = self.window.bounds;
+    [self.window addSubview:imageView];
 }
 
 @end
