@@ -37,7 +37,7 @@
                                 <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="john" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="R0T-wt-xOf">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="john" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R0T-wt-xOf">
                                 <rect key="frame" x="177" y="64" width="95" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.090196080505847931" green="0.34117648005485535" blue="0.58039218187332153" alpha="1" colorSpace="deviceRGB"/>
@@ -62,7 +62,7 @@
                                 <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="smith" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="k9M-Og-Aki">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="smith" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k9M-Og-Aki">
                                 <rect key="frame" x="177" y="119" width="95" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.090196080505847931" green="0.34117648005485535" blue="0.58039218187332153" alpha="1" colorSpace="deviceRGB"/>
@@ -73,7 +73,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="rn4-35-eX6"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9iB-sF-0px">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9iB-sF-0px">
                                 <rect key="frame" x="177" y="173" width="95" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>

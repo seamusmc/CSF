@@ -17,12 +17,11 @@
 
 @implementation AppDelegate
 
-- (UIWindow *)window
-{
+- (UIWindow *)window {
     if (!_window) {
-        #ifdef DEBUG
-            self.window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        #else
+#ifdef DEBUG
+        self.window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+#else
             self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         #endif
     }
@@ -42,11 +41,22 @@
 }
 
 - (void)configureNavigationBar {
-    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0]};
+    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f]};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
-    [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
-    [UINavigationBar appearance].tintColor = [ThemeManager sharedInstance].fontColor;
-    [UINavigationBar appearance].barStyle = UIBarStyleBlack;
+    [UINavigationBar appearance].barTintColor        = [ThemeManager sharedInstance].tintColor;
+    [UINavigationBar appearance].tintColor           = [ThemeManager sharedInstance].fontColor;
+    [UINavigationBar appearance].barStyle            = UIBarStyleBlack;
+
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowOffset = CGSizeMake(0.0, 1.0);
+    shadow.shadowColor  = [UIColor clearColor];
+
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+                      setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].fontColor,
+                                               NSShadowAttributeName          : shadow,
+                                               NSFontAttributeName            : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f]
+                      }
+                                    forState:UIControlStateNormal];
 }
 
 - (void)configureDDLog {
