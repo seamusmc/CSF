@@ -26,14 +26,22 @@ static const int LastnameMaxLength  = 15;
 @property(nonatomic, weak) IBOutlet UITextField *lastNameField;
 @property(nonatomic, weak) IBOutlet UITextField *passwordField;
 @property(nonatomic, weak) IBOutlet UITextField *farmField;
-@property(nonatomic, weak) IBOutlet UILabel     *notificationLabel;
-@property(nonatomic, weak) IBOutlet UIButton    *loginButton;
-@property(nonatomic, weak) IBOutlet UISwitch    *rememberMeSwitch;
+
+@property(nonatomic, weak) IBOutlet UIButton *loginButton;
+@property(nonatomic, weak) IBOutlet UISwitch *rememberMeSwitch;
+
+@property(nonatomic, weak) IBOutlet UILabel *notificationLabel;
+@property(nonatomic, weak) IBOutlet UILabel *firstNameLabel;
+@property(nonatomic, weak) IBOutlet UILabel *lastNameLabel;
+@property(nonatomic, weak) IBOutlet UILabel *passwordLabel;
+@property(nonatomic, weak) IBOutlet UILabel *farmLabel;
+@property(nonatomic, weak) IBOutlet UILabel *rememberMeLabel;
 
 @property(nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
 
 @property(nonatomic, copy) NSArray *farms;
-@property(nonatomic, copy) NSArray *controls;
+@property(nonatomic, copy) NSArray *fields;
+@property(nonatomic, copy) NSArray *labels;
 
 @property(nonatomic, assign) BOOL rememberMe;
 
@@ -64,6 +72,13 @@ static const int LastnameMaxLength  = 15;
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil
                                                                             action:nil];
+
+    self.rememberMeSwitch.onTintColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.10f];
+
+    [self.loginButton setTitleColor:[ThemeManager sharedInstance].fontColor forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+
+    [self configureLabels];
     [self configureFields];
     [self fillUserData];
     [self configureFarmPicker];
@@ -122,7 +137,6 @@ static const int LastnameMaxLength  = 15;
 #pragma mark - Gesture Handling
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
-    [self enableOrDisableLoginButton];
     [self.view endEditing:YES];
 }
 
@@ -145,11 +159,7 @@ static const int LastnameMaxLength  = 15;
                   withCompletionHandler:^(BOOL authenticated, NSString *message)
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    for (UIControl *control in weakSelf.controls) {
-                        control.enabled = YES;
-                        control.alpha   = 1.0f;
-                    }
-
+                    [self enableControls];
                     [weakSelf.spinner stopAnimating];
                 });
 
@@ -170,7 +180,27 @@ static const int LastnameMaxLength  = 15;
             }];
 }
 
+- (void)enableControls {
+    [self enableFields];
+    self.rememberMeSwitch.enabled = YES;
+
+    self.loginButton.enabled = YES;
+    self.loginButton.userInteractionEnabled = YES;
+}
+
+- (void)disableControls {
+    [self disableFields];
+    self.rememberMeSwitch.enabled = NO;
+
+    self.loginButton.enabled = NO;
+    self.loginButton.userInteractionEnabled = NO;
+}
+
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self enableOrDisableLoginButton];
+}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [self resetView];
@@ -207,7 +237,6 @@ shouldChangeCharactersInRange:(NSRange)range
         [textField resignFirstResponder];
     }
 
-    [self enableOrDisableLoginButton];
     return NO;
 }
 
@@ -290,18 +319,17 @@ shouldChangeCharactersInRange:(NSRange)range
 #pragma mark - Private Methods
 
 - (void)setFieldsDefaultColor {
-    UIColor *textColor = [ThemeManager sharedInstance].tintColor;
-    self.firstNameField.textColor = textColor;
-    self.lastNameField.textColor  = textColor;
-    self.passwordField.textColor  = textColor;
-    self.farmField.textColor      = textColor;
+    UIColor *textColor = [ThemeManager sharedInstance].fontColor;
+    for (UITextField *field in self.fields) {
+        field.textColor = textColor;
+    }
 }
 
 - (void)setFieldsErrorColor {
-    self.firstNameField.textColor = [UIColor redColor];
-    self.lastNameField.textColor  = [UIColor redColor];
-    self.passwordField.textColor  = [UIColor redColor];
-    self.farmField.textColor      = [UIColor redColor];
+    UIColor *textColor = [ThemeManager sharedInstance].fontErrorColor;
+    for (UITextField *field in self.fields) {
+        field.textColor = textColor;
+    }
 }
 
 - (void)configureFarmPicker {
@@ -356,21 +384,20 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)enableOrDisableLoginButton {
-    // Check all of the text fields for content.
-    for (id control in self.controls) {
-        if ([control isKindOfClass:[UITextField class]]) {
-            UITextField *field = (UITextField *) control;
 
-            NSString *text = [field.text stringByReplacingOccurrencesOfString:@" "
-                                                                   withString:@""];
-            if ([text length] == 0) {
-                self.loginButton.enabled = NO;
-                return;
-            }
+    self.loginButton.enabled = [self doAllFieldsHaveContent];
+    self.loginButton.userInteractionEnabled = self.loginButton.enabled;
+}
+
+- (BOOL)doAllFieldsHaveContent {
+    for (UITextField *field in self.fields) {
+        NSString *text = [field.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([text length] == 0) {
+            return NO;
         }
     }
 
-    self.loginButton.enabled = YES;
+    return YES;
 }
 
 - (void)fillUserData {
@@ -396,11 +423,18 @@ shouldChangeCharactersInRange:(NSRange)range
     self.passwordField.nextTextField  = self.farmField;
     self.farmField.nextTextField      = nil;
 
-    self.controls = @[self.firstNameField,
-                      self.lastNameField,
-                      self.passwordField,
-                      self.farmField,
-                      self.rememberMeSwitch];
+    self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
+
+    for (UITextField *field in self.fields) {
+        field.textColor = [ThemeManager sharedInstance].fontColor;
+    }
+}
+
+- (void)configureLabels {
+    self.labels = @[self.firstNameLabel, self.lastNameLabel, self.passwordLabel, self.farmLabel, self.rememberMeLabel];
+    for (UILabel *label in self.labels) {
+        label.textColor = [ThemeManager sharedInstance].fontColor;
+    }
 }
 
 - (void)handleInvalidLogin:(NSString *)message {
@@ -444,10 +478,17 @@ shouldChangeCharactersInRange:(NSRange)range
     self.notificationLabel.hidden = NO;
 }
 
-- (void)disableControls {
-    for (UIControl *control in self.controls) {
-        control.enabled = NO;
-        control.alpha   = 0.5f;
+- (void)enableFields {
+    for (UITextField *field in self.fields) {
+        field.enabled = YES;
+        field.alpha   = 1.0f;
+    }
+}
+
+- (void)disableFields {
+    for (UITextField *field in self.fields) {
+        field.enabled = NO;
+        field.alpha   = 0.5f;
     }
 }
 
