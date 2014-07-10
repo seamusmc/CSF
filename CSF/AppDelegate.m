@@ -31,7 +31,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     [self configureNavigationBar];
     [self configureWindowBackgroundImage];
     [self configureDDLog];
@@ -44,7 +43,7 @@
     NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20.0]};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
     [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
-    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].tintColor = [ThemeManager sharedInstance].fontColor;
     [UINavigationBar appearance].barStyle = UIBarStyleBlack;
 }
 
