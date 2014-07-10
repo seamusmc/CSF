@@ -46,11 +46,6 @@
     [UINavigationBar appearance].barTintColor = [ThemeManager sharedInstance].tintColor;
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].barStyle = UIBarStyleBlack;
-
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    [UINavigationBar appearance].shadowImage = [UIImage new];
-//    [UINavigationBar appearance].translucent = YES;
-//    [UINavigationBar appearance].backgroundColor = [UIColor clearColor];
 }
 
 - (void)configureDDLog {
