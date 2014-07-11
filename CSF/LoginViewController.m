@@ -225,16 +225,28 @@ shouldChangeCharactersInRange:(NSRange)range
 
 #pragma mark - UIPickerViewDelegate
 
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
-             attributedTitleForRow:(NSInteger)row
-                      forComponent:(NSInteger)component {
-    UIColor *foregroundColor = [UIColor whiteColor];
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
-    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
-                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
-                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:18.0f]}];
-    return string;
+    //label.backgroundColor = [ThemeManager sharedInstance].tintColor;
+    label.textColor       = [ThemeManager sharedInstance].fontColor;
+    label.font            = [UIFont fontWithName:@"HelveticaNeue" size:20.0f];
+    label.text            = [self.farms objectAtIndex:row];
+    label.textAlignment   = NSTextAlignmentCenter;
+
+    return label;
 }
+
+//- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
+//             attributedTitleForRow:(NSInteger)row
+//                      forComponent:(NSInteger)component {
+//    UIColor *foregroundColor = [UIColor whiteColor];
+//
+//    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
+//                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
+//                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:16.0f]}];
+//    return string;
+//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
@@ -319,31 +331,31 @@ shouldChangeCharactersInRange:(NSRange)range
     UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f,
                                                                               0.0f,
                                                                               self.view.frame.size.width,
-                                                                              178.0f)];
+                                                                              179.0f)];
     farmPicker.delegate                = self;
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
 
-    farmPicker.backgroundColor = [ThemeManager sharedInstance].tintColor;
+    farmPicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.85f];//[ThemeManager sharedInstance].tintColor;
 
     self.farmField.inputView = farmPicker;
 
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 44.0f)];
-    toolBar.barStyle     = UIBarStyleBlack;
-    toolBar.translucent  = NO;
-    toolBar.barTintColor = [ThemeManager sharedInstance].tintColor;
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 45.0f)];
+    toolBar.barStyle     = UIBarStyleBlackTranslucent;
+    toolBar.translucent  = YES;
+    //toolBar.barTintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0f];//[ThemeManager sharedInstance].tintColor;
 
     // Making my own because the system ones are not centering vertically????
     UIButton *button = [[UIButton alloc] init];
     button.tintColor       = [UIColor whiteColor];
-    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:19.0f];
+    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:18.0f];
     [button setTitle:@"Done" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(pickerDoneAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
 
     UILabel *title = [[UILabel alloc] init];
     title.text = @"Select a Farm";            // Need the spaces for the title to center horizontally?
-    title.font = [[ThemeManager sharedInstance] fontWithSize:19.0f];
+    title.font = [[ThemeManager sharedInstance] fontWithSize:18.0f];
     [title sizeToFit];
     title.textColor = [UIColor whiteColor];
 
@@ -406,9 +418,13 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
 
-    UIColor          *color = [UIColor lightGrayColor];
+    UIColor *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
-        field.textColor             = [ThemeManager sharedInstance].fontColor;
+        field.textColor = [ThemeManager sharedInstance].fontColor;
+
+        if (![field isEqual:self.farmField]) {
+            field.keyboardAppearance = UIKeyboardAppearanceAlert;
+        }
 
         NSString *placeholder = field.placeholder;
         if (placeholder) {
