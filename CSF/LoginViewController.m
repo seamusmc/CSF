@@ -15,6 +15,8 @@
 #import "ThemeManager.h"
 #import "SlideFromRightAnimationController.h"
 #import "SlideToRightAnimationController.h"
+#import "UIColor+Extended.h"
+#import "UIImageView+Extended.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
@@ -226,15 +228,54 @@ shouldChangeCharactersInRange:(NSRange)range
 #pragma mark - UIPickerViewDelegate
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    // Note that we cannot do this when we create the pickerView, its not ready for 'customization'
+    [self hackPickerView:pickerView];
+
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
-    //label.backgroundColor = [ThemeManager sharedInstance].tintColor;
-    label.textColor       = [ThemeManager sharedInstance].fontColor;
-    label.font            = [UIFont fontWithName:@"HelveticaNeue" size:20.0f];
-    label.text            = [self.farms objectAtIndex:row];
-    label.textAlignment   = NSTextAlignmentCenter;
+    label.textColor     = [ThemeManager sharedInstance].fontColor;
+    label.font          = [UIFont fontWithName:@"HelveticaNeue" size:20.0f];
+    label.text          = [self.farms objectAtIndex:row];
+    label.textAlignment = NSTextAlignmentCenter;
 
     return label;
+}
+
+// Ugly hack to customize the UIPickerView to have a translucent look, as it originally had in iOS7
+- (void)hackPickerView:(UIPickerView *)pickerView {
+    static dispatch_once_t onceToken;
+
+    // We only need or want to do this once, because of how we have to execute this hack.
+    dispatch_once(&onceToken, ^{
+        // Make the selection indicators white with an alpha so that they are visible.
+        UIView *temp = [pickerView.subviews objectAtIndex:1];
+        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+
+        temp = [pickerView.subviews objectAtIndex:2];
+        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+
+        // All we need is the bottom of the background image.
+        UIImage *originalImage = [UIImage imageNamed:@"farm"];
+        UIImage *croppedImage  = [self getSubImageFrom:originalImage
+                                              WithRect:CGRectMake(0,
+                                                                  originalImage.size.height - pickerView.bounds.size.height,
+                                                                  pickerView.bounds.size.width,
+                                                                  pickerView.bounds.size.height)];
+
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:croppedImage];
+        imageView.bounds      = pickerView.bounds;
+        imageView.contentMode = UIViewContentModeBottom | UIViewContentModeRedraw;
+        [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.5f]];
+
+        [pickerView insertSubview:imageView atIndex:0];
+
+        // Use the UIToolbar as an overlay, it still can give us the blurred or translucent effect we are after.
+        UIToolbar *overlayHack = [[UIToolbar alloc] initWithFrame:pickerView.frame];
+        overlayHack.barStyle    = UIBarStyleBlackTranslucent;
+        overlayHack.translucent = YES;
+
+        [pickerView insertSubview:overlayHack atIndex:1];
+    });
 }
 
 //- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
@@ -336,19 +377,17 @@ shouldChangeCharactersInRange:(NSRange)range
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
 
-    farmPicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.85f];//[ThemeManager sharedInstance].tintColor;
-
     self.farmField.inputView = farmPicker;
 
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 45.0f)];
-    toolBar.barStyle     = UIBarStyleBlackTranslucent;
-    toolBar.translucent  = YES;
-    //toolBar.barTintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0f];//[ThemeManager sharedInstance].tintColor;
+    toolBar.barStyle    = UIBarStyleBlackTranslucent;
+    toolBar.translucent = YES;
 
     // Making my own because the system ones are not centering vertically????
     UIButton *button = [[UIButton alloc] init];
     button.tintColor       = [UIColor whiteColor];
     button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:18.0f];
+
     [button setTitle:@"Done" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(pickerDoneAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
@@ -418,7 +457,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
 
-    UIColor *color = [UIColor lightGrayColor];
+    UIColor          *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
         field.textColor = [ThemeManager sharedInstance].fontColor;
 
@@ -531,5 +570,29 @@ shouldChangeCharactersInRange:(NSRange)range
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
 }
+
+- (UIImage *)getSubImageFrom:(UIImage *)img WithRect:(CGRect)rect {
+
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    // translated rectangle for drawing sub image
+    CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y, img.size.width, img.size.height);
+
+    // clip to the bounds of the image context
+    // not strictly necessary as it will get clipped anyway?
+    CGContextClipToRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
+
+    // draw image
+    [img drawInRect:drawRect];
+
+    // grab image
+    UIImage *subImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return subImage;
+}
+
 
 @end
