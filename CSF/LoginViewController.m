@@ -234,7 +234,7 @@ shouldChangeCharactersInRange:(NSRange)range
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
     label.textColor     = [ThemeManager sharedInstance].fontColor;
-    label.font          = [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f];
+    label.font          = [UIFont fontWithName:@"HelveticaNeue-Thin" size:21.0f];
     label.text          = [self.farms objectAtIndex:row];
     label.textAlignment = NSTextAlignmentCenter;
 
@@ -394,7 +394,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     UILabel *title = [[UILabel alloc] init];
     title.text = @"select a farm";            // Need the spaces for the title to center horizontally?
-    title.font = [[ThemeManager sharedInstance] fontWithSize:20.0f];
+    title.font = [[ThemeManager sharedInstance] fontWithSize:21.0f];
     [title sizeToFit];
     title.textColor = [UIColor whiteColor];
 
