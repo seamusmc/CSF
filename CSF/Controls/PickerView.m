@@ -54,7 +54,7 @@
     // Making my own because the system ones are not centering vertically????
     UIButton *button = [[UIButton alloc] init];
     button.tintColor       = [UIColor whiteColor];
-    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:20.0f];
+    button.titleLabel.font = [[ThemeManager sharedInstance] normalFont];
 
     [button setTitle:@"done" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(doneAction) forControlEvents:UIControlEventTouchUpInside];
@@ -62,7 +62,7 @@
 
     UILabel *title = [[UILabel alloc] init];
     title.text = @"select a farm";            // Need the spaces for the title to center horizontally?
-    title.font = [[ThemeManager sharedInstance] fontWithSize:21.0f];
+    title.font = [[ThemeManager sharedInstance] normalFont];
     [title sizeToFit];
     title.textColor = [UIColor whiteColor];
 

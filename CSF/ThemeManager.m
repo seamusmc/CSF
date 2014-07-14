@@ -20,8 +20,8 @@
     return [TweaksService sharedInstance].tintColor;
 }
 
-- (UIFont *)fontWithSize:(CGFloat)size; {
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:size];
+- (UIFont *)normalFont {
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:21.0f];
 }
 
 + (instancetype)sharedInstance {

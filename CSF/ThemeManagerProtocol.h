@@ -13,6 +13,6 @@
 @property(nonatomic, strong, readonly) UIColor *fontErrorColor;
 
 #pragma mark - Font
-- (UIFont *)fontWithSize:(CGFloat)size;
+- (UIFont *)normalFont;
 
 @end
