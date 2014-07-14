@@ -369,6 +369,9 @@ shouldChangeCharactersInRange:(NSRange)range
         field.font      = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
+        field.borderStyle = UITextBorderStyleRoundedRect;
+        field.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.10f];
+
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
         }
