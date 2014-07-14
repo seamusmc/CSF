@@ -365,19 +365,21 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
 
-    UIColor *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
-        field.font = [ThemeManager sharedInstance].normalFont;
+        field.font      = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
         }
 
+        UIColor  *color       = [ThemeManager sharedInstance].placeHolderFontColor;
+        UIFont   *font        = [ThemeManager sharedInstance].placeHolderFont;
         NSString *placeholder = field.placeholder;
         if (placeholder) {
             field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
-                                                                          attributes:@{NSForegroundColorAttributeName : color}];
+                                                                          attributes:@{NSForegroundColorAttributeName : color,
+                                                                                       NSFontAttributeName            : font}];
         }
     }
 }
@@ -488,7 +490,7 @@ shouldChangeCharactersInRange:(NSRange)range
     self.loginButton.titleLabel.font = [ThemeManager sharedInstance].normalFont;
 
     [self.loginButton setTitleColor:[ThemeManager sharedInstance].normalFontColor forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    [self.loginButton setTitleColor:[ThemeManager sharedInstance].disabledColor forState:UIControlStateDisabled];
 
 //    self.loginButton.layer.cornerRadius = 5.0f;
 //    self.loginButton.layer.borderWidth  = 0.5f;

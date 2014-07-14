@@ -49,9 +49,19 @@
 #pragma mark - Colors
 #define TweakCategoryColors @"Colors"
 
-#define TweakGroupTint @"Theme Tint"
+#define TweakGroupTint @"Tint"
 - (UIColor *)tintColor {
     return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
+}
+
+#define TweakGroupPlaceHolder @"Place Holder"
+- (UIColor *)placeHolderFontColor {
+    return TweakColor(TweakCategoryColors, TweakGroupPlaceHolder, @"A4A4A4", 1.0f);
+}
+
+#define TweakGroupDisabled @"Disabled"
+- (UIColor *)disabledColor {
+    return TweakColor(TweakCategoryColors, TweakGroupDisabled, @"A4A4A4", 1.0f);
 }
 
 #pragma mark - Transition Animations
@@ -82,7 +92,6 @@
 - (CGFloat)slideRightAnimationVelocity {
     return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Velocity", 0.0f, 0.0f, 1.0f);
 }
-
 
 + (id<TweaksServiceProtocol>)sharedInstance
 {

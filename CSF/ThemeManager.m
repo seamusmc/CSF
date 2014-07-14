@@ -8,8 +8,20 @@
 
 @implementation ThemeManager
 
+- (UIColor *)disabledColor {
+    return [TweaksService sharedInstance].disabledColor;
+}
+
 - (UIColor *)tintColor {
     return [TweaksService sharedInstance].tintColor;
+}
+
+- (UIColor *)placeHolderFontColor {
+    return [TweaksService sharedInstance].placeHolderFontColor;
+}
+
+- (UIFont *)placeHolderFont {
+    return [UIFont fontWithName:@"HelveticaNeue-ThinItalic" size:21.0f];;
 }
 
 - (UIColor *)errorFontColor {
