@@ -10,6 +10,9 @@
 
 @protocol TweaksServiceProtocol <NSObject>
 
+#pragma mark - Fonts
+@property(nonatomic, strong, readonly) UIFont *normalFont;
+
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
 @property(nonatomic, strong, readonly) UIColor *fontColor;

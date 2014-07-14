@@ -21,7 +21,7 @@
 }
 
 - (UIFont *)normalFont {
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:21.0f];
+    return [TweaksService sharedInstance].normalFont;
 }
 
 + (instancetype)sharedInstance {

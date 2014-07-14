@@ -23,6 +23,15 @@
 
 @implementation TweaksService
 
+#pragma mark - Fonts
+#define TweakCategoryFonts @"Fonts"
+
+#define TweakGroupNormalFontSize @"Font Sizes"
+- (UIFont *)normalFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFontSize, @"Normal", 21.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+}
+
 #pragma mark - Colors
 #define TweakCategoryColors @"Colors"
 
