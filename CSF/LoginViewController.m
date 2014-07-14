@@ -61,8 +61,6 @@ static const int LastnameMaxLength  = 15;
 #pragma mark - Lifecycle
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UIViewController *toVC = segue.destinationViewController;
-    toVC.transitioningDelegate = self;
 }
 
 - (void)viewDidLoad {
@@ -277,17 +275,6 @@ shouldChangeCharactersInRange:(NSRange)range
         [pickerView insertSubview:overlayHack atIndex:1];
     });
 }
-
-//- (NSAttributedString *)pickerView:(UIPickerView *)pickerView
-//             attributedTitleForRow:(NSInteger)row
-//                      forComponent:(NSInteger)component {
-//    UIColor *foregroundColor = [UIColor whiteColor];
-//
-//    NSAttributedString *string = [[NSAttributedString alloc] initWithString:[self.farms objectAtIndex:row]
-//                                                                 attributes:@{NSForegroundColorAttributeName : foregroundColor,
-//                                                                              NSFontAttributeName            : [[ThemeManager sharedInstance] fontWithSize:16.0f]}];
-//    return string;
-//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
