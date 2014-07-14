@@ -41,7 +41,7 @@
 }
 
 - (void)configureNavigationBar {
-    NSDictionary *textAttributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f]};
+    NSDictionary *textAttributes = @{NSFontAttributeName : [ThemeManager sharedInstance].normalFont};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
     [UINavigationBar appearance].barTintColor        = [ThemeManager sharedInstance].tintColor;
     [UINavigationBar appearance].tintColor           = [ThemeManager sharedInstance].fontColor;
@@ -54,7 +54,7 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
                       setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].fontColor,
                                                NSShadowAttributeName          : shadow,
-                                               NSFontAttributeName            : [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f]
+                                               NSFontAttributeName            : [ThemeManager sharedInstance].normalFont
                       }
                                     forState:UIControlStateNormal];
 }

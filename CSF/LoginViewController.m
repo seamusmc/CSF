@@ -225,7 +225,7 @@ shouldChangeCharactersInRange:(NSRange)range
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
     label.textColor     = [ThemeManager sharedInstance].fontColor;
-    label.font          = [UIFont fontWithName:@"HelveticaNeue-Thin" size:21.0f];
+    label.font          = [ThemeManager sharedInstance].normalFont;
     label.text          = [self.farms objectAtIndex:row];
     label.textAlignment = NSTextAlignmentCenter;
 
@@ -367,6 +367,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     UIColor *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
+        field.font = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].fontColor;
 
         if (![field isEqual:self.farmField]) {
@@ -384,6 +385,7 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void)configureLabels {
     self.labels = @[self.firstNameLabel, self.lastNameLabel, self.passwordLabel, self.farmLabel, self.rememberMeLabel];
     for (UILabel *label in self.labels) {
+        label.font = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].fontColor;
     }
 }
@@ -424,10 +426,13 @@ shouldChangeCharactersInRange:(NSRange)range
                                               self.notificationLabel.frame.origin.y,
                                               self.notificationLabel.frame.size.width,
                                               self.notificationLabel.frame.size.height);
-    self.notificationLabel.text  = [message lowercaseString];
+
+    self.notificationLabel.text      = [message lowercaseString];
+    self.notificationLabel.font      = [ThemeManager sharedInstance].normalFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].fontErrorColor;
+    self.notificationLabel.hidden    = NO;
+
     [self.notificationLabel sizeToFit];
-    self.notificationLabel.hidden = NO;
 }
 
 - (void)enableControls {
@@ -480,8 +485,10 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureLoginButton {
+    self.loginButton.titleLabel.font = [ThemeManager sharedInstance].normalFont;
+
     [self.loginButton setTitleColor:[ThemeManager sharedInstance].fontColor forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [self.loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
 
 //    self.loginButton.layer.cornerRadius = 5.0f;
 //    self.loginButton.layer.borderWidth  = 0.5f;
