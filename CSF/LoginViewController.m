@@ -15,14 +15,14 @@
 #import "ThemeManager.h"
 #import "SlideFromRightAnimationController.h"
 #import "SlideToRightAnimationController.h"
-#import "UIColor+Extended.h"
-#import "UIImageView+Extended.h"
+#import "PickerView.h"
+#import "PickerViewAccessoryDelegate.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
 static const int LastnameMaxLength  = 15;
 
-@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
+@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, PickerViewAccessoryDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *firstNameField;
 @property(nonatomic, weak) IBOutlet UITextField *lastNameField;
@@ -167,19 +167,6 @@ static const int LastnameMaxLength  = 15;
             }];
 }
 
-- (void)enableControls {
-    [self enableFields];
-    self.rememberMeSwitch.enabled = YES;
-    self.loginButton.enabled      = YES;
-}
-
-- (void)disableControls {
-    [self disableFields];
-    self.rememberMeSwitch.enabled = NO;
-
-    self.loginButton.enabled = NO;
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -224,11 +211,16 @@ shouldChangeCharactersInRange:(NSRange)range
     return NO;
 }
 
+#pragma mark - PickerViewAccessoryDelegate
+
+- (void)done {
+    [self.farmField resignFirstResponder];
+}
+
 #pragma mark - UIPickerViewDelegate
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    // Note that we cannot do this when we create the pickerView, its not ready for 'customization'
-    [self hackPickerView:pickerView];
+    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
@@ -238,43 +230,6 @@ shouldChangeCharactersInRange:(NSRange)range
     label.textAlignment = NSTextAlignmentCenter;
 
     return label;
-}
-
-// Ugly hack to customize the UIPickerView to have a translucent look, as it originally had in iOS7
-- (void)hackPickerView:(UIPickerView *)pickerView {
-    static dispatch_once_t onceToken;
-
-    // We only need or want to do this once, because of how we have to execute this hack.
-    dispatch_once(&onceToken, ^{
-        // Make the selection indicators white with an alpha so that they are visible.
-        UIView *temp = [pickerView.subviews objectAtIndex:1];
-        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
-
-        temp = [pickerView.subviews objectAtIndex:2];
-        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
-
-        // All we need is the bottom of the background image.
-        UIImage *originalImage = [UIImage imageNamed:@"farm"];
-        UIImage *croppedImage  = [self getSubImageFrom:originalImage
-                                              WithRect:CGRectMake(0,
-                                                                  originalImage.size.height - pickerView.bounds.size.height,
-                                                                  pickerView.bounds.size.width,
-                                                                  pickerView.bounds.size.height)];
-
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:croppedImage];
-        imageView.bounds      = pickerView.bounds;
-        imageView.contentMode = UIViewContentModeBottom | UIViewContentModeRedraw;
-        [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.5f]];
-
-        [pickerView insertSubview:imageView atIndex:0];
-
-        // Use the UIToolbar as an overlay, it still can give us the blurred or translucent effect we are after.
-        UIToolbar *overlayHack = [[UIToolbar alloc] initWithFrame:pickerView.frame];
-        overlayHack.barStyle    = UIBarStyleBlackTranslucent;
-        overlayHack.translucent = YES;
-
-        [pickerView insertSubview:overlayHack atIndex:1];
-    });
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -326,9 +281,9 @@ shouldChangeCharactersInRange:(NSRange)range
     // Only handle this notification if the farmsTextField inputView, a UIPickerView,
     // is being shown. We want to keep the picker and textField in sync.
     for (UIView *view in self.view.subviews) {
-        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
+        if ([view.inputView isMemberOfClass:[PickerView class]]) {
             if ([view isFirstResponder]) {
-                UIPickerView *pickerView = (UIPickerView *) view.inputView;
+                PickerView *pickerView = (PickerView *) view.inputView;
 
                 NSInteger index = [self.farms indexOfObject:self.farmField.text];
 
@@ -357,52 +312,17 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureFarmPicker {
-    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0.0f,
-                                                                              0.0f,
-                                                                              self.view.frame.size.width,
-                                                                              179.0f)];
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 179.0f);
+    PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
+
     farmPicker.delegate                = self;
+    farmPicker.accessoryDelegate       = self;
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
 
     self.farmField.inputView = farmPicker;
 
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 45.0f)];
-    toolBar.barStyle    = UIBarStyleBlackTranslucent;
-    toolBar.translucent = YES;
-
-    // Making my own because the system ones are not centering vertically????
-    UIButton *button = [[UIButton alloc] init];
-    button.tintColor       = [UIColor whiteColor];
-    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:20.0f];
-
-    [button setTitle:@"done" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(pickerDoneAction) forControlEvents:UIControlEventTouchUpInside];
-    [button sizeToFit];
-
-    UILabel *title = [[UILabel alloc] init];
-    title.text = @"select a farm";            // Need the spaces for the title to center horizontally?
-    title.font = [[ThemeManager sharedInstance] fontWithSize:21.0f];
-    [title sizeToFit];
-    title.textColor = [UIColor whiteColor];
-
-    UIBarButtonItem *flexible     = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                  target:nil
-                                                                                  action:nil];
-    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
-    UIBarButtonItem *doneButton   = [[UIBarButtonItem alloc] initWithCustomView:button];
-
-    // the middle button is to make the Done button align to right
-    [toolBar setItems:[NSArray arrayWithObjects:flexible,
-                                                toolBarTitle,
-                                                flexible,
-                                                doneButton,
-                                                nil]];
-    self.farmField.inputAccessoryView = toolBar;
-}
-
-- (void)pickerDoneAction {
-    [self.farmField resignFirstResponder];
+    self.farmField.inputAccessoryView = farmPicker.inputAccessory;
 }
 
 - (void)enableOrDisableLoginButton {
@@ -510,6 +430,19 @@ shouldChangeCharactersInRange:(NSRange)range
     self.notificationLabel.hidden = NO;
 }
 
+- (void)enableControls {
+    [self enableFields];
+    self.rememberMeSwitch.enabled = YES;
+    self.loginButton.enabled      = YES;
+}
+
+- (void)disableControls {
+    [self disableFields];
+    self.rememberMeSwitch.enabled = NO;
+
+    self.loginButton.enabled = NO;
+}
+
 - (void)enableFields {
     for (UITextField *field in self.fields) {
         field.enabled = YES;
@@ -561,29 +494,5 @@ shouldChangeCharactersInRange:(NSRange)range
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
 }
-
-- (UIImage *)getSubImageFrom:(UIImage *)img WithRect:(CGRect)rect {
-
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    // translated rectangle for drawing sub image
-    CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y, img.size.width, img.size.height);
-
-    // clip to the bounds of the image context
-    // not strictly necessary as it will get clipped anyway?
-    CGContextClipToRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
-
-    // draw image
-    [img drawInRect:drawRect];
-
-    // grab image
-    UIImage *subImage = UIGraphicsGetImageFromCurrentImageContext();
-
-    UIGraphicsEndImageContext();
-
-    return subImage;
-}
-
 
 @end

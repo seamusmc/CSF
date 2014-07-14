@@ -11,6 +11,7 @@
 		8567E98A17974A0091D9AE5F /* libPods-CSFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 416A32901B9642959BDD3640 /* libPods-CSFTests.a */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
+		C9FA51F79A4596842525BF66 /* PickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA525C0D7C6D0A51CB8DF5 /* PickerView.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
 		C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */; };
 		C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */; };
@@ -68,6 +69,7 @@
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extended.h"; sourceTree = "<group>"; };
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
+		C9FA525C0D7C6D0A51CB8DF5 /* PickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerView.m; sourceTree = "<group>"; };
 		C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extended.h"; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
 		C9FA5298170DE730C05863AB /* TweaksServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweaksServiceProtocol.h; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		C9FA57890E6BF6B5146F5B0A /* UserServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServices.h; sourceTree = "<group>"; };
+		C9FA57CCF32C7F69361673C9 /* PickerViewAccessoryDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewAccessoryDelegate.h; sourceTree = "<group>"; };
 		C9FA582D04A778DE8CDA3FF1 /* TweaksService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweaksService.h; sourceTree = "<group>"; };
 		C9FA58821501F91470DED679 /* ServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConstants.m; sourceTree = "<group>"; };
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 		C9FA59EE96903BE296CB3FA9 /* SlideFromRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideFromRightAnimationController.h; sourceTree = "<group>"; };
 		C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServicesProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
+		C9FA5BB2E688FC5E7B6E5251 /* PickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerView.h; sourceTree = "<group>"; };
 		C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingServiceConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
 		C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extended.m"; sourceTree = "<group>"; };
@@ -193,6 +197,16 @@
 				C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */,
 			);
 			path = "Animation Controllers";
+			sourceTree = "<group>";
+		};
+		C9FA597284A4BF8E27BDED6B /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				C9FA525C0D7C6D0A51CB8DF5 /* PickerView.m */,
+				C9FA5BB2E688FC5E7B6E5251 /* PickerView.h */,
+				C9FA57CCF32C7F69361673C9 /* PickerViewAccessoryDelegate.h */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 		C9FA5CBF3D3D7E405BCF8DD9 /* Services */ = {
@@ -300,6 +314,7 @@
 				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
 				C9FA5D6D91C1C77F4FD04329 /* Tweaks */,
 				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
+				C9FA597284A4BF8E27BDED6B /* Controls */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -535,6 +550,7 @@
 				C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */,
 				C9FA5613C2B39830434D7E9B /* TweaksService.m in Sources */,
 				C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */,
+				C9FA51F79A4596842525BF66 /* PickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
