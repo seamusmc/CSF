@@ -298,18 +298,16 @@ shouldChangeCharactersInRange:(NSRange)range
 #pragma mark - Private Methods
 
 - (void)setFieldsDefaultColor {
-    UIColor *textColor = [ThemeManager sharedInstance].normalFontColor;
-
     for (UITextField *field in self.fields) {
-        field.textColor = textColor;
+        field.font = [ThemeManager sharedInstance].normalFont;
+        field.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
 }
 
 - (void)setFieldsErrorColor {
-    UIColor *textColor = [ThemeManager sharedInstance].fontErrorColor;
-
     for (UITextField *field in self.fields) {
-        field.textColor = textColor;
+        field.font = [ThemeManager sharedInstance].errorFont;
+        field.textColor = [ThemeManager sharedInstance].errorFontColor;
     }
 }
 
@@ -430,8 +428,8 @@ shouldChangeCharactersInRange:(NSRange)range
                                               self.notificationLabel.frame.size.height);
 
     self.notificationLabel.text      = [message lowercaseString];
-    self.notificationLabel.font      = [ThemeManager sharedInstance].normalFont;
-    self.notificationLabel.textColor = [ThemeManager sharedInstance].fontErrorColor;
+    self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
     self.notificationLabel.hidden    = NO;
 
     [self.notificationLabel sizeToFit];

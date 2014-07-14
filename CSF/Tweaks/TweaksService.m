@@ -16,7 +16,7 @@
 #define TweakColor(category_, collection_, hex_, alpha_) \
 ((^{ \
     CGFloat alpha = FBTweakValue(category_, collection_, @"Alpha", alpha_, 0.0f, 1.0f); \
-    NSString *value = FBTweakValue(category_, collection_, @"Hex", hex_); \
+    NSString *value = FBTweakValue(category_, collection_, @"Color - Hex", hex_); \
     UInt32 intRGB = (UInt32)strtoul([value UTF8String], NULL, Base); \
     return [UIColor colorWithRGBHex:intRGB alpha:alpha]; \
 })()) \
@@ -36,6 +36,16 @@
     return TweakColor(TweakCategoryFonts, TweakGroupNormalFont, @"FFFFFF", 1.0f);
 }
 
+#define TweakGroupErrorFont @"Error Font"
+- (UIFont *)errorFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupErrorFont, @"Size", 21.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+}
+
+- (UIColor *)errorFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupErrorFont, @"E3E300", 1.0f);
+}
+
 #pragma mark - Colors
 #define TweakCategoryColors @"Colors"
 
@@ -43,12 +53,6 @@
 - (UIColor *)tintColor {
     return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
 }
-
-#define TweakGroupFontError @"Font Error Color"
-- (UIColor *)fontErrorColor {
-    return TweakColor(TweakCategoryColors, TweakGroupFontError, @"E3E300", 1.0f);
-}
-
 
 #pragma mark - Transition Animations
 #define TweakCategoryAnimationTransition @"Animation Transitions"

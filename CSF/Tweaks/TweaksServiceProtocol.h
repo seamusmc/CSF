@@ -14,9 +14,11 @@
 @property(nonatomic, strong, readonly) UIFont *normalFont;
 @property(nonatomic, strong, readonly) UIColor *normalFontColor;
 
+@property(nonatomic, strong, readonly) UIFont *errorFont;
+@property(nonatomic, strong, readonly) UIColor *errorFontColor;
+
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
-@property(nonatomic, strong, readonly) UIColor *fontErrorColor;
 
 #pragma mark - Transition Animations
 

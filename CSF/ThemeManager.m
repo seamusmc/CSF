@@ -8,12 +8,16 @@
 
 @implementation ThemeManager
 
-- (UIColor *)fontErrorColor {
-    return [TweaksService sharedInstance].fontErrorColor;
-}
-
 - (UIColor *)tintColor {
     return [TweaksService sharedInstance].tintColor;
+}
+
+- (UIColor *)errorFontColor {
+    return [TweaksService sharedInstance].errorFontColor;
+}
+
+- (UIFont *)errorFont {
+    return [TweaksService sharedInstance].errorFont;
 }
 
 - (UIFont *)normalFont {

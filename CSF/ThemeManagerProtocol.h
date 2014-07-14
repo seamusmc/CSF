@@ -9,11 +9,12 @@
 
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
-@property(nonatomic, strong, readonly) UIColor *fontErrorColor;
 
-#pragma mark - Font
+#pragma mark - Fonts
 @property(nonatomic, strong, readonly) UIColor *normalFontColor;
+@property(nonatomic, strong, readonly) UIFont *normalFont;
 
-- (UIFont *)normalFont;
+@property(nonatomic, strong, readonly) UIColor *errorFontColor;
+@property(nonatomic, strong, readonly) UIFont *errorFont;
 
 @end
