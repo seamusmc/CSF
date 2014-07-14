@@ -26,10 +26,14 @@
 #pragma mark - Fonts
 #define TweakCategoryFonts @"Fonts"
 
-#define TweakGroupNormalFontSize @"Font Sizes"
+#define TweakGroupNormalFont @"Normal Font"
 - (UIFont *)normalFont {
-    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFontSize, @"Normal", 21.0f, 1.0f, 50.0f);
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFont, @"Size", 21.0f, 1.0f, 50.0f);
     return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+}
+
+- (UIColor *)normalFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupNormalFont, @"FFFFFF", 1.0f);
 }
 
 #pragma mark - Colors
@@ -38,11 +42,6 @@
 #define TweakGroupTint @"Theme Tint"
 - (UIColor *)tintColor {
     return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
-}
-
-#define TweakGroupFont @"Font Color"
-- (UIColor *)fontColor {
-    return TweakColor(TweakCategoryColors, TweakGroupFont, @"FFFFFF", 1.0f);
 }
 
 #define TweakGroupFontError @"Font Error Color"

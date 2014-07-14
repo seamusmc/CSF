@@ -52,7 +52,7 @@
     shadow.shadowColor  = [UIColor clearColor];
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-                      setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].fontColor,
+                      setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].normalFontColor,
                                                NSShadowAttributeName          : shadow,
                                                NSFontAttributeName            : [ThemeManager sharedInstance].normalFont
                       }

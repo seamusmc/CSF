@@ -224,7 +224,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
-    label.textColor     = [ThemeManager sharedInstance].fontColor;
+    label.textColor     = [ThemeManager sharedInstance].normalFontColor;
     label.font          = [ThemeManager sharedInstance].normalFont;
     label.text          = [self.farms objectAtIndex:row];
     label.textAlignment = NSTextAlignmentCenter;
@@ -298,14 +298,16 @@ shouldChangeCharactersInRange:(NSRange)range
 #pragma mark - Private Methods
 
 - (void)setFieldsDefaultColor {
-    UIColor          *textColor = [ThemeManager sharedInstance].fontColor;
+    UIColor *textColor = [ThemeManager sharedInstance].normalFontColor;
+
     for (UITextField *field in self.fields) {
         field.textColor = textColor;
     }
 }
 
 - (void)setFieldsErrorColor {
-    UIColor          *textColor = [ThemeManager sharedInstance].fontErrorColor;
+    UIColor *textColor = [ThemeManager sharedInstance].fontErrorColor;
+
     for (UITextField *field in self.fields) {
         field.textColor = textColor;
     }
@@ -368,7 +370,7 @@ shouldChangeCharactersInRange:(NSRange)range
     UIColor *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
         field.font = [ThemeManager sharedInstance].normalFont;
-        field.textColor = [ThemeManager sharedInstance].fontColor;
+        field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
@@ -386,7 +388,7 @@ shouldChangeCharactersInRange:(NSRange)range
     self.labels = @[self.firstNameLabel, self.lastNameLabel, self.passwordLabel, self.farmLabel, self.rememberMeLabel];
     for (UILabel *label in self.labels) {
         label.font = [ThemeManager sharedInstance].normalFont;
-        label.textColor = [ThemeManager sharedInstance].fontColor;
+        label.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
 }
 
@@ -487,7 +489,7 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void)configureLoginButton {
     self.loginButton.titleLabel.font = [ThemeManager sharedInstance].normalFont;
 
-    [self.loginButton setTitleColor:[ThemeManager sharedInstance].fontColor forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[ThemeManager sharedInstance].normalFontColor forState:UIControlStateNormal];
     [self.loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
 
 //    self.loginButton.layer.cornerRadius = 5.0f;

@@ -12,10 +12,10 @@
 
 #pragma mark - Fonts
 @property(nonatomic, strong, readonly) UIFont *normalFont;
+@property(nonatomic, strong, readonly) UIColor *normalFontColor;
 
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
-@property(nonatomic, strong, readonly) UIColor *fontColor;
 @property(nonatomic, strong, readonly) UIColor *fontErrorColor;
 
 #pragma mark - Transition Animations
