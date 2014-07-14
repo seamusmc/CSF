@@ -68,7 +68,7 @@ static const int LastnameMaxLength  = 15;
 
     self.view.backgroundColor = [UIColor clearColor];
 
-    self.rememberMeSwitch.onTintColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.10f];
+    self.rememberMeSwitch.onTintColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.05f];
 
     [self configureLoginButton];
     [self configureLabels];
@@ -370,7 +370,7 @@ shouldChangeCharactersInRange:(NSRange)range
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
         field.borderStyle = UITextBorderStyleRoundedRect;
-        field.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.10f];
+        field.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.05f];
 
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
