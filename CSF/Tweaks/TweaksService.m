@@ -38,7 +38,7 @@
 
 #define TweakGroupFontError @"Font Error Color"
 - (UIColor *)fontErrorColor {
-    return TweakColor(TweakCategoryColors, TweakGroupFontError, @"FF0000", 1.0f);
+    return TweakColor(TweakCategoryColors, TweakGroupFontError, @"E3E300", 1.0f);
 }
 
 

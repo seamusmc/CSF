@@ -234,7 +234,7 @@ shouldChangeCharactersInRange:(NSRange)range
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
     label.textColor     = [ThemeManager sharedInstance].fontColor;
-    label.font          = [UIFont fontWithName:@"HelveticaNeue" size:20.0f];
+    label.font          = [UIFont fontWithName:@"HelveticaNeue-Thin" size:20.0f];
     label.text          = [self.farms objectAtIndex:row];
     label.textAlignment = NSTextAlignmentCenter;
 
@@ -386,15 +386,15 @@ shouldChangeCharactersInRange:(NSRange)range
     // Making my own because the system ones are not centering vertically????
     UIButton *button = [[UIButton alloc] init];
     button.tintColor       = [UIColor whiteColor];
-    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:18.0f];
+    button.titleLabel.font = [[ThemeManager sharedInstance] fontWithSize:20.0f];
 
-    [button setTitle:@"Done" forState:UIControlStateNormal];
+    [button setTitle:@"done" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(pickerDoneAction) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
 
     UILabel *title = [[UILabel alloc] init];
-    title.text = @"Select a Farm";            // Need the spaces for the title to center horizontally?
-    title.font = [[ThemeManager sharedInstance] fontWithSize:18.0f];
+    title.text = @"select a farm";            // Need the spaces for the title to center horizontally?
+    title.font = [[ThemeManager sharedInstance] fontWithSize:20.0f];
     [title sizeToFit];
     title.textColor = [UIColor whiteColor];
 
@@ -517,6 +517,7 @@ shouldChangeCharactersInRange:(NSRange)range
                                               self.notificationLabel.frame.size.width,
                                               self.notificationLabel.frame.size.height);
     self.notificationLabel.text  = [message lowercaseString];
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].fontErrorColor;
     [self.notificationLabel sizeToFit];
     self.notificationLabel.hidden = NO;
 }

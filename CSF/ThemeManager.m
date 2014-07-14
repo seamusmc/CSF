@@ -21,7 +21,7 @@
 }
 
 - (UIFont *)fontWithSize:(CGFloat)size; {
-    return [UIFont fontWithName:@"HelveticaNeue" size:size];
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:size];
 }
 
 + (instancetype)sharedInstance {
