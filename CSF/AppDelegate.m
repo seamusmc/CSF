@@ -32,6 +32,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window.tintColor = [ThemeManager sharedInstance].tintColor;
+
     [self configureNavigationBar];
     [self configureWindowBackgroundImage];
     [self configureDDLog];
@@ -43,8 +45,6 @@
 - (void)configureNavigationBar {
     NSDictionary *textAttributes = @{NSFontAttributeName : [ThemeManager sharedInstance].normalFont};
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
-    [UINavigationBar appearance].barTintColor        = [ThemeManager sharedInstance].tintColor;
-    [UINavigationBar appearance].tintColor           = [ThemeManager sharedInstance].fontColor;
     [UINavigationBar appearance].barStyle            = UIBarStyleBlack;
 
     NSShadow *shadow = [[NSShadow alloc] init];

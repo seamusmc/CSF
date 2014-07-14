@@ -37,7 +37,7 @@
 
 #define TweakGroupTint @"Theme Tint"
 - (UIColor *)tintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupTint, @"104082", 1.0f);
+    return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
 }
 
 #define TweakGroupFont @"Font Color"

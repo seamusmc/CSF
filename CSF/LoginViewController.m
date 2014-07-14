@@ -492,7 +492,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 //    self.loginButton.layer.cornerRadius = 5.0f;
 //    self.loginButton.layer.borderWidth  = 0.5f;
-//    self.loginButton.layer.borderColor  = [ThemeManager sharedInstance].fontColor.CGColor;
+//    self.loginButton.layer.borderColor  = self.view.tintColor.CGColor;
 }
 
 - (void)configureTransparentNavigationBar {
