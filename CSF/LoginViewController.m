@@ -365,7 +365,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.fields = @[self.firstNameField, self.lastNameField, self.passwordField, self.farmField];
 
-    UIColor          *color = [UIColor lightGrayColor];
+    UIColor *color = [UIColor lightGrayColor];
     for (UITextField *field in self.fields) {
         field.textColor = [ThemeManager sharedInstance].fontColor;
 
