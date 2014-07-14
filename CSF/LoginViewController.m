@@ -124,6 +124,7 @@ static const int LastnameMaxLength  = 15;
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
     [self.view endEditing:YES];
+    [self resetView];
 }
 
 #pragma mark - UIButton Actions
@@ -524,23 +525,25 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)resetView {
-    [self.dynamicAnimator removeAllBehaviors];
+    if (self.notificationLabel.hidden == NO) {
+        [self.dynamicAnimator removeAllBehaviors];
 
-    // Save the current frame
-    CGRect frame = self.notificationLabel.frame;
-    [UIView animateWithDuration:0.5
-                     animations:^            {
-        self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
-                                                  self.notificationLabel.frame.origin.y,
-                                                  self.notificationLabel.frame.size.width,
-                                                  self.notificationLabel.frame.size.height);
+        // Save the current frame
+        CGRect frame = self.notificationLabel.frame;
+        [UIView animateWithDuration:0.5
+                         animations:^            {
+            self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+                                                      self.notificationLabel.frame.origin.y,
+                                                      self.notificationLabel.frame.size.width,
+                                                      self.notificationLabel.frame.size.height);
+        }
+                         completion:^(BOOL finished)            {
+            self.notificationLabel.hidden = YES;
+            self.notificationLabel.frame  = frame;
+        }];
+
+        [self setFieldsDefaultColor];
     }
-                     completion:^(BOOL finished)            {
-        self.notificationLabel.hidden = YES;
-        self.notificationLabel.frame  = frame;
-    }];
-
-    [self setFieldsDefaultColor];
 }
 
 - (void)configureLoginButton {
