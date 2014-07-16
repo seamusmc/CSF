@@ -8,6 +8,8 @@
 #import "GAITracker.h"
 #import "GAI.h"
 
+static const double kNetworkingServiceTimeout = 5.0;
+
 @interface NetworkingService ()
 
 @property(nonatomic, strong, readonly) id <GAITracker> gaiTracker;
@@ -131,8 +133,8 @@
 - (NSURLSession *)createSession {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     [sessionConfig setHTTPAdditionalHeaders:@{@"Accept" : @"application/json"}];
-    sessionConfig.timeoutIntervalForRequest  = 10.0;
-    sessionConfig.timeoutIntervalForResource = 10.0;
+    sessionConfig.timeoutIntervalForRequest  = kNetworkingServiceTimeout;
+    sessionConfig.timeoutIntervalForResource = kNetworkingServiceTimeout;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     return session;
