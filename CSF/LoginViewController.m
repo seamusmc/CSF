@@ -529,7 +529,8 @@ shouldChangeCharactersInRange:(NSRange)range
 
     shimmeringView.hidden                      = YES;
     shimmeringView.shimmeringSpeed             = 230;
-    shimmeringView.shimmeringBeginFadeDuration = 0.3;
+    shimmeringView.shimmeringBeginFadeDuration = 0;
+    shimmeringView.shimmeringEndFadeDuration   = 0;
     shimmeringView.shimmeringOpacity           = 0;
 
     [self.view addSubview:shimmeringView];
