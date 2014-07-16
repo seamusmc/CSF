@@ -25,6 +25,13 @@
 @property(nonatomic, strong, readonly) UIColor *disabledColor;
 @property(nonatomic, strong, readonly) UIColor *imageTintColor;
 
+#pragma mark - Activity Indicator
+@property(nonatomic, assign, readonly) CGFloat shimmerSpeed;
+@property(nonatomic, assign, readonly) CGFloat shimmeringBeginFadeDuration;
+@property(nonatomic, assign, readonly) CGFloat shimmeringEndFadeDuration;
+@property(nonatomic, assign, readonly) CGFloat shimmeringOpacity;
+@property(nonatomic, strong, readonly) UIColor * shimmeringColor;
+
 #pragma mark - Transition Animations
 
 #pragma mark - SlideRight Animation Transitions

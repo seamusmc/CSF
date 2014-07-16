@@ -22,4 +22,11 @@
 @property(nonatomic, strong, readonly) UIColor *placeHolderFontColor;
 @property(nonatomic, strong, readonly) UIFont *placeHolderFont;
 
+#pragma mark - Activity Indicator
+@property(nonatomic, assign, readonly) CGFloat shimmerSpeed;
+@property(nonatomic, assign, readonly) CGFloat shimmeringBeginFadeDuration;
+@property(nonatomic, assign, readonly) CGFloat shimmeringEndFadeDuration;
+@property(nonatomic, assign, readonly) CGFloat shimmeringOpacity;
+@property(nonatomic, strong, readonly) UIColor * shimmeringColor;
+
 @end

@@ -41,7 +41,7 @@ static const int LastnameMaxLength  = 15;
 @property(nonatomic, weak) IBOutlet UILabel *farmLabel;
 @property(nonatomic, weak) IBOutlet UILabel *rememberMeLabel;
 
-@property(nonatomic, weak) FBShimmeringView *workIndicator;
+@property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
 @property(nonatomic, copy) NSArray *farms;
 @property(nonatomic, copy) NSArray *fields;
@@ -112,7 +112,7 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(inputViewWillShowNotification:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    [self.workIndicator stop];
+    [self.activityIndicator stop];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -140,7 +140,7 @@ static const int LastnameMaxLength  = 15;
                                             farm:self.farmField.text];
     [self disableControls];
 
-    [self.workIndicator start];
+    [self.activityIndicator start];
 
     __typeof(self) __weak weakSelf = self;
     [self.userServices authenticateUser:user
@@ -149,7 +149,7 @@ static const int LastnameMaxLength  = 15;
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self enableControls];
-                    [weakSelf.workIndicator stop];
+                    [weakSelf.activityIndicator stop];
                 });
 
                 if (authenticated) {
@@ -260,11 +260,11 @@ shouldChangeCharactersInRange:(NSRange)range
 
 #pragma mark - Property Overrides
 
-- (FBShimmeringView *)workIndicator {
-    if (_workIndicator == nil) {
-        _workIndicator = [self createWorkIndicator];
+- (FBShimmeringView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [self createWorkIndicator];
     }
-    return _workIndicator;
+    return _activityIndicator;
 }
 
 - (NSArray *)farms {
@@ -528,15 +528,15 @@ shouldChangeCharactersInRange:(NSRange)range
     FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
 
     shimmeringView.hidden                      = YES;
-    shimmeringView.shimmeringSpeed             = 230;
-    shimmeringView.shimmeringBeginFadeDuration = 0;
-    shimmeringView.shimmeringEndFadeDuration   = 0;
-    shimmeringView.shimmeringOpacity           = 0;
+    shimmeringView.shimmeringSpeed             = [ThemeManager sharedInstance].shimmerSpeed;
+    shimmeringView.shimmeringBeginFadeDuration = [ThemeManager sharedInstance].shimmeringBeginFadeDuration;
+    shimmeringView.shimmeringEndFadeDuration   = [ThemeManager sharedInstance].shimmeringEndFadeDuration;
+    shimmeringView.shimmeringOpacity           = [ThemeManager sharedInstance].shimmeringOpacity;
 
     [self.view addSubview:shimmeringView];
 
     UIView *progressView = [[UIView alloc] initWithFrame:shimmeringView.bounds];
-    progressView.backgroundColor = [UIColor whiteColor];
+    progressView.backgroundColor = [ThemeManager sharedInstance].shimmeringColor;
     shimmeringView.contentView = progressView;
 
     return shimmeringView;

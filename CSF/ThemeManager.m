@@ -44,6 +44,26 @@
     return [TweaksService sharedInstance].normalFontColor;
 }
 
+- (CGFloat)shimmerSpeed {
+    return [TweaksService sharedInstance].shimmerSpeed;
+}
+
+- (CGFloat)shimmeringBeginFadeDuration {
+    return [TweaksService sharedInstance].shimmeringBeginFadeDuration;
+}
+
+- (CGFloat)shimmeringEndFadeDuration {
+    return [TweaksService sharedInstance].shimmeringEndFadeDuration;
+}
+
+- (CGFloat)shimmeringOpacity {
+    return [TweaksService sharedInstance].shimmeringOpacity;
+}
+
+- (UIColor *)shimmeringColor {
+    return [TweaksService sharedInstance].shimmeringColor;
+}
+
 + (instancetype)sharedInstance {
     static ThemeManager    *sharedInstance = nil;
     static dispatch_once_t onceToken;

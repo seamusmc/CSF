@@ -104,6 +104,32 @@
     return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Velocity", 0.0f, 0.0f, 1.0f);
 }
 
+#pragma mark - Acitvity Indicator
+#define TweakCategoryActivityIndicator @"Activity Indicator"
+
+#define TweakGroupShimmering @"Shimmering"
+- (CGFloat)shimmerSpeed {
+    return FBTweakValue(TweakCategoryActivityIndicator, TweakGroupShimmering, @"Speed", 230.0f, 0.0f, 500.0f);
+}
+
+- (CGFloat)shimmeringBeginFadeDuration {
+    return FBTweakValue(TweakCategoryActivityIndicator, TweakGroupShimmering, @"Begin Duration", 0.0f, 0.0f, 1.0f);
+}
+
+- (CGFloat)shimmeringEndFadeDuration {
+    return FBTweakValue(TweakCategoryActivityIndicator, TweakGroupShimmering, @"End Duration", 0.0f, 0.0f, 1.0f);
+}
+
+- (CGFloat)shimmeringOpacity {
+    return FBTweakValue(TweakCategoryActivityIndicator, TweakGroupShimmering, @"Opacity", 0.0f, 0.0f, 1.0f);
+}
+
+#define TweakGroupColor @"Color"
+- (UIColor *)shimmeringColor {
+    return TweakColor(TweakCategoryActivityIndicator, TweakGroupColor, @"FFFFFF", 1.0f);
+}
+
+
 + (id<TweaksServiceProtocol>)sharedInstance
 {
     static TweaksService *sharedInstance = nil;
