@@ -17,9 +17,11 @@
 @property(nonatomic, strong, readonly) UIFont *errorFont;
 @property(nonatomic, strong, readonly) UIColor *errorFontColor;
 
+@property(nonatomic, strong, readonly) UIFont *placeHolderFont;
+@property(nonatomic, strong, readonly) UIColor *placeHolderFontColor;
+
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
-@property(nonatomic, strong, readonly) UIColor *placeHolderFontColor;
 @property(nonatomic, strong, readonly) UIColor *disabledColor;
 
 #pragma mark - Transition Animations

@@ -28,7 +28,7 @@
 
 #define TweakGroupNormalFont @"Normal Font"
 - (UIFont *)normalFont {
-    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFont, @"Size", 21.0f, 1.0f, 50.0f);
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFont, @"Size", 20.0f, 1.0f, 50.0f);
     return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
 }
 
@@ -38,12 +38,23 @@
 
 #define TweakGroupErrorFont @"Error Font"
 - (UIFont *)errorFont {
-    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupErrorFont, @"Size", 21.0f, 1.0f, 50.0f);
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupErrorFont, @"Size", 20.0f, 1.0f, 50.0f);
     return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
 }
 
 - (UIColor *)errorFontColor {
     return TweakColor(TweakCategoryFonts, TweakGroupErrorFont, @"E3E300", 1.0f);
+}
+
+#define TweakGroupPlaceHolderFont @"PlaceHolder Font"
+- (UIFont *)placeHolderFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupPlaceHolderFont, @"Size", 20.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+
+}
+
+- (UIColor *)placeHolderFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupPlaceHolderFont, @"A4A4A4", 1.0f);
 }
 
 #pragma mark - Colors
@@ -52,11 +63,6 @@
 #define TweakGroupTint @"Tint"
 - (UIColor *)tintColor {
     return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
-}
-
-#define TweakGroupPlaceHolder @"Place Holder"
-- (UIColor *)placeHolderFontColor {
-    return TweakColor(TweakCategoryColors, TweakGroupPlaceHolder, @"A4A4A4", 1.0f);
 }
 
 #define TweakGroupDisabled @"Disabled"
@@ -70,9 +76,9 @@
 #pragma mark - Fade Animation Transition
 #define TweakGroupFade @"Fade"
 
-- (CGFloat)fadeAnimationDuration {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupFade, @"Duration", 0.6f, 0.0f, 2.0f);
-}
+//- (CGFloat)fadeAnimationDuration {
+//    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupFade, @"Duration", 0.6f, 0.0f, 2.0f);
+//}
 
 #pragma mark - Slide Right Transitions
 #define TweakGroupSlideRight @"Slide Right"

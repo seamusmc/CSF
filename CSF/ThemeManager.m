@@ -21,7 +21,7 @@
 }
 
 - (UIFont *)placeHolderFont {
-    return [UIFont fontWithName:@"HelveticaNeue-ThinItalic" size:21.0f];;
+    return [TweaksService sharedInstance].placeHolderFont;
 }
 
 - (UIColor *)errorFontColor {
