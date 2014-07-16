@@ -15,6 +15,7 @@
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
 		C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */; };
 		C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */; };
+		C9FA537AC74DE711D12D92FF /* FBShimmeringView+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA56D6A225E1B08D2AA972 /* FBShimmeringView+Extended.m */; };
 		C9FA53EA297BA9295AE13E2F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5687440B9DB7CF211B2F /* User.m */; };
 		C9FA546C158B74E4B0F8E144 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5F0CBF974E1BAACEC263 /* Item.m */; };
 		C9FA5613C2B39830434D7E9B /* TweaksService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA59713F57779429E0C8FE /* TweaksService.m */; };
@@ -85,8 +86,10 @@
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C9FA55816860AF76FCEF09AC /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
+		C9FA561D2C375B64BCD8366E /* FBShimmeringView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmeringView+Extended.h"; sourceTree = "<group>"; };
 		C9FA5687440B9DB7CF211B2F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C9FA569433E799F0C2BA8D3F /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
+		C9FA56D6A225E1B08D2AA972 /* FBShimmeringView+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBShimmeringView+Extended.m"; sourceTree = "<group>"; };
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		C9FA57890E6BF6B5146F5B0A /* UserServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServices.h; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				C9FA5305BDD4EAD4944DC8B2 /* UIColor+Extended.h */,
 				C9FA5440E552EC584FC6D83D /* UIImageView+Extended.m */,
 				C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */,
+				C9FA56D6A225E1B08D2AA972 /* FBShimmeringView+Extended.m */,
+				C9FA561D2C375B64BCD8366E /* FBShimmeringView+Extended.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				C9FA5613C2B39830434D7E9B /* TweaksService.m in Sources */,
 				C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */,
 				C9FA51F79A4596842525BF66 /* PickerView.m in Sources */,
+				C9FA537AC74DE711D12D92FF /* FBShimmeringView+Extended.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

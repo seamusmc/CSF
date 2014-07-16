@@ -17,6 +17,8 @@
 #import "SlideToRightAnimationController.h"
 #import "PickerView.h"
 #import "PickerViewAccessoryDelegate.h"
+#import "FBShimmeringView.h"
+#import "FBShimmeringView+Extended.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
@@ -39,7 +41,7 @@ static const int LastnameMaxLength  = 15;
 @property(nonatomic, weak) IBOutlet UILabel *farmLabel;
 @property(nonatomic, weak) IBOutlet UILabel *rememberMeLabel;
 
-@property(nonatomic, weak) IBOutlet UIActivityIndicatorView *spinner;
+@property(nonatomic, weak) FBShimmeringView *workIndicator;
 
 @property(nonatomic, copy) NSArray *farms;
 @property(nonatomic, copy) NSArray *fields;
@@ -110,7 +112,7 @@ static const int LastnameMaxLength  = 15;
                                              selector:@selector(inputViewWillShowNotification:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    [self.spinner stopAnimating];
+    [self.workIndicator stop];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -138,7 +140,7 @@ static const int LastnameMaxLength  = 15;
                                             farm:self.farmField.text];
     [self disableControls];
 
-    [self.spinner startAnimating];
+    [self.workIndicator start];
 
     __typeof(self) __weak weakSelf = self;
     [self.userServices authenticateUser:user
@@ -147,7 +149,7 @@ static const int LastnameMaxLength  = 15;
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self enableControls];
-                    [weakSelf.spinner stopAnimating];
+                    [weakSelf.workIndicator stop];
                 });
 
                 if (authenticated) {
@@ -257,6 +259,13 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 #pragma mark - Property Overrides
+
+- (FBShimmeringView *)workIndicator {
+    if (_workIndicator == nil) {
+        _workIndicator = [self createWorkIndicator];
+    }
+    return _workIndicator;
+}
 
 - (NSArray *)farms {
     return [ServiceLocator sharedInstance].farmDataService.farms;
@@ -512,6 +521,24 @@ shouldChangeCharactersInRange:(NSRange)range
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
+}
+
+- (FBShimmeringView *)createWorkIndicator {
+    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, 1.0f);
+    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
+
+    shimmeringView.hidden                      = YES;
+    shimmeringView.shimmeringSpeed             = 230;
+    shimmeringView.shimmeringBeginFadeDuration = 0.3;
+    shimmeringView.shimmeringOpacity           = 0;
+
+    [self.view addSubview:shimmeringView];
+
+    UIView *progressView = [[UIView alloc] initWithFrame:shimmeringView.bounds];
+    progressView.backgroundColor = [UIColor whiteColor];
+    shimmeringView.contentView = progressView;
+
+    return shimmeringView;
 }
 
 @end

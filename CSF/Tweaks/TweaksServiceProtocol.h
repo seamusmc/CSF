@@ -27,9 +27,6 @@
 
 #pragma mark - Transition Animations
 
-#pragma mark - Fade Animation Transition
-@property(nonatomic, assign, readonly) CGFloat fadeAnimationDuration;
-
 #pragma mark - SlideRight Animation Transitions
 @property(nonatomic, assign, readonly) CGFloat slideRightAnimationDuration;
 @property(nonatomic, assign, readonly) CGFloat slideRightAnimationDelay;

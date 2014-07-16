@@ -128,19 +128,12 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="N1c-0R-cMu">
-                                <rect key="frame" x="142" y="266" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="tMK-Rn-Raq" secondAttribute="centerX" id="Ia9-t7-dz3"/>
-                            <constraint firstAttribute="centerX" secondItem="N1c-0R-cMu" secondAttribute="centerX" id="VpO-11-MXd"/>
                             <constraint firstItem="HAj-Zp-Zgb" firstAttribute="top" secondItem="tMK-Rn-Raq" secondAttribute="bottom" constant="20" id="Vse-MW-nK9"/>
-                            <constraint firstAttribute="centerY" secondItem="N1c-0R-cMu" secondAttribute="centerY" id="igp-hy-CNg"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Pyg-8O-ASf" appends="YES" id="gqv-EK-YIi"/>
@@ -162,7 +155,6 @@
                         <outlet property="passwordLabel" destination="OIE-ji-86e" id="IkE-BJ-Yyz"/>
                         <outlet property="rememberMeLabel" destination="TlN-Xz-Q8B" id="p23-4p-i9k"/>
                         <outlet property="rememberMeSwitch" destination="OnZ-Vd-Vlg" id="shZ-es-Ap2"/>
-                        <outlet property="spinner" destination="N1c-0R-cMu" id="fG5-th-ioP"/>
                         <segue destination="moH-Hp-ojt" kind="push" identifier="OrderSegue" id="1Ii-1O-nXJ"/>
                     </connections>
                 </viewController>
