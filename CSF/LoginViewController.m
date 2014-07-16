@@ -68,7 +68,7 @@ static const int LastnameMaxLength  = 15;
 
     self.view.backgroundColor = [UIColor clearColor];
 
-    self.rememberMeSwitch.onTintColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.05f];
+    self.rememberMeSwitch.onTintColor = [ThemeManager sharedInstance].tintColor;
 
     [self configureLoginButton];
     [self configureLabels];
@@ -370,7 +370,7 @@ shouldChangeCharactersInRange:(NSRange)range
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
         field.borderStyle = UITextBorderStyleRoundedRect;
-        field.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.05f];
+        field.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
@@ -495,9 +495,10 @@ shouldChangeCharactersInRange:(NSRange)range
     [self.loginButton setTitleColor:[ThemeManager sharedInstance].normalFontColor forState:UIControlStateNormal];
     [self.loginButton setTitleColor:[ThemeManager sharedInstance].disabledColor forState:UIControlStateDisabled];
 
-//    self.loginButton.layer.cornerRadius = 5.0f;
-//    self.loginButton.layer.borderWidth  = 0.5f;
-//    self.loginButton.layer.borderColor  = self.view.tintColor.CGColor;
+    self.loginButton.layer.cornerRadius = 5.0f;
+    self.loginButton.layer.borderWidth  = 1.0f;
+    self.loginButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
+    self.loginButton.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 }
 
 - (void)configureTransparentNavigationBar {

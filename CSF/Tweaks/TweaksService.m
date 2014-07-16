@@ -62,7 +62,7 @@
 
 #define TweakGroupTint @"Tint"
 - (UIColor *)tintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupTint, @"1176F2", 1.0f);
+    return TweakColor(TweakCategoryColors, TweakGroupTint, @"FFFFFF", 0.05f);
 }
 
 #define TweakGroupDisabled @"Disabled"

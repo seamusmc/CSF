@@ -94,11 +94,11 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMK-Rn-Raq">
-                                <rect key="frame" x="100" y="508" width="120" height="40"/>
+                                <rect key="frame" x="105" y="513" width="110" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="tGc-e5-GDY"/>
-                                    <constraint firstAttribute="height" constant="40" id="xOk-xh-i5J"/>
+                                    <constraint firstAttribute="width" constant="110" id="tGc-e5-GDY"/>
+                                    <constraint firstAttribute="height" constant="35" id="xOk-xh-i5J"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
                                 <state key="normal" title="login">

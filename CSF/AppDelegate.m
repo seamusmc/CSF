@@ -32,7 +32,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window.tintColor = [ThemeManager sharedInstance].tintColor;
+    [UINavigationBar appearance].tintColor = [ThemeManager sharedInstance].normalFontColor;
 
     [self configureNavigationBar];
     [self configureWindowBackgroundImage];
