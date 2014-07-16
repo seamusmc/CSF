@@ -5,6 +5,7 @@ target :CSF do
   pod 'Tweaks'
   pod 'CocoaLumberjack'
   pod 'GoogleAnalytics-iOS-SDK'
+  pod 'Shimmer'
 end
 
 target :CSFTests do

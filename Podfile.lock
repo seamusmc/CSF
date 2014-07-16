@@ -29,6 +29,7 @@ PODS:
   - FLKAutoLayout (0.1.1)
   - FXKeychain (1.5.1)
   - GoogleAnalytics-iOS-SDK (3.0.7)
+  - Shimmer (1.0.1)
   - Tweaks (1.1.0)
 
 DEPENDENCIES:
@@ -38,6 +39,7 @@ DEPENDENCIES:
   - FLKAutoLayout
   - FXKeychain
   - GoogleAnalytics-iOS-SDK
+  - Shimmer
   - Tweaks
 
 SPEC CHECKSUMS:
@@ -47,6 +49,7 @@ SPEC CHECKSUMS:
   FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
   FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
   GoogleAnalytics-iOS-SDK: bb285d8eef15a682f1b82971becd0d22edd0e53b
+  Shimmer: 35aa2a57b8fbc17f9e16706021665966fd93dbd1
   Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
 
 COCOAPODS: 0.33.1
