@@ -70,6 +70,11 @@
     return TweakColor(TweakCategoryColors, TweakGroupDisabled, @"A4A4A4", 1.0f);
 }
 
+#define TweakGroupImageTint @"Image Tint"
+- (UIColor *)imageTintColor {
+    return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.3f);
+}
+
 #pragma mark - Transition Animations
 #define TweakCategoryAnimationTransition @"Animation Transitions"
 

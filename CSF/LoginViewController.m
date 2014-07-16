@@ -372,6 +372,10 @@ shouldChangeCharactersInRange:(NSRange)range
         field.borderStyle = UITextBorderStyleRoundedRect;
         field.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
+        field.layer.cornerRadius = 5.0f;
+        field.layer.borderWidth = 1.0f;
+        field.layer.borderColor = [ThemeManager sharedInstance].tintColor.CGColor;
+
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
         }
@@ -497,8 +501,10 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.loginButton.layer.cornerRadius = 5.0f;
     self.loginButton.layer.borderWidth  = 1.0f;
-    self.loginButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
     self.loginButton.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
+
+    self.loginButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
+
 }
 
 - (void)configureTransparentNavigationBar {

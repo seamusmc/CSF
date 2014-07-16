@@ -10,6 +10,7 @@
 #pragma mark - Colors
 @property(nonatomic, strong, readonly) UIColor *tintColor;
 @property(nonatomic, strong, readonly) UIColor *disabledColor;
+@property(nonatomic, strong, readonly) UIColor *imageTintColor;
 
 #pragma mark - Fonts
 @property(nonatomic, strong, readonly) UIColor *normalFontColor;

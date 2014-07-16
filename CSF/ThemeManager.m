@@ -5,8 +5,12 @@
 
 #import "ThemeManager.h"
 #import "TweaksService.h"
+#import "UIColor+Extended.h"
 
 @implementation ThemeManager
+- (UIColor *)imageTintColor {
+    return [TweaksService sharedInstance].imageTintColor;
+}
 
 - (UIColor *)disabledColor {
     return [TweaksService sharedInstance].disabledColor;
