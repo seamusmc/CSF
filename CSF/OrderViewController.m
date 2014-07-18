@@ -27,11 +27,8 @@
 
     self.view.backgroundColor = [UIColor clearColor];
 
-}
+    [self configureNavigationBarItems];
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
@@ -44,5 +41,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Private Methods
+
+- (void)configureNavigationBarItems {
+    UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
+
+    NSArray *actionButtonItems = @[addItem, removeItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+}
 
 @end

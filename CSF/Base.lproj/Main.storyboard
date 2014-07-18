@@ -140,7 +140,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="d67-02-7cA">
-                        <barButtonItem key="backBarButtonItem" title=" logout" id="QI2-x7-fZv"/>
+                        <barButtonItem key="backBarButtonItem" title="logout" id="QI2-x7-fZv"/>
                     </navigationItem>
                     <connections>
                         <outlet property="farmField" destination="Qqb-uS-Ut0" id="vBQ-mJ-YAc"/>
@@ -167,7 +167,7 @@
             </objects>
             <point key="canvasLocation" x="618" y="322"/>
         </scene>
-        <!--Order View Controller-->
+        <!--Order View Controller - order-->
         <scene sceneID="K08-CY-ltb">
             <objects>
                 <viewController id="moH-Hp-ojt" customClass="OrderViewController" sceneMemberID="viewController">
@@ -190,8 +190,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PTC-nS-AR5">
-                        <barButtonItem key="backBarButtonItem" title="order" id="WOm-6N-5di"/>
+                    <navigationItem key="navigationItem" title="order" id="PTC-nS-AR5">
+                        <barButtonItem key="backBarButtonItem" title="order" id="P8N-UM-QWY"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
