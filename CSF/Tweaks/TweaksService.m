@@ -75,21 +75,24 @@
     return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.3f);
 }
 
+#pragma mark - Dyanmic Animations
+#define TweakCategoryDynamicAnimatior @"Dynamic Animations"
+
+#pragma mark - Notification Label Dynamic Animation
+#define TweakGroupNotification @"Notification"
+
+- (CGFloat)notificationDamping {
+    return FBTweakValue(TweakCategoryDynamicAnimatior, TweakGroupNotification, @"Damping", 4.0f, 0.0f, 10.0f);
+}
+
 #pragma mark - Transition Animations
 #define TweakCategoryAnimationTransition @"Animation Transitions"
-
-#pragma mark - Fade Animation Transition
-#define TweakGroupFade @"Fade"
-
-//- (CGFloat)fadeAnimationDuration {
-//    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupFade, @"Duration", 0.6f, 0.0f, 2.0f);
-//}
 
 #pragma mark - Slide Right Transitions
 #define TweakGroupSlideRight @"Slide Right"
 
 - (CGFloat)slideRightAnimationDuration {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.9f, 0.0f, 2.0f);
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.8f, 0.0f, 2.0f);
 }
 
 - (CGFloat)slideRightAnimationDelay {
@@ -97,7 +100,7 @@
 }
 
 - (CGFloat)slideRightAnimationDamping {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Damping", 0.85f, 0.0f, 1.0f);
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Damping", 0.8f, 0.0f, 1.0f);
 }
 
 - (CGFloat)slideRightAnimationVelocity {

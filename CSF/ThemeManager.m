@@ -64,6 +64,10 @@
     return [TweaksService sharedInstance].shimmeringColor;
 }
 
+- (CGFloat)notificationDamping {
+    return [TweaksService sharedInstance].notificationDamping;
+}
+
 + (instancetype)sharedInstance {
     static ThemeManager    *sharedInstance = nil;
     static dispatch_once_t onceToken;

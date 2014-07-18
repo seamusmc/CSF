@@ -29,4 +29,9 @@
 @property(nonatomic, assign, readonly) CGFloat shimmeringOpacity;
 @property(nonatomic, strong, readonly) UIColor * shimmeringColor;
 
+#pragma mark - Dynamic Animations
+
+#pragma mark - Notification Label Animation
+@property(nonatomic, assign, readonly) CGFloat notificationDamping;
+
 @end
