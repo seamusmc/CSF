@@ -39,7 +39,7 @@
         return;
     }
 
-    NSString *uri = [NSString stringWithFormat:GetItemTypesURI, farm];
+    NSString *uri = [NSString stringWithFormat:kGetItemTypesURI, farm];
     [self.networkingService getDataWithURI:uri
                               successBlock:^(id response){
         if (response) {
@@ -62,7 +62,7 @@
         return;
     }
 
-    NSString *uri = [NSString stringWithFormat:GetItemsURI, farm, type];
+    NSString *uri = [NSString stringWithFormat:kGetItemsURI, farm, type];
     [self.networkingService getDataWithURI:uri
                               successBlock:^(id response){
         if (response) {

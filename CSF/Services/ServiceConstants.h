@@ -6,9 +6,9 @@
 #import <Foundation/Foundation.h>
 
 // URI's for the FOE web service.
-extern NSString* const GetItemTypesURI;
-extern NSString* const GetItemsURI;
-extern NSString* const AuthenticationURI;
-extern NSString* const GetOrderByUserURI;
-extern NSString* const UpdateOrderURI;
-extern NSString* const GetPreviousOrderURI;
+extern NSString* const kGetItemTypesURI;
+extern NSString* const kGetItemsURI;
+extern NSString* const kAuthenticationURI;
+extern NSString* const kGetOrderByUserURI;
+extern NSString* const kUpdateOrderURI;
+extern NSString* const kGetPreviousOrderURI;

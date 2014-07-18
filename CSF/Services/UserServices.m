@@ -58,7 +58,7 @@
         return;
     }
 
-    NSString *uri = [NSString stringWithFormat:AuthenticationURI, user.farm, user.firstname, user.lastname, password];
+    NSString *uri = [NSString stringWithFormat:kAuthenticationURI, user.farm, user.firstname, user.lastname, password];
     [self.networkingService getDataWithURI:uri successBlock:^(id response){
         if (response) {
             // A code of 2 indicates authentication failed. Could be because first name, last name,

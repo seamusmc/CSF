@@ -6,9 +6,9 @@
 // URI's for the FOE web service.
 #define BaseURI @"http://www.ohiorawmilk.info/mobileoerest/RestService.svc/foe/"
 
-NSString *const GetItemTypesURI     = BaseURI "itemtypes/?farm=%@";
-NSString *const GetItemsURI         = BaseURI "items/?farm=%@&type=%@";
-NSString *const AuthenticationURI   = BaseURI "authenticate/?farm=%@&firstName=%@&lastName=%@&password=%@";
-NSString *const GetOrderByUserURI   = BaseURI "ordersbyuser/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@";
-NSString *const UpdateOrderURI      = BaseURI "updateorderitem/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@&item=%@&qty=%@&comment=%@&removeItem=%@";
-NSString *const GetPreviousOrderURI = BaseURI "previousorders/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@";
+NSString *const kGetItemTypesURI = BaseURI "itemtypes/?farm=%@";
+NSString *const kGetItemsURI = BaseURI "items/?farm=%@&type=%@";
+NSString *const kAuthenticationURI = BaseURI "authenticate/?farm=%@&firstName=%@&lastName=%@&password=%@";
+NSString *const kGetOrderByUserURI = BaseURI "ordersbyuser/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@";
+NSString *const kUpdateOrderURI = BaseURI "updateorderitem/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@&item=%@&qty=%@&comment=%@&removeItem=%@";
+NSString *const kGetPreviousOrderURI = BaseURI "previousorders/?farm=%@&group=%@&firstName=%@&lastName=%@&orderdate=%@";

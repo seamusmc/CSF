@@ -52,7 +52,7 @@
     }
 
     NSString *stringFromDate = [_dateFormatter stringFromDate:date];
-    NSString *uri            = [NSString stringWithFormat:GetOrderByUserURI,
+    NSString *uri            = [NSString stringWithFormat:kGetOrderByUserURI,
                                                           user.farm,
                                                           user.group,
                                                           user.firstname,
