@@ -92,7 +92,7 @@
 #define TweakGroupSlideRight @"Slide Right"
 
 - (CGFloat)slideRightAnimationDuration {
-    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.8f, 0.0f, 2.0f);
+    return FBTweakValue(TweakCategoryAnimationTransition, TweakGroupSlideRight, @"Duration", 0.7f, 0.0f, 2.0f);
 }
 
 - (CGFloat)slideRightAnimationDelay {
