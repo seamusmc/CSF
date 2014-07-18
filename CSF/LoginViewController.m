@@ -142,13 +142,6 @@ static const int LastnameMaxLength  = 15;
 
     [self.activityIndicator start];
 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-//                                 (int64_t)(0.1 * NSEC_PER_SEC)),
-//                   dispatch_get_main_queue(), ^{
-//                self.spinningView.hidden = NO;
-//                [self startSpin];
-//            });
-
     __typeof(self) __weak weakSelf = self;
     [self.userServices authenticateUser:user
                            withPassword:self.passwordField.text
