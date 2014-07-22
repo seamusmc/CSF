@@ -7,20 +7,24 @@
 //
 
 #import "OrderViewController.h"
+#import "ThemeManager.h"
 
-@interface OrderViewController ()
+@interface OrderViewController () <UITextFieldDelegate>
+
+@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UITextField *dateField;
+
+@property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
+
+@property(nonatomic, copy) NSArray *labels;
 
 @end
 
-@implementation OrderViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+@implementation OrderViewController {
+    NSDateFormatter *_dateFormatter;
 }
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +32,20 @@
     self.view.backgroundColor = [UIColor clearColor];
 
     [self configureNavigationBarItems];
+    [self configureFields];
+    [self configureLabels];
+}
 
+#pragma mark - Property Overrides
+
+- (NSDateFormatter *)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    }
+
+    return _dateFormatter;
 }
 
 /*
@@ -42,6 +59,22 @@
 }
 */
 
+#pragma mark - Gesture Handling
+
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
 #pragma mark - Private Methods
 
 - (void)configureNavigationBarItems {
@@ -50,6 +83,50 @@
 
     NSArray *actionButtonItems = @[addItem, removeItem];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
+}
+
+- (void)configureFields {
+    self.dateField.delegate = self;
+
+    self.dateField.font      = [ThemeManager sharedInstance].normalFont;
+    self.dateField.textColor = [ThemeManager sharedInstance].normalFontColor;
+
+    self.dateField.borderStyle     = UITextBorderStyleRoundedRect;
+    self.dateField.backgroundColor = [ThemeManager sharedInstance].tintColor;
+
+    self.dateField.layer.cornerRadius = 5.0f;
+    self.dateField.layer.borderWidth  = 1.0f;
+    self.dateField.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
+    self.dateField.keyboardAppearance = UIKeyboardAppearanceAlert;
+
+    UIColor  *color       = [ThemeManager sharedInstance].placeHolderFontColor;
+    UIFont   *font        = [ThemeManager sharedInstance].placeHolderFont;
+    NSString *placeholder = self.dateField.placeholder;
+    if (placeholder) {
+        self.dateField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
+                                                                           attributes:@{NSForegroundColorAttributeName : color,
+                                                                                        NSFontAttributeName            : font}];
+    }
+
+    self.dateField.text = [self.dateFormatter stringFromDate:[NSDate date]];
+    self.dateField.inputView = [self createDatePicker];
+}
+
+- (UIDatePicker *)createDatePicker {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    [datePicker addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+    datePicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.80f];
+
+    return datePicker;
+}
+
+- (void)configureLabels {
+    self.labels = @[self.dateLabel];
+    for (UILabel *label in self.labels) {
+        label.font = [ThemeManager sharedInstance].normalFont;
+        label.textColor = [ThemeManager sharedInstance].normalFontColor;
+    }
 }
 
 @end

@@ -228,11 +228,19 @@ shouldChangeCharactersInRange:(NSRange)range
 
     label.textColor     = [ThemeManager sharedInstance].normalFontColor;
     label.font          = [ThemeManager sharedInstance].normalFont;
-    label.text          = [self.farms objectAtIndex:row];
+    label.text          = self.farms[row];
     label.textAlignment = NSTextAlignmentCenter;
 
     return label;
 }
+
+//- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+//    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
+//
+//    UIColor *foregroundColor = [ThemeManager sharedInstance].normalFontColor;
+//    return [[NSAttributedString alloc] initWithString:self.farms[row] attributes:@{NSForegroundColorAttributeName : foregroundColor}];
+//}
+
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
@@ -321,7 +329,7 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureFarmPicker {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 179.0f);
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f); // 179
     PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
 
     farmPicker.delegate                = self;
@@ -331,7 +339,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
     self.farmField.inputView = farmPicker;
 
-    self.farmField.inputAccessoryView = farmPicker.inputAccessory;
+    //self.farmField.inputAccessoryView = farmPicker.inputAccessory;
 }
 
 - (void)enableOrDisableLoginButton {
@@ -378,12 +386,12 @@ shouldChangeCharactersInRange:(NSRange)range
         field.font      = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
 
-        field.borderStyle = UITextBorderStyleRoundedRect;
+        field.borderStyle     = UITextBorderStyleRoundedRect;
         field.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
         field.layer.cornerRadius = 5.0f;
-        field.layer.borderWidth = 1.0f;
-        field.layer.borderColor = [ThemeManager sharedInstance].tintColor.CGColor;
+        field.layer.borderWidth  = 1.0f;
+        field.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
         if (![field isEqual:self.farmField]) {
             field.keyboardAppearance = UIKeyboardAppearanceAlert;
