@@ -22,6 +22,12 @@
 @property(nonatomic, strong, readonly) UIColor *placeHolderFontColor;
 @property(nonatomic, strong, readonly) UIFont *placeHolderFont;
 
+@property(nonatomic, strong, readonly) UIFont *tableViewTitleFont;
+@property(nonatomic, strong, readonly) UIColor *tableViewTitleFontColor;
+
+@property(nonatomic, strong, readonly) UIFont *tableViewDescriptionFont;
+@property(nonatomic, strong, readonly) UIColor *tableViewDescriptionFontColor;
+
 #pragma mark - Activity Indicator
 @property(nonatomic, assign, readonly) CGFloat shimmerSpeed;
 @property(nonatomic, assign, readonly) CGFloat shimmeringBeginFadeDuration;

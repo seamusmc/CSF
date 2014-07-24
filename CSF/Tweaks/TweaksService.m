@@ -56,12 +56,33 @@
     return TweakColor(TweakCategoryFonts, TweakGroupPlaceHolderFont, @"A4A4A4", 1.0f);
 }
 
+#define TweakGroupTableViewTitleFont @"TableView Title Font"
+- (UIFont *)tableViewTitleFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupTableViewTitleFont, @"Size", 21.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"Avenir-Light" size:value];
+}
+
+- (UIColor *)tableViewTitleFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupTableViewTitleFont, @"FFFFFF", 1.0f);
+}
+
+
+#define TweakGroupTableViewDescriptionFont @"TableView Description Font"
+- (UIFont *)tableViewDescriptionFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupTableViewDescriptionFont, @"Size", 18.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"Avenir-LightOblique" size:value];
+}
+
+- (UIColor *)tableViewDescriptionFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupTableViewDescriptionFont, @"FFFFFF", 0.60f);
+}
+
 #pragma mark - Colors
 #define TweakCategoryColors @"Colors"
 
 #define TweakGroupTint @"Tint"
 - (UIColor *)tintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupTint, @"FFFFFF", 0.05f);
+    return TweakColor(TweakCategoryColors, TweakGroupTint, @"FFFFFF", 0.08f);
 }
 
 #define TweakGroupDisabled @"Disabled"
@@ -71,7 +92,7 @@
 
 #define TweakGroupImageTint @"Image Tint"
 - (UIColor *)imageTintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.3f);
+    return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.4f);
 }
 
 #pragma mark - Dyanmic Animations

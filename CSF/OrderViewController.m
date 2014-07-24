@@ -12,7 +12,6 @@
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic, weak) IBOutlet UILabel     *dateLabel;
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
 @property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
 @property(nonatomic, weak) IBOutlet UILabel     *totalLabel;
@@ -72,7 +71,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrderItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderItemCellIdentifier forIndexPath:indexPath];
-    cell.nameLabel.text = @"briskett";
+    cell.name = @"briskett";
+    cell.quantity = @"qty ~ 5";
     return cell;
 }
 
@@ -140,13 +140,13 @@
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
     [datePicker addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
-    datePicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.80f];
+    //datePicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.80f];
 
     return datePicker;
 }
 
 - (void)configureLabels {
-    self.labels = @[self.dateLabel, self.totalLabel];
+    self.labels = @[self.totalLabel];
     for (UILabel *label in self.labels) {
         label.font = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
@@ -155,6 +155,7 @@
 
 - (void)configureOrderItemsTableView {
     self.orderItemsTableView.backgroundColor = [UIColor clearColor];
+    self.orderItemsTableView.alwaysBounceVertical = NO;
 
     self.orderItemsTableView.dataSource = self;
     self.orderItemsTableView.delegate = self;

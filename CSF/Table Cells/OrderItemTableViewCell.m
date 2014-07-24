@@ -12,6 +12,9 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 @interface OrderItemTableViewCell ()
 
 @property(strong, nonatomic) UIView *lineView;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UILabel *quantityLabel;
+@property (strong, nonatomic) UILabel *commentLabel;
 
 @end
 
@@ -20,7 +23,8 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.nameLabel = [[UILabel alloc] init];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 20.0f)];
+        self.quantityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.nameLabel.frame.size.height, 0.0f, 20.0f)];
     }
 
     return self;
@@ -29,12 +33,14 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    self.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 100.0f);
     self.backgroundColor = [UIColor clearColor];
+
+    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     [self configureLine];
     [self configureNameLabel];
-    [self configureTotalLabel];
+    [self configureQuantityLabel];
     [self configureCommentLabel];
 }
 
@@ -42,18 +48,19 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 
 }
 
-- (void)configureTotalLabel {
+- (void)configureQuantityLabel {
+    self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
+    self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
+    self.quantityLabel.textAlignment = NSTextAlignmentLeft;
 
+    [self.contentView addSubview:self.quantityLabel];
+    [self.quantityLabel alignLeadingEdgeWithView:self.contentView predicate:@"20"];
 }
 
 - (void)configureNameLabel {
-    CGSize size = self.contentView.frame.size;
-
-    self.nameLabel.frame                = CGRectMake(0.0f, 0.0f, 150.0f, size.height);
-    self.nameLabel.textColor            = [ThemeManager sharedInstance].normalFontColor;
-    self.nameLabel.font                 = [ThemeManager sharedInstance].normalFont;
-    self.nameLabel.textAlignment        = NSTextAlignmentLeft;
-    self.nameLabel.autoresizingMask     = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    self.nameLabel.textColor     = [ThemeManager sharedInstance].tableViewTitleFontColor;
+    self.nameLabel.font          = [ThemeManager sharedInstance].tableViewTitleFont;
+    self.nameLabel.textAlignment = NSTextAlignmentLeft;
 
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel alignLeadingEdgeWithView:self.contentView predicate:@"20"];
@@ -70,5 +77,22 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     [self.contentView addSubview:self.lineView];
 }
 
+#pragma mark - Property Overrides
+
+- (NSString *)name {
+    return self.nameLabel.text;
+}
+
+- (void)setName:(NSString *)name {
+    self.nameLabel.text = name;
+}
+
+- (NSString *)quantity {
+    return self.quantityLabel.text;
+}
+
+- (void)setQuantity:(NSString *)quantity {
+    self.quantityLabel.text = quantity;
+}
 
 @end

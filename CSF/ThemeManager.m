@@ -28,6 +28,22 @@
     return [TweaksService sharedInstance].placeHolderFont;
 }
 
+- (UIFont *)tableViewTitleFont {
+    return [TweaksService sharedInstance].tableViewTitleFont;
+}
+
+- (UIColor *)tableViewTitleFontColor {
+    return [TweaksService sharedInstance].tableViewTitleFontColor;
+}
+
+- (UIFont *)tableViewDescriptionFont {
+    return [TweaksService sharedInstance].tableViewDescriptionFont;
+}
+
+- (UIColor *)tableViewDescriptionFontColor {
+    return [TweaksService sharedInstance].tableViewDescriptionFontColor;
+}
+
 - (UIColor *)errorFontColor {
     return [TweaksService sharedInstance].errorFontColor;
 }
