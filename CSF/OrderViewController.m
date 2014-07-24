@@ -9,10 +9,12 @@
 #import "OrderViewController.h"
 #import "ThemeManager.h"
 
-@interface OrderViewController () <UITextFieldDelegate>
+@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet UITextField *dateField;
+@property(nonatomic, weak) IBOutlet UILabel     *dateLabel;
+@property(nonatomic, weak) IBOutlet UITextField *dateField;
+@property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
+@property(nonatomic, weak) IBOutlet UILabel     *totalLabel;
 
 @property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
 
@@ -34,6 +36,8 @@
     [self configureNavigationBarItems];
     [self configureFields];
     [self configureLabels];
+
+    self.orderItemsTableView.backgroundColor = [UIColor clearColor];
 }
 
 #pragma mark - Property Overrides
@@ -75,7 +79,7 @@
     return NO;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Private
 
 - (void)configureNavigationBarItems {
     UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
@@ -122,7 +126,7 @@
 }
 
 - (void)configureLabels {
-    self.labels = @[self.dateLabel];
+    self.labels = @[self.dateLabel, self.totalLabel];
     for (UILabel *label in self.labels) {
         label.font = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
