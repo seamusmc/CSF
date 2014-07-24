@@ -360,13 +360,12 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void)fillUserData {
     if (self.rememberMe) {
         __typeof(self) __weak weakSelf = self;
-        [self.userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *user, NSString *password)
-                {
-                    weakSelf.firstNameField.text = user.firstname;
-                    weakSelf.lastNameField.text  = user.lastname;
-                    weakSelf.passwordField.text  = password;
-                    weakSelf.farmField.text      = user.farm ? user.farm : @"yoder";
-                }];
+        [self.userServices retrieveUserAndPasswordFromStoreWithCompletionHandler:^(User *user, NSString *password) {
+            weakSelf.firstNameField.text = user.firstname;
+            weakSelf.lastNameField.text  = user.lastname;
+            weakSelf.passwordField.text  = password;
+            weakSelf.farmField.text      = user.farm ? user.farm : @"yoder";
+        }];
 
         self.rememberMeSwitch.on = self.rememberMe;
         [self enableOrDisableLoginButton];

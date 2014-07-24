@@ -29,17 +29,17 @@
 #define TweakGroupNormalFont @"Normal Font"
 - (UIFont *)normalFont {
     CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupNormalFont, @"Size", 20.0f, 1.0f, 50.0f);
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+    return [UIFont fontWithName:@"Avenir-Roman" size:value];
 }
 
 - (UIColor *)normalFontColor {
-    return TweakColor(TweakCategoryFonts, TweakGroupNormalFont, @"FFFFFF", 1.0f);
+    return TweakColor(TweakCategoryFonts, TweakGroupNormalFont, @"FFFFFF", 0.90f);
 }
 
 #define TweakGroupErrorFont @"Error Font"
 - (UIFont *)errorFont {
     CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupErrorFont, @"Size", 20.0f, 1.0f, 50.0f);
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
+    return [UIFont fontWithName:@"Avenir-Roman" size:value];
 }
 
 - (UIColor *)errorFontColor {
@@ -49,8 +49,7 @@
 #define TweakGroupPlaceHolderFont @"PlaceHolder Font"
 - (UIFont *)placeHolderFont {
     CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupPlaceHolderFont, @"Size", 20.0f, 1.0f, 50.0f);
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:value];
-
+    return [UIFont fontWithName:@"Avenir-Roman" size:value];
 }
 
 - (UIColor *)placeHolderFontColor {
