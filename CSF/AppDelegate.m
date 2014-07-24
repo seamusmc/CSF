@@ -43,13 +43,15 @@
 }
 
 - (void)configureNavigationBar {
-    NSDictionary *textAttributes = @{NSFontAttributeName : [ThemeManager sharedInstance].normalFont};
-    [UINavigationBar appearance].titleTextAttributes = textAttributes;
-    [UINavigationBar appearance].barStyle            = UIBarStyleBlack;
-
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowOffset = CGSizeMake(0.0, 1.0);
     shadow.shadowColor  = [UIColor clearColor];
+
+    NSDictionary *textAttributes = @{NSForegroundColorAttributeName : [ThemeManager sharedInstance].normalFontColor,
+                                     NSShadowAttributeName          : shadow,
+                                     NSFontAttributeName : [ThemeManager sharedInstance].normalFont};
+    [UINavigationBar appearance].titleTextAttributes = textAttributes;
+    [UINavigationBar appearance].barStyle            = UIBarStyleBlack;
 
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
                       setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].normalFontColor,
