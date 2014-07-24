@@ -8,6 +8,7 @@
 
 #import "OrderViewController.h"
 #import "ThemeManager.h"
+#import "OrderItemTableViewCell.h"
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -66,12 +67,13 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return nil;
+    OrderItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderItemCellIdentifier forIndexPath:indexPath];
+    cell.nameLabel.text = @"briskett";
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -157,8 +159,8 @@
     self.orderItemsTableView.dataSource = self;
     self.orderItemsTableView.delegate = self;
 
-//    [self.orderItemsTableView registerClass:<#(Class)cellClass#> forCellReuseIdentifier:<#(NSString *)identifier#>];
-//    [self.tipTableView registerClass:[CLTipTableViewCell class] forCellReuseIdentifier:kTipCellIdentifier];
+    // Register the table cell here so we don't need to do it in the delegate method.
+    [self.orderItemsTableView registerClass:[OrderItemTableViewCell class] forCellReuseIdentifier:kOrderItemCellIdentifier];
 }
 
 @end
