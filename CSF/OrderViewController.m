@@ -37,7 +37,7 @@
     [self configureFields];
     [self configureLabels];
 
-    self.orderItemsTableView.backgroundColor = [UIColor clearColor];
+    [self configureOrderItemsTableView];
 }
 
 #pragma mark - Property Overrides
@@ -62,6 +62,24 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return nil;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
 
 #pragma mark - Gesture Handling
 
@@ -131,6 +149,16 @@
         label.font = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
+}
+
+- (void)configureOrderItemsTableView {
+    self.orderItemsTableView.backgroundColor = [UIColor clearColor];
+
+    self.orderItemsTableView.dataSource = self;
+    self.orderItemsTableView.delegate = self;
+
+//    [self.orderItemsTableView registerClass:<#(Class)cellClass#> forCellReuseIdentifier:<#(NSString *)identifier#>];
+//    [self.tipTableView registerClass:[CLTipTableViewCell class] forCellReuseIdentifier:kTipCellIdentifier];
 }
 
 @end
