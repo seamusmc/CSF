@@ -30,6 +30,7 @@
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
+		C9FA5E68EAC61AEC1DF52870 /* OrderItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52362D40650167B984EC /* OrderItemTableViewCell.m */; };
 		C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */; };
 		F108CE2718E31E9C00A19A28 /* UserServicesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F108CE2618E31E9C00A19A28 /* UserServicesTests.m */; };
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
@@ -70,6 +71,7 @@
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extended.h"; sourceTree = "<group>"; };
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
+		C9FA52362D40650167B984EC /* OrderItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemTableViewCell.m; sourceTree = "<group>"; };
 		C9FA525C0D7C6D0A51CB8DF5 /* PickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerView.m; sourceTree = "<group>"; };
 		C9FA526DE31158E7AA53F59E /* UITextField+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extended.h"; sourceTree = "<group>"; };
 		C9FA526F81D491D69FF8F812 /* ServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConstants.h; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extended.m"; sourceTree = "<group>"; };
 		C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
+		C9FA5DDD91150820D740438E /* OrderItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemTableViewCell.h; sourceTree = "<group>"; };
 		C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideToRightAnimationController.m; sourceTree = "<group>"; };
 		C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideFromRightAnimationController.m; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
@@ -200,6 +203,15 @@
 				C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */,
 			);
 			path = "Animation Controllers";
+			sourceTree = "<group>";
+		};
+		C9FA5868CD01050643720730 /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C9FA52362D40650167B984EC /* OrderItemTableViewCell.m */,
+				C9FA5DDD91150820D740438E /* OrderItemTableViewCell.h */,
+			);
+			path = "Table Cells";
 			sourceTree = "<group>";
 		};
 		C9FA597284A4BF8E27BDED6B /* Controls */ = {
@@ -320,6 +332,7 @@
 				C9FA5D6D91C1C77F4FD04329 /* Tweaks */,
 				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
 				C9FA597284A4BF8E27BDED6B /* Controls */,
+				C9FA5868CD01050643720730 /* Table Cells */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -557,6 +570,7 @@
 				C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */,
 				C9FA51F79A4596842525BF66 /* PickerView.m in Sources */,
 				C9FA537AC74DE711D12D92FF /* FBShimmeringView+Extended.m in Sources */,
+				C9FA5E68EAC61AEC1DF52870 /* OrderItemTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
