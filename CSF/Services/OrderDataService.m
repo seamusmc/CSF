@@ -61,12 +61,14 @@
     [self.networkingService getDataWithURI:uri
                               successBlock:^(id response){
         if (response) {
-            NSMutableArray *items = [NSMutableArray array];
-            BOOL           locked;
+            NSString *total;
+            total = [response objectForKey:@"Total"];
 
+            BOOL locked;
             locked = [[response objectForKey:@"Locked"] boolValue];
 
-            NSArray *tempItems = [response objectForKey:@"Items"];
+            NSMutableArray *items     = [NSMutableArray array];
+            NSArray        *tempItems = [response objectForKey:@"Items"];
             for (id item in tempItems) {
                 OrderItem *orderItem = [[OrderItem alloc] init];
 
@@ -75,18 +77,10 @@
                 orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
                 orderItem.comment  = [item objectForKey:@"Comment"];
 
-/*
-                Item* farmItem = [self findItemWithFarmData:farmData andOrderItem:orderItem];
-
-                orderItem.price = farmItem.price;
-                orderItem.outOfStock = farmItem.outOfStock;
-                orderItem.fractions = farmItem.fractions;
-*/
-
                 [items addObject:orderItem];
             }
 
-            Order *order = [[Order alloc] initWithLocked:locked items:items];
+            Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:total];
             successBlock(order);
         }
     }

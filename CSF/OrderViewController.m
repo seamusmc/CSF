@@ -82,7 +82,6 @@
 
 }
 
-
 #pragma mark - Gesture Handling
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
