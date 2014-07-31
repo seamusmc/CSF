@@ -9,6 +9,12 @@
 #import "OrderViewController.h"
 #import "ThemeManager.h"
 #import "OrderItemTableViewCell.h"
+#import "Order.h"
+#import "OrderDataService.h"
+#import "UserServices.h"
+#import "OrderItem.h"
+#import "FBShimmeringView.h"
+#import "FBShimmeringView+Extended.h"
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -18,7 +24,10 @@
 
 @property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
 
+@property(nonatomic, weak) FBShimmeringView *activityIndicator;
+
 @property(nonatomic, copy) NSArray *labels;
+@property(nonatomic, strong) Order *order;
 
 @end
 
@@ -38,9 +47,17 @@
     [self configureLabels];
 
     [self configureOrderItemsTableView];
+    [self requestOrder];
 }
 
 #pragma mark - Property Overrides
+
+- (FBShimmeringView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [self createActivityIndicator];
+    }
+    return _activityIndicator;
+}
 
 - (NSDateFormatter *)dateFormatter {
     if (_dateFormatter == nil) {
@@ -66,13 +83,15 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [self.order.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    OrderItem *item = self.order.items[indexPath.row];
+
     OrderItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderItemCellIdentifier forIndexPath:indexPath];
-    cell.name = @"briskett";
-    cell.quantity = @"qty ~ 5";
+    cell.name = item.name;
+    cell.quantity = [NSString stringWithFormat:@"qty ~ %@", item.quantity];
     return cell;
 }
 
@@ -99,6 +118,43 @@
 }
 
 #pragma mark - Private
+
+- (FBShimmeringView *)createActivityIndicator {
+    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, 1.0f);
+    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
+
+    shimmeringView.hidden                      = YES;
+    shimmeringView.shimmeringSpeed             = [ThemeManager sharedInstance].shimmerSpeed;
+    shimmeringView.shimmeringBeginFadeDuration = [ThemeManager sharedInstance].shimmeringBeginFadeDuration;
+    shimmeringView.shimmeringEndFadeDuration   = [ThemeManager sharedInstance].shimmeringEndFadeDuration;
+    shimmeringView.shimmeringOpacity           = [ThemeManager sharedInstance].shimmeringOpacity;
+
+    [self.view addSubview:shimmeringView];
+
+    UIView *progressView = [[UIView alloc] initWithFrame:shimmeringView.bounds];
+    progressView.backgroundColor = [ThemeManager sharedInstance].shimmeringColor;
+    shimmeringView.contentView = progressView;
+
+    return shimmeringView;
+}
+
+- (void)requestOrder {
+    [self.activityIndicator start];
+
+    __typeof(self) __weak weakSelf = self;
+    [[OrderDataService sharedInstance] getOrderForUser:[UserServices sharedInstance].currentUser
+                                                  date:[NSDate date]
+                                          successBlock:^(Order *tempOrder) {
+        self.order = tempOrder;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.activityIndicator stop];
+            [self.orderItemsTableView reloadData];
+        });
+    }
+                                          failureBlock:^(NSString *message){
+        [weakSelf.activityIndicator stop];
+    }];
+}
 
 - (void)configureNavigationBarItems {
     UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];

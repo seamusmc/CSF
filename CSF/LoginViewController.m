@@ -270,7 +270,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (FBShimmeringView *)activityIndicator {
     if (_activityIndicator == nil) {
-        _activityIndicator = [self createWorkIndicator];
+        _activityIndicator = [self createActivityIndicator];
     }
     return _activityIndicator;
 }
@@ -530,7 +530,7 @@ shouldChangeCharactersInRange:(NSRange)range
     self.navigationController.navigationBar.translucent = YES;
 }
 
-- (FBShimmeringView *)createWorkIndicator {
+- (FBShimmeringView *)createActivityIndicator {
     CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, 1.0f);
     FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
 
