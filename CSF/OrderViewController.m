@@ -148,6 +148,8 @@
         self.order = tempOrder;
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.activityIndicator stop];
+
+            self.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", self.order.total];
             [self.orderItemsTableView reloadData];
         });
     }
