@@ -19,6 +19,17 @@
 
 @implementation OrderDataService {
     NSDateFormatter *_dateFormatter;
+    NSNumberFormatter *_currencyFormatter;
+}
+
+- (NSNumberFormatter *)currencyFormatter {
+    if (_currencyFormatter == nil) {
+        _currencyFormatter = [[NSNumberFormatter alloc] init];
+        _currencyFormatter.NumberStyle  = NSNumberFormatterCurrencyStyle;
+        _currencyFormatter.currencyCode = @"USD";
+    }
+
+    return _currencyFormatter;
 }
 
 - (id)init {
@@ -61,8 +72,7 @@
     [self.networkingService getDataWithURI:uri
                               successBlock:^(id response){
         if (response) {
-            NSString *total;
-            total = [response objectForKey:@"Total"];
+            NSString *formattedTotal = [self getFormattedTotal:response];
 
             BOOL locked;
             locked = [[response objectForKey:@"Locked"] boolValue];
@@ -80,7 +90,7 @@
                 [items addObject:orderItem];
             }
 
-            Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:total];
+            Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:formattedTotal];
             successBlock(order);
         }
     }
@@ -91,6 +101,22 @@
     }];
 }
 
+#pragma mark - Private
+
+- (NSString *)getFormattedTotal:(id)response {
+    NSString *total;
+    total = [response objectForKey:@"Total"];
+
+    NSString *formattedTotal;
+    if (total != nil) {
+        NSNumber *totalValue;
+        totalValue = [[NSNumber alloc] initWithFloat:[total floatValue]];
+
+        formattedTotal = [self.currencyFormatter stringFromNumber:totalValue];
+    }
+
+    return formattedTotal;
+}
 
 - (id <NetworkingServiceProtocol>)networkingService {
     return [ServiceLocator sharedInstance].networkingService;
