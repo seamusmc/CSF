@@ -140,7 +140,6 @@
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
     [datePicker addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
-    //datePicker.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.80f];
 
     return datePicker;
 }
