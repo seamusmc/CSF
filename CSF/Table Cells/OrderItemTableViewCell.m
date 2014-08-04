@@ -41,11 +41,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     [self configureLine];
     [self configureNameLabel];
     [self configureQuantityLabel];
-    [self configureCommentLabel];
-}
-
-- (void)configureCommentLabel {
-
 }
 
 - (void)configureQuantityLabel {
