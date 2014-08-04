@@ -15,6 +15,7 @@
 #import "OrderItem.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
+#import "UIAlertView+AFNetworking.h"
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -47,7 +48,31 @@
     [self configureLabels];
 
     [self configureOrderItemsTableView];
-    [self requestOrder];
+    [self requestOrderWithDate:[NSDate date]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+#pragma mark - Keyboard notifications
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if ([_currentDate isEqualToString:self.dateField.text] == NO) {
+        NSDate *date = [self.dateFormatter dateFromString:self.dateField.text];
+        [self requestOrderWithDate:date];
+    }
+}
+
+NSString *_currentDate;
+- (void)keyboardWillShow:(NSNotification *)notification {
+    _currentDate = self.dateField.text;
 }
 
 #pragma mark - Property Overrides
@@ -121,6 +146,15 @@
     return NO;
 }
 
+#pragma mark - Date Picker Actions
+
+- (void)dateChanged:(id)sender {
+    if ([sender isKindOfClass:[UIDatePicker class]]) {
+        UIDatePicker *datePicker = sender;
+        self.dateField.text = [self.dateFormatter stringFromDate:datePicker.date];
+    }
+}
+
 #pragma mark - Private
 
 - (FBShimmeringView *)createActivityIndicator {
@@ -142,12 +176,12 @@
     return shimmeringView;
 }
 
-- (void)requestOrder {
+- (void)requestOrderWithDate:(NSDate *)date {
     [self.activityIndicator start];
 
     __typeof(self) __weak weakSelf = self;
     [[OrderDataService sharedInstance] getOrderForUser:[UserServices sharedInstance].currentUser
-                                                  date:[NSDate date]
+                                                  date:date
                                           successBlock:^(Order *tempOrder) {
         self.order = tempOrder;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -200,7 +234,7 @@
 - (UIDatePicker *)createDatePicker {
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
-    [datePicker addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+    [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
 
     return datePicker;
 }
