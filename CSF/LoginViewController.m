@@ -19,6 +19,7 @@
 #import "PickerViewAccessoryDelegate.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
+#import "ActivityIndicator.h"
 
 static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
@@ -270,7 +271,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (FBShimmeringView *)activityIndicator {
     if (_activityIndicator == nil) {
-        _activityIndicator = [self createActivityIndicator];
+        _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
     }
     return _activityIndicator;
 }
@@ -528,25 +529,6 @@ shouldChangeCharactersInRange:(NSRange)range
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
-}
-
-- (FBShimmeringView *)createActivityIndicator {
-    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, 1.0f);
-    FBShimmeringView *shimmeringView = [[FBShimmeringView alloc] initWithFrame:frame];
-
-    shimmeringView.hidden                      = YES;
-    shimmeringView.shimmeringSpeed             = [ThemeManager sharedInstance].shimmerSpeed;
-    shimmeringView.shimmeringBeginFadeDuration = [ThemeManager sharedInstance].shimmeringBeginFadeDuration;
-    shimmeringView.shimmeringEndFadeDuration   = [ThemeManager sharedInstance].shimmeringEndFadeDuration;
-    shimmeringView.shimmeringOpacity           = [ThemeManager sharedInstance].shimmeringOpacity;
-
-    [self.view addSubview:shimmeringView];
-
-    UIView *progressView = [[UIView alloc] initWithFrame:shimmeringView.bounds];
-    progressView.backgroundColor = [ThemeManager sharedInstance].shimmeringColor;
-    shimmeringView.contentView = progressView;
-
-    return shimmeringView;
 }
 
 @end
