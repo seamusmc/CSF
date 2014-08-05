@@ -244,6 +244,7 @@
 - (UIDatePicker *)createDatePicker {
     DatePicker *datePicker = [[DatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.minimumDate = [NSDate date];
     [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
 
     return datePicker;
