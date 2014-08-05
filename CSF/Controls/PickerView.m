@@ -73,11 +73,7 @@
     UIBarButtonItem *doneButton   = [[UIBarButtonItem alloc] initWithCustomView:button];
 
     // the middle button is to make the Done button align to right
-    [toolBar setItems:[NSArray arrayWithObjects:flexible,
-                                                toolBarTitle,
-                                                flexible,
-                                                doneButton,
-                                                nil]];
+    [toolBar setItems:@[flexible, toolBarTitle, flexible, doneButton]];
     return toolBar;
 }
 
@@ -87,12 +83,8 @@
 
     // We only need or want to do this once, because of how we have to execute this hack.
     dispatch_once(&onceToken, ^{
-        // Make the selection indicators white with an alpha so that they are visible.
-        UIView *temp = self.subviews[1];
-        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
-
-        temp = self.subviews[2];
-        temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+        // Make the selection indicators, lines above and below selection, white with an alpha so that they are visible.
+        [self configureSelectionLines];
 
         // All we need is the bottom of the background image.
         CGRect rect = CGRectMake(0,
@@ -117,6 +109,14 @@
 
         [self insertSubview:overlayHack atIndex:1];
     });
+}
+
+- (void)configureSelectionLines {
+    UIView *temp = self.subviews[1];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+
+    temp = self.subviews[2];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
 }
 
 - (UIImage *)getSubImageFrom:(UIImage *)img WithRect:(CGRect)rect {
