@@ -185,6 +185,7 @@
                                           }
                                           failureBlock:^(NSString *message) {
                                               [weakSelf.activityIndicator stop];
+                                              // Show an alert view.
                                           }];
 }
 

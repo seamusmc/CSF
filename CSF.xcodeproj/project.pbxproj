@@ -40,6 +40,8 @@
 		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
 		F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */; };
 		F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F166ECA4196B1325009AF9C4 /* BaseViewController.m */; };
+		F197228519916C0500AD368E /* AlertViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F197228319916C0500AD368E /* AlertViewViewController.m */; };
+		F197228619916C0500AD368E /* AlertViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F197228419916C0500AD368E /* AlertViewViewController.xib */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
 		F1A91A5518D39602008395EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5418D39602008395EE /* CoreGraphics.framework */; };
 		F1A91A5718D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
@@ -140,6 +142,9 @@
 		F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		F166ECA3196B1325009AF9C4 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		F166ECA4196B1325009AF9C4 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		F197228219916C0500AD368E /* AlertViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewViewController.h; sourceTree = "<group>"; };
+		F197228319916C0500AD368E /* AlertViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewViewController.m; sourceTree = "<group>"; };
+		F197228419916C0500AD368E /* AlertViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertViewViewController.xib; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -350,6 +355,9 @@
 				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
 				C9FA597284A4BF8E27BDED6B /* Controls */,
 				C9FA5868CD01050643720730 /* Table Cells */,
+				F197228219916C0500AD368E /* AlertViewViewController.h */,
+				F197228319916C0500AD368E /* AlertViewViewController.m */,
+				F197228419916C0500AD368E /* AlertViewViewController.xib */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -479,6 +487,7 @@
 			files = (
 				F1A91A6B18D39602008395EE /* Images.xcassets in Resources */,
 				F1A91A5D18D39602008395EE /* InfoPlist.strings in Resources */,
+				F197228619916C0500AD368E /* AlertViewViewController.xib in Resources */,
 				F1A91A6618D39602008395EE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F197228519916C0500AD368E /* AlertViewViewController.m in Sources */,
 				F1A91A6918D39602008395EE /* LoginViewController.m in Sources */,
 				F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */,
 				F1A91A6318D39602008395EE /* AppDelegate.m in Sources */,

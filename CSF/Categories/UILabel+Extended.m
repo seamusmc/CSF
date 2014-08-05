@@ -13,7 +13,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self swizzleInstanceSelector:@selector(setTextColor:) withNewSelector:@selector(swizzledSetTextColor:)];
-        [self swizzleInstanceSelector:@selector(willMoveToSuperview::) withNewSelector:@selector(swizzledWillMoveToSuperview:)];
+        [self swizzleInstanceSelector:@selector(willMoveToSuperview:) withNewSelector:@selector(swizzledWillMoveToSuperview:)];
         [self swizzleInstanceSelector:@selector(setFont:) withNewSelector:@selector(swizzledSetFont:)];
         [self swizzleInstanceSelector:@selector(setText:) withNewSelector:@selector(swizzledSetText:)];
 
