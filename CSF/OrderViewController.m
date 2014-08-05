@@ -49,7 +49,7 @@
     [self configureLabels];
 
     [self configureOrderItemsTableView];
-    [self requestOrderWithDate:[NSDate date]];
+    [self refreshOrderWithDate:[NSDate date]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -97,7 +97,7 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
     if ([self.currentDate isEqualToString:self.dateField.text] == NO) {
         NSDate *date = [self.dateFormatter dateFromString:self.dateField.text];
-        [self requestOrderWithDate:date];
+        [self refreshOrderWithDate:date];
     }
 }
 
@@ -121,24 +121,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIView *item = (OrderItemTableViewCell*)cell;
-
-    // Save the current frame
-    CGRect frame = item.frame;
-    item.frame = CGRectMake(item.frame.size.width,
-                            item.frame.origin.y,
-                            item.frame.size.width,
-                            item.frame.size.height);
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         item.frame = frame;
-                     }
-                     completion:^(BOOL finished) {
-                     }];
-
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 52.0f;
@@ -194,24 +176,34 @@
     return shimmeringView;
 }
 
-- (void)requestOrderWithDate:(NSDate *)date {
+- (void)refreshOrderWithDate:(NSDate *)date {
     [self.activityIndicator start];
+
+    self.order = nil;
+    [self.orderItemsTableView reloadData];
 
     __typeof(self) __weak weakSelf = self;
     [[OrderDataService sharedInstance] getOrderForUser:[UserServices sharedInstance].currentUser
                                                   date:date
                                           successBlock:^(Order *tempOrder) {
-        self.order = tempOrder;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.activityIndicator stop];
+                                              self.order = tempOrder;
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf.activityIndicator stop];
 
-            self.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", self.order.total];
-            [self.orderItemsTableView reloadData];
-        });
-    }
-                                          failureBlock:^(NSString *message){
-        [weakSelf.activityIndicator stop];
-    }];
+                                                  self.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", self.order.total];
+
+                                                  NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+                                                  for (int index = 0; index < [self.order.items count]; ++index) {
+                                                    indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
+                                                  }
+
+                                                  [self.orderItemsTableView insertRowsAtIndexPaths:indexPaths
+                                                                                  withRowAnimation:UITableViewRowAnimationTop];
+                                              });
+                                          }
+                                          failureBlock:^(NSString *message) {
+                                              [weakSelf.activityIndicator stop];
+                                          }];
 }
 
 - (void)configureNavigationBarItems {
