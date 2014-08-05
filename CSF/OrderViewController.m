@@ -15,7 +15,6 @@
 #import "OrderItem.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
-#import "UIAlertView+AFNetworking.h"
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -27,8 +26,9 @@
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
-@property(nonatomic, copy) NSArray *labels;
-@property(nonatomic, strong) Order *order;
+@property(nonatomic, copy) NSArray    *labels;
+@property(nonatomic, strong) Order    *order;
+@property(nonatomic, strong) NSString *currentDate;
 
 @end
 
@@ -61,19 +61,16 @@
                                                object:nil];
 }
 
-#pragma mark - Keyboard notifications
+/*
+#pragma mark - Navigation
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    if ([_currentDate isEqualToString:self.dateField.text] == NO) {
-        NSDate *date = [self.dateFormatter dateFromString:self.dateField.text];
-        [self requestOrderWithDate:date];
-    }
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
-NSString *_currentDate;
-- (void)keyboardWillShow:(NSNotification *)notification {
-    _currentDate = self.dateField.text;
-}
+*/
 
 #pragma mark - Property Overrides
 
@@ -94,16 +91,18 @@ NSString *_currentDate;
     return _dateFormatter;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Keyboard notifications
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if ([self.currentDate isEqualToString:self.dateField.text] == NO) {
+        NSDate *date = [self.dateFormatter dateFromString:self.dateField.text];
+        [self requestOrderWithDate:date];
+    }
 }
-*/
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    self.currentDate = self.dateField.text;
+}
 
 #pragma mark - UITableViewDataSource
 
