@@ -15,8 +15,6 @@
 #import "OrderItem.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
-#import "UIColor+Extended.h"
-#import "UIImageView+Extended.h"
 #import "DatePicker.h"
 
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
