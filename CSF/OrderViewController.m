@@ -122,6 +122,24 @@
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIView *item = (OrderItemTableViewCell*)cell;
+
+    // Save the current frame
+    CGRect frame = item.frame;
+    item.frame = CGRectMake(item.frame.size.width,
+                            item.frame.origin.y,
+                            item.frame.size.width,
+                            item.frame.size.height);
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         item.frame = frame;
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 52.0f;
 }
