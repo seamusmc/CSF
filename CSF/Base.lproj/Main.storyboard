@@ -199,7 +199,7 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHh-ZP-LAk">
-                                <rect key="frame" x="112" y="87" width="97" height="35"/>
+                                <rect key="frame" x="112" y="80" width="97" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
@@ -211,7 +211,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hKV-Rz-HHU">
-                                <rect key="frame" x="0.0" y="147" width="320" height="377"/>
+                                <rect key="frame" x="0.0" y="140" width="320" height="384"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -226,7 +226,7 @@
                             <constraint firstItem="zBr-Rh-w4h" firstAttribute="top" secondItem="hKV-Rz-HHU" secondAttribute="bottom" constant="44" id="a9I-2l-UCq"/>
                             <constraint firstAttribute="centerX" secondItem="fHh-ZP-LAk" secondAttribute="centerX" id="lDM-Sm-l7F"/>
                             <constraint firstAttribute="trailing" secondItem="jAY-9L-3Jt" secondAttribute="trailing" id="oG2-bq-2hh"/>
-                            <constraint firstItem="fHh-ZP-LAk" firstAttribute="top" secondItem="ORo-qM-t2I" secondAttribute="top" constant="87" id="wFG-Yw-WNY"/>
+                            <constraint firstItem="fHh-ZP-LAk" firstAttribute="top" secondItem="ORo-qM-t2I" secondAttribute="top" constant="80" id="wFG-Yw-WNY"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="79y-Do-rLe" appends="YES" id="BCh-U8-pQP"/>
