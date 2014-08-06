@@ -172,15 +172,15 @@
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.activityIndicator stop];
 
-                                                  self.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", self.order.total];
+                                                  weakSelf.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", weakSelf.order.total];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-                                                  for (int index = 0; index < [self.order.items count]; ++index) {
-                                                    indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
+                                                  for (int index = 0; index < [weakSelf.order.items count]; ++index) {
+                                                      indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
                                                   }
 
-                                                  [self.orderItemsTableView insertRowsAtIndexPaths:indexPaths
-                                                                                  withRowAnimation:UITableViewRowAnimationTop];
+                                                  [weakSelf.orderItemsTableView insertRowsAtIndexPaths:indexPaths
+                                                                                      withRowAnimation:UITableViewRowAnimationTop];
                                               });
                                           }
                                           failureBlock:^(NSString *message) {
