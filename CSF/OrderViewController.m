@@ -190,10 +190,11 @@
 }
 
 - (void)configureNavigationBarItems {
-    UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
+    UIBarButtonItem *refreshOrder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:nil];
+    UIBarButtonItem *removeItem   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
+    UIBarButtonItem *addItem      = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
 
-    NSArray *actionButtonItems = @[addItem, removeItem];
+    NSArray *actionButtonItems = @[addItem, removeItem, refreshOrder];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
