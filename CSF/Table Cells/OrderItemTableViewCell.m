@@ -23,8 +23,11 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 20.0f)];
-        self.quantityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.nameLabel.frame.size.height, 0.0f, 20.0f)];
+        CGRect initialFrame = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
+
+        self.nameLabel     = [[UILabel alloc] initWithFrame:initialFrame];
+        self.quantityLabel = [[UILabel alloc] initWithFrame:initialFrame];
+        self.lineView      = [[UIView alloc] initWithFrame:initialFrame];
     }
 
     return self;
@@ -44,29 +47,36 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 }
 
 - (void)configureQuantityLabel {
+    CGSize  size   = self.contentView.frame.size;
+    CGPoint origin = self.contentView.frame.origin;
+
+    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height, size.width - 40.0f, 20.0f);
+
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
     self.quantityLabel.textAlignment = NSTextAlignmentLeft;
 
     [self.contentView addSubview:self.quantityLabel];
-    [self.quantityLabel alignLeadingEdgeWithView:self.contentView predicate:@"20"];
 }
 
 - (void)configureNameLabel {
+    CGSize  size   = self.contentView.frame.size;
+    CGPoint origin = self.contentView.frame.origin;
+
+    self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 0.0f, size.width - 40.0f, 20.0f);
+
     self.nameLabel.textColor     = [ThemeManager sharedInstance].tableViewTitleFontColor;
     self.nameLabel.font          = [ThemeManager sharedInstance].tableViewTitleFont;
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
 
     [self.contentView addSubview:self.nameLabel];
-    [self.nameLabel alignLeadingEdgeWithView:self.contentView predicate:@"20"];
-
 }
 
 - (void)configureLine {
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.lineView                 = [[UIView alloc] initWithFrame:CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f)];
+    self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f);
     self.lineView.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
     [self.contentView addSubview:self.lineView];
