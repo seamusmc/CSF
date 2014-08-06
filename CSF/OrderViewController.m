@@ -226,11 +226,17 @@
 }
 
 - (UIDatePicker *)createDatePicker {
-    DatePicker *datePicker = [[DatePicker alloc] init];
+    UIDatePicker *datePicker;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1){
+        datePicker = [[UIDatePicker alloc] init];
+        datePicker.backgroundColor = [UIColor clearColor];
+    } else {
+        datePicker = [[DatePicker alloc] init];
+    }
+
     datePicker.datePickerMode = UIDatePickerModeDate;
     datePicker.minimumDate = [NSDate date];
     [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-
     return datePicker;
 }
 
