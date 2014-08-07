@@ -20,7 +20,6 @@
     return self;
 }
 
-
 - (void)configurePicker {
     UIView *pickerView = self.subviews[0];
 
