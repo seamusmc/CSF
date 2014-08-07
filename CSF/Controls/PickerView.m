@@ -85,7 +85,7 @@
 
     // We only need or want to do this once, because of how we have to execute this hack.
     dispatch_once(&onceToken, ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             // Make the selection indicators, lines above and below selection, white with an alpha so that they are visible.
             [self configureSelectionLines];
 
