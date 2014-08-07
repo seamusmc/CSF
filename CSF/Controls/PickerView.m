@@ -22,6 +22,8 @@
 - (instancetype)initWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage frame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor blackColor];
+
         _title           = title;
         _backgroundImage = backgroundImage;
 
@@ -77,37 +79,39 @@
     return toolBar;
 }
 
-// Ugly hack to customize the UIPickerView to have a translucent look, as it originally had in iOS7
-- (void)configureView{
+// Ugly hack to customize the UIPickerView to have a translucent look, like the UIDatePicker originally had in iOS7.
+- (void)configureView {
     static dispatch_once_t onceToken;
 
     // We only need or want to do this once, because of how we have to execute this hack.
     dispatch_once(&onceToken, ^{
-        // Make the selection indicators, lines above and below selection, white with an alpha so that they are visible.
-        [self configureSelectionLines];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // Make the selection indicators, lines above and below selection, white with an alpha so that they are visible.
+            [self configureSelectionLines];
 
-        // All we need is the bottom of the background image.
-        CGRect rect = CGRectMake(0,
-                                 self.backgroundImage.size.height - self.bounds.size.height,
-                                 self.bounds.size.width,
-                                 self.bounds.size.height);
+            // All we need is the bottom of the background image.
+            CGRect rect = CGRectMake(0,
+                                     self.backgroundImage.size.height - self.bounds.size.height,
+                                     self.bounds.size.width,
+                                     self.bounds.size.height);
 
-        UIImage *croppedImage = [self getSubImageFrom:self.backgroundImage
-                                             WithRect:rect];
+            UIImage *croppedImage = [self getSubImageFrom:self.backgroundImage
+                                                 WithRect:rect];
 
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:croppedImage];
-        imageView.bounds      = self.bounds;
-        imageView.contentMode = UIViewContentModeBottom | UIViewContentModeRedraw;
-        [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.5f]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:croppedImage];
+            imageView.bounds      = self.bounds;
+            imageView.contentMode = UIViewContentModeBottom | UIViewContentModeRedraw;
+            [imageView tintWithColor:[UIColor colorWithRGBHex:0x000000 alpha:0.5f]];
 
-        [self insertSubview:imageView atIndex:0];
+            [self insertSubview:imageView atIndex:0];
 
-        // Use the UIToolbar as an overlay, it still can give us the blurred or translucent effect we are after.
-        UIToolbar *overlayHack = [[UIToolbar alloc] initWithFrame:self.bounds];
-        overlayHack.barStyle    = UIBarStyleBlackTranslucent;
-        overlayHack.translucent = YES;
+            // Use the UIToolbar as an overlay, it still can give us the blurred or translucent effect we are after.
+            UIToolbar *overlayHack = [[UIToolbar alloc] initWithFrame:self.bounds];
+            overlayHack.barStyle    = UIBarStyleBlackTranslucent;
+            overlayHack.translucent = YES;
 
-        [self insertSubview:overlayHack atIndex:1];
+            [self insertSubview:overlayHack atIndex:1];
+        });
     });
 }
 
