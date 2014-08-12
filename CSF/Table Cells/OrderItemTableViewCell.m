@@ -37,7 +37,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     self.backgroundColor = [UIColor clearColor];
 
     self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     [self configureLine];
     [self configureNameLabel];
