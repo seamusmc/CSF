@@ -34,8 +34,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-
     self.backgroundColor = [UIColor clearColor];
 
     self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
@@ -44,13 +42,19 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     [self configureLine];
     [self configureNameLabel];
     [self configureQuantityLabel];
+
+    [super layoutSubviews];
 }
 
 - (void)configureQuantityLabel {
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height, size.width - 40.0f, 20.0f);
+    if (self.editing) {
+        self.quantityLabel.frame = CGRectMake(origin.x + 5.0f, self.nameLabel.frame.size.height, size.width - 60.0f, 20.0f);
+    } else {
+        self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height, size.width - 40.0f, 20.0f);
+    }
 
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
@@ -63,7 +67,11 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 0.0f, size.width - 40.0f, 20.0f);
+    if (self.editing) {
+        self.nameLabel.frame = CGRectMake(origin.x + 5.0f, 0.0f, size.width - 60.0f, 20.0f);
+    } else {
+        self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 0.0f, size.width - 40.0f, 20.0f);
+    }
 
     self.nameLabel.textColor     = [ThemeManager sharedInstance].tableViewTitleFontColor;
     self.nameLabel.font          = [ThemeManager sharedInstance].tableViewTitleFont;
@@ -76,7 +84,12 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f);
+    if (self.editing) {
+        self.lineView.frame = CGRectMake(origin.x + 5.0f, size.height, size.width - 60.0f, 1.0f);
+    } else {
+        self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f);
+    }
+
     self.lineView.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
     [self.contentView addSubview:self.lineView];
