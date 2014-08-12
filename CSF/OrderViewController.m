@@ -97,8 +97,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     if ([self.currentDate isEqualToString:self.dateField.text] == NO) {
-        NSDate *date = [self.dateFormatter dateFromString:self.dateField.text];
-        [self refreshOrderWithDate:date];
+        [self refreshOrderWithCurrentDate];
     }
 }
 
@@ -190,9 +189,15 @@
 }
 
 - (void)configureNavigationBarItems {
-    UIBarButtonItem *refreshOrder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:nil];
-    UIBarButtonItem *removeItem   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:nil];
-    UIBarButtonItem *addItem      = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
+    UIBarButtonItem *refreshOrder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                  target:self
+                                                                                  action:@selector(refreshOrderWithCurrentDate)];
+
+    UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                                                                target:self
+                                                                                action:@selector(toggleEditMode:)];
+
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
 
     NSArray *actionButtonItems = @[addItem, removeItem, refreshOrder];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
@@ -258,5 +263,23 @@
     // Register the table cell here so we don't need to do it in the delegate method.
     [self.orderItemsTableView registerClass:[OrderItemTableViewCell class] forCellReuseIdentifier:kOrderItemCellIdentifier];
 }
+
+- (void)refreshOrderWithCurrentDate {
+    self.currentDate = self.dateField.text;
+    NSDate *date = [self.dateFormatter dateFromString:self.currentDate];
+    [self refreshOrderWithDate:date];
+}
+
+- (IBAction)toggleEditMode:(UIBarButtonItem *)sender {
+    if (self.orderItemsTableView.editing) {
+        //sender.title = @"Delete";
+        [self.orderItemsTableView setEditing:NO animated:YES];
+    }
+    else {
+        //sender.title = @"Done";
+        [self.orderItemsTableView setEditing:YES animated:YES];
+    }
+}
+
 
 @end
