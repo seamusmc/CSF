@@ -107,6 +107,39 @@
 
 #pragma mark - UITableViewDataSource
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        NSError *error;
+//        BOOL status = [[OrderData sharedInstance] deleteItemWithIndex:indexPath.row
+//                                                                error:&error];
+//        if (!status) {
+//            [self showAlertWithMessage:[error localizedDescription]];
+//        }
+//        else {
+//            status = [[OrderData sharedInstance] refresh:&error];
+//            if (!status) {
+//                [self showAlertWithMessage:[error localizedDescription]];
+//            }
+//            else {
+//                [self updateTotal];
+//
+//                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//                                 withRowAnimation:UITableViewRowAnimationFade];
+//
+//                [self.orderTable reloadData];
+//            }
+//        }
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.order.items count];
 }
@@ -121,6 +154,8 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 52.0f;
@@ -193,13 +228,9 @@
                                                                                   target:self
                                                                                   action:@selector(refreshOrderWithCurrentDate)];
 
-    UIBarButtonItem *removeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
-                                                                                target:self
-                                                                                action:@selector(toggleEditMode:)];
-
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
 
-    NSArray *actionButtonItems = @[addItem, removeItem, refreshOrder];
+    NSArray *actionButtonItems = @[addItem, refreshOrder];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
 }
 
@@ -269,17 +300,5 @@
     NSDate *date = [self.dateFormatter dateFromString:self.currentDate];
     [self refreshOrderWithDate:date];
 }
-
-- (IBAction)toggleEditMode:(UIBarButtonItem *)sender {
-    if (self.orderItemsTableView.editing) {
-        //sender.title = @"Delete";
-        [self.orderItemsTableView setEditing:NO animated:YES];
-    }
-    else {
-        //sender.title = @"Done";
-        [self.orderItemsTableView setEditing:YES animated:YES];
-    }
-}
-
 
 @end

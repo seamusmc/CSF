@@ -51,7 +51,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGPoint origin = self.contentView.frame.origin;
 
     if (self.editing) {
-        self.quantityLabel.frame = CGRectMake(origin.x + 5.0f, self.nameLabel.frame.size.height, size.width - 60.0f, 20.0f);
+        self.quantityLabel.frame = CGRectMake(origin.x + 70.0f, self.nameLabel.frame.size.height, size.width - 90.0f, 20.0f);
     } else {
         self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height, size.width - 40.0f, 20.0f);
     }
@@ -68,7 +68,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGPoint origin = self.contentView.frame.origin;
 
     if (self.editing) {
-        self.nameLabel.frame = CGRectMake(origin.x + 5.0f, 0.0f, size.width - 60.0f, 20.0f);
+        self.nameLabel.frame = CGRectMake(origin.x + 70.0f, 0.0f, size.width - 90.0f, 20.0f);
     } else {
         self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 0.0f, size.width - 40.0f, 20.0f);
     }
@@ -85,7 +85,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGPoint origin = self.contentView.frame.origin;
 
     if (self.editing) {
-        self.lineView.frame = CGRectMake(origin.x + 5.0f, size.height, size.width - 60.0f, 1.0f);
+        self.lineView.frame = CGRectMake(origin.x + 70.0f, size.height, size.width - 90.0f, 1.0f);
     } else {
         self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f);
     }
