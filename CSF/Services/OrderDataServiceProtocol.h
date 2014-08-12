@@ -7,6 +7,7 @@
 
 @class User;
 @class Order;
+@class OrderItem;
 
 @protocol OrderDataServiceProtocol <NSObject>
 
@@ -14,5 +15,11 @@
                    date:(NSDate *)date
            successBlock:(void (^)(Order *order))successBlock
            failureBlock:(void (^)(NSString *message))failureBlock;
+
+- (void)removeItem:(OrderItem *)item
+              user:(User *)user
+              date:(NSDate *)date
+      successBlock:(void (^)(void))successBlock
+      failureBlock:(void (^)(NSString *message))failureBlock;
 
 @end

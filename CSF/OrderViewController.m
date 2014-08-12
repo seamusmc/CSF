@@ -117,26 +117,15 @@
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        NSError *error;
-//        BOOL status = [[OrderData sharedInstance] deleteItemWithIndex:indexPath.row
-//                                                                error:&error];
-//        if (!status) {
-//            [self showAlertWithMessage:[error localizedDescription]];
-//        }
-//        else {
-//            status = [[OrderData sharedInstance] refresh:&error];
-//            if (!status) {
-//                [self showAlertWithMessage:[error localizedDescription]];
-//            }
-//            else {
-//                [self updateTotal];
-//
-//                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//                                 withRowAnimation:UITableViewRowAnimationFade];
-//
-//                [self.orderTable reloadData];
-//            }
-//        }
+        [[OrderDataService sharedInstance] removeItem:self.order.items[indexPath.row]
+                                                 user:[UserServices sharedInstance].currentUser
+                                                 date:self.currentDate
+                                         successBlock:^{
+                                             [self refreshOrderWithCurrentDate];
+                                         }
+                                         failureBlock:^(NSString *message){
+                                             // Boo, show message.
+                                         }];
     }
 }
 
