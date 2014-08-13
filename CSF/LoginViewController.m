@@ -146,28 +146,27 @@ static const int LastnameMaxLength  = 15;
     __typeof(self) __weak weakSelf = self;
     [self.userServices authenticateUser:user
                            withPassword:self.passwordField.text
-                  withCompletionHandler:^(BOOL authenticated, NSString *message)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self enableControls];
-                    [weakSelf.activityIndicator stop];
-                });
+                  withCompletionHandler:^(BOOL authenticated, NSString *message) {
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          [self enableControls];
+                          [weakSelf.activityIndicator stop];
+                      });
 
-                if (authenticated) {
-                    if (weakSelf.rememberMe) {
-                        [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
-                    }
+                      if (authenticated) {
+                          if (weakSelf.rememberMe) {
+                              [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
+                          }
 
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf resetView];
-                        [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
-                    });
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakSelf handleInvalidLogin:message];
-                    });
-                }
-            }];
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              [weakSelf resetView];
+                              [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
+                          });
+                      } else {
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              [weakSelf handleInvalidLogin:message];
+                          });
+                      }
+                  }];
 }
 
 #pragma mark - UITextFieldDelegate
