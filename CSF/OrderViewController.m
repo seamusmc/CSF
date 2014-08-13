@@ -18,7 +18,7 @@
 #import "DatePicker.h"
 #import "ActivityIndicator.h"
 
-@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
 @property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
@@ -134,6 +134,17 @@
     OrderItem *item = self.order.items[indexPath.row];
 
     OrderItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderItemCellIdentifier forIndexPath:indexPath];
+
+    // Add utility buttons
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"Edit"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"Delete"];
+
+    cell.rightUtilityButtons = rightUtilityButtons;
+    cell.delegate = self;
+
+
     cell.name = item.name;
     cell.quantity = [NSString stringWithFormat:@"qty ~ %@", item.quantity];
     return cell;

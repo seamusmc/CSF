@@ -13,7 +13,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 @property(strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *quantityLabel;
-@property (strong, nonatomic) UILabel *commentLabel;
 
 @end
 
@@ -35,7 +34,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 - (void)layoutSubviews {
     self.backgroundColor = [UIColor clearColor];
 
-    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
+    //self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
 
     [self configureLine];
     [self configureNameLabel];
@@ -48,11 +47,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    if (self.editing) {
-        self.quantityLabel.frame = CGRectMake(origin.x + 70.0f, self.nameLabel.frame.size.height, size.width - 90.0f, 20.0f);
-    } else {
-        self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height, size.width - 40.0f, 20.0f);
-    }
+    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height + 5.0f, size.width - 40.0f, 20.0f);
 
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
@@ -65,11 +60,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    if (self.editing) {
-        self.nameLabel.frame = CGRectMake(origin.x + 70.0f, 0.0f, size.width - 90.0f, 20.0f);
-    } else {
-        self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 0.0f, size.width - 40.0f, 20.0f);
-    }
+    self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 5.0f, size.width - 40.0f, 20.0f);
 
     self.nameLabel.textColor     = [ThemeManager sharedInstance].tableViewTitleFontColor;
     self.nameLabel.font          = [ThemeManager sharedInstance].tableViewTitleFont;
@@ -82,11 +73,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    if (self.editing) {
-        self.lineView.frame = CGRectMake(origin.x + 70.0f, size.height, size.width - 90.0f, 1.0f);
-    } else {
-        self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height, size.width - 40.0f, 1.0f);
-    }
+    self.lineView.frame = CGRectMake(origin.x + 20.0f, size.height - 1.0f, size.width - 40.0f, 1.0f);
 
     self.lineView.backgroundColor = [ThemeManager sharedInstance].tintColor;
 

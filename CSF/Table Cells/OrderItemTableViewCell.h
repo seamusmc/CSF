@@ -4,10 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWTableViewCell.h"
 
 extern NSString *const kOrderItemCellIdentifier;
 
-@interface OrderItemTableViewCell : UITableViewCell
+@interface OrderItemTableViewCell : SWTableViewCell
 
 @property(nonatomic, assign) NSString *name;
 @property(nonatomic, assign) NSString *quantity;
