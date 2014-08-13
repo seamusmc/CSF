@@ -105,25 +105,43 @@
     self.currentDate = self.dateField.text;
 }
 
+#pragma mark - SWTableViewCellDelegate
+const int kEditButtonIndex = 0;
+const int kDeleteButtonIndex = 1;
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+
+    switch (index) {
+        case kEditButtonIndex: {
+            NSLog(@"Seque to the edit page.");
+            break;
+        }
+        case kDeleteButtonIndex: {
+            [self.activityIndicator start];
+
+            __typeof(self) __weak weakSelf = self;
+            NSIndexPath *cellIndexPath = [self.orderItemsTableView indexPathForCell:cell];
+            NSDate      *date          = [self.dateFormatter dateFromString:self.currentDate];
+            [[OrderDataService sharedInstance] removeItem:self.order.items[cellIndexPath.row]
+                                                     user:[UserServices sharedInstance].currentUser
+                                                     date:date
+                                             successBlock:^{
+                                                 // Not necessary to stop the activity indicator, call to refresh order will do it for us.
+                                                 [self refreshOrderWithCurrentDate];
+                                             }
+                                             failureBlock:^(NSString *message) {
+                                                 [weakSelf.activityIndicator stop];
+                                                 // Boo, show message.
+                                             }];
+            break;
+        }
+    }
+}
+
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleNone;
-}
-
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSDate *date = [self.dateFormatter dateFromString:self.currentDate];
-        [[OrderDataService sharedInstance] removeItem:self.order.items[indexPath.row]
-                                                 user:[UserServices sharedInstance].currentUser
-                                                 date:date
-                                         successBlock:^{
-                                             [self refreshOrderWithCurrentDate];
-                                         }
-                                         failureBlock:^(NSString *message){
-                                             // Boo, show message.
-                                         }];
-    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
