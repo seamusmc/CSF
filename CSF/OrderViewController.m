@@ -117,9 +117,10 @@
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSDate *date = [self.dateFormatter dateFromString:self.currentDate];
         [[OrderDataService sharedInstance] removeItem:self.order.items[indexPath.row]
                                                  user:[UserServices sharedInstance].currentUser
-                                                 date:self.currentDate
+                                                 date:date
                                          successBlock:^{
                                              [self refreshOrderWithCurrentDate];
                                          }

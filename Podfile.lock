@@ -20,15 +20,18 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CocoaLumberjack (1.9.1):
+  - CocoaLumberjack (2.0.0-beta):
+    - CocoaLumberjack/CLI
+    - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (1.9.1)
-  - CocoaLumberjack/Extensions (1.9.1):
+  - CocoaLumberjack/CLI (2.0.0-beta):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Core (2.0.0-beta)
+  - CocoaLumberjack/Extensions (2.0.0-beta):
     - CocoaLumberjack/Core
   - Expecta (0.3.1)
-  - FLKAutoLayout (0.1.1)
   - FXKeychain (1.5.1)
-  - GoogleAnalytics-iOS-SDK (3.0.7)
+  - GoogleAnalytics-iOS-SDK (3.0.9)
   - Shimmer (1.0.1)
   - Tweaks (1.1.0)
 
@@ -36,7 +39,6 @@ DEPENDENCIES:
   - AFNetworking
   - CocoaLumberjack
   - Expecta
-  - FLKAutoLayout
   - FXKeychain
   - GoogleAnalytics-iOS-SDK
   - Shimmer
@@ -44,11 +46,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
-  CocoaLumberjack: 94accd5749f5c5d15134c8d50f34a973aed8ef69
+  CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  FLKAutoLayout: 9fa39aac2903b274fbeed6be74154cdb937a04fc
   FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
-  GoogleAnalytics-iOS-SDK: bb285d8eef15a682f1b82971becd0d22edd0e53b
+  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
   Shimmer: 35aa2a57b8fbc17f9e16706021665966fd93dbd1
   Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
 

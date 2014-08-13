@@ -50,27 +50,27 @@
 
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack 9
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack 1
+#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 2
+#define COCOAPODS_VERSION_MINOR_CocoaLumberjack 0
+#define COCOAPODS_VERSION_PATCH_CocoaLumberjack 0
+
+// CocoaLumberjack/CLI
+#define COCOAPODS_POD_AVAILABLE_CocoaLumberjack_CLI
+#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_CLI 2
+#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_CLI 0
+#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_CLI 0
 
 // CocoaLumberjack/Core
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack_Core
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Core 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Core 9
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Core 1
+#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Core 2
+#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Core 0
+#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Core 0
 
 // CocoaLumberjack/Extensions
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack_Extensions
-#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Extensions 1
-#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 9
-#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 1
-
-// FLKAutoLayout
-#define COCOAPODS_POD_AVAILABLE_FLKAutoLayout
-#define COCOAPODS_VERSION_MAJOR_FLKAutoLayout 0
-#define COCOAPODS_VERSION_MINOR_FLKAutoLayout 1
-#define COCOAPODS_VERSION_PATCH_FLKAutoLayout 1
+#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack_Extensions 2
+#define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 0
+#define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 0
 
 // FXKeychain
 #define COCOAPODS_POD_AVAILABLE_FXKeychain
@@ -82,7 +82,7 @@
 #define COCOAPODS_POD_AVAILABLE_GoogleAnalytics_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_GoogleAnalytics_iOS_SDK 3
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK 0
-#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 7
+#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 9
 
 // Shimmer
 #define COCOAPODS_POD_AVAILABLE_Shimmer

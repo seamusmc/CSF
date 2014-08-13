@@ -5,7 +5,6 @@
 
 #import "OrderItemTableViewCell.h"
 #import "ThemeManager.h"
-#import "UIView+FLKAutoLayout.h"
 
 NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 

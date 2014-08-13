@@ -7,6 +7,7 @@
 #import "GAIDictionaryBuilder.h"
 #import "GAITracker.h"
 #import "GAI.h"
+#import "DDLogMacros.h"
 
 static const double kNetworkingServiceTimeout = 5.0;
 
