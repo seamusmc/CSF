@@ -8,7 +8,7 @@
 
 @protocol NetworkingServiceProtocol <NSObject>
 
-- (void)getDataWithURI:(NSString *)uri
-          successBlock:(void (^)(id response))successBlock
-          failureBlock:(void (^)(NSError *error))failureBlock;
+- (void)getDataWithURI:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
+- (void)postDataWithURLString:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
+
 @end

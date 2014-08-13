@@ -60,15 +60,44 @@
       successBlock:(void (^)(void))successBlock
       failureBlock:(void (^)(NSString *message))failureBlock {
 
-    if (successBlock != nil) {
-        successBlock();
+    if (!successBlock) {
+        return;
     }
+
+    NSString *comment;
+    if (item.comment == nil || [item.comment isEqualToString:@""])
+        comment = [NSString stringWithFormat:@"\"\""];
+    else
+        comment = item.comment;
+
+    NSString *stringFromDate = [_dateFormatter stringFromDate:date];
+    NSString *uri            = [NSString stringWithFormat:kUpdateOrderURI,
+                                                          user.farm,
+                                                          user.group,
+                                                          user.firstname,
+                                                          user.lastname,
+                                                          stringFromDate,
+                                                          item.name,
+                                                          item.quantity,
+                                                          comment,
+                                                          @"true"];
+
+    [self.networkingService postDataWithURLString:uri
+                                     successBlock:^(id response) {
+                                         successBlock();
+                                     }
+                                     failureBlock:^(NSError *error) {
+                                         if (failureBlock) {
+                                             failureBlock([error localizedDescription]);
+                                         }
+                                     }];
 }
 
 - (void)getOrderForUser:(User *)user
                    date:(NSDate *)date
            successBlock:(void (^)(Order *order))successBlock
            failureBlock:(void (^)(NSString *message))failureBlock {
+
     if (!successBlock) {
         return;
     }
@@ -81,35 +110,35 @@
                                                           user.lastname,
                                                           stringFromDate];
     [self.networkingService getDataWithURI:uri
-                              successBlock:^(id response){
-        if (response) {
-            NSString *formattedTotal = [self getFormattedTotal:response];
+                              successBlock:^(id response) {
+                                  if (response) {
+                                      NSString *formattedTotal = [self getFormattedTotal:response];
 
-            BOOL locked;
-            locked = [[response objectForKey:@"Locked"] boolValue];
+                                      BOOL locked;
+                                      locked = [[response objectForKey:@"Locked"] boolValue];
 
-            NSMutableArray *items     = [NSMutableArray array];
-            NSArray        *tempItems = [response objectForKey:@"Items"];
-            for (id item in tempItems) {
-                OrderItem *orderItem = [[OrderItem alloc] init];
+                                      NSMutableArray *items     = [NSMutableArray array];
+                                      NSArray        *tempItems = [response objectForKey:@"Items"];
+                                      for (id        item in tempItems) {
+                                          OrderItem *orderItem = [[OrderItem alloc] init];
 
-                orderItem.type     = [item objectForKey:@"Type"];
-                orderItem.name     = [item objectForKey:@"Item"];
-                orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
-                orderItem.comment  = [item objectForKey:@"Comment"];
+                                          orderItem.type     = [item objectForKey:@"Type"];
+                                          orderItem.name     = [item objectForKey:@"Item"];
+                                          orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
+                                          orderItem.comment  = [item objectForKey:@"Comment"];
 
-                [items addObject:orderItem];
-            }
+                                          [items addObject:orderItem];
+                                      }
 
-            Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:formattedTotal];
-            successBlock(order);
-        }
-    }
-                              failureBlock:^(NSError *error){
-        if (failureBlock) {
-            failureBlock([error localizedDescription]);
-        }
-    }];
+                                      Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:formattedTotal];
+                                      successBlock(order);
+                                  }
+                              }
+                              failureBlock:^(NSError *error) {
+                                  if (failureBlock) {
+                                      failureBlock([error localizedDescription]);
+                                  }
+                              }];
 }
 
 #pragma mark - Private

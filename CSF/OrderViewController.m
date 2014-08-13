@@ -110,7 +110,6 @@ const int kEditButtonIndex = 0;
 const int kDeleteButtonIndex = 1;
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
-
     switch (index) {
         case kEditButtonIndex: {
             NSLog(@"Seque to the edit page.");
@@ -127,7 +126,9 @@ const int kDeleteButtonIndex = 1;
                                                      date:date
                                              successBlock:^{
                                                  // Not necessary to stop the activity indicator, call to refresh order will do it for us.
-                                                 [self refreshOrderWithCurrentDate];
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [weakSelf refreshOrderWithCurrentDate];
+                                                 });
                                              }
                                              failureBlock:^(NSString *message) {
                                                  [weakSelf.activityIndicator stop];
@@ -170,14 +171,8 @@ const int kDeleteButtonIndex = 1;
 
 #pragma mark - UITableViewDelegate
 
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 52.0f;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
 }
 
 #pragma mark - Gesture Handling
