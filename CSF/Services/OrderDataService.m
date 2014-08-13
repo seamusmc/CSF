@@ -143,54 +143,6 @@
 
 #pragma mark - Private
 
-//- (BOOL) deleteItemWithIndex:(int)index error:(NSError**)error
-//{
-//    Item* item = [self.items objectAtIndex:index];
-//
-//    return [self updateItem:item
-//                 deleteFlag:YES error:error];
-//}
-//
-//- (BOOL) updateItem:(Item*)item deleteFlag:(BOOL)deleteFlag error:(NSError**)error
-//{
-//    NSURLResponse* response;
-//
-//    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-//    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-//
-//    NSString* comment;
-//    if (item.comment == nil || [item.comment isEqualToString:@""])
-//        comment = [NSString stringWithFormat:@"\"\""];
-//    else
-//        comment = item.comment;
-//
-//    NSString* uri = [NSString stringWithFormat:kUpdateOrderURI,
-//                                               self.farmData.farm,
-//                                               self.userToken.group,
-//                                               self.userToken.firstname,
-//                                               self.userToken.lastname,
-//                                               [dateFormatter stringFromDate:self.date],
-//                                               item.name,
-//                                               item.quantity,
-//                                               comment,
-//                                               deleteFlag ? @"true" : @"false"];
-//
-//    uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSURL* url = [NSURL URLWithString:uri];
-//
-//    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-//    NSData* data = [NSURLConnection sendSynchronousRequest:request
-//                                         returningResponse:&response
-//                                                     error:error];
-//    if (!data)
-//    {
-//        return NO;
-//    }
-//
-//    return YES;
-//}
-
 - (NSString *)getFormattedTotal:(id)response {
     NSString *total;
     total = [response objectForKey:@"Total"];

@@ -35,6 +35,9 @@ static const double kNetworkingServiceTimeout = 5.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
     uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    DDLogInfo(@"INFO: %s URI is %@", __PRETTY_FUNCTION__, uri);
+
     NSURL *url = [NSURL URLWithString:uri];
 
     NSURLSession *session = [self createSession];
