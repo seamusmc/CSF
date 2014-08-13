@@ -130,7 +130,10 @@
                                           [items addObject:orderItem];
                                       }
 
-                                      Order *order = [[Order alloc] initWithLockedFlag:locked items:items total:formattedTotal];
+                                      NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+                                      NSArray *sortedItems=[items sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+
+                                      Order *order = [[Order alloc] initWithLockedFlag:locked items:sortedItems total:formattedTotal];
                                       successBlock(order);
                                   }
                               }
