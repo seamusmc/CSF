@@ -138,8 +138,8 @@
     // Add utility buttons
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
 
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"Edit"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"Delete"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"edit"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[ThemeManager sharedInstance].tintColor title:@"delete"];
 
     cell.rightUtilityButtons = rightUtilityButtons;
     cell.delegate = self;

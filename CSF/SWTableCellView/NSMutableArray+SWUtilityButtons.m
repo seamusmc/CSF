@@ -7,6 +7,7 @@
 //
 
 #import "NSMutableArray+SWUtilityButtons.h"
+#import "ThemeManager.h"
 
 @implementation NSMutableArray (SWUtilityButtons)
 
@@ -15,6 +16,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 
     button.backgroundColor = color;
+    button.titleLabel.font = [ThemeManager sharedInstance].normalFont;
 
     button.layer.cornerRadius = 3.0f;
     button.layer.borderWidth  = 0.5f;
