@@ -50,7 +50,9 @@
     [self configureLabels];
 
     [self configureOrderItemsTableView];
-    [self refreshOrderWithDate:[NSDate date]];
+
+    self.currentDate = self.dateField.text;
+    [self refreshOrderWithCurrentDate];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -162,7 +164,6 @@ const int kDeleteButtonIndex = 1;
 
     cell.rightUtilityButtons = rightUtilityButtons;
     cell.delegate = self;
-
 
     cell.name = item.name;
     cell.quantity = [NSString stringWithFormat:@"qty ~ %@", item.quantity];

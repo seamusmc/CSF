@@ -26,6 +26,8 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
         self.nameLabel     = [[UILabel alloc] initWithFrame:initialFrame];
         self.quantityLabel = [[UILabel alloc] initWithFrame:initialFrame];
         self.lineView      = [[UIView alloc] initWithFrame:initialFrame];
+
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     return self;
@@ -33,8 +35,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 
 - (void)layoutSubviews {
     self.backgroundColor = [UIColor clearColor];
-
-    //self.contentView.frame = CGRectMake(0.0f, 0.0f, self.superview.frame.size.width, 45.0f);
 
     [self configureLine];
     [self configureNameLabel];
