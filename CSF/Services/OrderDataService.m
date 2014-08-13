@@ -119,7 +119,7 @@
 
                                       NSMutableArray *items     = [NSMutableArray array];
                                       NSArray        *tempItems = [response objectForKey:@"Items"];
-                                      for (id        item in tempItems) {
+                                      for (id  item in tempItems) {
                                           OrderItem *orderItem = [[OrderItem alloc] init];
 
                                           orderItem.type     = [item objectForKey:@"Type"];
