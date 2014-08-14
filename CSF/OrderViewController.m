@@ -242,10 +242,10 @@ const int kDeleteButtonIndex = 1;
                                                                                                           self.totalLabel.frame.size.height);
                                                                    }
                                                                    completion:^(BOOL finished) {
-                                                                       [UIView animateWithDuration:0.5f
-                                                                                             delay:0.2f
-                                                                            usingSpringWithDamping:0.7f
-                                                                             initialSpringVelocity:0.0f
+                                                                       [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                                                                                             delay:[ThemeManager sharedInstance].notificationDelay
+                                                                            usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+                                                                             initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
                                                                                            options:UIViewAnimationOptionTransitionNone
                                                                                         animations:^{
                                                                                             [weakSelf configureTotalLabelWithErrorMessage:message];
