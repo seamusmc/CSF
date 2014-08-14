@@ -95,14 +95,26 @@
     return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.4f);
 }
 
-#pragma mark - Dyanmic Animations
-#define TweakCategoryDynamicAnimatior @"Dynamic Animations"
+#pragma mark - Notification Animations
+#define TweakCategoryNotificationAnimations @"Notification Animations"
 
 #pragma mark - Notification Label Dynamic Animation
 #define TweakGroupNotification @"Notification"
 
+- (CGFloat)notificationDuration {
+    return FBTweakValue(TweakCategoryNotificationAnimations, TweakGroupNotification, @"Duration", 0.5f, 0.0f, 10.0f);
+}
+
+- (CGFloat)notificationDelay {
+    return FBTweakValue(TweakCategoryNotificationAnimations, TweakGroupNotification, @"Delay", 0.2f, 0.0f, 1.0f);
+}
+
 - (CGFloat)notificationDamping {
-    return FBTweakValue(TweakCategoryDynamicAnimatior, TweakGroupNotification, @"Damping", 4.0f, 0.0f, 10.0f);
+    return FBTweakValue(TweakCategoryNotificationAnimations, TweakGroupNotification, @"Damping", 0.7f, 0.0f, 1.0f);
+}
+
+- (CGFloat)notificationInitialVelocity {
+    return FBTweakValue(TweakCategoryNotificationAnimations, TweakGroupNotification, @"Velocity", 0.0f, 0.0f, 1.0f);
 }
 
 #pragma mark - Transition Animations

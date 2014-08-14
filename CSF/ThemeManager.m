@@ -80,6 +80,18 @@
     return [TweaksService sharedInstance].shimmeringColor;
 }
 
+- (CGFloat)notificationDuration {
+    return [TweaksService sharedInstance].notificationDuration;
+}
+
+- (CGFloat)notificationDelay {
+    return [TweaksService sharedInstance].notificationDelay;
+}
+
+- (CGFloat)notificationInitialVelocity {
+    return [TweaksService sharedInstance].notificationInitialVelocity;
+}
+
 - (CGFloat)notificationDamping {
     return [TweaksService sharedInstance].notificationDamping;
 }

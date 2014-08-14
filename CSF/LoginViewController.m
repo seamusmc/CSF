@@ -410,10 +410,10 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureNotificationLabelAnimation {
-    [UIView animateWithDuration:0.5f
-                          delay:0.2f
-         usingSpringWithDamping:0.7f
-          initialSpringVelocity:0.0f
+    [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                          delay:[ThemeManager sharedInstance].notificationDelay
+         usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+          initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
                         options:UIViewAnimationOptionTransitionNone
                      animations:^{
                          CGFloat x = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
