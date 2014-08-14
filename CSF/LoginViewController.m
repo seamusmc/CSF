@@ -52,8 +52,6 @@ static const int LastnameMaxLength  = 15;
 
 @property(nonatomic, strong, readonly) id <UserServicesProtocol> userServices;
 
-@property(nonatomic, strong) UIDynamicAnimator *dynamicAnimator;
-
 @property(nonatomic, strong) SlideFromRightAnimationController *slideFromRightAnimationController;
 @property(nonatomic, strong) SlideToRightAnimationController   *slideToRightAnimationController;
 
@@ -78,8 +76,6 @@ static const int LastnameMaxLength  = 15;
     [self configureFields];
     [self fillUserData];
     [self configureFarmPicker];
-
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 
     self.navigationController.delegate = self;
 
@@ -133,8 +129,6 @@ static const int LastnameMaxLength  = 15;
 #pragma mark - UIButton Actions
 
 - (IBAction)loginButtonTap:(UIButton *)sender {
-    [self.dynamicAnimator removeAllBehaviors];
-
     User *user = [[User alloc] initWithFirstname:self.firstNameField.text
                                         lastname:self.lastNameField.text
                                            group:nil
@@ -416,24 +410,18 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureNotificationLabelAnimation {
-    UIPushBehavior      *pushBehavior;
-    UICollisionBehavior *collisionBehavior;
-
-    collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.notificationLabel]];
-
-    float x = self.view.frame.size.width / 2 + self.notificationLabel.frame.size.width / 2;
-
-    [collisionBehavior addBoundaryWithIdentifier:@"barrier"
-                                       fromPoint:CGPointMake(x, 0)
-                                         toPoint:CGPointMake(x, self.view.frame.size.height)];
-
-    [self.dynamicAnimator addBehavior:collisionBehavior];
-
-    pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.notificationLabel] mode:UIPushBehaviorModeContinuous];
-    pushBehavior.angle     = 0;
-    pushBehavior.magnitude = [ThemeManager sharedInstance].notificationDamping;
-
-    [self.dynamicAnimator addBehavior:pushBehavior];
+    [UIView animateWithDuration:0.5f
+                          delay:0.2f
+         usingSpringWithDamping:0.7f
+          initialSpringVelocity:0.0f
+                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         CGFloat x = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
+                         CGFloat y = self.notificationLabel.frame.origin.y                         ;
+                         CGRect rect = CGRectMake(x, y, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+                         self.notificationLabel.frame = rect;
+                     }
+                     completion:nil];
 }
 
 - (void)configureNotificationLabel:(NSString *)message {
@@ -479,8 +467,6 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void)resetView {
     if (self.notificationLabel.hidden == NO) {
-        [self.dynamicAnimator removeAllBehaviors];
-
         [UIView animateWithDuration:0.5
                          animations:^            {
             self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
