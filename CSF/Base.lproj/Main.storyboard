@@ -213,9 +213,6 @@
                             <constraint firstAttribute="trailing" secondItem="jAY-9L-3Jt" secondAttribute="trailing" id="oG2-bq-2hh"/>
                             <constraint firstItem="fHh-ZP-LAk" firstAttribute="top" secondItem="ORo-qM-t2I" secondAttribute="top" constant="75" id="wFG-Yw-WNY"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="79y-Do-rLe" appends="YES" id="BCh-U8-pQP"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="PTC-nS-AR5">
                         <barButtonItem key="backBarButtonItem" title="order" id="P8N-UM-QWY"/>
@@ -227,11 +224,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="79y-Do-rLe">
-                    <connections>
-                        <action selector="handleTapGesture:" destination="moH-Hp-ojt" id="nGJ-Zb-nOl"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1056" y="322"/>
         </scene>

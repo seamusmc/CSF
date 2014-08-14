@@ -269,10 +269,28 @@ const int kDeleteButtonIndex = 1;
     }
 
     self.dateField.text = [self.dateFormatter stringFromDate:[NSDate date]];
-    self.dateField.inputView = [self createDatePicker];
+    self.dateField.inputView = [self createDateFieldInputView];
+
+    CGFloat height = self.view.frame.size.height - self.dateField.inputView.frame.size.height;
+    self.dateField.inputAccessoryView = [self createDateFieldInputAccessoryViewWithHeight:height];
 }
 
-- (UIDatePicker *)createDatePicker {
+// Kind of a hack, the purpose of this view is to allow the user to tap outside
+// the inputView to dismiss it. The order table view was interfering with this
+// behavior.
+- (UIView *)createDateFieldInputAccessoryViewWithHeight:(CGFloat)height {
+    CGRect rect =CGRectMake(0, 0, self.view.frame.size.width, height);
+
+    UIView *view = [[UIView alloc] initWithFrame:rect];
+    view.backgroundColor = [UIColor clearColor];
+
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [view addGestureRecognizer:gestureRecognizer];
+
+    return view;
+}
+
+- (UIDatePicker *)createDateFieldInputView {
     UIDatePicker *datePicker;
     if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1){
         datePicker = [[UIDatePicker alloc] init];
