@@ -234,7 +234,6 @@ const int kDeleteButtonIndex = 1;
                                           failureBlock:^(NSString *message) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.activityIndicator stop];
-
                                                   [UIView animateWithDuration:0.4f
                                                                    animations:^{
                                                                        self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
@@ -247,7 +246,7 @@ const int kDeleteButtonIndex = 1;
                                                                                              delay:0.2f
                                                                             usingSpringWithDamping:0.7f
                                                                              initialSpringVelocity:0.0f
-                                                                                           options:nil
+                                                                                           options:UIViewAnimationOptionTransitionNone
                                                                                         animations:^{
                                                                                             [weakSelf configureTotalLabelWithErrorMessage:message];
                                                                                         }
