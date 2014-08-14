@@ -483,8 +483,6 @@ shouldChangeCharactersInRange:(NSRange)range
     if (self.notificationLabel.hidden == NO) {
         [self.dynamicAnimator removeAllBehaviors];
 
-        // Save the current frame
-        CGRect frame = self.notificationLabel.frame;
         [UIView animateWithDuration:0.5
                          animations:^            {
             self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
@@ -494,7 +492,6 @@ shouldChangeCharactersInRange:(NSRange)range
         }
                          completion:^(BOOL finished)            {
             self.notificationLabel.hidden = YES;
-            self.notificationLabel.frame  = frame;
         }];
 
         [self setFieldsDefaultColor];
