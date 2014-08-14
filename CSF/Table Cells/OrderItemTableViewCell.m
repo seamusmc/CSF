@@ -38,16 +38,18 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 
     [self configureLine];
     [self configureNameLabel];
-    [self configureQuantityLabel];
+
+    CGFloat y = self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height;
+    [self configureQuantityLabel:y];
 
     [super layoutSubviews];
 }
 
-- (void)configureQuantityLabel {
+- (void)configureQuantityLabel:(CGFloat) y {
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, self.nameLabel.frame.size.height + 5.0f, size.width - 40.0f, 20.0f);
+    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, size.width - 40.0f, 20.0f);
 
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
@@ -60,7 +62,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 5.0f, size.width - 40.0f, 20.0f);
+    self.nameLabel.frame = CGRectMake(origin.x + 20.0f, 4.0f, size.width - 40.0f, 23.0f);
 
     self.nameLabel.textColor     = [ThemeManager sharedInstance].tableViewTitleFontColor;
     self.nameLabel.font          = [ThemeManager sharedInstance].tableViewTitleFont;
