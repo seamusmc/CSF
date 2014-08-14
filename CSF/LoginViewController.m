@@ -330,8 +330,6 @@ shouldChangeCharactersInRange:(NSRange)range
     farmPicker.showsSelectionIndicator = YES;
 
     self.farmField.inputView = farmPicker;
-
-    //self.farmField.inputAccessoryView = farmPicker.inputAccessory;
 }
 
 - (void)enableOrDisableLoginButton {
