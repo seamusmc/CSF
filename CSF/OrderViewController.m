@@ -18,6 +18,8 @@
 #import "DatePicker.h"
 #import "ActivityIndicator.h"
 
+static NSString *const kTotalFormatString = @"total ~ %@";
+
 @interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
@@ -28,7 +30,6 @@
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
-@property(nonatomic, copy) NSArray    *labels;
 @property(nonatomic, strong) Order    *order;
 @property(nonatomic, strong) NSString *currentDate;
 
@@ -47,7 +48,9 @@
 
     [self configureNavigationBarItems];
     [self configureFields];
-    [self configureLabels];
+
+    [NSString stringWithFormat:kTotalFormatString, @"$0.00"];
+    [self configureTotalLabelWithText:nil];
 
     [self configureOrderItemsTableView];
 
@@ -217,10 +220,10 @@ const int kDeleteButtonIndex = 1;
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.activityIndicator stop];
 
-                                                  weakSelf.totalLabel.text = [NSString stringWithFormat:@"total ~ %@", weakSelf.order.total];
+                                                  [weakSelf configureTotalLabelWithText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-                                                  for (int index = 0; index < [weakSelf.order.items count]; ++index) {
+                                                  for (int       index       = 0; index < [weakSelf.order.items count]; ++index) {
                                                       indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
                                                   }
 
@@ -229,8 +232,28 @@ const int kDeleteButtonIndex = 1;
                                               });
                                           }
                                           failureBlock:^(NSString *message) {
-                                              [weakSelf.activityIndicator stop];
-                                              // Show an alert view.
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [weakSelf.activityIndicator stop];
+
+                                                  [UIView animateWithDuration:0.4f
+                                                                   animations:^{
+                                                                       self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
+                                                                                                          self.totalLabel.frame.origin.y,
+                                                                                                          self.totalLabel.frame.size.width,
+                                                                                                          self.totalLabel.frame.size.height);
+                                                                   }
+                                                                   completion:^(BOOL finished) {
+                                                                       [UIView animateWithDuration:0.5f
+                                                                                             delay:0.2f
+                                                                            usingSpringWithDamping:0.7f
+                                                                             initialSpringVelocity:0.0f
+                                                                                           options:nil
+                                                                                        animations:^{
+                                                                                            [weakSelf configureTotalLabelWithErrorMessage:message];
+                                                                                        }
+                                                                                        completion:nil];
+                                                                   }];
+                                              });
                                           }];
 }
 
@@ -305,12 +328,31 @@ const int kDeleteButtonIndex = 1;
     return datePicker;
 }
 
-- (void)configureLabels {
-    self.labels = @[self.totalLabel];
-    for (UILabel *label in self.labels) {
-        label.font = [ThemeManager sharedInstance].normalFont;
-        label.textColor = [ThemeManager sharedInstance].normalFontColor;
-    }
+- (void)configureTotalLabelWithText:(NSString *)text {
+    self.totalLabel.text = [text lowercaseString];
+    [self.totalLabel sizeToFit];
+
+    [self centerTotalLabel];
+
+    self.totalLabel.font = [ThemeManager sharedInstance].normalFont;
+    self.totalLabel.textColor = [ThemeManager sharedInstance].normalFontColor;
+}
+
+- (void)configureTotalLabelWithErrorMessage:(NSString *)message {
+    self.totalLabel.text = [message lowercaseString];
+    [self.totalLabel sizeToFit];
+
+    [self centerTotalLabel];
+
+    self.totalLabel.font = [ThemeManager sharedInstance].errorFont;
+    self.totalLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+}
+
+- (void)centerTotalLabel {
+    CGFloat x = (self.totalLabel.superview.frame.size.width / 2) - (self.totalLabel.frame.size.width / 2);
+    CGFloat y = (self.totalLabel.superview.frame.size.height / 2) - (self.totalLabel.frame.size.height / 2);
+    CGRect rect = CGRectMake(x, y, self.totalLabel.frame.size.width, self.totalLabel.frame.size.height);
+    self.totalLabel.frame = rect;
 }
 
 - (void)configureOrderItemsTableView {
