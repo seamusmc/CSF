@@ -234,14 +234,6 @@ shouldChangeCharactersInRange:(NSRange)range
     return label;
 }
 
-//- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
-//    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
-//
-//    UIColor *foregroundColor = [ThemeManager sharedInstance].normalFontColor;
-//    return [[NSAttributedString alloc] initWithString:self.farms[row] attributes:@{NSForegroundColorAttributeName : foregroundColor}];
-//}
-
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.farmField.text = (NSString *) [self.farms objectAtIndex:row];
 }
@@ -419,7 +411,7 @@ shouldChangeCharactersInRange:(NSRange)range
     [self configureNotificationLabel:message];
     [self configureNotificationLabelAnimation];
 
-    // Only color the fields red if the issue is a login failure.
+    // Only color the fields if the issue is a login failure, not a networking error.
     if ([self.notificationLabel.text isEqualToString:@"failed to login"]) {
         [self setFieldsErrorColor];
     }
