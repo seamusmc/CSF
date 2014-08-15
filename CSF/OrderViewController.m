@@ -147,8 +147,13 @@ const int kDeleteButtonIndex = 1;
                                                  });
                                              }
                                              failureBlock:^(NSString *message) {
-                                                 [weakSelf.activityIndicator stop];
-                                                 // Boo, show message.
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [weakSelf enableControls];
+
+                                                     [weakSelf.activityIndicator stop];
+
+                                                     [weakSelf displayFailureMessage:message];
+                                                 });
                                              }];
             break;
         }
@@ -238,7 +243,6 @@ const int kDeleteButtonIndex = 1;
                                                   [weakSelf configureTotalLabelWithText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-
                                                   for (int index = 0; index < [weakSelf.order.items count]; ++index) {
                                                       indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
                                                   }
@@ -253,26 +257,30 @@ const int kDeleteButtonIndex = 1;
 
                                                   [weakSelf.activityIndicator stop];
 
-                                                  [UIView animateWithDuration:0.4f
-                                                                   animations:^{
-                                                                       weakSelf.totalLabel.frame = CGRectMake(-(weakSelf.totalLabel.frame.size.width + 20.0f),
-                                                                                                              weakSelf.totalLabel.frame.origin.y,
-                                                                                                              weakSelf.totalLabel.frame.size.width,
-                                                                                                              weakSelf.totalLabel.frame.size.height);
-                                                                   }
-                                                                   completion:^(BOOL finished) {
-                                                                       [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
-                                                                                             delay:[ThemeManager sharedInstance].notificationDelay
-                                                                            usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
-                                                                             initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
-                                                                                           options:UIViewAnimationOptionTransitionNone
-                                                                                        animations:^{
-                                                                                            [weakSelf configureTotalLabelWithErrorMessage:message];
-                                                                                        }
-                                                                                        completion:nil];
-                                                                   }];
+                                                  [weakSelf displayFailureMessage:message];
                                               });
                                           }];
+}
+
+- (void)displayFailureMessage:(NSString *)message {
+    [UIView animateWithDuration:0.4f
+                     animations:^{
+                         self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
+                                                            self.totalLabel.frame.origin.y,
+                                                            self.totalLabel.frame.size.width,
+                                                            self.totalLabel.frame.size.height);
+                     }
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                                               delay:[ThemeManager sharedInstance].notificationDelay
+                              usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+                               initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
+                                             options:UIViewAnimationOptionTransitionNone
+                                          animations:^{
+                                              [self configureTotalLabelWithErrorMessage:message];
+                                          }
+                                          completion:nil];
+                     }];
 }
 
 - (void)enableControls {
