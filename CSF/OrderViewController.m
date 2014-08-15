@@ -27,6 +27,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 @property(nonatomic, weak) IBOutlet UILabel     *totalLabel;
 
 @property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
+@property (nonatomic, copy, readonly) NSArray *controls;
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
@@ -37,6 +38,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
 @implementation OrderViewController {
     NSDateFormatter *_dateFormatter;
+    NSMutableArray  *_controls;
 }
 
 #pragma mark - Lifecycle
@@ -80,6 +82,15 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 */
 
 #pragma mark - Property Overrides
+
+- (NSArray *)controls {
+    if (_controls == nil) {
+        _controls = [@[self.dateField] mutableCopy];
+        [_controls addObjectsFromArray:self.navigationItem.rightBarButtonItems];
+    }
+
+    return [_controls copy];
+}
 
 - (FBShimmeringView *)activityIndicator {
     if (_activityIndicator == nil) {
@@ -209,6 +220,10 @@ const int kDeleteButtonIndex = 1;
 - (void)refreshOrderWithDate:(NSDate *)date {
     [self.activityIndicator start];
 
+    for (UIControl *control in self.controls) {
+        control.enabled = NO;
+    }
+
     self.order = nil;
     [self.orderItemsTableView reloadData];
 
@@ -219,6 +234,10 @@ const int kDeleteButtonIndex = 1;
                                               self.order = tempOrder;
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.activityIndicator stop];
+
+                                                  for (UIControl *control in self.controls) {
+                                                      control.enabled = YES;
+                                                  }
 
                                                   [weakSelf configureTotalLabelWithText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
@@ -234,6 +253,11 @@ const int kDeleteButtonIndex = 1;
                                           failureBlock:^(NSString *message) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf.activityIndicator stop];
+
+                                                  for (UIControl *control in self.controls) {
+                                                      control.enabled = YES;
+                                                  }
+
                                                   [UIView animateWithDuration:0.4f
                                                                    animations:^{
                                                                        self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
