@@ -6,12 +6,6 @@
 #import "SlideFromRightAnimationController.h"
 #import "TweaksService.h"
 
-@interface SlideFromRightAnimationController ()
-
-
-
-@end
-
 @implementation SlideFromRightAnimationController
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
