@@ -45,6 +45,7 @@
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
 		F10E084618DB8A1C00A70217 /* OrderDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */; };
 		F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */; };
+		F13746CD199E31FC008AE331 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13746CC199E31FC008AE331 /* ItemViewController.m */; };
 		F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F166ECA4196B1325009AF9C4 /* BaseViewController.m */; };
 		F197228519916C0500AD368E /* AlertViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F197228319916C0500AD368E /* AlertViewViewController.m */; };
 		F197228619916C0500AD368E /* AlertViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F197228419916C0500AD368E /* AlertViewViewController.xib */; };
@@ -158,6 +159,8 @@
 		F10E084518DB8A1C00A70217 /* OrderDataServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataServiceTests.m; sourceTree = "<group>"; };
 		F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		F13746CB199E31FC008AE331 /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		F13746CC199E31FC008AE331 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		F166ECA3196B1325009AF9C4 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		F166ECA4196B1325009AF9C4 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		F197228219916C0500AD368E /* AlertViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewViewController.h; sourceTree = "<group>"; };
@@ -379,22 +382,24 @@
 				F1A91A6218D39602008395EE /* AppDelegate.m */,
 				F166ECA3196B1325009AF9C4 /* BaseViewController.h */,
 				F166ECA4196B1325009AF9C4 /* BaseViewController.m */,
+				F13746CB199E31FC008AE331 /* ItemViewController.h */,
+				F13746CC199E31FC008AE331 /* ItemViewController.m */,
 				F1A91A6718D39602008395EE /* LoginViewController.h */,
 				F1A91A6818D39602008395EE /* LoginViewController.m */,
 				F1A91A6418D39602008395EE /* Main.storyboard */,
-				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 				F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */,
 				F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */,
 				C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */,
 				C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */,
+				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
 				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
 				C9FA5D6D91C1C77F4FD04329 /* Tweaks */,
-				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
 				C9FA597284A4BF8E27BDED6B /* Controls */,
 				C9FA5868CD01050643720730 /* Table Cells */,
 				F197228219916C0500AD368E /* AlertViewViewController.h */,
 				F197228319916C0500AD368E /* AlertViewViewController.m */,
 				F197228419916C0500AD368E /* AlertViewViewController.xib */,
+				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 				C9FA54B175C9BCC00F3BC6D5 /* SWTableCellView */,
 			);
 			path = CSF;
@@ -639,6 +644,7 @@
 				C9FA5C27A102BE295E2158F2 /* UILabel+Extended.m in Sources */,
 				C9FA5646E0F0C6F20DC6F6C3 /* DatePicker.m in Sources */,
 				C9FA59A87CF2C34B316D6F2A /* ActivityIndicator.m in Sources */,
+				F13746CD199E31FC008AE331 /* ItemViewController.m in Sources */,
 				C9FA5953EC6158AB54679245 /* SWCellScrollView.m in Sources */,
 				C9FA58E2B61A00F921B91F27 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				C9FA5339E21A41D55C00FC1C /* SWUtilityButtonView.m in Sources */,
