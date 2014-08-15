@@ -142,7 +142,7 @@ static const int LastnameMaxLength  = 15;
                            withPassword:self.passwordField.text
                   withCompletionHandler:^(BOOL authenticated, NSString *message) {
                       dispatch_async(dispatch_get_main_queue(), ^{
-                          [self enableControls];
+                          [weakSelf enableControls];
                           [weakSelf.activityIndicator stop];
                       });
 

@@ -218,11 +218,9 @@ const int kDeleteButtonIndex = 1;
 #pragma mark - Private
 
 - (void)refreshOrderWithDate:(NSDate *)date {
-    [self.activityIndicator start];
+    [self disableControls];
 
-    for (UIControl *control in self.controls) {
-        control.enabled = NO;
-    }
+    [self.activityIndicator start];
 
     self.order = nil;
     [self.orderItemsTableView reloadData];
@@ -231,18 +229,17 @@ const int kDeleteButtonIndex = 1;
     [[OrderDataService sharedInstance] getOrderForUser:[UserServices sharedInstance].currentUser
                                                   date:date
                                           successBlock:^(Order *tempOrder) {
-                                              self.order = tempOrder;
+                                              weakSelf.order = tempOrder;
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [weakSelf.activityIndicator stop];
+                                                  [weakSelf enableControls];
 
-                                                  for (UIControl *control in self.controls) {
-                                                      control.enabled = YES;
-                                                  }
+                                                  [weakSelf.activityIndicator stop];
 
                                                   [weakSelf configureTotalLabelWithText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-                                                  for (int       index       = 0; index < [weakSelf.order.items count]; ++index) {
+
+                                                  for (int index = 0; index < [weakSelf.order.items count]; ++index) {
                                                       indexPaths[index] = [NSIndexPath indexPathForRow:index inSection:0];
                                                   }
 
@@ -252,18 +249,16 @@ const int kDeleteButtonIndex = 1;
                                           }
                                           failureBlock:^(NSString *message) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [weakSelf.activityIndicator stop];
+                                                  [weakSelf enableControls];
 
-                                                  for (UIControl *control in self.controls) {
-                                                      control.enabled = YES;
-                                                  }
+                                                  [weakSelf.activityIndicator stop];
 
                                                   [UIView animateWithDuration:0.4f
                                                                    animations:^{
-                                                                       self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
-                                                                                                          self.totalLabel.frame.origin.y,
-                                                                                                          self.totalLabel.frame.size.width,
-                                                                                                          self.totalLabel.frame.size.height);
+                                                                       weakSelf.totalLabel.frame = CGRectMake(-(weakSelf.totalLabel.frame.size.width + 20.0f),
+                                                                                                              weakSelf.totalLabel.frame.origin.y,
+                                                                                                              weakSelf.totalLabel.frame.size.width,
+                                                                                                              weakSelf.totalLabel.frame.size.height);
                                                                    }
                                                                    completion:^(BOOL finished) {
                                                                        [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
@@ -278,6 +273,18 @@ const int kDeleteButtonIndex = 1;
                                                                    }];
                                               });
                                           }];
+}
+
+- (void)enableControls {
+    for (UIControl *control in self.controls) {
+        control.enabled = YES;
+    }
+}
+
+- (void)disableControls {
+    for (UIControl *control in self.controls) {
+        control.enabled = NO;
+    }
 }
 
 - (void)configureNavigationBarItems {
