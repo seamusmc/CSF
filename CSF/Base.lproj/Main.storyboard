@@ -219,11 +219,39 @@
                         <outlet property="dateField" destination="fHh-ZP-LAk" id="xY0-Dy-8b1"/>
                         <outlet property="orderItemsTableView" destination="hKV-Rz-HHU" id="uUS-4t-xa5"/>
                         <outlet property="totalLabel" destination="chf-vi-iYv" id="42T-vp-r6D"/>
+                        <segue destination="4py-sI-OOe" kind="push" identifier="AddItemSegue" id="X70-PO-iei"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056" y="322"/>
+        </scene>
+        <!--Item View Controller-->
+        <scene sceneID="bB8-1s-3Wb">
+            <objects>
+                <viewController id="4py-sI-OOe" customClass="ItemViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iXc-OY-phi"/>
+                        <viewControllerLayoutGuide type="bottom" id="49A-3A-qtB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W93-nR-b1h">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kX5-jL-97Q">
+                                <rect key="frame" x="139" y="273" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cS3-hB-qOe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="twe-tL-zUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1427" y="347"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wMH-03-fCN">

@@ -300,10 +300,15 @@ const int kDeleteButtonIndex = 1;
                                                                                   target:self
                                                                                   action:@selector(refreshOrderWithCurrentDate)];
 
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:nil];
-
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                             target:self
+                                                                             action:@selector(performAddItemSegue)];
     NSArray *actionButtonItems = @[addItem, refreshOrder];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
+}
+
+- (void)performAddItemSegue {
+    [self performSegueWithIdentifier:@"AddItemSegue" sender:self];
 }
 
 - (void)configureFields {
