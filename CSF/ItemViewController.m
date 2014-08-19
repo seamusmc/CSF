@@ -11,7 +11,7 @@
 #import "UITextField+Extended.h"
 #import "PickerView.h"
 
-@interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, PickerViewAccessoryDelegate>
+@interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, strong) NSArray *labels;
 @property(nonatomic, strong) NSArray *fields;
@@ -121,7 +121,6 @@
     PickerView *typesPicker = [[PickerView alloc] initWithTitle:@"select a type" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
 
     typesPicker.delegate                = self;
-    typesPicker.accessoryDelegate       = self;
     typesPicker.dataSource              = self;
     typesPicker.showsSelectionIndicator = YES;
 
@@ -140,9 +139,7 @@
     self.commentTextView.layer.borderWidth  = 1.0f;
     self.commentTextView.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
-    //if (![field isEqual:self.farmField]) {
     self.commentTextView.keyboardAppearance = UIKeyboardAppearanceAlert;
-    //}
 }
 
 
@@ -168,14 +165,7 @@
 }
 
 - (void)configureFields {
-    // Set up 'Next' field order
-    self.typeTextField.nextTextField = self.itemTextField;
-    self.itemTextField.nextTextField  = self.quantityTextField;
-    self.quantityTextField.nextTextField  = self.commentTextView;
-
     self.fields = @[self.typeTextField, self.itemTextField, self.quantityTextField];
-
-    //self.commentTextView
 
     for (UITextField *field in self.fields) {
         field.font      = [ThemeManager sharedInstance].normalFont;
@@ -188,9 +178,11 @@
         field.layer.borderWidth  = 1.0f;
         field.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
-        //if (![field isEqual:self.farmField]) {
-            field.keyboardAppearance = UIKeyboardAppearanceAlert;
-        //}
+        if ([field isEqual:self.quantityTextField]) {
+            field.keyboardType = UIKeyboardTypeDecimalPad;
+        }
+
+        field.keyboardAppearance = UIKeyboardAppearanceAlert;
 
         UIColor  *color       = [ThemeManager sharedInstance].placeHolderFontColor;
         UIFont   *font        = [ThemeManager sharedInstance].placeHolderFont;

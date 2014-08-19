@@ -373,9 +373,7 @@ shouldChangeCharactersInRange:(NSRange)range
         field.layer.borderWidth  = 1.0f;
         field.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
-        if (![field isEqual:self.farmField]) {
-            field.keyboardAppearance = UIKeyboardAppearanceAlert;
-        }
+        field.keyboardAppearance = UIKeyboardAppearanceAlert;
 
         UIColor  *color       = [ThemeManager sharedInstance].placeHolderFontColor;
         UIFont   *font        = [ThemeManager sharedInstance].placeHolderFont;
