@@ -25,7 +25,7 @@ static const int PasswordMaxLength  = 20;
 static const int FirstnameMaxLength = 15;
 static const int LastnameMaxLength  = 15;
 
-@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, PickerViewAccessoryDelegate>
+@interface LoginViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *firstNameField;
 @property(nonatomic, weak) IBOutlet UITextField *lastNameField;
@@ -204,12 +204,6 @@ shouldChangeCharactersInRange:(NSRange)range
     return NO;
 }
 
-#pragma mark - PickerViewAccessoryDelegate
-
-- (void)done {
-    [self.farmField resignFirstResponder];
-}
-
 #pragma mark - UIPickerViewDelegate
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
@@ -316,7 +310,6 @@ shouldChangeCharactersInRange:(NSRange)range
     PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
 
     farmPicker.delegate                = self;
-    farmPicker.accessoryDelegate       = self;
     farmPicker.dataSource              = self;
     farmPicker.showsSelectionIndicator = YES;
 
