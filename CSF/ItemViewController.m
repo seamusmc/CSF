@@ -10,6 +10,8 @@
 #import "ThemeManager.h"
 #import "PickerView.h"
 
+static const int kItemsPickerViewTag = 10;
+
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, strong) NSArray *labels;
@@ -45,6 +47,7 @@
     [self configureCommentTextView];
     [self configureButton];
     [self configureTypesPicker];
+    [self configureItemsPicker];
 
     self.typeTextField.text = self.types[0];
 }
@@ -128,8 +131,13 @@
 
     label.textColor     = [ThemeManager sharedInstance].normalFontColor;
     label.font          = [ThemeManager sharedInstance].normalFont;
-    label.text          = self.types[row];
     label.textAlignment = NSTextAlignmentCenter;
+
+    if (pickerView.tag == kItemsPickerViewTag) {
+        label.text = @"test";
+    } else {
+        label.text = self.types[row];
+    }
 
     return label;
 }
@@ -145,7 +153,11 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.types count];
+    if (pickerView.tag == kItemsPickerViewTag) {
+        return 3;
+    } else {
+        return [self.types count];
+    }
 }
 
 #pragma mark - Gesture Handling
@@ -165,6 +177,18 @@
     typesPicker.showsSelectionIndicator = YES;
 
     self.typeTextField.inputView = typesPicker;
+}
+
+- (void)configureItemsPicker {
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
+    PickerView *itemsPicker = [[PickerView alloc] initWithTitle:@"select a type" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
+
+    itemsPicker.delegate                = self;
+    itemsPicker.dataSource              = self;
+    itemsPicker.showsSelectionIndicator = YES;
+    itemsPicker.tag                     = kItemsPickerViewTag;
+
+    self.itemTextField.inputView = itemsPicker;
 }
 
 - (void)configureCommentTextView {
