@@ -15,6 +15,8 @@
 @property(nonatomic, strong, readonly) NSString *title;
 @property(nonatomic, strong, readonly) UIImage *backgroundImage;
 
+@property(nonatomic, assign)BOOL onceToken;
+
 @end
 
 @implementation PickerView
@@ -28,6 +30,7 @@
         _backgroundImage = backgroundImage;
 
         self.showsSelectionIndicator = YES;
+        self.onceToken = NO;
     }
     return self;
 }
@@ -81,10 +84,9 @@
 
 // Ugly hack to customize the UIPickerView to have a translucent look, like the UIDatePicker originally had in iOS7.
 - (void)configureView {
-    static dispatch_once_t onceToken;
-
     // We only need or want to do this once, because of how we have to execute this hack.
-    dispatch_once(&onceToken, ^{
+    if (self.onceToken == NO) {
+        self.onceToken = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             // Make the selection indicators, lines above and below selection, white with an alpha so that they are visible.
             [self configureSelectionLines];
@@ -112,7 +114,7 @@
 
             [self insertSubview:overlayHack atIndex:1];
         });
-    });
+    }
 }
 
 - (void)configureSelectionLines {
