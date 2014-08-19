@@ -188,7 +188,6 @@
 		CEDBD5F7F0C441BB8F53A30C /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F6CCBD61BA4BDB99078F89 /* AFNetworkReachabilityManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		D056BA5D36954278AC8F4204 /* FBShimmeringLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F2A0798F56F4D78A7AC0041 /* FBShimmeringLayer.h */; };
 		D4C313CB24FB443DB5A4BA38 /* GAI.h in Headers */ = {isa = PBXBuildFile; fileRef = 600EDEDEFD1F434BB2326BC2 /* GAI.h */; };
-		D4FA0F05C3E6495F872C44ED /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F8B9AD060F14554B688BECF /* CocoaLumberjack.h */; };
 		D5A26CBEB9D04B939D650B85 /* EXPMatchers+endWith.h in Headers */ = {isa = PBXBuildFile; fileRef = B4495DE074D64E4CAE46A962 /* EXPMatchers+endWith.h */; };
 		D5A3A384A9BE47B1BDE16650 /* EXPMatchers+conformTo.h in Headers */ = {isa = PBXBuildFile; fileRef = D6AD0E631A8A4A57BFAA27F8 /* EXPMatchers+conformTo.h */; };
 		D691F22CBAB34B308EDFF286 /* EXPMatchers+beSupersetOf.m in Sources */ = {isa = PBXBuildFile; fileRef = B08ABC4C28B94C8E8528DE24 /* EXPMatchers+beSupersetOf.m */; };
@@ -677,7 +676,6 @@
 				11605EA20E8E4AFD898855EE /* FBShimmeringView.m */,
 				C132895961B747FAB10E9979 /* Support Files */,
 			);
-			name = Shimmer;
 			path = Shimmer;
 			sourceTree = "<group>";
 		};
@@ -789,7 +787,6 @@
 				124FF79C27734395AB68F8E0 /* NSValue+Expecta.m */,
 				DFAD7023B75643FEAAEBEB68 /* Support Files */,
 			);
-			name = Expecta;
 			path = Expecta;
 			sourceTree = "<group>";
 		};
@@ -837,7 +834,6 @@
 				D519ECDA20D54A779E3922B7 /* TAGManager.h */,
 				4B37D61BDECB48748731AA0E /* Support Files */,
 			);
-			name = "GoogleAnalytics-iOS-SDK";
 			path = "GoogleAnalytics-iOS-SDK";
 			sourceTree = "<group>";
 		};
@@ -911,7 +907,6 @@
 				C453922EC7204FFFB52F0BF5 /* Extensions */,
 				522E7998D15F495B940BBAD9 /* Support Files */,
 			);
-			name = CocoaLumberjack;
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
 		};
@@ -931,7 +926,6 @@
 				21646DC797C04BE6B92F24CB /* FXKeychain.m */,
 				4622729586A44405A4BD575C /* Support Files */,
 			);
-			name = FXKeychain;
 			path = FXKeychain;
 			sourceTree = "<group>";
 		};
@@ -966,7 +960,6 @@
 				CEB60103E28649B7A4037098 /* Support Files */,
 				C6F1571FCEC042E9977BB648 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -1094,7 +1087,6 @@
 				A53BA32F86174201834C5170 /* _FBTweakTableViewCell.m */,
 				88627B1BA99F4069A7A7E142 /* Support Files */,
 			);
-			name = Tweaks;
 			path = Tweaks;
 			sourceTree = "<group>";
 		};
@@ -1238,7 +1230,6 @@
 			files = (
 				76E6976774D346A694C972C3 /* CLIColor.h in Headers */,
 				E5EE69B9A6FA4584B45E9E86 /* CocoaLumberjack.h in Headers */,
-				D4FA0F05C3E6495F872C44ED /* CocoaLumberjack.h in Headers */,
 				24EE2FE1875C44D9B44F7410 /* DDASLLogCapture.h in Headers */,
 				52128CDF11404F938D1C2C47 /* DDASLLogger.h in Headers */,
 				C9E31D818762447CB4DBAD1D /* DDAbstractDatabaseLogger.h in Headers */,
@@ -1421,7 +1412,7 @@
 		80C505499E224B84A501E55D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = 3BA57241FDB74E7DAE9B2B2D /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1433,8 +1424,6 @@
 			mainGroup = 2F3E1F468E7C4BE386D0B59D;
 			productRefGroup = 6A1A1720204743A0A4F51B4F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				F846A5FAAC0343F599F65780 /* Pods-CSF */,

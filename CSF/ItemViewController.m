@@ -8,11 +8,12 @@
 
 #import "ItemViewController.h"
 #import "ThemeManager.h"
+#import "UITextField+Extended.h"
 
 @interface ItemViewController ()
 
 @property(nonatomic, strong) NSArray *labels;
-@property(nonatomic, strong) NSArray *textFields;
+@property(nonatomic, strong) NSArray *fields;
 
 @property(nonatomic, weak) IBOutlet UILabel *typeLabel;
 @property(nonatomic, weak) IBOutlet UILabel *itemLabel;
@@ -33,11 +34,15 @@
 
 @implementation ItemViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor clearColor];
     [self configureLabels];
+    [self configureFields];
+    [self configureButton];
 }
 
 /*
@@ -50,11 +55,68 @@
 }
 */
 
+#pragma mark - Gesture Handling
+
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
+
 - (void)configureLabels {
     self.labels = @[self.typeLabel, self.itemLabel, self.priceLabel, self.stockLabel, self.quantityLabel, self.commentLabel];
     for (UILabel *label in self.labels) {
         label.font = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
+    }
+}
+
+#pragma mark - Private Methods
+
+- (void)configureButton {
+    self.addButton.titleLabel.font = [ThemeManager sharedInstance].normalFont;
+
+    [self.addButton setTitleColor:[ThemeManager sharedInstance].normalFontColor forState:UIControlStateNormal];
+    [self.addButton setTitleColor:[ThemeManager sharedInstance].disabledColor forState:UIControlStateDisabled];
+
+    self.addButton.layer.cornerRadius = 5.0f;
+    self.addButton.layer.borderWidth  = 1.0f;
+    self.addButton.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
+
+    self.addButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
+}
+
+- (void)configureFields {
+    // Set up 'Next' field order
+    self.typeTextField.nextTextField = self.itemTextField;
+    self.itemTextField.nextTextField  = self.quantityTextField;
+    self.quantityTextField.nextTextField  = self.commentTextView;
+
+    self.fields = @[self.typeTextField, self.itemTextField, self.quantityTextField];
+
+    //self.commentTextView
+
+    for (UITextField *field in self.fields) {
+        field.font      = [ThemeManager sharedInstance].normalFont;
+        field.textColor = [ThemeManager sharedInstance].normalFontColor;
+
+        field.borderStyle     = UITextBorderStyleRoundedRect;
+        field.backgroundColor = [ThemeManager sharedInstance].tintColor;
+
+        field.layer.cornerRadius = 5.0f;
+        field.layer.borderWidth  = 1.0f;
+        field.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
+
+        //if (![field isEqual:self.farmField]) {
+            field.keyboardAppearance = UIKeyboardAppearanceAlert;
+        //}
+
+        UIColor  *color       = [ThemeManager sharedInstance].placeHolderFontColor;
+        UIFont   *font        = [ThemeManager sharedInstance].placeHolderFont;
+        NSString *placeholder = field.placeholder;
+        if (placeholder) {
+            field.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
+                                                                          attributes:@{NSForegroundColorAttributeName : color,
+                                                                                       NSFontAttributeName            : font}];
+        }
     }
 }
 
