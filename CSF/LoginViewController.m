@@ -16,7 +16,6 @@
 #import "SlideFromRightAnimationController.h"
 #import "SlideToRightAnimationController.h"
 #import "PickerView.h"
-#import "PickerViewAccessoryDelegate.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
 #import "ActivityIndicator.h"

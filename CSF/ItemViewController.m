@@ -8,7 +8,6 @@
 
 #import "ItemViewController.h"
 #import "ThemeManager.h"
-#import "UITextField+Extended.h"
 #import "PickerView.h"
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
