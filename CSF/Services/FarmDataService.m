@@ -44,7 +44,14 @@
                               successBlock:^(id response){
         if (response) {
             NSArray *types = [response objectForKey:@"Types"];
-            successBlock(types);
+
+            NSMutableArray *mutableTypes = [[NSMutableArray alloc] init];
+            for (int index = 0; index < [types count]; ++index) {
+                NSString *type = types[index];
+                mutableTypes[index] = [type lowercaseString];
+            }
+
+            successBlock(mutableTypes);
         }
     }
                               failureBlock:^(NSError *error){
