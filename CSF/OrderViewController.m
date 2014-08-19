@@ -17,6 +17,9 @@
 #import "FBShimmeringView+Extended.h"
 #import "DatePicker.h"
 #import "ActivityIndicator.h"
+#import "ItemViewController.h"
+#import "FarmDataService.h"
+#import "User.h"
 
 static NSString *const kTotalFormatString = @"total ~ %@";
 
@@ -28,6 +31,8 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
 @property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
 @property (nonatomic, copy, readonly) NSArray *controls;
+
+@property (nonatomic, copy) NSArray *types;
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
@@ -70,16 +75,16 @@ static NSString *const kTotalFormatString = @"total ~ %@";
                                                object:nil];
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ItemViewController *viewController = [segue destinationViewController];
+    viewController.types = self.types;
+
+    [self.activityIndicator stop];
+    [self enableControls];
 }
-*/
 
 #pragma mark - Property Overrides
 
@@ -308,7 +313,33 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (void)performAddItemSegue {
-    [self performSegueWithIdentifier:@"AddItemSegue" sender:self];
+    [self.activityIndicator start];
+    [self disableControls];
+
+    __typeof(self) __weak weakSelf = self;
+    [[FarmDataService sharedInstance] getItemTypesForFarm:[UserServices sharedInstance].currentUser.farm
+                                             successBlock:^(NSArray *types) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     weakSelf.types = types;
+                                                     [self performSegueWithIdentifier:@"AddItemSegue" sender:self];
+
+                                                     // Stop the activity indicator and re-enable the controls in the
+                                                     // perform segue delegate. Need to do this to prevent the user
+                                                     // from tapping add item multiple times.
+
+                                                     // Would be nice if prepareForSegue allowed us to cancel segues. Note
+                                                     // that when we manually call performSegue..., shouldPerformSegue...
+                                                     // is not called. It is normally called before performSegue...
+                                                 });
+                                             }
+                                             failureBlock:^(NSString *message) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [weakSelf enableControls];
+                                                     [weakSelf.activityIndicator stop];
+
+                                                     [weakSelf displayFailureMessage:message];
+                                                 });
+                                             }];
 }
 
 - (void)configureFields {

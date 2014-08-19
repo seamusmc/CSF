@@ -11,4 +11,6 @@
 
 @interface ItemViewController : BaseViewController
 
+@property(nonatomic, strong) NSArray *types;
+
 @end
