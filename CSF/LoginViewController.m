@@ -61,9 +61,6 @@ static const int LastnameMaxLength  = 15;
 
 #pragma mark - Lifecycle
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

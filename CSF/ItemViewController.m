@@ -9,8 +9,9 @@
 #import "ItemViewController.h"
 #import "ThemeManager.h"
 #import "UITextField+Extended.h"
+#import "PickerView.h"
 
-@interface ItemViewController ()
+@interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, PickerViewAccessoryDelegate>
 
 @property(nonatomic, strong) NSArray *labels;
 @property(nonatomic, strong) NSArray *fields;
@@ -44,17 +45,68 @@
     [self configureFields];
     [self configureCommentTextView];
     [self configureButton];
+    [self configureTypesPicker];
+
+    self.typeTextField.text = self.types[0];
 }
 
-/*
-#pragma mark - Navigation
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputViewWillShowNotification:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
 }
-*/
+
+#pragma mark - Notifications
+
+- (void)inputViewWillShowNotification:(NSNotification *)notification {
+    // Only handle this notification if a UIPickerView is going to
+    // be shown. We want to keep the picker and textField in sync.
+    for (UIView *view in self.view.subviews) {
+        if ([view.inputView isMemberOfClass:[PickerView class]]) {
+            if ([view isFirstResponder]) {
+                PickerView *pickerView = (PickerView *) view.inputView;
+
+                NSInteger index = [self.types indexOfObject:self.typeTextField.text];
+
+                [pickerView selectRow:index inComponent:0 animated:NO];
+            }
+
+            break;
+        }
+    }
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
+
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
+
+    label.textColor     = [ThemeManager sharedInstance].normalFontColor;
+    label.font          = [ThemeManager sharedInstance].normalFont;
+    label.text          = self.types[row];
+    label.textAlignment = NSTextAlignmentCenter;
+
+    return label;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.typeTextField.text = (NSString *) [self.types objectAtIndex:row];
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [self.types count];
+}
 
 #pragma mark - Gesture Handling
 
@@ -63,6 +115,18 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)configureTypesPicker {
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
+    PickerView *typesPicker = [[PickerView alloc] initWithTitle:@"select a type" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
+
+    typesPicker.delegate                = self;
+    typesPicker.accessoryDelegate       = self;
+    typesPicker.dataSource              = self;
+    typesPicker.showsSelectionIndicator = YES;
+
+    self.typeTextField.inputView = typesPicker;
+}
 
 - (void)configureCommentTextView {
     self.commentTextView.font      = [ThemeManager sharedInstance].normalFont;
