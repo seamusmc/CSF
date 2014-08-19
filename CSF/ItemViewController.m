@@ -42,6 +42,7 @@
     self.view.backgroundColor = [UIColor clearColor];
     [self configureLabels];
     [self configureFields];
+    [self configureCommentTextView];
     [self configureButton];
 }
 
@@ -61,6 +62,26 @@
     [self.view endEditing:YES];
 }
 
+#pragma mark - Private Methods
+
+- (void)configureCommentTextView {
+    self.commentTextView.font      = [ThemeManager sharedInstance].normalFont;
+    self.commentTextView.textColor = [ThemeManager sharedInstance].normalFontColor;
+
+    self.commentTextView.backgroundColor = [ThemeManager sharedInstance].tintColor;
+
+    [self.commentTextView  setTextContainerInset:UIEdgeInsetsMake(5, 10, 10, 10)];
+
+    self.commentTextView.layer.cornerRadius = 5.0f;
+    self.commentTextView.layer.borderWidth  = 1.0f;
+    self.commentTextView.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
+
+    //if (![field isEqual:self.farmField]) {
+    self.commentTextView.keyboardAppearance = UIKeyboardAppearanceAlert;
+    //}
+}
+
+
 - (void)configureLabels {
     self.labels = @[self.typeLabel, self.itemLabel, self.priceLabel, self.stockLabel, self.quantityLabel, self.commentLabel];
     for (UILabel *label in self.labels) {
@@ -68,8 +89,6 @@
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
 }
-
-#pragma mark - Private Methods
 
 - (void)configureButton {
     self.addButton.titleLabel.font = [ThemeManager sharedInstance].normalFont;
