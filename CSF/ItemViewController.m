@@ -59,6 +59,47 @@
                                                object:nil];
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.quantityTextField) {
+        // Would love to use the Fractions field on item to allow or disallow decimal values, but it
+        // doesn't seem to be used. Have to default to allowing fractions, the item will be rejected
+        // if its not supposed to have a fractional count. Could be due to test data not being populated
+        // correctly.
+
+        NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
+
+        // Fractions flag is not populated!
+//        if (self.currentItem.fractions)
+//            expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
+//        else
+//            expression = @"^([0-9]+)?$";
+
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:nil];
+
+        NSUInteger numberOfMatches = [regex numberOfMatchesInString:newString
+                                                            options:0
+                                                              range:NSMakeRange(0, [newString length])];
+        double number = [newString doubleValue];
+        if (number <= 0 && ([newString length] != 0)) {
+            self.quantityTextField.textColor = [ThemeManager sharedInstance].errorFontColor;
+            self.quantityLabel.textColor     = [ThemeManager sharedInstance].errorFontColor;
+        } else {
+            self.quantityTextField.textColor = [ThemeManager sharedInstance].normalFontColor;
+            self.quantityLabel.textColor     = [ThemeManager sharedInstance].normalFontColor;
+        }
+
+        if (numberOfMatches == 0)
+            return NO;
+    }
+
+    return YES;
+}
+
 #pragma mark - Notifications
 
 - (void)inputViewWillShowNotification:(NSNotification *)notification {
@@ -170,6 +211,8 @@
     for (UITextField *field in self.fields) {
         field.font      = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
+
+        field.delegate = self;
 
         field.borderStyle     = UITextBorderStyleRoundedRect;
         field.backgroundColor = [ThemeManager sharedInstance].tintColor;
