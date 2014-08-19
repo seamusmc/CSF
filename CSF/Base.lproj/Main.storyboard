@@ -275,7 +275,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs7-LS-DDH">
-                                <rect key="frame" x="200" y="510" width="100" height="40"/>
+                                <rect key="frame" x="200" y="512" width="100" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="T5H-eE-RP0"/>
                                 </constraints>
@@ -349,7 +349,7 @@
                             <constraint firstItem="Tjl-Sn-x0h" firstAttribute="top" secondItem="tpe-yO-M8Y" secondAttribute="bottom" constant="24" id="9xz-6e-VBF"/>
                             <constraint firstItem="N9d-cb-5Qb" firstAttribute="top" secondItem="MnB-3f-TM6" secondAttribute="bottom" constant="24" id="A54-M4-9Mk"/>
                             <constraint firstItem="RXF-Z4-SvE" firstAttribute="top" secondItem="W93-nR-b1h" secondAttribute="top" constant="73" id="ACZ-Lr-2Kg"/>
-                            <constraint firstItem="49A-3A-qtB" firstAttribute="top" secondItem="Bs7-LS-DDH" secondAttribute="bottom" constant="18" id="Bqr-04-Qu5"/>
+                            <constraint firstItem="49A-3A-qtB" firstAttribute="top" secondItem="Bs7-LS-DDH" secondAttribute="bottom" constant="16" id="Bqr-04-Qu5"/>
                             <constraint firstAttribute="trailing" secondItem="Bs7-LS-DDH" secondAttribute="trailing" constant="20" id="FaE-4n-PO3"/>
                             <constraint firstItem="Tjl-Sn-x0h" firstAttribute="leading" secondItem="W93-nR-b1h" secondAttribute="leading" constant="20" id="GHu-nU-7Na"/>
                             <constraint firstItem="BRd-XB-mal" firstAttribute="leading" secondItem="N9d-cb-5Qb" secondAttribute="trailing" constant="4" id="NiJ-g4-yG9"/>
