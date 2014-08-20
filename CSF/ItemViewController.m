@@ -209,26 +209,26 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 - (void)getItemsForType:(NSString *)type {
     [self.activityIndicator start];
-    //[self disableControls];
+    [self disableControls];
 
     __typeof(self) __weak weakSelf = self;
     [[FarmDataService sharedInstance] getItemsForFarm:[UserServices sharedInstance].currentUser.farm
                                                  type:type
                                          successBlock:^(NSArray *items) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                 //[weakSelf enableControls];
+                                                 [weakSelf enableControls];
                                                  [weakSelf.activityIndicator stop];
                                                  weakSelf.items = items;
 
                                                  [weakSelf populateItemFields:items[0]];
 
-                                                 UIPickerView* picker = (UIPickerView*) self.itemTextField.inputView;
+                                                 UIPickerView *picker = (UIPickerView *) self.itemTextField.inputView;
                                                  [picker reloadComponent:0];
                                              });
                                          }
                                          failureBlock:^(NSString *message) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                 //[weakSelf enableControls];
+                                                 [weakSelf enableControls];
                                                  [weakSelf.activityIndicator stop];
                                                  DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
                                                  //[weakSelf displayFailureMessage:message];
@@ -236,6 +236,23 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                          }];
 }
 
+- (void)enableControls {
+    self.addButton.enabled         = YES;
+    self.itemTextField.enabled     = YES;
+    self.quantityTextField.enabled = YES;
+
+    self.commentTextView.userInteractionEnabled         = YES;
+    self.typeTextField.inputView.userInteractionEnabled = YES;
+}
+
+- (void)disableControls {
+    self.addButton.enabled         = NO;
+    self.itemTextField.enabled     = NO;
+    self.quantityTextField.enabled = NO;
+
+    self.commentTextView.userInteractionEnabled         = NO;
+    self.typeTextField.inputView.userInteractionEnabled = NO;
+}
 
 - (void)populateItemFields:(InventoryItem *)item {
     self.itemTextField.text = item.name;

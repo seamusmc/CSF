@@ -13,4 +13,5 @@
 
 @property(nonatomic, strong) NSArray *types;
 
+- (void)enableControls;
 @end
