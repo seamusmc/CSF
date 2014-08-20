@@ -236,7 +236,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     self.priceLabel.text = [NSString stringWithFormat:kPriceLabelFormatString, item.formattedPrice];
 
     NSString *inStock = @"yes";
-    if (item.outOfStock) {
+    if (item.outOfStock == YES) {
         inStock = @"no";
     }
     self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
