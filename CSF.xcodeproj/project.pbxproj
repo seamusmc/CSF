@@ -47,6 +47,7 @@
 		F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */; };
 		F13746CD199E31FC008AE331 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F13746CC199E31FC008AE331 /* ItemViewController.m */; };
 		F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F166ECA4196B1325009AF9C4 /* BaseViewController.m */; };
+		F19EAC4219A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = F19EAC4119A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m */; };
 		F1A91A5318D39602008395EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5218D39602008395EE /* Foundation.framework */; };
 		F1A91A5518D39602008395EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5418D39602008395EE /* CoreGraphics.framework */; };
 		F1A91A5718D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
@@ -161,6 +162,8 @@
 		F13746CC199E31FC008AE331 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		F166ECA3196B1325009AF9C4 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		F166ECA4196B1325009AF9C4 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		F19EAC4019A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSDictionary_Extended.h"; sourceTree = "<group>"; };
+		F19EAC4119A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSDictionary_Extended.m"; sourceTree = "<group>"; };
 		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -328,6 +331,8 @@
 				C9FA561D2C375B64BCD8366E /* FBShimmeringView+Extended.h */,
 				C9FA53544A686A4A124F2887 /* UILabel+Extended.m */,
 				C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */,
+				F19EAC4019A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.h */,
+				F19EAC4119A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -624,6 +629,7 @@
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
 				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
 				C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */,
+				F19EAC4219A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m in Sources */,
 				C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */,
 				C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */,
 				C9FA5613C2B39830434D7E9B /* TweaksService.m in Sources */,

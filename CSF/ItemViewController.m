@@ -17,6 +17,7 @@
 #import "FBShimmeringView+Extended.h"
 #import "DDLogMacros.h"
 #import "InventoryItem.h"
+#import "NSDictionary+NSDictionary_Extended.h"
 
 static const int kItemsPickerViewTag = 10;
 
@@ -25,9 +26,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
-@property(nonatomic, strong) NSArray *labels;
-@property(nonatomic, strong) NSArray *fields;
-@property(nonatomic, strong) NSArray *items;
+@property(nonatomic, copy) NSArray *labels;
+@property(nonatomic, copy) NSArray *fields;
+
+@property(nonatomic, copy) NSArray *items;                              // The current list of items for the current type.
+@property(nonatomic, strong) NSMutableDictionary *itemsDictionary;      // Cache of items keyed by type.
 
 @property(nonatomic, weak) IBOutlet UILabel *typeLabel;
 @property(nonatomic, weak) IBOutlet UILabel *itemLabel;
@@ -52,6 +55,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.itemsDictionary = [[NSMutableDictionary alloc] init];
 
     self.view.backgroundColor = [UIColor clearColor];
     [self configureLabels];
@@ -208,32 +213,44 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 #pragma mark - Private Methods
 
 - (void)getItemsForType:(NSString *)type {
-    [self.activityIndicator start];
-    [self disableControls];
+    // We'll cache the items for each type selected in a dictionary, for the life of this VC.
+    if ([self.itemsDictionary containsKey:type]) {
+        self.items = self.itemsDictionary[type];
 
-    __typeof(self) __weak weakSelf = self;
-    [[FarmDataService sharedInstance] getItemsForFarm:[UserServices sharedInstance].currentUser.farm
-                                                 type:type
-                                         successBlock:^(NSArray *items) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 [weakSelf enableControls];
-                                                 [weakSelf.activityIndicator stop];
-                                                 weakSelf.items = items;
+        [self populateItemFields:self.items[0]];
 
-                                                 [weakSelf populateItemFields:items[0]];
+        UIPickerView *picker = (UIPickerView *) self.itemTextField.inputView;
+        [picker reloadComponent:0];
+    } else {
+        [self.activityIndicator start];
+        [self disableControls];
 
-                                                 UIPickerView *picker = (UIPickerView *) self.itemTextField.inputView;
-                                                 [picker reloadComponent:0];
-                                             });
-                                         }
-                                         failureBlock:^(NSString *message) {
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 [weakSelf enableControls];
-                                                 [weakSelf.activityIndicator stop];
-                                                 DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
-                                                 //[weakSelf displayFailureMessage:message];
-                                             });
-                                         }];
+        __typeof(self) __weak weakSelf = self;
+        [[FarmDataService sharedInstance] getItemsForFarm:[UserServices sharedInstance].currentUser.farm
+                                                     type:type
+                                             successBlock:^(NSArray *items) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [weakSelf enableControls];
+                                                     [weakSelf.activityIndicator stop];
+
+                                                     weakSelf.itemsDictionary[type] = items;
+                                                     weakSelf.items = weakSelf.itemsDictionary[type];
+
+                                                     [weakSelf populateItemFields:items[0]];
+
+                                                     UIPickerView *picker = (UIPickerView *) self.itemTextField.inputView;
+                                                     [picker reloadComponent:0];
+                                                 });
+                                             }
+                                             failureBlock:^(NSString *message) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [weakSelf enableControls];
+                                                     [weakSelf.activityIndicator stop];
+                                                     DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
+                                                     //[weakSelf displayFailureMessage:message];
+                                                 });
+                                             }];
+    }
 }
 
 - (void)enableControls {
@@ -264,7 +281,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     }
     self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
 }
-
 
 - (void)configureTypesPicker {
     CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
