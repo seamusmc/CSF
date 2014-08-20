@@ -114,7 +114,6 @@ static const int LastnameMaxLength  = 15;
     [super viewDidDisappear:animated];
 }
 
-
 #pragma mark - Gesture Handling
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {

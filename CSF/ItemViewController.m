@@ -80,6 +80,12 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                                object:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [super viewDidDisappear:animated];
+}
+
 - (FBShimmeringView *)activityIndicator {
     if (_activityIndicator == nil) {
         _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
