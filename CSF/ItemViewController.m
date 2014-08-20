@@ -16,6 +16,7 @@ static const int kItemsPickerViewTag = 10;
 
 @property(nonatomic, strong) NSArray *labels;
 @property(nonatomic, strong) NSArray *fields;
+@property(nonatomic, strong) NSArray *items;
 
 @property(nonatomic, weak) IBOutlet UILabel *typeLabel;
 @property(nonatomic, weak) IBOutlet UILabel *itemLabel;
@@ -50,6 +51,9 @@ static const int kItemsPickerViewTag = 10;
     [self configureItemsPicker];
 
     self.typeTextField.text = self.types[0];
+
+    self.items = @[@"item1", @"item2", @"item3"];
+    self.itemTextField.text = self.items[0];3
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,7 +116,12 @@ static const int kItemsPickerViewTag = 10;
             if ([view isFirstResponder]) {
                 PickerView *pickerView = (PickerView *) view.inputView;
 
-                NSInteger index = [self.types indexOfObject:self.typeTextField.text];
+                NSInteger index;
+                if (pickerView.tag == kItemsPickerViewTag) {
+                    index = [self.types indexOfObject:self.itemTextField.text];
+                } else {
+                    index = [self.types indexOfObject:self.typeTextField.text];
+                }
 
                 [pickerView selectRow:index inComponent:0 animated:NO];
             }
@@ -134,7 +143,7 @@ static const int kItemsPickerViewTag = 10;
     label.textAlignment = NSTextAlignmentCenter;
 
     if (pickerView.tag == kItemsPickerViewTag) {
-        label.text = @"test";
+        label.text = self.items[row];
     } else {
         label.text = self.types[row];
     }
@@ -143,7 +152,16 @@ static const int kItemsPickerViewTag = 10;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.typeTextField.text = (NSString *) [self.types objectAtIndex:row];
+    if (pickerView.tag == kItemsPickerViewTag) {
+        // Test if the item changed.
+        self.itemTextField.text = (NSString *) self.items[row];
+        // If so populate the fields
+
+    } else {
+        self.typeTextField.text = (NSString *) self.types[row];
+        // Test if the field changed. If so kick off a request for the items for
+        // this type.
+    }
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -154,9 +172,9 @@ static const int kItemsPickerViewTag = 10;
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (pickerView.tag == kItemsPickerViewTag) {
-        return 3;
+        return self.items.count;
     } else {
-        return [self.types count];
+        return self.types.count;
     }
 }
 
