@@ -7,7 +7,6 @@
 //
 
 #import <Shimmer/FBShimmeringView.h>
-#import <sys/ucred.h>
 #import "ItemViewController.h"
 #import "ThemeManager.h"
 #import "PickerView.h"
@@ -22,6 +21,7 @@
 static const int kItemsPickerViewTag = 10;
 
 static NSString *const kPriceLabelFormatString = @"price %@";
+static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
@@ -234,6 +234,12 @@ static NSString *const kPriceLabelFormatString = @"price %@";
 - (void)populateItemFields:(InventoryItem *)item {
     self.itemTextField.text = item.name;
     self.priceLabel.text = [NSString stringWithFormat:kPriceLabelFormatString, item.formattedPrice];
+
+    NSString *inStock = @"yes";
+    if (item.outOfStock) {
+        inStock = @"no";
+    }
+    self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
 }
 
 
