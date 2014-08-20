@@ -78,6 +78,7 @@
 
             for (id item in items) {
                 InventoryItem *inventoryItem = [[InventoryItem alloc] init];
+
                 inventoryItem.name       = [item objectForKey:@"Name"];
                 inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
                 inventoryItem.type       = type;

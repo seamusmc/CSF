@@ -6,9 +6,17 @@
 //  Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
+#import <Shimmer/FBShimmeringView.h>
 #import "ItemViewController.h"
 #import "ThemeManager.h"
 #import "PickerView.h"
+#import "FarmDataService.h"
+#import "UserServices.h"
+#import "User.h"
+#import "ActivityIndicator.h"
+#import "FBShimmeringView+Extended.h"
+#import "DDLogMacros.h"
+#import "InventoryItem.h"
 
 static const int kItemsPickerViewTag = 10;
 
@@ -30,8 +38,8 @@ static const int kItemsPickerViewTag = 10;
 @property(nonatomic, weak) IBOutlet UITextField *quantityTextField;
 
 @property(nonatomic, weak) IBOutlet UITextView *commentTextView;
-
-@property(nonatomic, weak) IBOutlet UIButton *addButton;
+@property(nonatomic, weak) IBOutlet UIButton   *addButton;
+@property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
 @end
 
@@ -52,8 +60,7 @@ static const int kItemsPickerViewTag = 10;
 
     self.typeTextField.text = self.types[0];
 
-    self.items = @[@"item1", @"item2", @"item3"];
-    self.itemTextField.text = self.items[0];
+    [self getItemsForType:self.types[0]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,6 +70,14 @@ static const int kItemsPickerViewTag = 10;
                                              selector:@selector(inputViewWillShowNotification:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
+}
+
+- (FBShimmeringView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
+    }
+
+    return _activityIndicator;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -143,7 +158,8 @@ static const int kItemsPickerViewTag = 10;
     label.textAlignment = NSTextAlignmentCenter;
 
     if (pickerView.tag == kItemsPickerViewTag) {
-        label.text = self.items[row];
+        InventoryItem *item = self.items[row];
+        label.text = item.name;
     } else {
         label.text = self.types[row];
     }
@@ -153,14 +169,15 @@ static const int kItemsPickerViewTag = 10;
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (pickerView.tag == kItemsPickerViewTag) {
-        // Test if the item changed.
-        self.itemTextField.text = (NSString *) self.items[row];
-        // If so populate the fields
-
+        NSString *temp = self.itemTextField.text;
+        if (![temp isEqualToString:(NSString *) self.items[row]]) {
+            // Populate the fields
+            InventoryItem *item = self.items[row];
+            self.itemTextField.text = item.name;
+        }
     } else {
         self.typeTextField.text = (NSString *) self.types[row];
-        // Test if the field changed. If so kick off a request for the items for
-        // this type.
+        [self getItemsForType:self.types[row]];
     }
 }
 
@@ -185,6 +202,34 @@ static const int kItemsPickerViewTag = 10;
 }
 
 #pragma mark - Private Methods
+
+- (void)getItemsForType:(NSString *)type {
+    [self.activityIndicator start];
+    //[self disableControls];
+
+    __typeof(self) __weak weakSelf = self;
+    [[FarmDataService sharedInstance] getItemsForFarm:[UserServices sharedInstance].currentUser.farm
+                                                 type:type
+                                         successBlock:^(NSArray *items) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 //[weakSelf enableControls];
+                                                 [weakSelf.activityIndicator stop];
+                                                 weakSelf.items = items;
+
+                                                 // populate fields.
+                                                 InventoryItem *item = items[0];
+                                                 weakSelf.itemTextField.text = item.name;
+                                             });
+                                         }
+                                         failureBlock:^(NSString *message) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 //[weakSelf enableControls];
+                                                 [weakSelf.activityIndicator stop];
+                                                 DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
+                                                 //[weakSelf displayFailureMessage:message];
+                                             });
+                                         }];
+}
 
 - (void)configureTypesPicker {
     CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
