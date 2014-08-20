@@ -53,7 +53,7 @@ static const int kItemsPickerViewTag = 10;
     self.typeTextField.text = self.types[0];
 
     self.items = @[@"item1", @"item2", @"item3"];
-    self.itemTextField.text = self.items[0];3
+    self.itemTextField.text = self.items[0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
