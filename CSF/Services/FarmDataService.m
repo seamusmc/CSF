@@ -79,7 +79,7 @@
             for (id item in items) {
                 InventoryItem *inventoryItem = [[InventoryItem alloc] init];
 
-                inventoryItem.name       = [item objectForKey:@"Name"];
+                inventoryItem.name       = [[item objectForKey:@"Name"] lowercaseString];
                 inventoryItem.outOfStock = [[item objectForKey:@"OutOfStock"] boolValue];
                 inventoryItem.type       = type;
 
