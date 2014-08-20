@@ -19,15 +19,23 @@
 #import "InventoryItem.h"
 #import "NSDictionary+NSDictionary_Extended.h"
 
+// Scroll/Animation constants
+static const CGFloat kKeyboardAnimationDuration = 0.3;
+static const CGFloat kMinimumScrollFraction = 0.2;
+static const CGFloat kMaximumScrollFraction = 0.8;
+static const CGFloat kPortraitKeyboardHeight = 216;
+
 static const int kItemsPickerViewTag = 10;
 
 static NSString *const kPriceLabelFormatString = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
-@interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
+@interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 
 @property(nonatomic, copy) NSArray *labels;
 @property(nonatomic, copy) NSArray *fields;
+
+@property(nonatomic, assign) CGFloat animatedDistance;
 
 @property(nonatomic, copy) NSArray *items;                              // The current list of items for the current type.
 @property(nonatomic, strong) NSMutableDictionary *itemsDictionary;      // Cache of items keyed by type.
@@ -94,7 +102,80 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return _activityIndicator;
 }
 
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    CGRect rect = [self.view.window convertRect:textView.bounds fromView:textView];
+    CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
+
+    [self scrollViewUp:rect viewRect:viewRect];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self scrollViewDown];
+}
+
 #pragma mark - UITextFieldDelegate
+
+// 'Scroll' the view's frame up to accommodate the keyboard if necessary.
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
+
+    [self scrollViewUp:textFieldRect viewRect:viewRect];
+}
+
+- (void)scrollViewUp:(CGRect)rect viewRect:(CGRect)viewRect {
+    CGFloat midline        = rect.origin.y + 0.5 * rect.size.height;
+    CGFloat numerator      = midline - viewRect.origin.y - kMinimumScrollFraction * viewRect.size.height;
+    CGFloat denominator    = (kMaximumScrollFraction - kMinimumScrollFraction) * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+
+    if (heightFraction < 0.0) {
+        heightFraction = 0.0;
+    }
+    else if (heightFraction > 1.0) {
+        heightFraction = 1.0;
+    }
+
+    self.animatedDistance = floor(kPortraitKeyboardHeight * heightFraction);
+
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= self.animatedDistance;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    [self.view setFrame:viewFrame];
+
+    [UIView commitAnimations];
+}
+
+// 'Scroll' the view's frame down when the keyboard is removed.
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self scrollViewDown];
+}
+
+- (void)scrollViewDown {
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += self.animatedDistance;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    [self.view setFrame:viewFrame];
+
+    [UIView commitAnimations];
+}
+
+// Implementing this delegate method allows us to emulate the loss of focus and 'close' the keyboard/inputView
+- (BOOL) textFieldShouldReturn:(UITextField*)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField == self.quantityTextField) {
@@ -318,6 +399,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     self.commentTextView.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
     [self.commentTextView  setTextContainerInset:UIEdgeInsetsMake(5, 10, 10, 10)];
+
+    self.commentTextView.delegate = self;
 
     self.commentTextView.layer.cornerRadius = 5.0f;
     self.commentTextView.layer.borderWidth  = 1.0f;
