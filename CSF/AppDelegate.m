@@ -26,7 +26,7 @@
         #endif
     }
 
-    _window.backgroundColor = [[ThemeManager sharedInstance] tintColor];
+    _window.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
     return _window;
 }

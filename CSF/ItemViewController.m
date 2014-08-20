@@ -18,6 +18,7 @@
 #import "DDLogMacros.h"
 #import "InventoryItem.h"
 #import "NSDictionary+NSDictionary_Extended.h"
+#import "UIImageView+Extended.h"
 
 // Scroll/Animation constants
 static const CGFloat kKeyboardAnimationDuration = 0.3;
@@ -119,55 +120,19 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 // 'Scroll' the view's frame up to accommodate the keyboard if necessary.
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    if ([textField isEqual:self.quantityTextField]) {
+        CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+        CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
 
-    [self scrollViewUp:textFieldRect viewRect:viewRect];
-}
-
-- (void)scrollViewUp:(CGRect)rect viewRect:(CGRect)viewRect {
-    CGFloat midline        = rect.origin.y + 0.5 * rect.size.height;
-    CGFloat numerator      = midline - viewRect.origin.y - kMinimumScrollFraction * viewRect.size.height;
-    CGFloat denominator    = (kMaximumScrollFraction - kMinimumScrollFraction) * viewRect.size.height;
-    CGFloat heightFraction = numerator / denominator;
-
-    if (heightFraction < 0.0) {
-        heightFraction = 0.0;
+        [self scrollViewUp:textFieldRect viewRect:viewRect];
     }
-    else if (heightFraction > 1.0) {
-        heightFraction = 1.0;
-    }
-
-    self.animatedDistance = floor(kPortraitKeyboardHeight * heightFraction);
-
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= self.animatedDistance;
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
-
-    [self.view setFrame:viewFrame];
-
-    [UIView commitAnimations];
 }
 
 // 'Scroll' the view's frame down when the keyboard is removed.
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self scrollViewDown];
-}
-
-- (void)scrollViewDown {
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += self.animatedDistance;
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
-
-    [self.view setFrame:viewFrame];
-
-    [UIView commitAnimations];
+    if ([textField isEqual:self.quantityTextField]) {
+        [self scrollViewDown];
+    }
 }
 
 // Implementing this delegate method allows us to emulate the loss of focus and 'close' the keyboard/inputView
@@ -462,6 +427,46 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                                                                        NSFontAttributeName            : font}];
         }
     }
+}
+
+- (void)scrollViewUp:(CGRect)rect viewRect:(CGRect)viewRect {
+    CGFloat midline        = rect.origin.y + 0.5 * rect.size.height;
+    CGFloat numerator      = midline - viewRect.origin.y - kMinimumScrollFraction * viewRect.size.height;
+    CGFloat denominator    = (kMaximumScrollFraction - kMinimumScrollFraction) * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+
+    if (heightFraction < 0.0) {
+        heightFraction = 0.0;
+    }
+    else if (heightFraction > 1.0) {
+        heightFraction = 1.0;
+    }
+
+    self.animatedDistance = floor(kPortraitKeyboardHeight * heightFraction);
+
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= self.animatedDistance;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    [self.view setFrame:viewFrame];
+
+    [UIView commitAnimations];
+}
+
+- (void)scrollViewDown {
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += self.animatedDistance;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:kKeyboardAnimationDuration];
+
+    [self.view setFrame:viewFrame];
+
+    [UIView commitAnimations];
 }
 
 @end
