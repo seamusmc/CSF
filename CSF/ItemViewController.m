@@ -177,8 +177,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
             [self populateItemFields:self.items[row]];
         }
     } else {
-        self.typeTextField.text = (NSString *) self.types[row];
-        [self getItemsForType:self.types[row]];
+        NSString *temp = self.typeTextField.text;
+        if (![temp isEqualToString:(NSString *)self.types[row]]) {
+            self.typeTextField.text = (NSString *) self.types[row];
+            [self getItemsForType:self.types[row]];
+        }
     }
 }
 
@@ -218,6 +221,9 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                                  weakSelf.items = items;
 
                                                  [weakSelf populateItemFields:items[0]];
+
+                                                 UIPickerView* picker = (UIPickerView*) self.itemTextField.inputView;
+                                                 [picker reloadComponent:0];
                                              });
                                          }
                                          failureBlock:^(NSString *message) {
