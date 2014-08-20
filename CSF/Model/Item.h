@@ -14,6 +14,10 @@
 
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, copy) NSString *type;
+
+@property(nonatomic, copy, readonly) NSString *formattedPrice;
+
 @property (nonatomic, strong) NSDecimalNumber *price;
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Shimmer/FBShimmeringView.h>
+#import <sys/ucred.h>
 #import "ItemViewController.h"
 #import "ThemeManager.h"
 #import "PickerView.h"
@@ -19,6 +20,8 @@
 #import "InventoryItem.h"
 
 static const int kItemsPickerViewTag = 10;
+
+static NSString *const kPriceLabelFormatString = @"price %@";
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate>
 
@@ -171,9 +174,7 @@ static const int kItemsPickerViewTag = 10;
     if (pickerView.tag == kItemsPickerViewTag) {
         NSString *temp = self.itemTextField.text;
         if (![temp isEqualToString:(NSString *) self.items[row]]) {
-            // Populate the fields
-            InventoryItem *item = self.items[row];
-            self.itemTextField.text = item.name;
+            [self populateItemFields:self.items[row]];
         }
     } else {
         self.typeTextField.text = (NSString *) self.types[row];
@@ -216,9 +217,7 @@ static const int kItemsPickerViewTag = 10;
                                                  [weakSelf.activityIndicator stop];
                                                  weakSelf.items = items;
 
-                                                 // populate fields.
-                                                 InventoryItem *item = items[0];
-                                                 weakSelf.itemTextField.text = item.name;
+                                                 [weakSelf populateItemFields:items[0]];
                                              });
                                          }
                                          failureBlock:^(NSString *message) {
@@ -230,6 +229,13 @@ static const int kItemsPickerViewTag = 10;
                                              });
                                          }];
 }
+
+
+- (void)populateItemFields:(InventoryItem *)item {
+    self.itemTextField.text = item.name;
+    self.priceLabel.text = [NSString stringWithFormat:kPriceLabelFormatString, item.formattedPrice];
+}
+
 
 - (void)configureTypesPicker {
     CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
