@@ -49,6 +49,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @property(nonatomic, weak) IBOutlet UIButton   *addButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
+@property(nonatomic) BOOL shouldScroll;
+
 @end
 
 @implementation ItemViewController
@@ -63,6 +65,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [super viewDidLoad];
     
     self.itemsDictionary = [[NSMutableDictionary alloc] init];
+    self.shouldScroll = NO;
 
     self.view.backgroundColor = [UIColor clearColor];
     [self configureLabels];
@@ -100,11 +103,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    shouldScroll = YES;
+    self.shouldScroll = YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    shouldScroll = NO;
+    self.shouldScroll = NO;
     [self scrollViewDown];
 }
 
@@ -187,8 +190,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 }
-
-BOOL shouldScroll = NO;
 
 - (void)keyboardWasShown:(NSNotification*)notification {
     NSDictionary* info = [notification userInfo];
@@ -446,7 +447,7 @@ BOOL shouldScroll = NO;
 }
 
 - (void)scrollViewUp:(NSDictionary *)info {
-    if (shouldScroll == NO) {
+    if (self.shouldScroll == NO) {
         return;
     }
 
@@ -464,7 +465,7 @@ BOOL shouldScroll = NO;
 
 - (void)scrollViewDown {
     [self.scrollView setContentOffset:CGPointZero animated:YES];
-    shouldScroll = NO;
+    self.shouldScroll = NO;
 }
 
 @end
