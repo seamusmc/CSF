@@ -49,8 +49,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @property(nonatomic, weak) IBOutlet UIButton   *addButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
-//@property(nonatomic) BOOL shouldScroll;
-
 @end
 
 @implementation ItemViewController
@@ -65,7 +63,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [super viewDidLoad];
     
     self.itemsDictionary = [[NSMutableDictionary alloc] init];
-    //self.shouldScroll = NO;
 
     self.view.backgroundColor = [UIColor clearColor];
     [self configureLabels];
@@ -102,33 +99,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-//    self.shouldScroll = YES;
-    self.commentTextView;
-}
-
 - (void)textViewDidEndEditing:(UITextView *)textView {
-//    self.shouldScroll = NO;
     [self scrollViewDown];
 }
 
 #pragma mark - UITextFieldDelegate
-
-// 'Scroll' the view's frame up to accommodate the keyboard if necessary.
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-//    if ([textField isEqual:self.quantityTextField]) {
-//        if (self.view.frame.size.height == 480) {
-//            activeField = textField;
-//        }
-//    }
-    textField;
-}
-
-// 'Scroll' the view's frame down when the keyboard is removed.
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-//    activeField = nil;
-    textField;
-}
 
 - (BOOL) textFieldShouldReturn:(UITextField*)textField {
     [textField resignFirstResponder];
@@ -450,10 +425,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 - (void)scrollViewUp:(NSDictionary *)info {
-//    if (self.shouldScroll == NO) {
-//        return;
-//    }
-
     // Find the first responder, if it is one we are interested in, scroll up
     // otherwise ignore.
     for (UIView *view in self.view.subviews) {
@@ -485,7 +456,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 - (void)scrollViewDown {
     [self.scrollView setContentSize:self.view.frame.size];
     [self.scrollView setContentOffset:CGPointZero animated:YES];
-    //self.shouldScroll = NO;
 }
 
 @end
