@@ -18,13 +18,6 @@
 #import "DDLogMacros.h"
 #import "InventoryItem.h"
 #import "NSDictionary+NSDictionary_Extended.h"
-#import "UIImageView+Extended.h"
-
-// Scroll/Animation constants
-static const CGFloat kKeyboardAnimationDuration = 0.3;
-static const CGFloat kMinimumScrollFraction = 0.2;
-static const CGFloat kMaximumScrollFraction = 0.8;
-static const CGFloat kPortraitKeyboardHeight = 216;
 
 static const int kItemsPickerViewTag = 10;
 
@@ -35,8 +28,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 @property(nonatomic, copy) NSArray *labels;
 @property(nonatomic, copy) NSArray *fields;
-
-@property(nonatomic, assign) CGFloat animatedDistance;
 
 @property(nonatomic, copy) NSArray *items;                              // The current list of items for the current type.
 @property(nonatomic, strong) NSMutableDictionary *itemsDictionary;      // Cache of items keyed by type.
@@ -52,6 +43,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @property(nonatomic, weak) IBOutlet UITextField *itemTextField;
 @property(nonatomic, weak) IBOutlet UITextField *quantityTextField;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property(nonatomic, weak) IBOutlet UITextView *commentTextView;
 @property(nonatomic, weak) IBOutlet UIButton   *addButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
@@ -61,6 +54,10 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @implementation ItemViewController
 
 #pragma mark - Lifecycle
+
+- (void)viewDidLayoutSubviews {
+    self.scrollView.contentSize = CGSizeMake(320, self.view.frame.size.height * 2);  // Basically two pages tall.
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -83,10 +80,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inputViewWillShowNotification:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+    [self registerForKeyboardNotifications];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -106,38 +100,31 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    CGRect rect = [self.view.window convertRect:textView.bounds fromView:textView];
-    CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
-
-    [self scrollViewUp:rect viewRect:viewRect];
+    shouldScroll = YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    shouldScroll = NO;
     [self scrollViewDown];
 }
 
-#pragma mark - UITextFieldDelegate
+//#pragma mark - UITextFieldDelegate
+//
+//// 'Scroll' the view's frame up to accommodate the keyboard if necessary.
+//- (void)textFieldDidBeginEditing:(UITextField *)textField {
+//    if ([textField isEqual:self.quantityTextField]) {
+//        if (self.view.frame.size.height == 480) {
+//            activeField = textField;
+//        }
+//    }
+//}
+//
+//// 'Scroll' the view's frame down when the keyboard is removed.
+//- (void)textFieldDidEndEditing:(UITextField *)textField {
+//    activeField = nil;
+//}
 
-// 'Scroll' the view's frame up to accommodate the keyboard if necessary.
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if ([textField isEqual:self.quantityTextField]) {
-        CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-        CGRect viewRect      = [self.view.window convertRect:self.view.bounds fromView:self.view];
-
-        [self scrollViewUp:textFieldRect viewRect:viewRect];
-    }
-}
-
-// 'Scroll' the view's frame down when the keyboard is removed.
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    if ([textField isEqual:self.quantityTextField]) {
-        [self scrollViewDown];
-    }
-}
-
-// Implementing this delegate method allows us to emulate the loss of focus and 'close' the keyboard/inputView
-- (BOOL) textFieldShouldReturn:(UITextField*)textField
-{
+- (BOOL) textFieldShouldReturn:(UITextField*)textField {
     [textField resignFirstResponder];
     return YES;
 }
@@ -182,6 +169,35 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 #pragma mark - Notifications
+
+- (void)registerForKeyboardNotifications {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputViewWillShowNotification:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+BOOL shouldScroll = NO;
+
+- (void)keyboardWasShown:(NSNotification*)notification {
+    NSDictionary* info = [notification userInfo];
+    [self scrollViewUp:info];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)notification {
+    [self scrollViewDown];
+}
 
 - (void)inputViewWillShowNotification:(NSNotification *)notification {
     // Only handle this notification if a UIPickerView is going to
@@ -429,44 +445,26 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     }
 }
 
-- (void)scrollViewUp:(CGRect)rect viewRect:(CGRect)viewRect {
-    CGFloat midline        = rect.origin.y + 0.5 * rect.size.height;
-    CGFloat numerator      = midline - viewRect.origin.y - kMinimumScrollFraction * viewRect.size.height;
-    CGFloat denominator    = (kMaximumScrollFraction - kMinimumScrollFraction) * viewRect.size.height;
-    CGFloat heightFraction = numerator / denominator;
-
-    if (heightFraction < 0.0) {
-        heightFraction = 0.0;
-    }
-    else if (heightFraction > 1.0) {
-        heightFraction = 1.0;
+- (void)scrollViewUp:(NSDictionary *)info {
+    if (shouldScroll == NO) {
+        return;
     }
 
-    self.animatedDistance = floor(kPortraitKeyboardHeight * heightFraction);
+    CGSize  keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGPoint point;
+    if (self.view.frame.size.height == 480) {
+        point = CGPointMake(0, keyboardSize.height / 1.25);
 
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= self.animatedDistance;
+    } else {
+        point = CGPointMake(0, keyboardSize.height / 2);
+    }
 
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
-
-    [self.view setFrame:viewFrame];
-
-    [UIView commitAnimations];
+    [self.scrollView setContentOffset:point animated:YES];
 }
 
 - (void)scrollViewDown {
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += self.animatedDistance;
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:kKeyboardAnimationDuration];
-
-    [self.view setFrame:viewFrame];
-
-    [UIView commitAnimations];
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    shouldScroll = NO;
 }
 
 @end
