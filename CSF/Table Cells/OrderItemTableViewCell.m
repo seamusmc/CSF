@@ -66,7 +66,6 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 }
 
 - (void)configureQuantityLabel:(CGFloat) y {
-    CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
     self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, 60.0f, 20.0f);

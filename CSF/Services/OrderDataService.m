@@ -167,6 +167,10 @@
                                           orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
                                           orderItem.comment  = [item objectForKey:@"Comment"];
 
+                                          if ([orderItem.comment isEqualToString:@"\"\""]) {
+                                              orderItem.comment = nil;
+                                          }
+
                                           [items addObject:orderItem];
                                       }
 
