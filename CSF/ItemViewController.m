@@ -74,7 +74,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     }
 }
 
-
 - (void)viewDidLayoutSubviews {
     self.scrollView.contentSize = CGSizeMake(320, self.view.frame.size.height * 2);  // Basically two pages tall.
 }
