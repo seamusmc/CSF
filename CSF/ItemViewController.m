@@ -22,6 +22,7 @@
 #import "OrderItem.h"
 
 static const int kItemsPickerViewTag = 10;
+static const int kCommentMaxLength = 128;
 
 static NSString *const kPriceLabelFormatString = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
@@ -142,6 +143,12 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 
 #pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSUInteger newLength = (textView.text.length - range.length) + text.length;
+    return newLength <= kCommentMaxLength;
+}
+
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     self.commentTextView.text = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
