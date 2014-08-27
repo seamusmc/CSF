@@ -99,6 +99,12 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return _activityIndicator;
 }
 
+#pragma mark - Actions
+
+- (IBAction)addButtonHandler {
+}
+
+
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -113,17 +119,17 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == self.quantityTextField) {
+    if ([textField isEqual:self.quantityTextField]) {
+        NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
+
         // Would love to use the Fractions field on item to allow or disallow decimal values, but it
         // doesn't seem to be used. Have to default to allowing fractions, the item will be rejected
         // if its not supposed to have a fractional count. Could be due to test data not being populated
         // correctly.
 
-        NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
-
         // Fractions flag is not populated!
-//        if (self.currentItem.fractions)
+//        if (self.currentItem.fractions == YES)
 //            expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
 //        else
 //            expression = @"^([0-9]+)?$";
