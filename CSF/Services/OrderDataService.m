@@ -93,6 +93,46 @@
                                      }];
 }
 
+- (void)addItem:(OrderItem *)item
+           user:(User *)user
+           date:(NSDate *)date
+   successBlock:(void (^)(void))successBlock
+   failureBlock:(void (^)(NSString *message))failureBlock{
+
+    if (!successBlock) {
+        return;
+    }
+
+    NSString *comment;
+    if (item.comment == nil || [item.comment isEqualToString:@""])
+        comment = [NSString stringWithFormat:@"\"\""];
+    else
+        comment = item.comment;
+
+    NSString *stringFromDate = [_dateFormatter stringFromDate:date];
+    NSString *uri            = [NSString stringWithFormat:kUpdateOrderURI,
+                                                          user.farm,
+                                                          user.group,
+                                                          user.firstname,
+                                                          user.lastname,
+                                                          stringFromDate,
+                                                          item.name,
+                                                          item.quantity,
+                                                          comment,
+                                                          @"false"];
+
+    [self.networkingService postDataWithURLString:uri
+                                     successBlock:^(id response) {
+                                         successBlock();
+                                     }
+                                     failureBlock:^(NSError *error) {
+                                         if (failureBlock) {
+                                             failureBlock([error localizedDescription]);
+                                         }
+                                     }];
+}
+
+
 - (void)getOrderForUser:(User *)user
                    date:(NSDate *)date
            successBlock:(void (^)(Order *order))successBlock

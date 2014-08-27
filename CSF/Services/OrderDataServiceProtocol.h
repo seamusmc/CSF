@@ -22,4 +22,10 @@
       successBlock:(void (^)(void))successBlock
       failureBlock:(void (^)(NSString *message))failureBlock;
 
+- (void)addItem:(OrderItem *)item
+           user:(User *)user
+           date:(NSDate *)date
+   successBlock:(void (^)(void))successBlock
+   failureBlock:(void (^)(NSString *message))failureBlock;
+
 @end
