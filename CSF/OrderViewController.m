@@ -193,6 +193,9 @@ const int kDeleteButtonIndex = 1;
 
     cell.name = item.name;
     cell.quantity = [NSString stringWithFormat:@"qty ~ %@", item.quantity];
+
+    cell.comment = item.comment.length == 0 ? nil : item.comment;
+
     return cell;
 }
 

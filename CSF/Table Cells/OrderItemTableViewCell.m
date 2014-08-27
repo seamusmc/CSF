@@ -10,9 +10,10 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 
 @interface OrderItemTableViewCell ()
 
-@property(strong, nonatomic) UIView *lineView;
-@property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *quantityLabel;
+@property(strong, nonatomic) UIView  *lineView;
+@property(strong, nonatomic) UILabel *nameLabel;
+@property(strong, nonatomic) UILabel *quantityLabel;
+@property(strong, nonatomic) UILabel *commentLabel;
 
 @end
 
@@ -25,7 +26,9 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 
         self.nameLabel     = [[UILabel alloc] initWithFrame:initialFrame];
         self.quantityLabel = [[UILabel alloc] initWithFrame:initialFrame];
-        self.lineView      = [[UIView alloc] initWithFrame:initialFrame];
+        self.commentLabel  = [[UILabel alloc] initWithFrame:initialFrame];
+
+        self.lineView = [[UIView alloc] initWithFrame:initialFrame];
 
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -42,20 +45,37 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
     CGFloat y = self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height;
     [self configureQuantityLabel:y];
 
+    CGFloat x = self.quantityLabel.frame.origin.x + self.quantityLabel.frame.size.width + 15.0f;
+    CGPoint point = CGPointMake(x, y);
+    [self configureCommentLabel:point];
+
     [super layoutSubviews];
+}
+
+- (void)configureCommentLabel:(CGPoint)point {
+    CGSize size = self.contentView.frame.size;
+
+    CGFloat width = size.width - self.quantityLabel.frame.size.width;
+    self.commentLabel.frame = CGRectMake(point.x, point.y, width - 55.0f, 20.0f);
+
+    self.commentLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
+    self.commentLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
+    self.commentLabel.textAlignment = NSTextAlignmentRight;
+
+    [self.contentView addSubview:self.commentLabel];
 }
 
 - (void)configureQuantityLabel:(CGFloat) y {
     CGSize  size   = self.contentView.frame.size;
     CGPoint origin = self.contentView.frame.origin;
 
-    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, size.width - 40.0f, 20.0f);
+    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, 60.0f, 20.0f);
 
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;
     self.quantityLabel.textAlignment = NSTextAlignmentLeft;
 
-    [self.contentView addSubview:self.quantityLabel];
+    [self.contentView addSubview:self.quantityLabel]    ;
 }
 
 - (void)configureNameLabel {
@@ -83,6 +103,14 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 }
 
 #pragma mark - Property Overrides
+
+- (NSString *)comment {
+    return self.commentLabel.text;
+}
+
+- (void)setComment:(NSString *)comment {
+    self.commentLabel.text = comment;
+}
 
 - (NSString *)name {
     return self.nameLabel.text;

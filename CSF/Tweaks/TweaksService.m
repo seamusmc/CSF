@@ -69,7 +69,7 @@
 
 #define TweakGroupTableViewDescriptionFont @"TableView Description Font"
 - (UIFont *)tableViewDescriptionFont {
-    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupTableViewDescriptionFont, @"Size", 18.0f, 1.0f, 50.0f);
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupTableViewDescriptionFont, @"Size", 16.0f, 1.0f, 50.0f);
     return [UIFont fontWithName:@"Avenir-LightOblique" size:value];
 }
 

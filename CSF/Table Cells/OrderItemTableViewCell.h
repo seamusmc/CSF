@@ -12,5 +12,6 @@ extern NSString *const kOrderItemCellIdentifier;
 
 @property(nonatomic, assign) NSString *name;
 @property(nonatomic, assign) NSString *quantity;
+@property(nonatomic, assign) NSString *comment;
 
 @end
