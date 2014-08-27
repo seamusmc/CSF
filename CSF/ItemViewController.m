@@ -424,28 +424,26 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     }
 }
 
-- (void)scrollViewUp:(NSDictionary *)info {
-    // Find the first responder, if it is one we are interested in, scroll up
-    // otherwise ignore.
-    for (UIView *view in self.view.subviews) {
-        if ([view isKindOfClass:[UIScrollView class]]) {
-            for (UIView *subview in view.subviews) {
-                if (subview.isFirstResponder) {
-                    if (![subview isEqual:self.commentTextView]) {
-                        return;
-                    }
-                    break;
-                }
-            }
-            break;
+- (UIView *)findFirstResponderInScrollView {
+    for (UIView *view in self.scrollView.subviews) {
+        if (view.isFirstResponder) {
+            return view;
         }
     }
 
-    CGSize  keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    return nil;
+}
+
+- (void)scrollViewUp:(NSDictionary *)info {
+    UIView *firstResponder = [self findFirstResponderInScrollView];
+    if (![firstResponder isEqual:self.commentTextView]) {
+        return;
+    }
+
+    CGSize  keyboardSize = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGPoint point;
     if (self.view.frame.size.height == 480) {
-        point = CGPointMake(0, keyboardSize.height / 1.25);
-
+        point = CGPointMake(0, keyboardSize.height / 1.25f);
     } else {
         point = CGPointMake(0, keyboardSize.height / 2);
     }
