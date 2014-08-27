@@ -72,6 +72,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [self configureTypesPicker];
     [self configureItemsPicker];
 
+    self.scrollView.scrollEnabled = NO;
+
     self.typeTextField.text = self.types[0];
 
     [self getItemsForType:self.types[0]];
@@ -440,6 +442,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
         return;
     }
 
+    self.scrollView.scrollEnabled = YES;
+
     CGSize  keyboardSize = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGPoint point;
     if (self.view.frame.size.height == 480) {
@@ -454,6 +458,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 - (void)scrollViewDown {
     [self.scrollView setContentSize:self.view.frame.size];
     [self.scrollView setContentOffset:CGPointZero animated:YES];
+    self.scrollView.scrollEnabled = NO;
 }
 
 @end
