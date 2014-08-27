@@ -23,7 +23,7 @@
 
 static NSString *const kTotalFormatString = @"total ~ %@";
 
-@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate>
+@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate, ItemViewControllerDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
 @property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
@@ -37,7 +37,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
 @property(nonatomic, strong) Order    *order;
-@property(nonatomic, strong) NSString *currentDate;
+@property(nonatomic, strong) NSString *orderDate;
 
 @end
 
@@ -61,7 +61,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
     [self configureOrderItemsTableView];
 
-    self.currentDate = self.dateField.text;
+    self.orderDate = self.dateField.text;
     [self refreshOrderWithCurrentDate];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -81,6 +81,8 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ItemViewController *viewController = [segue destinationViewController];
     viewController.types = self.types;
+    viewController.orderDate = self.orderDate;
+    viewController.delegate = self;
 
     [self.activityIndicator stop];
     [self enableControls];
@@ -117,13 +119,13 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 #pragma mark - Keyboard notifications
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    if ([self.currentDate isEqualToString:self.dateField.text] == NO) {
+    if ([self.orderDate isEqualToString:self.dateField.text] == NO) {
         [self refreshOrderWithCurrentDate];
     }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    self.currentDate = self.dateField.text;
+    self.orderDate = self.dateField.text;
 }
 
 #pragma mark - SWTableViewCellDelegate
@@ -141,7 +143,7 @@ const int kDeleteButtonIndex = 1;
 
             __typeof(self) __weak weakSelf = self;
             NSIndexPath *cellIndexPath = [self.orderItemsTableView indexPathForCell:cell];
-            NSDate      *date          = [self.dateFormatter dateFromString:self.currentDate];
+            NSDate      *date          = [self.dateFormatter dateFromString:self.orderDate];
             [[OrderDataService sharedInstance] removeItem:self.order.items[cellIndexPath.row]
                                                      user:[UserServices sharedInstance].currentUser
                                                      date:date
@@ -223,6 +225,12 @@ const int kDeleteButtonIndex = 1;
         UIDatePicker *datePicker = sender;
         self.dateField.text = [self.dateFormatter stringFromDate:datePicker.date];
     }
+}
+
+#pragma mark - ItemViewControllerDelegate
+
+- (void)itemAdded {
+    [self refreshOrderWithCurrentDate];
 }
 
 #pragma mark - Private
@@ -441,8 +449,8 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (void)refreshOrderWithCurrentDate {
-    self.currentDate = self.dateField.text;
-    NSDate *date = [self.dateFormatter dateFromString:self.currentDate];
+    self.orderDate = self.dateField.text;
+    NSDate *date = [self.dateFormatter dateFromString:self.orderDate];
     [self refreshOrderWithDate:date];
 }
 

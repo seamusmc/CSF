@@ -19,5 +19,7 @@
 
 @property (nonatomic, strong) NSDecimalNumber *price;
 
+- (instancetype)initWithName:(NSString *)name type:(NSString *)type price:(NSDecimalNumber *)price;
+
 
 @end

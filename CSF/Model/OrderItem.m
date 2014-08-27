@@ -7,13 +7,26 @@
 
 @implementation OrderItem
 
-- (NSDecimalNumber *)subtotal
-{
+- (instancetype)initWithName:(NSString *)name
+                        type:(NSString *)type
+                       price:(NSDecimalNumber *)price
+                    quantity:(NSDecimalNumber *)quantity
+                     comment:(NSString *)comment {
+    self = [super initWithName:name type:type price:price];
+    if (self) {
+        _quantity = quantity;
+        _comment  = comment;
+    }
+
+    return self;
+}
+
+
+- (NSDecimalNumber *)subtotal {
     return [self.quantity decimalNumberByMultiplyingBy:self.price];
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: Name: %@ Type: %@ Price: %@ Qty: %@",
                                                                      NSStringFromClass([self class]),
                                                                      self.name,

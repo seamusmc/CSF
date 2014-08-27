@@ -13,4 +13,9 @@
 
 @property(nonatomic, copy) NSString *comment;
 
+- (instancetype)initWithName:(NSString *)name
+                        type:(NSString *)type
+                       price:(NSDecimalNumber *)price
+                    quantity:(NSDecimalNumber *)quantity
+                     comment:(NSString *)comment;
 @end

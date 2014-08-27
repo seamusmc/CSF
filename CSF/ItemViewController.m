@@ -18,6 +18,8 @@
 #import "DDLogMacros.h"
 #import "InventoryItem.h"
 #import "NSDictionary+NSDictionary_Extended.h"
+#import "OrderDataService.h"
+#import "OrderItem.h"
 
 static const int kItemsPickerViewTag = 10;
 
@@ -49,9 +51,13 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @property(nonatomic, weak) IBOutlet UIButton   *addButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
+@property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
+
 @end
 
-@implementation ItemViewController
+@implementation ItemViewController {
+    NSDateFormatter *_dateFormatter;
+}
 
 #pragma mark - Lifecycle
 
@@ -91,27 +97,62 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [super viewDidDisappear:animated];
 }
 
-- (FBShimmeringView *)activityIndicator {
-    if (_activityIndicator == nil) {
-        _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
-    }
-
-    return _activityIndicator;
-}
-
 #pragma mark - Actions
 
 - (IBAction)addButtonHandler {
+    [self.activityIndicator start];
+    [self disableControls];
+
+    OrderItem *orderItem = [[OrderItem alloc] initWithName:self.itemTextField.text
+                                                      type:self.typeTextField.text
+                                                     price:[NSDecimalNumber decimalNumberWithString:self.priceLabel.text]
+                                                  quantity:[NSDecimalNumber decimalNumberWithString:self.quantityTextField.text]
+                                                   comment:self.commentTextView.text];
+
+    NSDate *date = [self.dateFormatter dateFromString:self.orderDate];
+
+    __typeof(self) __weak weakSelf = self;
+    [[OrderDataService sharedInstance] addItem:orderItem
+                                             user:[UserServices sharedInstance].currentUser
+                                             date:date
+                                     successBlock:^{
+                                         // Not necessary to stop the activity indicator, call to refresh order will do it for us.
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             [weakSelf enableControls];
+                                             [weakSelf.activityIndicator stop];
+
+                                             // Indicate successful addition
+                                             NSLog(@"Successfully added item.");
+
+                                             if (self.delegate != nil) {
+                                                 [self.delegate itemAdded];
+                                             }
+                                         });
+                                     }
+                                     failureBlock:^(NSString *message) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             [weakSelf enableControls];
+                                             [weakSelf.activityIndicator stop];
+
+                                             // Display issue message
+                                             NSLog(@"Encountered error adding item: %@", message);
+                                         });
+                                     }];
 }
 
 
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    self.commentTextView.text = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self scrollViewDown];
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self scrollViewDown];
+}
 
 - (BOOL) textFieldShouldReturn:(UITextField*)textField {
     [textField resignFirstResponder];
@@ -263,6 +304,26 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
+}
+
+#pragma mark - Property Overrides
+
+- (FBShimmeringView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
+    }
+
+    return _activityIndicator;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    }
+
+    return _dateFormatter;
 }
 
 #pragma mark - Private Methods

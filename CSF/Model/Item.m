@@ -9,6 +9,17 @@
     NSNumberFormatter *_currencyFormatter;
 }
 
+- (instancetype)initWithName:(NSString *)name type:(NSString *)type price:(NSDecimalNumber *)price {
+    self = [super init];
+    if (self) {
+        _name  = name;
+        _type  = type;
+        _price = price;
+    }
+
+    return self;
+}
+
 - (NSNumberFormatter *)currencyFormatter {
     if (_currencyFormatter == nil) {
         _currencyFormatter = [[NSNumberFormatter alloc] init];
