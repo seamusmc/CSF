@@ -149,6 +149,9 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return newLength <= kCommentMaxLength;
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self scrollViewUp:216];
+}
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     self.commentTextView.text = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -215,19 +218,9 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-}
-
-- (void)keyboardWasShown:(NSNotification*)notification {
-    NSDictionary* info = [notification userInfo];
-    [self scrollViewUp:info];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification {
@@ -510,7 +503,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return nil;
 }
 
-- (void)scrollViewUp:(NSDictionary *)info {
+- (void)scrollViewUp:(CGFloat)height {
     UIView *firstResponder = [self findFirstResponderInScrollView];
     if (![firstResponder isEqual:self.commentTextView]) {
         return;
@@ -518,12 +511,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
     self.scrollView.scrollEnabled = YES;
 
-    CGSize  keyboardSize = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGPoint point;
     if (self.view.frame.size.height == 480) {
-        point = CGPointMake(0, keyboardSize.height / 1.25f);
+        point = CGPointMake(0, height / 1.25f);
     } else {
-        point = CGPointMake(0, keyboardSize.height / 2);
+        point = CGPointMake(0, height / 2);
     }
 
     [self.scrollView setContentOffset:point animated:YES];
