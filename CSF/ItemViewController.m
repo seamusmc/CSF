@@ -54,6 +54,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 @property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
 
+@property(nonatomic, assign) BOOL addedItem;
+
 @end
 
 @implementation ItemViewController {
@@ -61,6 +63,17 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 #pragma mark - Lifecycle
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+
+    if (self.delegate != nil) {
+        if (self.addedItem == YES) {
+            [self.delegate itemAdded];
+        }
+    }
+}
+
 
 - (void)viewDidLayoutSubviews {
     self.scrollView.contentSize = CGSizeMake(320, self.view.frame.size.height * 2);  // Basically two pages tall.
@@ -80,6 +93,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [self configureItemsPicker];
 
     self.scrollView.scrollEnabled = NO;
+    self.addedItem = NO;
 
     self.typeTextField.text = self.types[0];
 
@@ -125,9 +139,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
                                              // Indicate successful addition
                                              NSLog(@"Successfully added item.");
 
-                                             if (self.delegate != nil) {
-                                                 [self.delegate itemAdded];
-                                             }
+                                             self.addedItem = YES;
                                          });
                                      }
                                      failureBlock:^(NSString *message) {
