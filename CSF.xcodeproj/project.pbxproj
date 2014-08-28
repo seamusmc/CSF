@@ -304,13 +304,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C9FA5D6D91C1C77F4FD04329 /* Tweaks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tweaks;
-			sourceTree = "<group>";
-		};
 		C9FA5EDF245F7E68ACF2F2DE /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,7 +379,6 @@
 				C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */,
 				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
 				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
-				C9FA5D6D91C1C77F4FD04329 /* Tweaks */,
 				C9FA597284A4BF8E27BDED6B /* Controls */,
 				C9FA5868CD01050643720730 /* Table Cells */,
 				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
