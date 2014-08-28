@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
+static const int kKeyboardHeight = 216;
+
+static const int kKeyboardHeightWithAccessory = 260;
+
 @protocol ItemViewControllerDelegate <NSObject>
 
 @optional

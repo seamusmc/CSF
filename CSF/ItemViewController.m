@@ -161,7 +161,14 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self scrollViewUp:216];
+    CGFloat keyboardHeight;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1){
+        keyboardHeight = kKeyboardHeightWithAccessory;
+    } else {
+        keyboardHeight = kKeyboardHeight;
+    }
+
+    [self scrollViewUp:keyboardHeight];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -171,7 +178,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 #pragma mark - UITextFieldDelegate
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self scrollViewDown];
 }
 
@@ -524,16 +531,15 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
     CGPoint point;
     if (self.view.frame.size.height == 480) {
-        point = CGPointMake(0, height / 1.25f);
+        point = CGPointMake(0, height / 1.3f);
     } else {
-        point = CGPointMake(0, height / 2);
+        point = CGPointMake(0, height / 2.5f);
     }
 
     [self.scrollView setContentOffset:point animated:YES];
 }
 
 - (void)scrollViewDown {
-    [self.scrollView setContentSize:self.view.frame.size];
     [self.scrollView setContentOffset:CGPointZero animated:YES];
     self.scrollView.scrollEnabled = NO;
 }
