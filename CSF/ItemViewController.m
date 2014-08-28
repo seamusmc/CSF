@@ -533,7 +533,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     if (self.view.frame.size.height == 480) {
         point = CGPointMake(0, height / 1.3f);
     } else {
-        point = CGPointMake(0, height / 2.5f);
+        point = CGPointMake(0, height / 2.35f);
     }
 
     [self.scrollView setContentOffset:point animated:YES];
