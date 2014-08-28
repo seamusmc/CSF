@@ -291,20 +291,20 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void)setFieldsDefaultColor {
     for (UITextField *field in self.fields) {
-        field.font = [ThemeManager sharedInstance].normalFont;
+        field.font      = [ThemeManager sharedInstance].normalFont;
         field.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
 }
 
 - (void)setFieldsErrorColor {
     for (UITextField *field in self.fields) {
-        field.font = [ThemeManager sharedInstance].errorFont;
+        field.font      = [ThemeManager sharedInstance].errorFont;
         field.textColor = [ThemeManager sharedInstance].errorFontColor;
     }
 }
 
 - (void)configureFarmPicker {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
+    CGRect     rect        = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
     PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
 
     farmPicker.delegate                = self;
@@ -380,7 +380,7 @@ shouldChangeCharactersInRange:(NSRange)range
 - (void)configureLabels {
     self.labels = @[self.firstNameLabel, self.lastNameLabel, self.passwordLabel, self.farmLabel, self.rememberMeLabel];
     for (UILabel *label in self.labels) {
-        label.font = [ThemeManager sharedInstance].normalFont;
+        label.font      = [ThemeManager sharedInstance].normalFont;
         label.textColor = [ThemeManager sharedInstance].normalFontColor;
     }
 }
@@ -410,9 +410,10 @@ shouldChangeCharactersInRange:(NSRange)range
           initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
                         options:UIViewAnimationOptionTransitionNone
                      animations:^{
-                         CGFloat x = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
-                         CGFloat y = self.notificationLabel.frame.origin.y                         ;
-                         CGRect rect = CGRectMake(x, y, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+                         CGFloat x    = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
+                         CGFloat y    = self.notificationLabel.frame.origin.y;
+                         CGRect  rect = CGRectMake(x, y, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+
                          self.notificationLabel.frame = rect;
                      }
                      completion:nil];
@@ -467,15 +468,15 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void)slideNotificationLabelToRightAndHide {
     [UIView animateWithDuration:0.5
-                         animations:^            {
-            self.notificationLabel.frame = CGRectMake(self.view.frame.size.width + self.notificationLabel.frame.size.width,
-                                                      self.notificationLabel.frame.origin.y,
-                                                      self.notificationLabel.frame.size.width,
-                                                      self.notificationLabel.frame.size.height);
-        }
-                         completion:^(BOOL finished)            {
-            self.notificationLabel.hidden = YES;
-        }];
+                     animations:^{
+                         self.notificationLabel.frame = CGRectMake(self.view.frame.size.width + self.notificationLabel.frame.size.width,
+                                                                   self.notificationLabel.frame.origin.y,
+                                                                   self.notificationLabel.frame.size.width,
+                                                                   self.notificationLabel.frame.size.height);
+                     }
+                     completion:^(BOOL finished) {
+                         self.notificationLabel.hidden = YES;
+                     }];
 }
 
 - (void)configureLoginButton {
@@ -489,7 +490,6 @@ shouldChangeCharactersInRange:(NSRange)range
     self.loginButton.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
     self.loginButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
-
 }
 
 - (void)configureTransparentNavigationBar {
