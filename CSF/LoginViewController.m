@@ -72,6 +72,7 @@ static const int LastnameMaxLength  = 15;
     [self configureFields];
     [self fillUserData];
     [self configureFarmPicker];
+    [self configureNotificationLabel];
 
     self.navigationController.delegate = self;
 
@@ -118,7 +119,7 @@ static const int LastnameMaxLength  = 15;
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer {
     [self.view endEditing:YES];
-    [self resetView];
+    [self resetNotificationState];
 }
 
 #pragma mark - UIButton Actions
@@ -129,7 +130,7 @@ static const int LastnameMaxLength  = 15;
                                            group:nil
                                             farm:self.farmField.text];
     [self disableControls];
-    [self resetView];
+    [self resetNotificationState];
     [self.activityIndicator start];
 
     __typeof(self) __weak weakSelf = self;
@@ -145,7 +146,6 @@ static const int LastnameMaxLength  = 15;
                                   [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
                               }
 
-                              [weakSelf resetView];
                               [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
 
                           } else {
@@ -165,7 +165,7 @@ static const int LastnameMaxLength  = 15;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self resetView];
+    [self resetNotificationState];
     return YES;
 }
 
@@ -386,7 +386,7 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)handleInvalidLogin:(NSString *)message {
-    [self configureNotificationLabel:message];
+    [self setNotificationLabelText:message];
     [self showNotification];
 
     // Only color the fields if the issue is a login failure, not a networking error.
@@ -396,6 +396,14 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)showNotification {
+    // Make sure initial position is correct:
+    self.notificationLabel.hidden = YES;
+    self.notificationLabel.frame  = CGRectMake(-self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.origin.y,
+                                               self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.size.height);
+
+    self.notificationLabel.hidden = NO;
     [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
                           delay:[ThemeManager sharedInstance].notificationDelay
          usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
@@ -410,18 +418,14 @@ shouldChangeCharactersInRange:(NSRange)range
                      completion:nil];
 }
 
-- (void)configureNotificationLabel:(NSString *)message {
-    self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
-                                              self.notificationLabel.frame.origin.y,
-                                              self.notificationLabel.frame.size.width,
-                                              self.notificationLabel.frame.size.height);
+- (void)setNotificationLabelText:(NSString *)message {
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
+}
 
-    self.notificationLabel.text      = [message lowercaseString];
+- (void)configureNotificationLabel {
     self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
-    self.notificationLabel.hidden    = NO;
-
-    [self.notificationLabel sizeToFit];
 }
 
 - (void)enableControls {
@@ -451,9 +455,18 @@ shouldChangeCharactersInRange:(NSRange)range
     }
 }
 
-- (void)resetView {
+- (void)resetNotificationState {
+    // If we're showing the notificationLabel then we know we
+    // were dealing with an issue.
     if (self.notificationLabel.hidden == NO) {
-        [UIView animateWithDuration:0.5
+        [self slideNotificationLabelToRightAndHide];
+
+        [self setFieldsDefaultColor];
+    }
+}
+
+- (void)slideNotificationLabelToRightAndHide {
+    [UIView animateWithDuration:0.5
                          animations:^            {
             self.notificationLabel.frame = CGRectMake(self.view.frame.size.width + self.notificationLabel.frame.size.width,
                                                       self.notificationLabel.frame.origin.y,
@@ -463,9 +476,6 @@ shouldChangeCharactersInRange:(NSRange)range
                          completion:^(BOOL finished)            {
             self.notificationLabel.hidden = YES;
         }];
-
-        [self setFieldsDefaultColor];
-    }
 }
 
 - (void)configureLoginButton {

@@ -79,7 +79,7 @@
 
 #define TweakGroupTint @"Tint"
 - (UIColor *)tintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupTint, @"FFFFFF", 0.08f);
+    return TweakColor(TweakCategoryColors, TweakGroupTint, @"FFFFFF", 0.1f);
 }
 
 #define TweakGroupDisabled @"Disabled"
@@ -89,7 +89,7 @@
 
 #define TweakGroupImageTint @"Image Tint"
 - (UIColor *)imageTintColor {
-    return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.4f);
+    return TweakColor(TweakCategoryColors, TweakGroupImageTint, @"000000", 0.5f);
 }
 
 #pragma mark - Notification Animations
