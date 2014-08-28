@@ -304,7 +304,7 @@ shouldChangeCharactersInRange:(NSRange)range
 }
 
 - (void)configureFarmPicker {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f); // 179
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
     PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
 
     farmPicker.delegate                = self;
@@ -387,7 +387,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void)handleInvalidLogin:(NSString *)message {
     [self configureNotificationLabel:message];
-    [self configureNotificationLabelAnimation];
+    [self showNotification];
 
     // Only color the fields if the issue is a login failure, not a networking error.
     if ([self.notificationLabel.text isEqualToString:@"failed to login"]) {
@@ -395,7 +395,7 @@ shouldChangeCharactersInRange:(NSRange)range
     }
 }
 
-- (void)configureNotificationLabelAnimation {
+- (void)showNotification {
     [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
                           delay:[ThemeManager sharedInstance].notificationDelay
          usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
