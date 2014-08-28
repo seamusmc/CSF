@@ -156,6 +156,11 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+
     NSUInteger newLength = (textView.text.length - range.length) + text.length;
     return newLength <= kCommentMaxLength;
 }
@@ -454,8 +459,8 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     self.commentTextView.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
     self.commentTextView.keyboardAppearance = UIKeyboardAppearanceAlert;
+    self.commentTextView.returnKeyType      = UIReturnKeyDone;
 }
-
 
 - (void)configureLabels {
     self.labels = @[self.typeLabel, self.itemLabel, self.priceLabel, self.stockLabel, self.quantityLabel, self.commentLabel];
