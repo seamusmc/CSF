@@ -55,14 +55,11 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
     [self configureNavigationBarItems];
     [self configureFields];
-
-    [NSString stringWithFormat:kTotalFormatString, @"$0.00"];
     [self configureTotalLabelWithText:nil];
-
     [self configureOrderItemsTableView];
 
     self.orderDate = self.dateField.text;
-    [self refreshOrderWithCurrentDate];
+    [self refreshOrderWithCurrentlySelectedDate];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -120,7 +117,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     if ([self.orderDate isEqualToString:self.dateField.text] == NO) {
-        [self refreshOrderWithCurrentDate];
+        [self refreshOrderWithCurrentlySelectedDate];
     }
 }
 
@@ -150,7 +147,7 @@ const int kDeleteButtonIndex = 1;
                                              successBlock:^{
                                                  // Not necessary to stop the activity indicator, call to refresh order will do it for us.
                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     [weakSelf refreshOrderWithCurrentDate];
+                                                     [weakSelf refreshOrderWithCurrentlySelectedDate];
                                                  });
                                              }
                                              failureBlock:^(NSString *message) {
@@ -233,7 +230,7 @@ const int kDeleteButtonIndex = 1;
 #pragma mark - ItemViewControllerDelegate
 
 - (void)itemAdded {
-    [self refreshOrderWithCurrentDate];
+    [self refreshOrderWithCurrentlySelectedDate];
 }
 
 #pragma mark - Private
@@ -314,7 +311,7 @@ const int kDeleteButtonIndex = 1;
 - (void)configureNavigationBarItems {
     UIBarButtonItem *refreshOrder = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                   target:self
-                                                                                  action:@selector(refreshOrderWithCurrentDate)];
+                                                                                  action:@selector(refreshOrderWithCurrentlySelectedDate)];
 
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                              target:self
@@ -451,7 +448,7 @@ const int kDeleteButtonIndex = 1;
     [self.orderItemsTableView registerClass:[OrderItemTableViewCell class] forCellReuseIdentifier:kOrderItemCellIdentifier];
 }
 
-- (void)refreshOrderWithCurrentDate {
+- (void)refreshOrderWithCurrentlySelectedDate {
     self.orderDate = self.dateField.text;
     NSDate *date = [self.dateFormatter dateFromString:self.orderDate];
     [self refreshOrderWithDate:date];
