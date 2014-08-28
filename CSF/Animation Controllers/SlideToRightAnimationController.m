@@ -4,12 +4,12 @@
 //
 
 #import "SlideToRightAnimationController.h"
-#import "TweaksService.h"
+#import "ThemeManager.h"
 
 @implementation SlideToRightAnimationController
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return [TweaksService sharedInstance].slideRightAnimationDuration;
+    return [ThemeManager sharedInstance].slideRightAnimationDuration;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -25,9 +25,9 @@
 
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:duration
-                          delay:[TweaksService sharedInstance].slideRightAnimationDelay
-         usingSpringWithDamping:[TweaksService sharedInstance].slideRightAnimationDamping
-          initialSpringVelocity:[TweaksService sharedInstance].slideRightAnimationVelocity
+                          delay:[ThemeManager sharedInstance].slideRightAnimationDelay
+         usingSpringWithDamping:[ThemeManager sharedInstance].slideRightAnimationDamping
+          initialSpringVelocity:[ThemeManager sharedInstance].slideRightAnimationVelocity
                         options:UIViewAnimationOptionCurveEaseOut animations:^{
 
         CGRect frame = fromViewController.view.frame;

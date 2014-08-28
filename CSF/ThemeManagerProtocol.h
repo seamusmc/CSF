@@ -41,4 +41,12 @@
 @property(nonatomic, assign, readonly) CGFloat notificationDelay;
 @property(nonatomic, assign, readonly) CGFloat notificationInitialVelocity;
 
+#pragma mark - Transition Animations
+
+#pragma mark - SlideRight Animation Transitions
+@property(nonatomic, assign, readonly) CGFloat slideRightAnimationDuration;
+@property(nonatomic, assign, readonly) CGFloat slideRightAnimationDelay;
+@property(nonatomic, assign, readonly) CGFloat slideRightAnimationDamping;
+@property(nonatomic, assign, readonly) CGFloat slideRightAnimationVelocity;
+
 @end
