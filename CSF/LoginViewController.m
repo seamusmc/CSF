@@ -130,6 +130,8 @@ static const int LastnameMaxLength  = 15;
                                             farm:self.farmField.text];
     [self disableControls];
 
+    [self resetView];
+
     [self.activityIndicator start];
 
     __typeof(self) __weak weakSelf = self;
@@ -151,7 +153,7 @@ static const int LastnameMaxLength  = 15;
                               [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
                           });
                       } else {
-                          dispatch_async(dispatch_get_main_queue(), ^{
+                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                               [weakSelf handleInvalidLogin:message];
                           });
                       }
