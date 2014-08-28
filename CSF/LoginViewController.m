@@ -455,7 +455,7 @@ shouldChangeCharactersInRange:(NSRange)range
     if (self.notificationLabel.hidden == NO) {
         [UIView animateWithDuration:0.5
                          animations:^            {
-            self.notificationLabel.frame = CGRectMake(-self.notificationLabel.frame.size.width,
+            self.notificationLabel.frame = CGRectMake(self.view.frame.size.width + self.notificationLabel.frame.size.width,
                                                       self.notificationLabel.frame.origin.y,
                                                       self.notificationLabel.frame.size.width,
                                                       self.notificationLabel.frame.size.height);
