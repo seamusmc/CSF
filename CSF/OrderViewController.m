@@ -432,9 +432,9 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (void)centerLabel:(UILabel *)label {
-    CGFloat x = (self.totalLabel.superview.frame.size.width / 2) - (self.totalLabel.frame.size.width / 2);
-    CGFloat y = (self.totalLabel.superview.frame.size.height / 2) - (self.totalLabel.frame.size.height / 2);
-    CGRect rect = CGRectMake(x, y, self.totalLabel.frame.size.width, self.totalLabel.frame.size.height);
+    CGFloat x = (label.superview.frame.size.width / 2) - (label.frame.size.width / 2);
+    CGFloat y = (label.superview.frame.size.height / 2) - (label.frame.size.height / 2);
+    CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
     label.frame = rect;
 }
 
