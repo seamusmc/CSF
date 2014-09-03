@@ -291,7 +291,7 @@ const int kDeleteButtonIndex = 1;
                                initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
                                              options:UIViewAnimationOptionTransitionNone
                                           animations:^{
-                                              [self configureTotalLabelWithErrorMessage:message];
+                                              [self showNotificationLabelWithErrorMessage:message];
                                           }
                                           completion:nil];
                      }];
@@ -421,14 +421,27 @@ const int kDeleteButtonIndex = 1;
     self.totalLabel.textColor = [ThemeManager sharedInstance].normalFontColor;
 }
 
-- (void)configureTotalLabelWithErrorMessage:(NSString *)message {
-    self.totalLabel.text = [message lowercaseString];
-    [self.totalLabel sizeToFit];
+- (void)showNotificationLabelWithErrorMessage:(NSString *)message {
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
 
-    [self centerLabel:self.totalLabel];
+    [self centerLabel:self.notificationLabel];
 
-    self.totalLabel.font = [ThemeManager sharedInstance].errorFont;
-    self.totalLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+    self.notificationLabel.font = [ThemeManager sharedInstance].errorFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+}
+
+- (void)slideLabelToRightAndHide:(UILabel *)label {
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         label.frame = CGRectMake(self.view.frame.size.width + label.frame.size.width,
+                                                  label.frame.origin.y,
+                                                  label.frame.size.width,
+                                                  label.frame.size.height);
+                     }
+                     completion:^(BOOL finished) {
+                         label.hidden = YES;
+                     }];
 }
 
 - (void)centerLabel:(UILabel *)label {
