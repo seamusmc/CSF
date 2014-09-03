@@ -401,8 +401,14 @@ const int kDeleteButtonIndex = 1;
     [self setLabel:self.totalLabel text:text];
 
     if (self.totalLabel.hidden == YES) {
-        [self slideLabelFromRight:self.totalLabel];
-    }   else {
+        [UIView animateWithDuration:0.4f
+                         animations:^{
+                             [self slideLabelToRightAndHide:self.notificationLabel];
+                         }
+                         completion:^(BOOL finished) {
+                             [self slideLabelFromRight:self.totalLabel];
+                         }];
+    } else {
         [self centerLabel:self.totalLabel];
     }
 }
@@ -431,7 +437,6 @@ const int kDeleteButtonIndex = 1;
                          CGFloat y = label.frame.origin.y;
 
                          CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
-
                          label.frame = rect;
                      }
                      completion:nil];
