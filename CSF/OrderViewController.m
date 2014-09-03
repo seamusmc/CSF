@@ -283,7 +283,6 @@ const int kDeleteButtonIndex = 1;
                          }
                      }
                      completion:^(BOOL finished) {
-
                          if (self.notificationLabel.hidden == NO) {
                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                  [self setLabel:self.notificationLabel text:message];
