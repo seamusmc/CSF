@@ -420,7 +420,7 @@ const int kDeleteButtonIndex = 1;
                               label.frame.size.width,
                               label.frame.size.height);
 
-    self.notificationLabel.hidden = NO;
+    label.hidden = NO;
     [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
                           delay:[ThemeManager sharedInstance].notificationDelay
          usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
