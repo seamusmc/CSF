@@ -56,8 +56,9 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
     [self configureNavigationBarItems];
     [self configureFields];
-    [self updateTotalLabelText:nil];
+    [self configureTotalLabel];
     [self configureOrderItemsTableView];
+    [self configureNotificationLabel];
 
     self.orderDate = self.dateField.text;
     [self refreshOrderWithCurrentlySelectedDate];
@@ -275,21 +276,11 @@ const int kDeleteButtonIndex = 1;
 - (void)displayFailureMessage:(NSString *)message {
     [UIView animateWithDuration:0.4f
                      animations:^{
-                         self.totalLabel.frame = CGRectMake(-(self.totalLabel.frame.size.width + 20.0f),
-                                                            self.totalLabel.frame.origin.y,
-                                                            self.totalLabel.frame.size.width,
-                                                            self.totalLabel.frame.size.height);
+                         [self slideLabelToRightAndHide:self.totalLabel];
                      }
                      completion:^(BOOL finished) {
-                         [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
-                                               delay:[ThemeManager sharedInstance].notificationDelay
-                              usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
-                               initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
-                                             options:UIViewAnimationOptionTransitionNone
-                                          animations:^{
-                                              [self showNotificationLabelWithErrorMessage:message];
-                                          }
-                                          completion:nil];
+                         [self setNotificationLabelText:message];
+                         [self showNotification];
                      }];
 }
 
@@ -341,7 +332,6 @@ const int kDeleteButtonIndex = 1;
                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                      [weakSelf enableControls];
                                                      [weakSelf.activityIndicator stop];
-
                                                      [weakSelf displayFailureMessage:message];
                                                  });
                                              }];
@@ -412,17 +402,43 @@ const int kDeleteButtonIndex = 1;
     [self.totalLabel sizeToFit];
 
     [self centerLabel:self.totalLabel];
+}
 
+- (void)configureTotalLabel {
     self.totalLabel.font      = [ThemeManager sharedInstance].normalFont;
     self.totalLabel.textColor = [ThemeManager sharedInstance].normalFontColor;
 }
 
-- (void)showNotificationLabelWithErrorMessage:(NSString *)message {
+- (void)showNotification {
+    // Make sure initial position is correct:
+    self.notificationLabel.hidden = YES;
+    self.notificationLabel.frame  = CGRectMake(-self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.origin.y,
+                                               self.notificationLabel.frame.size.width,
+                                               self.notificationLabel.frame.size.height);
+
+    self.notificationLabel.hidden = NO;
+    [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                          delay:[ThemeManager sharedInstance].notificationDelay
+         usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+          initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
+                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         CGFloat x    = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
+                         CGFloat y    = self.notificationLabel.frame.origin.y;
+                         CGRect  rect = CGRectMake(x, y, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+
+                         self.notificationLabel.frame = rect;
+                     }
+                     completion:nil];
+}
+
+- (void)setNotificationLabelText:(NSString *)message {
     self.notificationLabel.text = [message lowercaseString];
     [self.notificationLabel sizeToFit];
+}
 
-    [self centerLabel:self.notificationLabel];
-
+- (void)configureNotificationLabel {
     self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
 }
