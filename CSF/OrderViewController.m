@@ -155,9 +155,7 @@ const int kDeleteButtonIndex = 1;
                                              failureBlock:^(NSString *message) {
                                                  dispatch_async(dispatch_get_main_queue(), ^{
                                                      [weakSelf enableControls];
-
                                                      [weakSelf.activityIndicator stop];
-
                                                      [weakSelf displayFailureMessage:message];
                                                  });
                                              }];
@@ -276,11 +274,25 @@ const int kDeleteButtonIndex = 1;
 - (void)displayFailureMessage:(NSString *)message {
     [UIView animateWithDuration:0.4f
                      animations:^{
-                         [self slideLabelToRightAndHide:self.totalLabel];
+                         if (self.notificationLabel.hidden == NO) {
+                             [self slideLabelToRightAndHide:self.notificationLabel];
+                         }
+
+                         if (self.totalLabel.hidden == NO) {
+                             [self slideLabelToRightAndHide:self.totalLabel];
+                         }
                      }
                      completion:^(BOOL finished) {
-                         [self setLabel:self.notificationLabel text:message];
-                         [self slideLabelFromRight:self.notificationLabel];
+
+                         if (self.notificationLabel.hidden == NO) {
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                 [self setLabel:self.notificationLabel text:message];
+                                 [self slideLabelFromRight:self.notificationLabel];
+                             });
+                         } else {
+                             [self setLabel:self.notificationLabel text:message];
+                             [self slideLabelFromRight:self.notificationLabel];
+                         }
                      }];
 }
 
@@ -450,6 +462,7 @@ const int kDeleteButtonIndex = 1;
 - (void)configureNotificationLabel {
     self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+    self.notificationLabel.hidden    = YES;
 }
 
 - (void)slideLabelToRightAndHide:(UILabel *)label {
