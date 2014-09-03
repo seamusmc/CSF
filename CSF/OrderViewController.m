@@ -28,11 +28,12 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
 @property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
 @property(nonatomic, weak) IBOutlet UILabel     *totalLabel;
+@property(nonatomic, weak) IBOutlet UILabel     *notificationLabel;
 
-@property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
-@property (nonatomic, copy, readonly) NSArray *controls;
+@property(nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
+@property(nonatomic, copy, readonly) NSArray *controls;
 
-@property (nonatomic, copy) NSArray *types;
+@property(nonatomic, copy) NSArray *types;
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
@@ -55,7 +56,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
     [self configureNavigationBarItems];
     [self configureFields];
-    [self configureTotalLabelWithText:nil];
+    [self updateTotalLabelText:nil];
     [self configureOrderItemsTableView];
 
     self.orderDate = self.dateField.text;
@@ -253,7 +254,7 @@ const int kDeleteButtonIndex = 1;
 
                                                   [weakSelf.activityIndicator stop];
 
-                                                  [weakSelf configureTotalLabelWithText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
+                                                  [weakSelf updateTotalLabelText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
                                                   for (int index = 0; index < [weakSelf.order.items count]; ++index) {
@@ -410,13 +411,13 @@ const int kDeleteButtonIndex = 1;
     return datePicker;
 }
 
-- (void)configureTotalLabelWithText:(NSString *)text {
+- (void)updateTotalLabelText:(NSString *)text {
     self.totalLabel.text = [text lowercaseString];
     [self.totalLabel sizeToFit];
 
-    [self centerTotalLabel];
+    [self centerLabel:self.totalLabel];
 
-    self.totalLabel.font = [ThemeManager sharedInstance].normalFont;
+    self.totalLabel.font      = [ThemeManager sharedInstance].normalFont;
     self.totalLabel.textColor = [ThemeManager sharedInstance].normalFontColor;
 }
 
@@ -424,17 +425,17 @@ const int kDeleteButtonIndex = 1;
     self.totalLabel.text = [message lowercaseString];
     [self.totalLabel sizeToFit];
 
-    [self centerTotalLabel];
+    [self centerLabel:self.totalLabel];
 
     self.totalLabel.font = [ThemeManager sharedInstance].errorFont;
     self.totalLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
 }
 
-- (void)centerTotalLabel {
+- (void)centerLabel:(UILabel *)label {
     CGFloat x = (self.totalLabel.superview.frame.size.width / 2) - (self.totalLabel.frame.size.width / 2);
     CGFloat y = (self.totalLabel.superview.frame.size.height / 2) - (self.totalLabel.frame.size.height / 2);
     CGRect rect = CGRectMake(x, y, self.totalLabel.frame.size.width, self.totalLabel.frame.size.height);
-    self.totalLabel.frame = rect;
+    label.frame = rect;
 }
 
 - (void)configureOrderItemsTableView {
