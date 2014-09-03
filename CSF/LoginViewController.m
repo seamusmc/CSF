@@ -146,8 +146,15 @@ static const int LastnameMaxLength  = 15;
                                   [weakSelf.userServices storeUser:user withPassword:weakSelf.passwordField.text];
                               }
 
-                              [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
-
+                              if (weakSelf.notificationLabel.hidden == NO) {
+                                  // Delay so that we don't see the notification label animating off the next page!
+                                  // TODO: Should pass a delegate to resetNotificationState.
+                                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                      [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
+                                  });
+                              } else {
+                                  [weakSelf performSegueWithIdentifier:@"OrderSegue" sender:nil];
+                              }
                           } else {
                               dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                   [weakSelf handleInvalidLogin:message];
