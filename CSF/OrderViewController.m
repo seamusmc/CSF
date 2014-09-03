@@ -279,8 +279,8 @@ const int kDeleteButtonIndex = 1;
                          [self slideLabelToRightAndHide:self.totalLabel];
                      }
                      completion:^(BOOL finished) {
-                         [self setNotificationLabelText:message];
-                         [self showNotification];
+                         [self setLabel:self.notificationLabel text:message];
+                         [self slideLabelFromRight:self.notificationLabel];
                      }];
 }
 
@@ -398,10 +398,13 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (void)updateTotalLabelText:(NSString *)text {
-    self.totalLabel.text = [text lowercaseString];
-    [self.totalLabel sizeToFit];
+    [self setLabel:self.totalLabel text:text];
 
-    [self centerLabel:self.totalLabel];
+    if (self.totalLabel.hidden == YES) {
+        [self slideLabelFromRight:self.totalLabel];
+    }   else {
+        [self centerLabel:self.totalLabel];
+    }
 }
 
 - (void)configureTotalLabel {
@@ -409,13 +412,13 @@ const int kDeleteButtonIndex = 1;
     self.totalLabel.textColor = [ThemeManager sharedInstance].normalFontColor;
 }
 
-- (void)showNotification {
+- (void)slideLabelFromRight:(UILabel *)label {
     // Make sure initial position is correct:
-    self.notificationLabel.hidden = YES;
-    self.notificationLabel.frame  = CGRectMake(-self.notificationLabel.frame.size.width,
-                                               self.notificationLabel.frame.origin.y,
-                                               self.notificationLabel.frame.size.width,
-                                               self.notificationLabel.frame.size.height);
+    label.hidden = YES;
+    label.frame  = CGRectMake(-label.frame.size.width,
+                              label.frame.origin.y,
+                              label.frame.size.width,
+                              label.frame.size.height);
 
     self.notificationLabel.hidden = NO;
     [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
@@ -424,18 +427,19 @@ const int kDeleteButtonIndex = 1;
           initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
                         options:UIViewAnimationOptionTransitionNone
                      animations:^{
-                         CGFloat x    = (self.notificationLabel.superview.frame.size.width / 2) - (self.notificationLabel.frame.size.width / 2);
-                         CGFloat y    = self.notificationLabel.frame.origin.y;
-                         CGRect  rect = CGRectMake(x, y, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+                         CGFloat x = (label.superview.frame.size.width / 2) - (label.frame.size.width / 2);
+                         CGFloat y = label.frame.origin.y;
 
-                         self.notificationLabel.frame = rect;
+                         CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
+
+                         label.frame = rect;
                      }
                      completion:nil];
 }
 
-- (void)setNotificationLabelText:(NSString *)message {
-    self.notificationLabel.text = [message lowercaseString];
-    [self.notificationLabel sizeToFit];
+- (void)setLabel:(UILabel *)label text:(NSString *)text {
+    label.text = [text lowercaseString];
+    [label sizeToFit];
 }
 
 - (void)configureNotificationLabel {
@@ -457,6 +461,8 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (void)centerLabel:(UILabel *)label {
+    label.hidden = NO;
+
     CGFloat x = (label.superview.frame.size.width / 2) - (label.frame.size.width / 2);
     CGFloat y = (label.superview.frame.size.height / 2) - (label.frame.size.height / 2);
     CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
