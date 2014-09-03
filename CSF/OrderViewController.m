@@ -251,9 +251,7 @@ const int kDeleteButtonIndex = 1;
                                               weakSelf.order = tempOrder;
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf enableControls];
-
                                                   [weakSelf.activityIndicator stop];
-
                                                   [weakSelf updateTotalLabelText:[NSString stringWithFormat:kTotalFormatString, weakSelf.order.total]];
 
                                                   NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
@@ -268,9 +266,7 @@ const int kDeleteButtonIndex = 1;
                                           failureBlock:^(NSString *message) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [weakSelf enableControls];
-
                                                   [weakSelf.activityIndicator stop];
-
                                                   [weakSelf displayFailureMessage:message];
                                               });
                                           }];
@@ -427,7 +423,7 @@ const int kDeleteButtonIndex = 1;
 
     [self centerLabel:self.notificationLabel];
 
-    self.notificationLabel.font = [ThemeManager sharedInstance].errorFont;
+    self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
 }
 
