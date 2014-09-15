@@ -163,7 +163,7 @@
                                           OrderItem *orderItem = [[OrderItem alloc] init];
 
                                           orderItem.type     = [item objectForKey:@"Type"];
-                                          orderItem.name     = [item objectForKey:@"Item"];
+                                          orderItem.name     = [[item objectForKey:@"Item"] lowercaseString];
                                           orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
                                           orderItem.comment  = [item objectForKey:@"Comment"];
 
