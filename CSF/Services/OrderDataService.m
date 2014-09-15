@@ -116,7 +116,7 @@
                                                           user.firstname,
                                                           user.lastname,
                                                           stringFromDate,
-                                                          item.name,
+                                                          [item.name capitalizedString],
                                                           item.quantity,
                                                           comment,
                                                           @"false"];
