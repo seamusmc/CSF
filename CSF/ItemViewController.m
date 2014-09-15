@@ -192,6 +192,18 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return YES;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if ([textField isEqual:self.quantityTextField]) {
+        double value = [textField.text doubleValue];
+
+        if (value > 0) {
+            self.addButton.enabled = YES;
+        } else {
+            self.addButton.enabled = NO;
+        }
+    }
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField isEqual:self.quantityTextField]) {
         NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
@@ -393,7 +405,13 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 }
 
 - (void)enableControls {
-    self.addButton.enabled         = YES;
+    double value = [self.quantityTextField.text doubleValue];
+    if (value > 0) {
+        self.addButton.enabled = YES;
+    } else {
+        self.addButton.enabled = NO;
+    }
+
     self.itemTextField.enabled     = YES;
     self.quantityTextField.enabled = YES;
 
@@ -481,6 +499,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     self.addButton.layer.borderColor  = [ThemeManager sharedInstance].tintColor.CGColor;
 
     self.addButton.backgroundColor = [ThemeManager sharedInstance].tintColor;
+    self.addButton.enabled = NO;
 }
 
 - (void)configureFields {
