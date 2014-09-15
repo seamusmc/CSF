@@ -165,7 +165,7 @@
                                           orderItem.type     = [item objectForKey:@"Type"];
                                           orderItem.name     = [[item objectForKey:@"Item"] lowercaseString];
                                           orderItem.quantity = [NSDecimalNumber decimalNumberWithString:[[item objectForKey:@"Qty"] stringValue]];
-                                          orderItem.comment  = [item objectForKey:@"Comment"];
+                                          orderItem.comment  = [[item objectForKey:@"Comment"] lowercaseString];
 
                                           if ([orderItem.comment isEqualToString:@"\"\""]) {
                                               orderItem.comment = nil;
