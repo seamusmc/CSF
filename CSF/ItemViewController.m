@@ -22,10 +22,11 @@
 #import "OrderItem.h"
 
 static const int kItemsPickerViewTag = 10;
-static const int kCommentMaxLength = 128;
+static const int kCommentMaxLength   = 128;
 
-static NSString *const kPriceLabelFormatString = @"price %@";
+static NSString *const kPriceLabelFormatString   = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
+static NSString *const kSuccessfullyAddedMessage = @"successfully added";
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 
@@ -91,7 +92,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [self configureButton];
     [self configureTypesPicker];
     [self configureItemsPicker];
-    [self configureNotificationLabelForErrors];
+    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
 
     self.scrollView.scrollEnabled = NO;
     self.addedItem = NO;
@@ -139,6 +140,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
                                              // Indicate successful addition
                                              NSLog(@"Successfully added item.");
+                                             [self displaySuccessMessage];
 
                                              self.addedItem = YES;
                                          });
@@ -194,18 +196,6 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    if ([textField isEqual:self.quantityTextField]) {
-        double value = [textField.text doubleValue];
-
-        if (value > 0) {
-            self.addButton.enabled = YES;
-        } else {
-            self.addButton.enabled = NO;
-        }
-    }
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField isEqual:self.quantityTextField]) {
         NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
@@ -238,11 +228,29 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
             self.quantityLabel.textColor     = [ThemeManager sharedInstance].normalFontColor;
         }
 
-        if (numberOfMatches == 0)
+        double value;
+        if (numberOfMatches == 0) {
+            value = [self.quantityTextField.text doubleValue];
+            [self enableOrDisableAddButtonBasedOnValue:value];
+
             return NO;
+        } else {
+            value = [newString doubleValue];
+            [self enableOrDisableAddButtonBasedOnValue:value];
+
+            return YES;
+        }
     }
 
     return YES;
+}
+
+- (void)enableOrDisableAddButtonBasedOnValue:(double)value {
+    if (value > 0) {
+        self.addButton.enabled = YES;
+    } else {
+        self.addButton.enabled = NO;
+    }
 }
 
 #pragma mark - Notifications
@@ -365,6 +373,66 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 
 #pragma mark - Private Methods
 
+- (void)displaySuccessMessage {
+    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
+    [self displayNotificationMessage];
+}
+
+- (void)displayNotificationMessage {
+    [UIView animateWithDuration:0.4f
+                     animations:^{
+                         if (self.notificationLabel.hidden == NO) {
+                             [self slideLabelToRightAndHide:self.notificationLabel];
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         if (self.notificationLabel.hidden == NO) {
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                 [self slideLabelFromRight:self.notificationLabel];
+                             });
+                         } else {
+                             [self slideLabelFromRight:self.notificationLabel];
+                         }
+                     }];
+}
+
+- (void)slideLabelFromRight:(UILabel *)label {
+    // Make sure initial position is correct:
+    label.hidden = YES;
+    label.frame  = CGRectMake(-label.frame.size.width,
+                              label.frame.origin.y,
+                              label.frame.size.width,
+                              label.frame.size.height);
+
+    label.hidden = NO;
+    [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                          delay:[ThemeManager sharedInstance].notificationDelay
+         usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+          initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
+                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         CGFloat x = (label.superview.frame.size.width / 2) - (label.frame.size.width / 2);
+                         CGFloat y = label.frame.origin.y;
+
+                         CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
+                         label.frame = rect;
+                     }
+                     completion:nil];
+}
+
+- (void)slideLabelToRightAndHide:(UILabel *)label {
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         label.frame = CGRectMake(self.view.frame.size.width + label.frame.size.width,
+                                                  label.frame.origin.y,
+                                                  label.frame.size.width,
+                                                  label.frame.size.height);
+                     }
+                     completion:^(BOOL finished) {
+                         label.hidden = YES;
+                     }];
+}
+
 - (void)getItemsForType:(NSString *)type {
     // We'll cache the items for each type selected in a dictionary, for the life of this VC.
     if ([self.itemsDictionary containsKey:type]) {
@@ -441,10 +509,13 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
 }
 
-- (void)configureNotificationLabelForSuccess {
+- (void)configureNotificationLabelForSuccess:(NSString *)message {
     self.notificationLabel.font      = [ThemeManager sharedInstance].successFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].successFontColor;
     self.notificationLabel.hidden    = YES;
+
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
 }
 
 - (void)configureNotificationLabelForErrors {

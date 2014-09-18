@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="03y-dZ-VHx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="03y-dZ-VHx">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
@@ -245,6 +245,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqm-oG-f68">
+                                <rect key="frame" x="85" y="448" width="151" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bs7-LS-DDH">
                                 <rect key="frame" x="200" y="512" width="100" height="40"/>
                                 <constraints>
@@ -258,7 +264,7 @@
                                     <action selector="addButtonHandler" destination="4py-sI-OOe" eventType="touchUpInside" id="5WM-je-Q59"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNJ-A3-Wgm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNJ-A3-Wgm">
                                 <rect key="frame" x="0.0" y="64" width="320" height="440"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-l8-fsk">
@@ -340,8 +346,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="uNJ-A3-Wgm" secondAttribute="trailing" id="CNN-Yk-jcj"/>
                             <constraint firstAttribute="trailing" secondItem="Bs7-LS-DDH" secondAttribute="trailing" constant="20" id="GiC-6t-0bx"/>
+                            <constraint firstItem="Bs7-LS-DDH" firstAttribute="top" secondItem="uNJ-A3-Wgm" secondAttribute="bottom" constant="8" id="V1y-om-Ljk"/>
                             <constraint firstAttribute="bottom" secondItem="Bs7-LS-DDH" secondAttribute="bottom" constant="16" id="g3M-HN-CkK"/>
+                            <constraint firstItem="uNJ-A3-Wgm" firstAttribute="top" secondItem="W93-nR-b1h" secondAttribute="top" constant="64" id="hh1-jq-2xx"/>
+                            <constraint firstItem="uNJ-A3-Wgm" firstAttribute="leading" secondItem="W93-nR-b1h" secondAttribute="leading" id="idq-F2-LCb"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="ave-fd-5Dr" appends="YES" id="okp-dN-YOl"/>
@@ -354,6 +364,7 @@
                         <outlet property="commentTextView" destination="PRY-kI-Mcz" id="jUQ-BX-nlj"/>
                         <outlet property="itemLabel" destination="oN0-8U-zLE" id="h0b-hL-B00"/>
                         <outlet property="itemTextField" destination="vP7-hG-BS9" id="NKz-go-rvc"/>
+                        <outlet property="notificationLabel" destination="wqm-oG-f68" id="CVr-tB-uX7"/>
                         <outlet property="priceLabel" destination="IKc-OV-Pwb" id="qoN-Jf-GgN"/>
                         <outlet property="quantityLabel" destination="iwp-aP-jar" id="k9o-jy-dn3"/>
                         <outlet property="quantityTextField" destination="LLf-PC-J6H" id="w9H-zN-zW3"/>
