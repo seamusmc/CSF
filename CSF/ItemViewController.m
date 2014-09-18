@@ -135,14 +135,18 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
                                      successBlock:^{
                                          // Not necessary to stop the activity indicator, call to refresh order will do it for us.
                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                             [weakSelf enableControls];
                                              [weakSelf.activityIndicator stop];
 
                                              // Indicate successful addition
                                              NSLog(@"Successfully added item.");
-                                             [self displaySuccessMessage];
+                                             [weakSelf displaySuccessMessage];
 
-                                             self.addedItem = YES;
+                                             weakSelf.addedItem = YES;
+
+                                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                 [weakSelf slideLabelToRightAndHide:weakSelf.notificationLabel];
+                                                 [weakSelf enableControls];
+                                             });
                                          });
                                      }
                                      failureBlock:^(NSString *message) {
