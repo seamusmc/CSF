@@ -33,7 +33,7 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 @property(nonatomic, copy) NSArray *labels;
 @property(nonatomic, copy) NSArray *fields;
 
-@property(nonatomic, copy) NSArray *items;                              // The current list of items for the current type.
+@property(nonatomic, copy) NSArray               *items;                // The current list of items for the current type.
 @property(nonatomic, strong) NSMutableDictionary *itemsDictionary;      // Cache of items keyed by type.
 
 @property(nonatomic, weak) IBOutlet UILabel *typeLabel;
@@ -48,13 +48,13 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 @property(nonatomic, weak) IBOutlet UITextField *itemTextField;
 @property(nonatomic, weak) IBOutlet UITextField *quantityTextField;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property(nonatomic, weak) IBOutlet UITextView *commentTextView;
 @property(nonatomic, weak) IBOutlet UIButton   *addButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
-@property (nonatomic, strong, readonly) NSDateFormatter* dateFormatter;
+@property(nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
 
 @property(nonatomic, assign) BOOL addedItem;
 
@@ -136,9 +136,6 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
                                          // Not necessary to stop the activity indicator, call to refresh order will do it for us.
                                          dispatch_async(dispatch_get_main_queue(), ^{
                                              [weakSelf.activityIndicator stop];
-
-                                             // Indicate successful addition
-                                             NSLog(@"Successfully added item.");
                                              [weakSelf displaySuccessMessage];
 
                                              weakSelf.addedItem = YES;
@@ -153,9 +150,6 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
                                          dispatch_async(dispatch_get_main_queue(), ^{
                                              [weakSelf enableControls];
                                              [weakSelf.activityIndicator stop];
-
-                                             // Display issue message
-                                             NSLog(@"Encountered error adding item: %@", message);
                                              [weakSelf displayErrorMessage:message];
                                          });
                                      }];
