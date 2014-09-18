@@ -19,6 +19,9 @@
 @property(nonatomic, strong, readonly) UIColor *errorFontColor;
 @property(nonatomic, strong, readonly) UIFont *errorFont;
 
+@property(nonatomic, strong, readonly) UIColor *successFontColor;
+@property(nonatomic, strong, readonly) UIFont *successFont;
+
 @property(nonatomic, strong, readonly) UIColor *placeHolderFontColor;
 @property(nonatomic, strong, readonly) UIFont *placeHolderFont;
 

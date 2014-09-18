@@ -43,6 +43,16 @@
     return TweakColor(TweakCategoryFonts, TweakGroupErrorFont, @"E3E300", 1.0f);
 }
 
+#define TweakGroupSuccessFont @"Success Font"
+- (UIFont *)successFont {
+    CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupSuccessFont, @"Size", 20.0f, 1.0f, 50.0f);
+    return [UIFont fontWithName:@"Avenir-Roman" size:value];
+}
+
+- (UIColor *)successFontColor {
+    return TweakColor(TweakCategoryFonts, TweakGroupSuccessFont, @"00FF00", 1.0f);
+}
+
 #define TweakGroupPlaceHolderFont @"PlaceHolder Font"
 - (UIFont *)placeHolderFont {
     CGFloat value = FBTweakValue(TweakCategoryFonts, TweakGroupPlaceHolderFont, @"Size", 20.0f, 1.0f, 50.0f);

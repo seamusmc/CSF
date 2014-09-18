@@ -41,6 +41,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
 @property(nonatomic, weak) IBOutlet UILabel *stockLabel;
 @property(nonatomic, weak) IBOutlet UILabel *quantityLabel;
 @property(nonatomic, weak) IBOutlet UILabel *commentLabel;
+@property(nonatomic, weak) IBOutlet UILabel *notificationLabel;
 
 @property(nonatomic, weak) IBOutlet UITextField *typeTextField;
 @property(nonatomic, weak) IBOutlet UITextField *itemTextField;
@@ -90,6 +91,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
     [self configureButton];
     [self configureTypesPicker];
     [self configureItemsPicker];
+    [self configureNotificationLabelForErrors];
 
     self.scrollView.scrollEnabled = NO;
     self.addedItem = NO;
@@ -210,7 +212,7 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
         NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
 
         // Would love to use the Fractions field on item to allow or disallow decimal values, but it
-        // doesn't seem to be used. Have to default to allowing fractions, the item will be rejected
+        // doesn't seem to be used. Have to default to allowing fractions, the item will be 'truncated'
         // if its not supposed to have a fractional count. Could be due to test data not being populated
         // correctly.
 
@@ -437,6 +439,18 @@ static NSString *const kInStockLabelFormatString = @"in stock? %@";
         inStock = @"no";
     }
     self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
+}
+
+- (void)configureNotificationLabelForSuccess {
+    self.notificationLabel.font      = [ThemeManager sharedInstance].successFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].successFontColor;
+    self.notificationLabel.hidden    = YES;
+}
+
+- (void)configureNotificationLabelForErrors {
+    self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+    self.notificationLabel.hidden    = YES;
 }
 
 - (void)configureTypesPicker {
