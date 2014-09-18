@@ -26,7 +26,7 @@ static const int kCommentMaxLength   = 128;
 
 static NSString *const kPriceLabelFormatString   = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
-static NSString *const kSuccessfullyAddedMessage = @"successfully added";
+static NSString *const kSuccessfullyAddedMessage = @"success";
 
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 
@@ -503,10 +503,20 @@ static NSString *const kSuccessfullyAddedMessage = @"successfully added";
     self.priceLabel.text = [NSString stringWithFormat:kPriceLabelFormatString, item.formattedPrice];
 
     NSString *inStock = @"yes";
+    UIColor *inStockFontColor = [ThemeManager sharedInstance].successFontColor;
     if (item.outOfStock == YES) {
         inStock = @"no";
+        inStockFontColor = [ThemeManager sharedInstance].errorFontColor;
     }
-    self.stockLabel.text = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
+
+    NSString *string = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
+    unsigned long length = [kInStockLabelFormatString length] - 2;
+    NSRange range = NSMakeRange(length, [string length] - length);
+
+    NSMutableAttributedString *stockString = [[NSMutableAttributedString alloc] initWithString:string];
+    [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
+
+    self.stockLabel.attributedText = stockString;
 }
 
 - (void)configureNotificationLabelForSuccess:(NSString *)message {
