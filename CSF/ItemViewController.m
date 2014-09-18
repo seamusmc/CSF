@@ -156,10 +156,10 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 
                                              // Display issue message
                                              NSLog(@"Encountered error adding item: %@", message);
+                                             [weakSelf displayErrorMessage:message];
                                          });
                                      }];
 }
-
 
 #pragma mark - UITextViewDelegate
 
@@ -353,6 +353,7 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
+    [self resetNotificationState];
 }
 
 #pragma mark - Property Overrides
@@ -376,6 +377,10 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 #pragma mark - Private Methods
+- (void)displayErrorMessage:(NSString *)message {
+    [self configureNotificationLabelForError:message];
+    [self displayNotificationMessage];
+}
 
 - (void)displaySuccessMessage {
     [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
@@ -478,6 +483,12 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
     }
 }
 
+- (void)resetNotificationState {
+    if (self.notificationLabel.hidden == NO) {
+        [self slideLabelToRightAndHide:self.notificationLabel];
+    }
+}
+
 - (void)enableControls {
     double value = [self.quantityTextField.text doubleValue];
     if (value > 0) {
@@ -532,10 +543,13 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
     [self.notificationLabel sizeToFit];
 }
 
-- (void)configureNotificationLabelForErrors {
+- (void)configureNotificationLabelForError:(NSString *)message {
     self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
     self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
     self.notificationLabel.hidden    = YES;
+
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
 }
 
 - (void)configureTypesPicker {
