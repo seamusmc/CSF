@@ -68,7 +68,7 @@ NSString *const kOrderItemCellIdentifier = @"orderItemCellIdentifier";
 - (void)configureQuantityLabel:(CGFloat) y {
     CGPoint origin = self.contentView.frame.origin;
 
-    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, 60.0f, 20.0f);
+    self.quantityLabel.frame = CGRectMake(origin.x + 20.0f, y, 100.0f, 20.0f);
 
     self.quantityLabel.textColor     = [ThemeManager sharedInstance].tableViewDescriptionFontColor;
     self.quantityLabel.font          = [ThemeManager sharedInstance].tableViewDescriptionFont;

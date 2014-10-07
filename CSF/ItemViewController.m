@@ -497,34 +497,38 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 
                                                      weakSelf.items = nil;
 
-                                                     weakSelf.itemTextField.textColor = [ThemeManager sharedInstance].errorFontColor;
-                                                     weakSelf.itemTextField.text      = kGetItemsErrorMessage;
-
-                                                     UIColor  *priceFontColor = [ThemeManager sharedInstance].errorFontColor;
-                                                     NSString *priceString    = [NSString stringWithFormat:kPriceLabelFormatString, @"n/a"];
-                                                     unsigned long length = [kPriceLabelFormatString length] - 2;
-                                                     NSRange range = NSMakeRange(length, [priceString length] - length);
-
-                                                     NSMutableAttributedString *attribPriceString = [[NSMutableAttributedString alloc] initWithString:priceString];
-                                                     [attribPriceString addAttribute:NSForegroundColorAttributeName value:priceFontColor range:range];
-
-                                                     weakSelf.priceLabel.attributedText = attribPriceString;
-
-                                                     UIColor *inStockFontColor = [ThemeManager sharedInstance].errorFontColor;
-                                                     NSString *string = [NSString stringWithFormat:kInStockLabelFormatString, @"n/a"];
-                                                     length = [kInStockLabelFormatString length] - 2;
-                                                     range = NSMakeRange(length, [string length] - length);
-
-                                                     NSMutableAttributedString *stockString = [[NSMutableAttributedString alloc] initWithString:string];
-                                                     [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
-
-                                                     weakSelf.stockLabel.attributedText = stockString;
+                                                     [self populateItemFieldsForFailure];
 
                                                      UIPickerView *picker = (UIPickerView *) weakSelf.itemTextField.inputView;
                                                      [picker reloadComponent:0];
                                                  });
                                              }];
     }
+}
+
+- (void)populateItemFieldsForFailure {
+    self.itemTextField.textColor = [ThemeManager sharedInstance].errorFontColor;
+    self.itemTextField.text      = kGetItemsErrorMessage;
+
+    UIColor  *priceFontColor = [ThemeManager sharedInstance].errorFontColor;
+    NSString *priceString    = [NSString stringWithFormat:kPriceLabelFormatString, @"n/a"];
+    unsigned long length = [kPriceLabelFormatString length] - 2;
+    NSRange range = NSMakeRange(length, [priceString length] - length);
+
+    NSMutableAttributedString *attribPriceString = [[NSMutableAttributedString alloc] initWithString:priceString];
+    [attribPriceString addAttribute:NSForegroundColorAttributeName value:priceFontColor range:range];
+
+    self.priceLabel.attributedText = attribPriceString;
+
+    UIColor *inStockFontColor = [ThemeManager sharedInstance].errorFontColor;
+    NSString *string = [NSString stringWithFormat:kInStockLabelFormatString, @"n/a"];
+    length = [kInStockLabelFormatString length] - 2;
+    range = NSMakeRange(length, [string length] - length);
+
+    NSMutableAttributedString *stockString = [[NSMutableAttributedString alloc] initWithString:string];
+    [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
+
+    self.stockLabel.attributedText = stockString;
 }
 
 - (void)resetNotificationState {
