@@ -28,6 +28,8 @@ static NSString *const kPriceLabelFormatString   = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
 static NSString *const kSuccessfullyAddedMessage = @"success";
 
+static NSString *const kGetItemsErrorMessage = @"request timed out";
+
 @interface ItemViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 
 @property(nonatomic, copy) NSArray *labels;
@@ -196,6 +198,10 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField isEqual:self.quantityTextField]) {
+        if ([self.itemTextField.text isEqualToString:kGetItemsErrorMessage]) {
+            return NO;
+        }
+
         NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
         NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
 
@@ -315,7 +321,14 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.quantityTextField.text = nil;
+    self.commentTextView.text   = nil;
+
     if (pickerView.tag == kItemsPickerViewTag) {
+        if ([self.itemTextField.text isEqualToString:kGetItemsErrorMessage]) {
+            return;
+        }
+
         NSString *temp = self.itemTextField.text;
         if (![temp isEqualToString:(NSString *) self.items[row]]) {
             [self populateItemFields:self.items[row]];
@@ -437,8 +450,15 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 - (void)getItemsForType:(NSString *)type {
+    self.itemTextField.textColor = [ThemeManager sharedInstance].normalFontColor;
+
+    self.quantityTextField.text = nil;
+    self.commentTextView.text   = nil;
+    self.itemTextField.text     = nil;
+
     // We'll cache the items for each type selected in a dictionary, for the life of this VC.
     if ([self.itemsDictionary containsKey:type]) {
+        [self enableControls];
         self.items = self.itemsDictionary[type];
 
         [self populateItemFields:self.items[0]];
@@ -468,10 +488,40 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
                                              }
                                              failureBlock:^(NSString *message) {
                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                     [weakSelf enableControls];
                                                      [weakSelf.activityIndicator stop];
                                                      DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
-                                                     //[weakSelf displayFailureMessage:message];
+
+                                                     // Only re-enable the type text field so the user can perform a 'retry' by
+                                                     // selecting a type of product.
+                                                     self.typeTextField.inputView.userInteractionEnabled = YES;
+
+                                                     weakSelf.items = nil;
+
+                                                     weakSelf.itemTextField.textColor = [ThemeManager sharedInstance].errorFontColor;
+                                                     weakSelf.itemTextField.text      = kGetItemsErrorMessage;
+
+                                                     UIColor  *priceFontColor = [ThemeManager sharedInstance].errorFontColor;
+                                                     NSString *priceString    = [NSString stringWithFormat:kPriceLabelFormatString, @"n/a"];
+                                                     unsigned long length = [kPriceLabelFormatString length] - 2;
+                                                     NSRange range = NSMakeRange(length, [priceString length] - length);
+
+                                                     NSMutableAttributedString *attribPriceString = [[NSMutableAttributedString alloc] initWithString:priceString];
+                                                     [attribPriceString addAttribute:NSForegroundColorAttributeName value:priceFontColor range:range];
+
+                                                     weakSelf.priceLabel.attributedText = attribPriceString;
+
+                                                     UIColor *inStockFontColor = [ThemeManager sharedInstance].errorFontColor;
+                                                     NSString *string = [NSString stringWithFormat:kInStockLabelFormatString, @"n/a"];
+                                                     length = [kInStockLabelFormatString length] - 2;
+                                                     range = NSMakeRange(length, [string length] - length);
+
+                                                     NSMutableAttributedString *stockString = [[NSMutableAttributedString alloc] initWithString:string];
+                                                     [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
+
+                                                     weakSelf.stockLabel.attributedText = stockString;
+
+                                                     UIPickerView *picker = (UIPickerView *) weakSelf.itemTextField.inputView;
+                                                     [picker reloadComponent:0];
                                                  });
                                              }];
     }
@@ -570,12 +620,11 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 - (void)configureCommentTextView {
-    self.commentTextView.font      = [ThemeManager sharedInstance].normalFont;
-    self.commentTextView.textColor = [ThemeManager sharedInstance].normalFontColor;
-
+    self.commentTextView.font            = [ThemeManager sharedInstance].normalFont;
+    self.commentTextView.textColor       = [ThemeManager sharedInstance].normalFontColor;
     self.commentTextView.backgroundColor = [ThemeManager sharedInstance].tintColor;
 
-    [self.commentTextView  setTextContainerInset:UIEdgeInsetsMake(5, 10, 10, 10)];
+    self.commentTextView.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 5);
 
     self.commentTextView.delegate = self;
 
