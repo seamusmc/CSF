@@ -11,6 +11,8 @@
 
 static const double kNetworkingServiceTimeout = 5.0;
 
+static NSString *const kGenericErrorMessage = @"oops! something went wrong";
+
 @interface NetworkingService ()
 
 @property(nonatomic, strong, readonly) id <GAITracker> gaiTracker;
@@ -92,7 +94,7 @@ static const double kNetworkingServiceTimeout = 5.0;
                                                                            value:@(httpResponse.statusCode)] build]];
 
             NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeBadRequest
-                                                  description:@"Something has gone wrong"];
+                                                  description:kGenericErrorMessage];
             failureBlock(serviceError);
             break;
         }
@@ -135,7 +137,7 @@ static const double kNetworkingServiceTimeout = 5.0;
                                                                                        label:message
                                                                                        value:nil] build]];
 
-                        NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:@"Something has gone wrong"];
+                        NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:kGenericErrorMessage];
                         failureBlock(serviceError);
                         break;
                     }
@@ -149,7 +151,7 @@ static const double kNetworkingServiceTimeout = 5.0;
                                                                                label:message
                                                                                value:nil] build]];
 
-                NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:@"Something has gone wrong"];
+                NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:kGenericErrorMessage];
                 failureBlock(serviceError);
                 break;
             }

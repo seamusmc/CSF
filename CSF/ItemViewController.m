@@ -82,6 +82,13 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
     self.scrollView.contentSize = CGSizeMake(320, self.view.frame.size.height * 2);  // Basically two pages tall.
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
+    [self configureNotificationLabel];
+    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -94,7 +101,6 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
     [self configureButton];
     [self configureTypesPicker];
     [self configureItemsPicker];
-    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
 
     self.scrollView.scrollEnabled = NO;
     self.addedItem = NO;
@@ -580,6 +586,16 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
     [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
 
     self.stockLabel.attributedText = stockString;
+}
+
+- (void)configureNotificationLabel {
+    CGFloat commentBottomY = self.commentTextView.frame.origin.y + self.commentTextView.frame.size.height;
+
+    CGFloat notificationMidY = self.notificationLabel.frame.size.height / 2.0f;
+    CGFloat midY = commentBottomY + (((self.scrollView.frame.size.height - commentBottomY) / 2.0f) - notificationMidY) + 4.0f;
+
+    CGRect frame = CGRectMake(self.notificationLabel.frame.origin.x, midY, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+    self.notificationLabel.frame = frame;
 }
 
 - (void)configureNotificationLabelForSuccess:(NSString *)message {
