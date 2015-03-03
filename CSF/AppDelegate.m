@@ -23,7 +23,7 @@
         self.window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 #else
             self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        #endif
+#endif
     }
 
     _window.backgroundColor = [ThemeManager sharedInstance].tintColor;

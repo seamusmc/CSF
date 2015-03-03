@@ -124,6 +124,10 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    if ([self.dateField.inputView isKindOfClass:[UIDatePicker class]]) {
+        UIDatePicker *datePicker = (UIDatePicker *)self.dateField.inputView;
+        datePicker.minimumDate = [NSDate date];
+    }
     self.orderDate = self.dateField.text;
 }
 
