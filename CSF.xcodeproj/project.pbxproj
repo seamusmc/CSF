@@ -61,6 +61,7 @@
 		F1A91A7418D39602008395EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1A91A5618D39602008395EE /* UIKit.framework */; };
 		F1A91A7C18D39602008395EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1A91A7A18D39602008395EE /* InfoPlist.strings */; };
 		F1A91A7E18D39602008395EE /* FarmDataServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */; };
+		F1CA1A151AA6148F006740E4 /* EditItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1CA1A141AA6148F006740E4 /* EditItemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,8 @@
 		F1A91A7918D39602008395EE /* CSFTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSFTests-Info.plist"; sourceTree = "<group>"; };
 		F1A91A7B18D39602008395EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarmDataServiceTests.m; sourceTree = "<group>"; };
+		F1CA1A131AA6148F006740E4 /* EditItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditItemViewController.h; sourceTree = "<group>"; };
+		F1CA1A141AA6148F006740E4 /* EditItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +376,8 @@
 				F1A91A6718D39602008395EE /* LoginViewController.h */,
 				F1A91A6818D39602008395EE /* LoginViewController.m */,
 				F1A91A6418D39602008395EE /* Main.storyboard */,
+				F1CA1A131AA6148F006740E4 /* EditItemViewController.h */,
+				F1CA1A141AA6148F006740E4 /* EditItemViewController.m */,
 				F10EA0DF18EC7D7700CCBB0D /* OrderViewController.h */,
 				F10EA0E018EC7D7700CCBB0D /* OrderViewController.m */,
 				C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */,
@@ -609,6 +614,7 @@
 				C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */,
 				F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */,
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
+				F1CA1A151AA6148F006740E4 /* EditItemViewController.m in Sources */,
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
