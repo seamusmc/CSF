@@ -78,13 +78,17 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ItemViewController *viewController = [segue destinationViewController];
-    viewController.types = self.types;
-    viewController.orderDate = self.orderDate;
-    viewController.delegate = self;
+    if ([segue.identifier isEqualToString:@"EditItemSegue"]) {
 
-    [self.activityIndicator stop];
-    [self enableControls];
+    } else {
+        ItemViewController *viewController = [segue destinationViewController];
+        viewController.types = self.types;
+        viewController.orderDate = self.orderDate;
+        viewController.delegate = self;
+
+        [self.activityIndicator stop];
+        [self enableControls];
+    }
 }
 
 #pragma mark - Property Overrides
@@ -138,7 +142,7 @@ const int kDeleteButtonIndex = 1;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     switch (index) {
         case kEditButtonIndex: {
-            NSLog(@"Seque to the edit page.");
+            [self performEditItemSegue];
             break;
         }
         case kDeleteButtonIndex: {
@@ -321,6 +325,10 @@ const int kDeleteButtonIndex = 1;
                                                                              action:@selector(performAddItemSegue)];
     NSArray *actionButtonItems = @[addItem, refreshOrder];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
+}
+
+-(void)performEditItemSegue {
+    [self performSegueWithIdentifier:@"EditItemSegue" sender:self];
 }
 
 - (void)performAddItemSegue {

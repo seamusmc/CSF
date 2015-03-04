@@ -227,11 +227,12 @@
                         <outlet property="orderItemsTableView" destination="hKV-Rz-HHU" id="uUS-4t-xa5"/>
                         <outlet property="totalLabel" destination="chf-vi-iYv" id="42T-vp-r6D"/>
                         <segue destination="4py-sI-OOe" kind="push" identifier="AddItemSegue" id="X70-PO-iei"/>
+                        <segue destination="CVY-vb-XMx" kind="push" identifier="EditItemSegue" id="Wzi-dt-RUd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rw0-Dj-6St" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="322"/>
+            <point key="canvasLocation" x="1084" y="376"/>
         </scene>
         <!--Item View Controller-->
         <scene sceneID="bB8-1s-3Wb">
@@ -380,7 +381,26 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1530" y="341"/>
+            <point key="canvasLocation" x="1488" y="449"/>
+        </scene>
+        <!--Edit Item View Controller-->
+        <scene sceneID="ntO-Ro-UUg">
+            <objects>
+                <viewController id="CVY-vb-XMx" customClass="EditItemViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pJt-7a-hTx"/>
+                        <viewControllerLayoutGuide type="bottom" id="fEb-Fg-ofF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mwk-K3-BOR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qBz-C6-9VU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5oV-Md-fmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1886" y="343"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wMH-03-fCN">
