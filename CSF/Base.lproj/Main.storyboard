@@ -434,7 +434,7 @@
                                         <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="glC-mi-LnL">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="glC-mi-LnL">
                                         <rect key="frame" x="84" y="11" width="216" height="35"/>
                                         <color key="tintColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
                                         <color key="textColor" red="0.090196080509999998" green="0.34117648010000001" blue="0.58039218189999997" alpha="1" colorSpace="deviceRGB"/>
@@ -502,6 +502,9 @@
                             <constraint firstItem="78V-VT-81d" firstAttribute="leading" secondItem="mwk-K3-BOR" secondAttribute="leading" id="hdH-FZ-OGF"/>
                             <constraint firstItem="Kjf-t3-hx2" firstAttribute="top" secondItem="78V-VT-81d" secondAttribute="bottom" constant="8" id="vBB-Yb-jlT"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="jMT-AF-YRL" appends="YES" id="cbp-xD-Rqt"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="qBz-C6-9VU"/>
                     <connections>
@@ -509,15 +512,23 @@
                         <outlet property="commentTextView" destination="Iya-sA-kjI" id="RjH-0j-fpx"/>
                         <outlet property="editButton" destination="Kjf-t3-hx2" id="xKS-B7-cdu"/>
                         <outlet property="itemLabel" destination="QVP-M9-dAt" id="srj-XI-j3k"/>
+                        <outlet property="itemTextField" destination="LG7-dF-mof" id="eNC-Jk-VDR"/>
                         <outlet property="notificationLabel" destination="cHl-ge-I5F" id="40j-e2-Wuw"/>
                         <outlet property="priceLabel" destination="5hP-yk-6cv" id="vjI-es-rZB"/>
                         <outlet property="quantityLabel" destination="Boi-5R-LYC" id="mnI-TX-1Qv"/>
+                        <outlet property="quantityTextField" destination="h59-gy-lrM" id="KRX-cD-cxX"/>
                         <outlet property="scrollView" destination="78V-VT-81d" id="cfJ-ID-SVe"/>
                         <outlet property="stockLabel" destination="aCL-hU-Xja" id="Aib-ub-mdh"/>
                         <outlet property="typeLabel" destination="BIS-YC-icY" id="OtM-dD-z2e"/>
+                        <outlet property="typeTextField" destination="glC-mi-LnL" id="dZX-hJ-R9h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5oV-Md-fmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="jMT-AF-YRL">
+                    <connections>
+                        <action selector="handleTapGesture:" destination="CVY-vb-XMx" id="bWC-Bn-hfT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1880" y="376"/>
         </scene>
