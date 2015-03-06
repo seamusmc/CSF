@@ -20,6 +20,7 @@
 #import "ItemViewController.h"
 #import "FarmDataService.h"
 #import "User.h"
+#import "EditItemViewController.h"
 
 static NSString *const kTotalFormatString = @"total ~ %@";
 
@@ -37,8 +38,9 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 
 @property(nonatomic, weak) FBShimmeringView *activityIndicator;
 
-@property(nonatomic, strong) Order    *order;
-@property(nonatomic, strong) NSString *orderDate;
+@property(nonatomic, strong) Order     *order;
+@property(nonatomic, strong) NSString  *orderDate;
+@property(nonatomic, strong) OrderItem *editOrderItem;
 
 @end
 
@@ -79,7 +81,9 @@ static NSString *const kTotalFormatString = @"total ~ %@";
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"EditItemSegue"]) {
-
+        EditItemViewController *viewController = [segue destinationViewController];
+        viewController.orderDate = self.orderDate;
+        viewController.orderItem = self.editOrderItem;
     } else {
         ItemViewController *viewController = [segue destinationViewController];
         viewController.types = self.types;
@@ -142,6 +146,8 @@ const int kDeleteButtonIndex = 1;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     switch (index) {
         case kEditButtonIndex: {
+            NSIndexPath *cellIndexPath = [self.orderItemsTableView indexPathForCell:cell];
+            self.editOrderItem = self.order.items[cellIndexPath.row];
             [self performEditItemSegue];
             break;
         }

@@ -10,6 +10,11 @@
 #import "EditItemViewController.h"
 #import "ThemeManager.h"
 #import "ActivityIndicator.h"
+#import "Item.h"
+#import "OrderItem.h"
+
+static const int kKeyboardHeight = 216;
+static const int kKeyboardHeightWithAccessory = 260;
 
 static const int kCommentMaxLength   = 128;
 
@@ -61,6 +66,30 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 
     self.scrollView.scrollEnabled = NO;
     self.scrollView.bounds = self.scrollView.frame; // Not sure why this is not required in ItemViewController's ScrollView
+
+    if (self.orderItem) {
+        self.typeTextField.text     = self.orderItem.type;
+        self.itemTextField.text     = self.orderItem.name;
+        self.quantityTextField.text = [self.orderItem.quantity stringValue];
+        self.commentTextView.text   = self.orderItem.comment;
+        self.priceLabel.text        = [NSString stringWithFormat:kPriceLabelFormatString, self.orderItem.formattedPrice];
+
+        if ([self.orderItem.quantity integerValue] > 0) {
+            self.editButton.enabled = YES;
+        }
+
+        NSString *inStock          = @"yes";
+        UIColor  *inStockFontColor = [ThemeManager sharedInstance].successFontColor;
+
+        NSString      *string = [NSString stringWithFormat:kInStockLabelFormatString, inStock];
+        unsigned long length  = [kInStockLabelFormatString length] - 2;
+        NSRange       range   = NSMakeRange(length, [string length] - length);
+
+        NSMutableAttributedString *stockString = [[NSMutableAttributedString alloc] initWithString:string];
+        [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
+
+        self.stockLabel.attributedText = stockString;
+    }
 }
 
 - (void)viewDidLayoutSubviews {

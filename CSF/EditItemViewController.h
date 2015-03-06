@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-static const int kKeyboardHeight = 216;
-static const int kKeyboardHeightWithAccessory = 260;
+@class OrderItem;
 
 @interface EditItemViewController : BaseViewController
+
+@property(nonatomic, strong) NSString *orderDate;
+@property(nonatomic, strong) OrderItem *orderItem;
 
 @end
