@@ -9,6 +9,13 @@
 #import <Shimmer/FBShimmeringView.h>
 #import "EditItemViewController.h"
 #import "ThemeManager.h"
+#import "ActivityIndicator.h"
+
+static const int kCommentMaxLength   = 128;
+
+static NSString *const kPriceLabelFormatString   = @"price %@";
+static NSString *const kInStockLabelFormatString = @"in stock? %@";
+static NSString *const kSuccessfullyAddedMessage = @"success";
 
 @interface EditItemViewController () <UITextFieldDelegate, UITextViewDelegate>
 
@@ -33,9 +40,13 @@
 @property(nonatomic, weak) IBOutlet UIButton   *editButton;
 @property(nonatomic, weak) FBShimmeringView    *activityIndicator;
 
+@property(nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
+
 @end
 
-@implementation EditItemViewController
+@implementation EditItemViewController {
+    NSDateFormatter *_dateFormatter;
+}
 
 #pragma mark - Lifecycle
 
@@ -56,6 +67,38 @@
     self.scrollView.contentSize = CGSizeMake(320, self.view.frame.size.height * 2);  // Basically two pages tall.
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
+    [self configureNotificationLabel];
+    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self registerForKeyboardNotifications];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [super viewDidDisappear:animated];
+}
+
+#pragma mark - Notifications
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)notification {
+    [self scrollViewDown];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -66,11 +109,127 @@
 }
 */
 
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+
+    NSUInteger newLength = (textView.text.length - range.length) + text.length;
+    return newLength <= kCommentMaxLength;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    CGFloat keyboardHeight;
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1){
+        keyboardHeight = kKeyboardHeightWithAccessory;
+    } else {
+        keyboardHeight = kKeyboardHeight;
+    }
+
+    [self scrollViewUp:keyboardHeight];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    self.commentTextView.text = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [self scrollViewDown];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self scrollViewDown];
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField*)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([textField isEqual:self.quantityTextField]) {
+        NSString *newString  = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSString *expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
+
+        // Would love to use the Fractions field on item to allow or disallow decimal values, but it
+        // doesn't seem to be used. Have to default to allowing fractions, the item will be 'truncated'
+        // if its not supposed to have a fractional count. Could be due to test data not being populated
+        // correctly.
+
+        // Fractions flag is not populated!
+//        if (self.currentItem.fractions == YES)
+//            expression = @"^([0-9]+)?(\\.([0-9]{1,2})?)?$";
+//        else
+//            expression = @"^([0-9]+)?$";
+
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:expression
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:nil];
+
+        NSUInteger numberOfMatches = [regex numberOfMatchesInString:newString
+                                                            options:0
+                                                              range:NSMakeRange(0, [newString length])];
+        double number = [newString doubleValue];
+        if (number <= 0 && ([newString length] != 0)) {
+            self.quantityTextField.textColor = [ThemeManager sharedInstance].errorFontColor;
+            self.quantityLabel.textColor     = [ThemeManager sharedInstance].errorFontColor;
+        } else {
+            self.quantityTextField.textColor = [ThemeManager sharedInstance].normalFontColor;
+            self.quantityLabel.textColor     = [ThemeManager sharedInstance].normalFontColor;
+        }
+
+        double value;
+        if (numberOfMatches == 0) {
+            value = [self.quantityTextField.text doubleValue];
+            [self enableOrDisableEditButtonBasedOnValue:value];
+
+            return NO;
+        } else {
+            value = [newString doubleValue];
+            [self enableOrDisableEditButtonBasedOnValue:value];
+
+            return YES;
+        }
+    }
+
+    return YES;
+}
+
+- (void)enableOrDisableEditButtonBasedOnValue:(double)value {
+    if (value > 0) {
+        self.editButton.enabled = YES;
+    } else {
+        self.editButton.enabled = NO;
+    }
+}
+
 #pragma mark - Gesture Handling
 
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
     [self resetNotificationState];
+}
+
+#pragma mark - Property Overrides
+
+- (FBShimmeringView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [[ActivityIndicator sharedInstance] createActivityIndicator:self.view];
+    }
+
+    return _activityIndicator;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    }
+
+    return _dateFormatter;
 }
 
 #pragma mark - Private Methods
@@ -149,10 +308,90 @@
     self.commentTextView.returnKeyType      = UIReturnKeyDone;
 }
 
+- (void)configureNotificationLabel {
+    CGFloat commentBottomY = self.commentTextView.frame.origin.y + self.commentTextView.frame.size.height;
+
+    CGFloat notificationMidY = self.notificationLabel.frame.size.height / 2.0f;
+    CGFloat midY = commentBottomY + (((self.scrollView.frame.size.height - commentBottomY) / 2.0f) - notificationMidY) + 4.0f;
+
+    CGRect frame = CGRectMake(self.notificationLabel.frame.origin.x, midY, self.notificationLabel.frame.size.width, self.notificationLabel.frame.size.height);
+    self.notificationLabel.frame = frame;
+}
+
+- (void)configureNotificationLabelForSuccess:(NSString *)message {
+    self.notificationLabel.font      = [ThemeManager sharedInstance].successFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].successFontColor;
+    self.notificationLabel.hidden    = YES;
+
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
+}
+
+- (void)configureNotificationLabelForError:(NSString *)message {
+    self.notificationLabel.font      = [ThemeManager sharedInstance].errorFont;
+    self.notificationLabel.textColor = [ThemeManager sharedInstance].errorFontColor;
+    self.notificationLabel.hidden    = YES;
+
+    self.notificationLabel.text = [message lowercaseString];
+    [self.notificationLabel sizeToFit];
+}
+
 - (void)resetNotificationState {
     if (self.notificationLabel.hidden == NO) {
         [self slideLabelToRightAndHide:self.notificationLabel];
     }
+}
+
+- (void)displayErrorMessage:(NSString *)message {
+    [self configureNotificationLabelForError:message];
+    [self displayNotificationMessage];
+}
+
+- (void)displaySuccessMessage {
+    [self configureNotificationLabelForSuccess:kSuccessfullyAddedMessage];
+    [self displayNotificationMessage];
+}
+
+- (void)displayNotificationMessage {
+    [UIView animateWithDuration:0.4f
+                     animations:^{
+                         if (self.notificationLabel.hidden == NO) {
+                             [self slideLabelToRightAndHide:self.notificationLabel];
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         if (self.notificationLabel.hidden == NO) {
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                 [self slideLabelFromRight:self.notificationLabel];
+                             });
+                         } else {
+                             [self slideLabelFromRight:self.notificationLabel];
+                         }
+                     }];
+}
+
+- (void)slideLabelFromRight:(UILabel *)label {
+    // Make sure initial position is correct:
+    label.hidden = YES;
+    label.frame  = CGRectMake(-label.frame.size.width,
+                              label.frame.origin.y,
+                              label.frame.size.width,
+                              label.frame.size.height);
+
+    label.hidden = NO;
+    [UIView animateWithDuration:[ThemeManager sharedInstance].notificationDuration
+                          delay:[ThemeManager sharedInstance].notificationDelay
+         usingSpringWithDamping:[ThemeManager sharedInstance].notificationDamping
+          initialSpringVelocity:[ThemeManager sharedInstance].notificationInitialVelocity
+                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         CGFloat x = (label.superview.frame.size.width / 2) - (label.frame.size.width / 2);
+                         CGFloat y = label.frame.origin.y;
+
+                         CGRect rect = CGRectMake(x, y, label.frame.size.width, label.frame.size.height);
+                         label.frame = rect;
+                     }
+                     completion:nil];
 }
 
 - (void)slideLabelToRightAndHide:(UILabel *)label {
@@ -166,6 +405,39 @@
                      completion:^(BOOL finished) {
                          label.hidden = YES;
                      }];
+}
+
+- (UIView *)findFirstResponderInScrollView {
+    for (UIView *view in self.scrollView.subviews) {
+        if (view.isFirstResponder) {
+            return view;
+        }
+    }
+
+    return nil;
+}
+
+- (void)scrollViewUp:(CGFloat)height {
+    UIView *firstResponder = [self findFirstResponderInScrollView];
+    if (![firstResponder isEqual:self.commentTextView]) {
+        return;
+    }
+
+    self.scrollView.scrollEnabled = YES;
+
+    CGPoint point;
+    if (self.view.frame.size.height == 480) {
+        point = CGPointMake(0, height / 1.3f);
+    } else {
+        point = CGPointMake(0, height / 2.35f);
+    }
+
+    [self.scrollView setContentOffset:point animated:YES];
+}
+
+- (void)scrollViewDown {
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    self.scrollView.scrollEnabled = NO;
 }
 
 @end

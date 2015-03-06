@@ -390,6 +390,7 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 }
 
 #pragma mark - Private Methods
+
 - (void)displayErrorMessage:(NSString *)message {
     [self configureNotificationLabelForError:message];
     [self displayNotificationMessage];
