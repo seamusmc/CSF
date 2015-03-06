@@ -8,8 +8,7 @@
 
 @interface OrderItem : Item
 
-@property(nonatomic, strong) NSDecimalNumber           *quantity;
-@property(nonatomic, strong, readonly) NSDecimalNumber *subtotal;      // qty * price.
+@property(nonatomic, strong) NSDecimalNumber *quantity;
 
 @property(nonatomic, copy) NSString *comment;
 
