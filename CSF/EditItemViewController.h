@@ -11,9 +11,18 @@
 
 @class OrderItem;
 
+@protocol EditItemViewControllerDelegate <NSObject>
+
+@optional
+- (void) itemEdited;
+
+@end
+
 @interface EditItemViewController : BaseViewController
 
 @property(nonatomic, strong) NSString *orderDate;
 @property(nonatomic, strong) OrderItem *orderItem;
+
+@property(nonatomic, weak) id <EditItemViewControllerDelegate> delegate;
 
 @end

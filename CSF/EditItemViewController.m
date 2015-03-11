@@ -18,6 +18,7 @@
 #import "User.h"
 #import "FarmDataService.h"
 #import "InventoryItem.h"
+#import "OrderDataService.h"
 
 static const int kKeyboardHeight = 216;
 static const int kKeyboardHeightWithAccessory = 260;
@@ -28,7 +29,7 @@ static NSString *const kPriceLabelFormatString   = @"price %@";
 static NSString *const kInStockLabelFormatString = @"in stock? %@";
 static NSString *const kSuccessfullyAddedMessage = @"success";
 
-@interface EditItemViewController () <UITextFieldDelegate, UITextViewDelegate>
+@interface EditItemViewController () <UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, copy) NSArray *labels;
 @property(nonatomic, copy) NSArray *fields;
@@ -53,6 +54,8 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 
 @property(nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
 
+@property(nonatomic, assign) BOOL editedItem;
+
 @end
 
 @implementation EditItemViewController {
@@ -60,6 +63,16 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 #pragma mark - Lifecycle
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+
+    if (self.delegate != nil) {
+        if (self.editedItem == YES) {
+            [self.delegate itemEdited];
+        }
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -267,6 +280,47 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
     }
 
     return _dateFormatter;
+}
+
+#pragma mark - Actions
+
+- (IBAction)editButtonHandler {
+    [self.activityIndicator start];
+    [self disableControls];
+
+    OrderItem *orderItem = [[OrderItem alloc] initWithName:self.itemTextField.text
+                                                      type:self.typeTextField.text
+                                                     price:[NSDecimalNumber decimalNumberWithString:self.priceLabel.text]
+                                                  quantity:[NSDecimalNumber decimalNumberWithString:self.quantityTextField.text]
+                                                   comment:self.commentTextView.text];
+
+    NSDate *date = [self.dateFormatter dateFromString:self.orderDate];
+
+    __typeof(self) __weak weakSelf = self;
+    [[OrderDataService sharedInstance] addItem:orderItem
+                                          user:[UserServices sharedInstance].currentUser
+                                          date:date
+                                  successBlock:^{
+                                      // Not necessary to stop the activity indicator, call to refresh order will do it for us.
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [weakSelf.activityIndicator stop];
+                                          [weakSelf displaySuccessMessage];
+
+                                          weakSelf.editedItem = YES;
+
+                                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                              [weakSelf slideLabelToRightAndHide:weakSelf.notificationLabel];
+                                              [weakSelf enableControls];
+                                          });
+                                      });
+                                  }
+                                  failureBlock:^(NSString *message) {
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [weakSelf enableControls];
+                                          [weakSelf.activityIndicator stop];
+                                          [weakSelf displayErrorMessage:message];
+                                      });
+                                  }];
 }
 
 #pragma mark - Private Methods

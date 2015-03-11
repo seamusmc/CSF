@@ -24,7 +24,7 @@
 
 static NSString *const kTotalFormatString = @"total ~ %@";
 
-@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate, ItemViewControllerDelegate>
+@interface OrderViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SWTableViewCellDelegate, ItemViewControllerDelegate, EditItemViewControllerDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *dateField;
 @property(nonatomic, weak) IBOutlet UITableView *orderItemsTableView;
@@ -84,6 +84,7 @@ static NSString *const kTotalFormatString = @"total ~ %@";
         EditItemViewController *viewController = [segue destinationViewController];
         viewController.orderDate = self.orderDate;
         viewController.orderItem = self.editOrderItem;
+        viewController.delegate = self;
     } else {
         ItemViewController *viewController = [segue destinationViewController];
         viewController.types = self.types;
@@ -244,6 +245,12 @@ const int kDeleteButtonIndex = 1;
 #pragma mark - ItemViewControllerDelegate
 
 - (void)itemAdded {
+    [self refreshOrderWithCurrentlySelectedDate];
+}
+
+#pragma mark - EditItemViewControllerDelegate
+
+- (void)itemEdited {
     [self refreshOrderWithCurrentlySelectedDate];
 }
 
