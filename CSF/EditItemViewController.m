@@ -7,11 +7,17 @@
 //
 
 #import <Shimmer/FBShimmeringView.h>
+#import <CocoaLumberjack/DDLogMacros.h>
 #import "EditItemViewController.h"
 #import "ThemeManager.h"
 #import "ActivityIndicator.h"
 #import "Item.h"
 #import "OrderItem.h"
+#import "FBShimmeringView+Extended.h"
+#import "UserServices.h"
+#import "User.h"
+#import "FarmDataService.h"
+#import "InventoryItem.h"
 
 static const int kKeyboardHeight = 216;
 static const int kKeyboardHeightWithAccessory = 260;
@@ -89,6 +95,8 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
         [stockString addAttribute:NSForegroundColorAttributeName value:inStockFontColor range:range];
 
         self.stockLabel.attributedText = stockString;
+
+        [self getPriceForOrderItem:self.orderItem];
     }
 }
 
@@ -262,6 +270,69 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
 }
 
 #pragma mark - Private Methods
+
+- (void)disableControls {
+    self.editButton.enabled        = NO;
+    self.quantityTextField.enabled = NO;
+
+    self.commentTextView.userInteractionEnabled = NO;
+}
+
+- (void)enableControls {
+    double value = [self.quantityTextField.text doubleValue];
+    if (value > 0) {
+        self.editButton.enabled = YES;
+    } else {
+        self.editButton.enabled = NO;
+    }
+
+    self.quantityTextField.enabled = YES;
+
+    self.commentTextView.userInteractionEnabled = YES;
+}
+
+- (void)getPriceForOrderItem:(OrderItem *)item {
+    [self.activityIndicator start];
+    [self disableControls];
+
+    __typeof(self) __weak weakSelf = self;
+    [[FarmDataService sharedInstance] getItemsForFarm:[UserServices sharedInstance].currentUser.farm
+                                                 type:item.type
+                                         successBlock:^(NSArray *items) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [weakSelf enableControls];
+                                                 [weakSelf.activityIndicator stop];
+
+                                                 for (InventoryItem *inventoryItem in items) {
+                                                     if ([inventoryItem.name isEqualToString:item.name]) {
+                                                         weakSelf.priceLabel.text = [NSString stringWithFormat:kPriceLabelFormatString, inventoryItem.formattedPrice];
+                                                         break;
+                                                     }
+                                                 }
+
+                                                 UIPickerView *picker = (UIPickerView *) self.itemTextField.inputView;
+                                                 [picker reloadComponent:0];
+                                             });
+                                         }
+                                         failureBlock:^(NSString *message) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [weakSelf.activityIndicator stop];
+                                                 DDLogError(@"ERROR: %s Problem getting items.", __PRETTY_FUNCTION__);
+
+                                                 [weakSelf enableControls];
+
+                                                 UIColor  *priceFontColor = [ThemeManager sharedInstance].errorFontColor;
+                                                 NSString *priceString    = [NSString stringWithFormat:kPriceLabelFormatString, @"n/a"];
+                                                 unsigned long length = [kPriceLabelFormatString length] - 2;
+                                                 NSRange range = NSMakeRange(length, [priceString length] - length);
+
+                                                 NSMutableAttributedString *attribPriceString = [[NSMutableAttributedString alloc] initWithString:priceString];
+                                                 [attribPriceString addAttribute:NSForegroundColorAttributeName value:priceFontColor range:range];
+
+                                                 weakSelf.priceLabel.attributedText = attribPriceString;
+                                             });
+                                         }];
+}
 
 - (void)configureLabels {
     self.labels = @[self.typeLabel, self.itemLabel, self.priceLabel, self.stockLabel, self.quantityLabel, self.commentLabel];
