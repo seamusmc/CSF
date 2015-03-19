@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1A91A4E18D39602008395EE"
-               BuildableName = "CSF.app"
-               BlueprintName = "CSF"
-               ReferencedContainer = "container:CSF.xcodeproj">
+               BuildableName = "CSF-Order.app"
+               BlueprintName = "CSF-Order"
+               ReferencedContainer = "container:CSF-Order.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1A91A6F18D39602008395EE"
-               BuildableName = "CSFTests.xctest"
-               BlueprintName = "CSFTests"
-               ReferencedContainer = "container:CSF.xcodeproj">
+               BuildableName = "CSF-OrderTests.xctest"
+               BlueprintName = "CSF-OrderTests"
+               ReferencedContainer = "container:CSF-Order.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1A91A4E18D39602008395EE"
-            BuildableName = "CSF.app"
-            BlueprintName = "CSF"
-            ReferencedContainer = "container:CSF.xcodeproj">
+            BuildableName = "CSF-Order.app"
+            BlueprintName = "CSF-Order"
+            ReferencedContainer = "container:CSF-Order.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -58,13 +58,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1A91A4E18D39602008395EE"
-            BuildableName = "CSF.app"
-            BlueprintName = "CSF"
-            ReferencedContainer = "container:CSF.xcodeproj">
+            BuildableName = "CSF-Order.app"
+            BlueprintName = "CSF-Order"
+            ReferencedContainer = "container:CSF-Order.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -83,13 +84,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1A91A4E18D39602008395EE"
-            BuildableName = "CSF.app"
-            BlueprintName = "CSF"
-            ReferencedContainer = "container:CSF.xcodeproj">
+            BuildableName = "CSF-Order.app"
+            BlueprintName = "CSF-Order"
+            ReferencedContainer = "container:CSF-Order.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

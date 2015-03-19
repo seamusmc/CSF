@@ -161,23 +161,23 @@
 		F166ECA4196B1325009AF9C4 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		F19EAC4019A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NSDictionary_Extended.h"; sourceTree = "<group>"; };
 		F19EAC4119A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NSDictionary_Extended.m"; sourceTree = "<group>"; };
-		F1A91A4F18D39602008395EE /* CSF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A91A4F18D39602008395EE /* CSF-Order.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CSF-Order.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A5218D39602008395EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1A91A5418D39602008395EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F1A91A5618D39602008395EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		F1A91A5A18D39602008395EE /* CSF-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSF-Info.plist"; sourceTree = "<group>"; };
+		F1A91A5A18D39602008395EE /* CSF-Order-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSF-Order-Info.plist"; sourceTree = "<group>"; };
 		F1A91A5C18D39602008395EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F1A91A5E18D39602008395EE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F1A91A6018D39602008395EE /* CSF-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CSF-Prefix.pch"; sourceTree = "<group>"; };
+		F1A91A6018D39602008395EE /* CSF-Order-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CSF-Order-Prefix.pch"; sourceTree = "<group>"; };
 		F1A91A6118D39602008395EE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F1A91A6218D39602008395EE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F1A91A6518D39602008395EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1A91A6718D39602008395EE /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		F1A91A6818D39602008395EE /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		F1A91A6A18D39602008395EE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F1A91A7018D39602008395EE /* CSFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A91A7018D39602008395EE /* CSF-OrderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CSF-OrderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A91A7118D39602008395EE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		F1A91A7918D39602008395EE /* CSFTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSFTests-Info.plist"; sourceTree = "<group>"; };
+		F1A91A7918D39602008395EE /* CSF-OrderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CSF-OrderTests-Info.plist"; sourceTree = "<group>"; };
 		F1A91A7B18D39602008395EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F1A91A7D18D39602008395EE /* FarmDataServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FarmDataServiceTests.m; sourceTree = "<group>"; };
 		F1CA1A131AA6148F006740E4 /* EditItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditItemViewController.h; sourceTree = "<group>"; };
@@ -342,8 +342,8 @@
 		F1A91A5018D39602008395EE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1A91A4F18D39602008395EE /* CSF.app */,
-				F1A91A7018D39602008395EE /* CSFTests.xctest */,
+				F1A91A4F18D39602008395EE /* CSF-Order.app */,
+				F1A91A7018D39602008395EE /* CSF-OrderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -396,10 +396,10 @@
 			isa = PBXGroup;
 			children = (
 				F1A91A6A18D39602008395EE /* Images.xcassets */,
-				F1A91A5A18D39602008395EE /* CSF-Info.plist */,
+				F1A91A5A18D39602008395EE /* CSF-Order-Info.plist */,
 				F1A91A5B18D39602008395EE /* InfoPlist.strings */,
 				F1A91A5E18D39602008395EE /* main.m */,
-				F1A91A6018D39602008395EE /* CSF-Prefix.pch */,
+				F1A91A6018D39602008395EE /* CSF-Order-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -421,7 +421,7 @@
 		F1A91A7818D39602008395EE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F1A91A7918D39602008395EE /* CSFTests-Info.plist */,
+				F1A91A7918D39602008395EE /* CSF-OrderTests-Info.plist */,
 				F1A91A7A18D39602008395EE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -430,9 +430,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F1A91A4E18D39602008395EE /* CSF */ = {
+		F1A91A4E18D39602008395EE /* CSF-Order */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1A91A8118D39602008395EE /* Build configuration list for PBXNativeTarget "CSF" */;
+			buildConfigurationList = F1A91A8118D39602008395EE /* Build configuration list for PBXNativeTarget "CSF-Order" */;
 			buildPhases = (
 				011F5DCD406947578D38D41C /* Check Pods Manifest.lock */,
 				F1A91A4B18D39602008395EE /* Sources */,
@@ -444,14 +444,14 @@
 			);
 			dependencies = (
 			);
-			name = CSF;
+			name = "CSF-Order";
 			productName = CSF;
-			productReference = F1A91A4F18D39602008395EE /* CSF.app */;
+			productReference = F1A91A4F18D39602008395EE /* CSF-Order.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F1A91A6F18D39602008395EE /* CSFTests */ = {
+		F1A91A6F18D39602008395EE /* CSF-OrderTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1A91A8418D39602008395EE /* Build configuration list for PBXNativeTarget "CSFTests" */;
+			buildConfigurationList = F1A91A8418D39602008395EE /* Build configuration list for PBXNativeTarget "CSF-OrderTests" */;
 			buildPhases = (
 				94A8FD9A033040DC85E5F0FD /* Check Pods Manifest.lock */,
 				F1A91A6C18D39602008395EE /* Sources */,
@@ -464,9 +464,9 @@
 			dependencies = (
 				F1A91A7618D39602008395EE /* PBXTargetDependency */,
 			);
-			name = CSFTests;
+			name = "CSF-OrderTests";
 			productName = CSFTests;
-			productReference = F1A91A7018D39602008395EE /* CSFTests.xctest */;
+			productReference = F1A91A7018D39602008395EE /* CSF-OrderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -491,7 +491,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F1A91A4A18D39602008395EE /* Build configuration list for PBXProject "CSF" */;
+			buildConfigurationList = F1A91A4A18D39602008395EE /* Build configuration list for PBXProject "CSF-Order" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -504,8 +504,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1A91A4E18D39602008395EE /* CSF */,
-				F1A91A6F18D39602008395EE /* CSFTests */,
+				F1A91A4E18D39602008395EE /* CSF-Order */,
+				F1A91A6F18D39602008395EE /* CSF-OrderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -657,7 +657,7 @@
 /* Begin PBXTargetDependency section */
 		F1A91A7618D39602008395EE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F1A91A4E18D39602008395EE /* CSF */;
+			target = F1A91A4E18D39602008395EE /* CSF-Order */;
 			targetProxy = F1A91A7518D39602008395EE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -769,10 +769,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
-				INFOPLIST_FILE = "CSF/CSF-Info.plist";
+				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
+				INFOPLIST_FILE = "CSF/CSF-Order-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CSF-Order";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -789,10 +789,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
-				INFOPLIST_FILE = "CSF/CSF-Info.plist";
+				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
+				INFOPLIST_FILE = "CSF/CSF-Order-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "CSF-Order";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -816,8 +816,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CSFTests/CSFTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
@@ -836,8 +836,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
-				INFOPLIST_FILE = "CSFTests/CSFTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
@@ -847,7 +847,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F1A91A4A18D39602008395EE /* Build configuration list for PBXProject "CSF" */ = {
+		F1A91A4A18D39602008395EE /* Build configuration list for PBXProject "CSF-Order" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1A91A7F18D39602008395EE /* Debug */,
@@ -856,7 +856,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1A91A8118D39602008395EE /* Build configuration list for PBXNativeTarget "CSF" */ = {
+		F1A91A8118D39602008395EE /* Build configuration list for PBXNativeTarget "CSF-Order" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1A91A8218D39602008395EE /* Debug */,
@@ -865,7 +865,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1A91A8418D39602008395EE /* Build configuration list for PBXNativeTarget "CSFTests" */ = {
+		F1A91A8418D39602008395EE /* Build configuration list for PBXNativeTarget "CSF-OrderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1A91A8518D39602008395EE /* Debug */,
