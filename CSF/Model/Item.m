@@ -23,7 +23,7 @@
 - (NSNumberFormatter *)currencyFormatter {
     if (_currencyFormatter == nil) {
         _currencyFormatter = [[NSNumberFormatter alloc] init];
-        _currencyFormatter.NumberStyle  = NSNumberFormatterCurrencyStyle;
+        _currencyFormatter.numberStyle  = NSNumberFormatterCurrencyStyle;
         _currencyFormatter.currencyCode = @"USD";
     }
 

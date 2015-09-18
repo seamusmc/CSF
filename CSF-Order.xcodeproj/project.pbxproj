@@ -475,7 +475,7 @@
 		F1A91A4718D39602008395EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Seamus McGowan";
 				TargetAttributes = {
 					F1A91A4E18D39602008395EE = {
@@ -708,6 +708,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -772,6 +773,7 @@
 				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				INFOPLIST_FILE = "CSF/CSF-Order-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-Order";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -792,6 +794,7 @@
 				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				INFOPLIST_FILE = "CSF/CSF-Order-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-Order";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -817,6 +820,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
@@ -837,6 +841,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
