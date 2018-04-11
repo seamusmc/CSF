@@ -12,6 +12,8 @@
 #import "_FBTweakCategoryViewController.h"
 #import "_FBTweakCollectionViewController.h"
 
+NSString *const FBTweakShakeViewControllerDidDismissNotification = @"FBTweakShakeViewControllerDidDismissNotification";
+
 @interface FBTweakViewController () <_FBTweakCategoryViewControllerDelegate, _FBTweakCollectionViewControllerDelegate>
 @end
 
@@ -21,14 +23,26 @@
 
 - (instancetype)initWithStore:(FBTweakStore *)store
 {
+    return [self initWithStore:store category:nil];
+}
+
+- (instancetype)initWithStore:(FBTweakStore *)store category:(NSString *)categoryName
+{
   if ((self = [super init])) {
     _store = store;
-    
+
     _FBTweakCategoryViewController *categoryViewController = [[_FBTweakCategoryViewController alloc] initWithStore:store];
     categoryViewController.delegate = self;
     [self pushViewController:categoryViewController animated:NO];
+
+    FBTweakCategory *category = nil;
+    if (categoryName && (category = [store tweakCategoryWithName:categoryName])) {
+      _FBTweakCollectionViewController *collectionViewController = [[_FBTweakCollectionViewController alloc] initWithTweakCategory:category];
+      collectionViewController.delegate = self;
+      [self pushViewController:collectionViewController animated:NO];
+    }
   }
-  
+
   return self;
 }
 

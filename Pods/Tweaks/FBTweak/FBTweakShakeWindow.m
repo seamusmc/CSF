@@ -7,19 +7,66 @@
  of patent rights can be found in the PATENTS file in the same directory.
  */
 
+#import "FBTweakEnabled.h"
 #import "FBTweakStore.h"
 #import "FBTweakShakeWindow.h"
 #import "FBTweakViewController.h"
+#import "_FBKeyboardManager.h"
 
 // Minimum shake time required to present tweaks on device.
 static CFTimeInterval _FBTweakShakeWindowMinTimeInterval = 0.4;
 
 @implementation FBTweakShakeWindow {
   BOOL _shaking;
+  BOOL _active;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+  if ((self = [super initWithFrame:frame])) {
+    _FBTweakShakeWindowCommonInit(self);
+  }
+
+  return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+  if ((self = [super initWithCoder:coder])) {
+    _FBTweakShakeWindowCommonInit(self);
+  }
+  return self;
+}
+
+static void _FBTweakShakeWindowCommonInit(FBTweakShakeWindow *self)
+{
+  // Maintain this state manually using notifications so Tweaks can be used in app extensions, where UIApplication is unavailable.
+  self->_active = YES;
+  self->_shakeEnabled = YES;
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)_applicationWillResignActiveWithNotification:(NSNotification *)notification
+{
+  _active = NO;
+}
+
+- (void)_applicationDidBecomeActiveWithNotification:(NSNotification *)notification
+{
+  _active = YES;
 }
 
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController
 {
+  [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
+  [tweakViewController.view endEditing:YES];
   [tweakViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -41,10 +88,12 @@ static CFTimeInterval _FBTweakShakeWindowMinTimeInterval = 0.4;
 
 - (BOOL)_shouldPresentTweaks
 {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR && FB_TWEAK_ENABLED
   return YES;
+#elif FB_TWEAK_ENABLED
+  return _shakeEnabled && _shaking && _active;
 #else
-  return _shaking && [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+  return NO;
 #endif
 }
 

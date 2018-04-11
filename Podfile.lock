@@ -1,56 +1,59 @@
 PODS:
-  - AFNetworking (2.3.1):
-    - AFNetworking/NSURLConnection
+  - AFNetworking (3.2.0):
+    - AFNetworking/NSURLSession (= 3.2.0)
+    - AFNetworking/Reachability (= 3.2.0)
+    - AFNetworking/Security (= 3.2.0)
+    - AFNetworking/Serialization (= 3.2.0)
+    - AFNetworking/UIKit (= 3.2.0)
+  - AFNetworking/NSURLSession (3.2.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.0)
+  - AFNetworking/Security (3.2.0)
+  - AFNetworking/Serialization (3.2.0)
+  - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.3.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.3.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.3.1)
-  - AFNetworking/Security (2.3.1)
-  - AFNetworking/Serialization (2.3.1)
-  - AFNetworking/UIKit (2.3.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-  - CocoaLumberjack (2.0.0-beta):
-    - CocoaLumberjack/CLI
-    - CocoaLumberjack/Core
-    - CocoaLumberjack/Extensions
-  - CocoaLumberjack/CLI (2.0.0-beta):
-    - CocoaLumberjack/Core
-  - CocoaLumberjack/Core (2.0.0-beta)
-  - CocoaLumberjack/Extensions (2.0.0-beta):
-    - CocoaLumberjack/Core
-  - Expecta (0.3.1)
-  - FXKeychain (1.5.1)
-  - GoogleAnalytics-iOS-SDK (3.0.9)
-  - Shimmer (1.0.1)
-  - Tweaks (1.1.0)
+  - CocoaLumberjack (3.4.1):
+    - CocoaLumberjack/Default (= 3.4.1)
+    - CocoaLumberjack/Extensions (= 3.4.1)
+  - CocoaLumberjack/Default (3.4.1)
+  - CocoaLumberjack/Extensions (3.4.1):
+    - CocoaLumberjack/Default
+  - Expecta (1.0.6)
+  - FXKeychain (1.5.3)
+  - GoogleAnalytics (3.17.0)
+  - Shimmer (1.0.2)
+  - Tweaks (2.2.0)
 
 DEPENDENCIES:
-  - AFNetworking
-  - CocoaLumberjack
-  - Expecta
-  - FXKeychain
-  - GoogleAnalytics-iOS-SDK
-  - Shimmer
-  - Tweaks
+  - AFNetworking (~> 3.2)
+  - CocoaLumberjack (~> 3.4)
+  - Expecta (~> 1.0)
+  - FXKeychain (~> 1.5)
+  - GoogleAnalytics (~> 3.17)
+  - Shimmer (~> 1.0)
+  - Tweaks (~> 2.2)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - CocoaLumberjack
+    - Expecta
+    - FXKeychain
+    - GoogleAnalytics
+    - Shimmer
+    - Tweaks
 
 SPEC CHECKSUMS:
-  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
-  CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
-  Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
-  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
-  Shimmer: 35aa2a57b8fbc17f9e16706021665966fd93dbd1
-  Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
+  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
+  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
+  FXKeychain: 2fe54573946ffef634f4e2a2851e6c8f4ea15e76
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
+  Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
 
-COCOAPODS: 0.33.1
+PODFILE CHECKSUM: 396b935f0ba3cb6a22cc7e8d7b4e3ec63c9b0c35
+
+COCOAPODS: 1.5.0

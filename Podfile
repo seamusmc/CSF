@@ -1,12 +1,15 @@
-target :CSF do
-  pod 'FXKeychain'
-  pod 'AFNetworking'
-  pod 'Tweaks'
-  pod 'CocoaLumberjack'
-  pod 'GoogleAnalytics-iOS-SDK'
-  pod 'Shimmer'
-end
+platform :ios, '9.0'
 
-target :CSFTests do
-  pod 'Expecta'
+target 'CSF-Order' do
+    pod 'FXKeychain', '~> 1.5'
+    pod 'AFNetworking', '~> 3.2'
+    pod 'Tweaks', '~> 2.2'
+    pod 'CocoaLumberjack', '~> 3.4'
+    pod 'GoogleAnalytics', '~> 3.17'
+    pod 'Shimmer', '~> 1.0'
+
+  target 'CSF-OrderTests' do
+    inherit! :search_paths
+    pod 'Expecta', '~> 1.0'
+  end
 end

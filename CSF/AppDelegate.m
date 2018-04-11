@@ -53,7 +53,7 @@
     [UINavigationBar appearance].titleTextAttributes = textAttributes;
     [UINavigationBar appearance].barStyle            = UIBarStyleBlack;
 
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]]
                       setTitleTextAttributes:@{NSForegroundColorAttributeName : [ThemeManager sharedInstance].normalFontColor,
                                                NSShadowAttributeName          : shadow,
                                                NSFontAttributeName            : [ThemeManager sharedInstance].normalFont
