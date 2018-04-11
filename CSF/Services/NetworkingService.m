@@ -27,7 +27,7 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
 
 - (NSError *)createErrorWithCode:(NSUInteger)code description:(NSString *)description {
     NSError *newError;
-
+    
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey : description};
     newError = [[NSError alloc] initWithDomain:kNetworkingServiceDomain code:code userInfo:userInfo];
     return newError;
@@ -35,37 +35,51 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
 
 - (void)postDataWithURLString:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+    
     uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+    
     DDLogInfo(@"INFO: %s URI is %@", __PRETTY_FUNCTION__, uri);
-
+    
     NSURL *url = [NSURL URLWithString:uri];
-
+    
     NSURLSession *session = [self createSession];
-
+    
     __typeof(self) __weak weakSelf = self;
     NSURLSessionDataTask *task = [session dataTaskWithURL:url
-                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                                                [weakSelf handleResponse:successBlock failureBlock:failureBlock data:data response:response error:error];
-                                            }];
+                                            });
+                                            
+                                            [weakSelf handleResponse:successBlock
+                                                        failureBlock:failureBlock
+                                                                data:data
+                                                            response:response
+                                                               error:error];
+                                        }];
     [task resume];
 }
 
 - (void)getDataWithURI:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+    
     uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:uri];
-
+    
     NSURLSession *session = [self createSession];
-
+    
     __typeof(self) __weak weakSelf = self;
     NSURLSessionDataTask *task = [session dataTaskWithURL:url
                                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                                            [weakSelf handleResponse:successBlock failureBlock:failureBlock data:data response:response error:error];
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                            });
+                                            
+                                            [weakSelf handleResponse:successBlock
+                                                        failureBlock:failureBlock
+                                                                data:data
+                                                            response:response
+                                                               error:error];
                                         }];
     [task resume];
 }
@@ -75,7 +89,7 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
                   data:(NSData *)data
               response:(NSURLResponse *)response
                  error:(NSError *)error {
-
+    
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
     switch (httpResponse.statusCode) {
         case NetworkingServiceCodeSuccess: {
@@ -87,12 +101,12 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
         case NetworkingServiceCodeBadRequest: {
             NSString *description = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             DDLogError(@"ERROR: %s Bad Status: %ld Message: %@", __PRETTY_FUNCTION__, (long) httpResponse.statusCode, description);
-
+            
             [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
                                                                           action:@"getData"
                                                                            label:@"bad request"
                                                                            value:@(httpResponse.statusCode)] build]];
-
+            
             NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeBadRequest
                                                   description:kGenericErrorMessage];
             failureBlock(serviceError);
@@ -100,12 +114,12 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
         }
         case NetworkingServiceCodeServiceUnavailable: {
             DDLogWarn(@"WARN: %s Bad Status: %ld.", __PRETTY_FUNCTION__, (long) httpResponse.statusCode);
-
+            
             [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
                                                                           action:@"getData"
                                                                            label:@"service unavailable"
                                                                            value:@(httpResponse.statusCode)] build]];
-
+            
             NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeServiceUnavailable
                                                   description:@"The service is unavailable"];
             failureBlock(serviceError);
@@ -117,26 +131,26 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
                 switch (error.code) {
                     case NSURLErrorTimedOut: {
                         DDLogError(@"ERROR: %s Timeout: %@.", __PRETTY_FUNCTION__, [error localizedDescription]);
-
+                        
                         [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
                                                                                       action:@"getData"
                                                                                        label:@"timeout"
                                                                                        value:nil] build]];
-
-
+                        
+                        
                         NSError *serviceError = [self createErrorWithCode:NSURLErrorTimedOut description:@"Request timed out"];
                         failureBlock(serviceError);
                         break;
                     }
                     default: {
                         DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
-
+                        
                         NSString *message = [NSString stringWithFormat:@"Error: %@", error];
                         [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
                                                                                       action:@"getData"
                                                                                        label:message
                                                                                        value:nil] build]];
-
+                        
                         NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:kGenericErrorMessage];
                         failureBlock(serviceError);
                         break;
@@ -144,13 +158,13 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
                 }
             } else {
                 DDLogError(@"ERROR: %s Message: %@.", __PRETTY_FUNCTION__, error);
-
+                
                 NSString *message = [NSString stringWithFormat:@"Error: %@", error];
                 [self.gaiTracker send:[[GAIDictionaryBuilder createEventWithCategory:@"network"
                                                                               action:@"getData"
                                                                                label:message
                                                                                value:nil] build]];
-
+                
                 NSError *serviceError = [self createErrorWithCode:NetworkingServiceCodeUnknown description:kGenericErrorMessage];
                 failureBlock(serviceError);
                 break;
@@ -164,7 +178,7 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
     [sessionConfig setHTTPAdditionalHeaders:@{@"Accept" : @"application/json"}];
     sessionConfig.timeoutIntervalForRequest  = kNetworkingServiceTimeout;
     sessionConfig.timeoutIntervalForResource = kNetworkingServiceTimeout;
-
+    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     return session;
 }
@@ -172,11 +186,11 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
 + (id <NetworkingServiceProtocol>)sharedInstance {
     static NetworkingService *sharedInstance = nil;
     static dispatch_once_t   onceToken;
-
+    
     dispatch_once(&onceToken, ^{
         sharedInstance = [[NetworkingService alloc] init];
     });
-
+    
     return sharedInstance;
 }
 
