@@ -329,19 +329,22 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.quantityTextField.text = nil;
     self.commentTextView.text   = nil;
+    NSString *temp = nil;
+    NSString *name = nil;
 
     if (pickerView.tag == kItemsPickerViewTag) {
         if ([self.itemTextField.text isEqualToString:kGetItemsErrorMessage]) {
             return;
         }
-
-        NSString *temp = self.itemTextField.text;
-        if (![temp isEqualToString:(NSString *) self.items[row]]) {
+        
+        temp = self.itemTextField.text;
+        name = ((Item *) self.items[row]).name;
+        if (![temp isEqualToString:name]) {
             [self populateItemFields:self.items[row]];
         }
     } else {
-        NSString *temp = self.typeTextField.text;
-        if (![temp isEqualToString:(NSString *)self.types[row]]) {
+        temp = self.typeTextField.text;
+        if (![temp isEqualToString:(NSString *)self.types[row]]) {          // self.types is an array of strings!
             self.typeTextField.text = (NSString *) self.types[row];
             [self getItemsForType:self.types[row]];
         }
