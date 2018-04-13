@@ -15,7 +15,6 @@
 #import "OrderItem.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
-#import "DatePicker.h"
 #import "ActivityIndicator.h"
 #import "ItemViewController.h"
 #import "FarmDataService.h"
@@ -419,17 +418,24 @@ const int kDeleteButtonIndex = 1;
 }
 
 - (UIDatePicker *)createDateFieldInputView {
-    UIDatePicker *datePicker;
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1){
-        datePicker = [[UIDatePicker alloc] init];
-        datePicker.backgroundColor = [UIColor clearColor];
-    } else {
-        datePicker = [[DatePicker alloc] init];
-    }
-
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    
+    datePicker.backgroundColor = [UIColor clearColor];
     datePicker.datePickerMode = UIDatePickerModeDate;
     datePicker.minimumDate = [NSDate date];
     [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    UIView * pickerView = datePicker.subviews.firstObject;
+    
+    for (UIView *subview in pickerView.subviews) {
+        if (subview.frame.size.height <= 5) {
+            subview.backgroundColor = UIColor.whiteColor;
+            subview.tintColor = UIColor.whiteColor;
+            subview.layer.borderColor = UIColor.whiteColor.CGColor;
+            subview.layer.borderWidth = 0.5;
+        }
+    }
+    
     return datePicker;
 }
 

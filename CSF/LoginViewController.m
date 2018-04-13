@@ -211,9 +211,20 @@ shouldChangeCharactersInRange:(NSRange)range
 
 #pragma mark - UIPickerViewDelegate
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
-
+- (UIView *)pickerView:(UIPickerView *)pickerView
+            viewForRow:(NSInteger)row
+          forComponent:(NSInteger)component
+           reusingView:(UIView *)view {
+    
+    // Customization needs to occur here, TODO: determine why?
+    pickerView.backgroundColor = [UIColor clearColor];
+    
+    UIView *temp = pickerView.subviews[1];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+    
+    temp = pickerView.subviews[2];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
 
     label.textColor     = [ThemeManager sharedInstance].normalFontColor;
@@ -312,7 +323,7 @@ shouldChangeCharactersInRange:(NSRange)range
 
 - (void)configureFarmPicker {
     CGRect     rect        = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
-    PickerView *farmPicker = [[PickerView alloc] initWithTitle:@"select a farm" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
+    UIPickerView *farmPicker = [[UIPickerView alloc] initWithFrame:rect];
 
     farmPicker.delegate                = self;
     farmPicker.dataSource              = self;
