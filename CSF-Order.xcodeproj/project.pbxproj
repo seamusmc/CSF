@@ -12,6 +12,7 @@
 		AD49295A208108AB00A0BDE2 /* FXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD492957208108AB00A0BDE2 /* FXKeychain.m */; };
 		AD49295B208108AB00A0BDE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD492959208108AB00A0BDE2 /* Info.plist */; };
 		AD77EA542081421C008EB16B /* House-in-a-field_ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */; };
+		AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA55208149FD008EB16B /* House-in-a-field.jpg */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
@@ -79,6 +80,7 @@
 		AD492958208108AB00A0BDE2 /* FXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXKeychain.h; sourceTree = "<group>"; };
 		AD492959208108AB00A0BDE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field_ipad.jpg"; sourceTree = "<group>"; };
+		AD77EA55208149FD008EB16B /* House-in-a-field.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field.jpg"; sourceTree = "<group>"; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extended.h"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		AD77EA52208141F1008EB16B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AD77EA55208149FD008EB16B /* House-in-a-field.jpg */,
 				AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */,
 			);
 			path = Images;
@@ -494,6 +497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */,
 				AD49295B208108AB00A0BDE2 /* Info.plist in Resources */,
 				AD77EA542081421C008EB16B /* House-in-a-field_ipad.jpg in Resources */,
 				F1A91A6B18D39602008395EE /* Images.xcassets in Resources */,
