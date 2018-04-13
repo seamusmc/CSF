@@ -3,9 +3,9 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "farm2.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "farm2.png",
       "scale" : "2x"
     },
     {
