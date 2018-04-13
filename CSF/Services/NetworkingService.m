@@ -36,7 +36,7 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
 - (void)postDataWithURLString:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    uri = [uri stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
     
     DDLogInfo(@"INFO: %s URI is %@", __PRETTY_FUNCTION__, uri);
     
@@ -63,7 +63,9 @@ static NSString *const kGenericErrorMessage = @"oops! something went wrong";
 - (void)getDataWithURI:(NSString *)uri successBlock:(void (^)(id response))successBlock failureBlock:(void (^)(NSError *error))failureBlock {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    uri = [uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    // Do not want to rewrite uri builder for this app, using URLFragmentAllowedCharacterSet. Will do
+    // the correct implementation in Swift re-write.
+    uri = [uri stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
     NSURL *url = [NSURL URLWithString:uri];
     
     NSURLSession *session = [self createSession];
