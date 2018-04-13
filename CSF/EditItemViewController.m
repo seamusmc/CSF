@@ -84,7 +84,6 @@ static NSString *const kSuccessfullyAddedMessage = @"success";
     [self configureCommentTextView];
 
     self.scrollView.scrollEnabled = NO;
-    self.scrollView.bounds = self.scrollView.frame; // Not sure why this is not required in ItemViewController's ScrollView
 
     if (self.orderItem) {
         self.typeTextField.text     = self.orderItem.type;
