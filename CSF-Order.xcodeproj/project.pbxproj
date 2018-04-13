@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1BAD99D317F556C819A2B576 /* libPods-CSF-OrderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDD6EAD14272A222A087208 /* libPods-CSF-OrderTests.a */; };
 		215A666FDCFB5EF39F418585 /* libPods-CSF-Order.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0045B1C3E78A83A6EE293931 /* libPods-CSF-Order.a */; };
+		AD49295A208108AB00A0BDE2 /* FXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD492957208108AB00A0BDE2 /* FXKeychain.m */; };
+		AD49295B208108AB00A0BDE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD492959208108AB00A0BDE2 /* Info.plist */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
@@ -72,6 +74,9 @@
 		4F713B10C9B4CA4E7EE39D92 /* Pods-CSF-OrderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSF-OrderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CSF-OrderTests/Pods-CSF-OrderTests.release.xcconfig"; sourceTree = "<group>"; };
 		5477B4EF33F8DAC06A771F4C /* Pods-CSF-OrderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSF-OrderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CSF-OrderTests/Pods-CSF-OrderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DDD6EAD14272A222A087208 /* libPods-CSF-OrderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSF-OrderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD492957208108AB00A0BDE2 /* FXKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXKeychain.m; sourceTree = "<group>"; };
+		AD492958208108AB00A0BDE2 /* FXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXKeychain.h; sourceTree = "<group>"; };
+		AD492959208108AB00A0BDE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extended.h"; sourceTree = "<group>"; };
@@ -198,6 +203,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AD492956208108AB00A0BDE2 /* FXKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				AD492957208108AB00A0BDE2 /* FXKeychain.m */,
+				AD492958208108AB00A0BDE2 /* FXKeychain.h */,
+				AD492959208108AB00A0BDE2 /* Info.plist */,
+			);
+			path = FXKeychain;
+			sourceTree = "<group>";
+		};
 		C9FA51DA4B46C2DE291C220C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +335,7 @@
 		F1A91A5818D39602008395EE /* CSF */ = {
 			isa = PBXGroup;
 			children = (
+				AD492956208108AB00A0BDE2 /* FXKeychain */,
 				C9FA51DA4B46C2DE291C220C /* Model */,
 				C9FA5CBF3D3D7E405BCF8DD9 /* Services */,
 				F1A91A5918D39602008395EE /* Supporting Files */,
@@ -467,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD49295B208108AB00A0BDE2 /* Info.plist in Resources */,
 				F1A91A6B18D39602008395EE /* Images.xcassets in Resources */,
 				F1A91A5D18D39602008395EE /* InfoPlist.strings in Resources */,
 				F1A91A6618D39602008395EE /* Main.storyboard in Resources */,
@@ -546,6 +563,7 @@
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
+				AD49295A208108AB00A0BDE2 /* FXKeychain.m in Sources */,
 				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
 				C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */,
 				F19EAC4219A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m in Sources */,

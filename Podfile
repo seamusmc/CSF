@@ -1,7 +1,6 @@
 platform :ios, '9.0'
 
 target 'CSF-Order' do
-    pod 'FXKeychain', '~> 1.5'
     pod 'AFNetworking', '~> 3.2'
     pod 'Tweaks', '~> 2.2'
     pod 'CocoaLumberjack', '~> 3.4'

@@ -21,7 +21,6 @@ PODS:
   - CocoaLumberjack/Extensions (3.4.1):
     - CocoaLumberjack/Default
   - Expecta (1.0.6)
-  - FXKeychain (1.5.3)
   - GoogleAnalytics (3.17.0)
   - Shimmer (1.0.2)
   - SWTableViewCell (0.3.7)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - AFNetworking (~> 3.2)
   - CocoaLumberjack (~> 3.4)
   - Expecta (~> 1.0)
-  - FXKeychain (~> 1.5)
   - GoogleAnalytics (~> 3.17)
   - Shimmer (~> 1.0)
   - SWTableViewCell (~> 0.3.7)
@@ -42,7 +40,6 @@ SPEC REPOS:
     - AFNetworking
     - CocoaLumberjack
     - Expecta
-    - FXKeychain
     - GoogleAnalytics
     - Shimmer
     - SWTableViewCell
@@ -52,12 +49,11 @@ SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
-  FXKeychain: 2fe54573946ffef634f4e2a2851e6c8f4ea15e76
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
 
-PODFILE CHECKSUM: 5053a45a7fe3397798eee4d8e513918b32818e90
+PODFILE CHECKSUM: 3861d86d4a8ec13ffc14c64da25e9098d4ad800b
 
 COCOAPODS: 1.5.0
