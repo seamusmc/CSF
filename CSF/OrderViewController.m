@@ -148,6 +148,7 @@ const int kDeleteButtonIndex = 1;
         case kEditButtonIndex: {
             NSIndexPath *cellIndexPath = [self.orderItemsTableView indexPathForCell:cell];
             self.editOrderItem = self.order.items[cellIndexPath.row];
+            
             [self performEditItemSegue];
             break;
         }
@@ -176,6 +177,11 @@ const int kDeleteButtonIndex = 1;
             break;
         }
     }
+}
+
+// Prevent multiple cells from showing utilty buttons simultaneously.
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell {
+    return YES;
 }
 
 #pragma mark - UITableViewDataSource
