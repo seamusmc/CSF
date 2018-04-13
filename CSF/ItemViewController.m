@@ -307,11 +307,21 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 
 #pragma mark - UIPickerViewDelegate
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-    [(PickerView *) pickerView configureView];      // Need to figure out how to do this within the PickerView subclass.
+- (UIView *)pickerView:(UIPickerView *)pickerView
+            viewForRow:(NSInteger)row
+          forComponent:(NSInteger)component
+           reusingView:(UIView *)view {
+    
+    // Customization needs to occur here, TODO: determine why? TODO: move code to method/extension
+    pickerView.backgroundColor = [UIColor clearColor];
+    
+    UIView *temp = pickerView.subviews[1];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+    temp = pickerView.subviews[2];
+    temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
+
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
-
     label.textColor     = [ThemeManager sharedInstance].normalFontColor;
     label.font          = [ThemeManager sharedInstance].normalFont;
     label.textAlignment = NSTextAlignmentCenter;
@@ -622,7 +632,7 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 
 - (void)configureTypesPicker {
     CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
-    PickerView *typesPicker = [[PickerView alloc] initWithTitle:@"select a type" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
+    UIPickerView *typesPicker = [[UIPickerView alloc] initWithFrame:rect];
 
     typesPicker.delegate                = self;
     typesPicker.dataSource              = self;
@@ -633,8 +643,8 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 
 - (void)configureItemsPicker {
     CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
-    PickerView *itemsPicker = [[PickerView alloc] initWithTitle:@"select a type" backgroundImage:[UIImage imageNamed:@"farm"] frame:rect];
-
+    UIPickerView *itemsPicker = [[UIPickerView alloc] initWithFrame:rect];
+    
     itemsPicker.delegate                = self;
     itemsPicker.dataSource              = self;
     itemsPicker.showsSelectionIndicator = YES;

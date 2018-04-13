@@ -216,17 +216,15 @@ shouldChangeCharactersInRange:(NSRange)range
           forComponent:(NSInteger)component
            reusingView:(UIView *)view {
     
-    // Customization needs to occur here, TODO: determine why?
+    // Customization needs to occur here, TODO: determine why? TODO: move code to method/extension
     pickerView.backgroundColor = [UIColor clearColor];
     
     UIView *temp = pickerView.subviews[1];
     temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
-    
     temp = pickerView.subviews[2];
     temp.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
-
     label.textColor     = [ThemeManager sharedInstance].normalFontColor;
     label.font          = [ThemeManager sharedInstance].normalFont;
     label.text          = self.farms[row];
