@@ -11,20 +11,16 @@
 		215A666FDCFB5EF39F418585 /* libPods-CSF-Order.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0045B1C3E78A83A6EE293931 /* libPods-CSF-Order.a */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
-		C9FA516EE53440A9099D409C /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA57CAB227E2F06726FEF4 /* SWLongPressGestureRecognizer.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
 		C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */; };
 		C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */; };
-		C9FA5339E21A41D55C00FC1C /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5DA7248439FB9959D3E1 /* SWUtilityButtonView.m */; };
 		C9FA537AC74DE711D12D92FF /* FBShimmeringView+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA56D6A225E1B08D2AA972 /* FBShimmeringView+Extended.m */; };
 		C9FA53EA297BA9295AE13E2F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5687440B9DB7CF211B2F /* User.m */; };
 		C9FA546C158B74E4B0F8E144 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5F0CBF974E1BAACEC263 /* Item.m */; };
 		C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52D06BD7481A26257822 /* OrderDataService.m */; };
 		C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */; };
 		C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */; };
-		C9FA58E2B61A00F921B91F27 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D00226E41962C45E6D0 /* SWUtilityButtonTapGestureRecognizer.m */; };
 		C9FA58F50414CABEF28B556B /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5536808DA4E5BF559E59 /* Order.m */; };
-		C9FA5953EC6158AB54679245 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C0C98E43EDDCA9EF0AA /* SWCellScrollView.m */; };
 		C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */; };
 		C9FA59A87CF2C34B316D6F2A /* ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58F0FDF580FC25B2261E /* ActivityIndicator.m */; };
 		C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */; };
@@ -34,9 +30,7 @@
 		C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5028ABC406D04F291E30 /* FarmDataService.m */; };
 		C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA58821501F91470DED679 /* ServiceConstants.m */; };
 		C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA573953EFF1B5186F6511 /* ServiceLocator.m */; };
-		C9FA5E28A4160E9BE94ED93A /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA55B4D450D83D8357DEC9 /* NSMutableArray+SWUtilityButtons.m */; };
 		C9FA5E68EAC61AEC1DF52870 /* OrderItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA52362D40650167B984EC /* OrderItemTableViewCell.m */; };
-		C9FA5EE1848737E66EAA1F76 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5C4D5F8C134EC554824E /* SWTableViewCell.m */; };
 		C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */; };
 		F108CE2718E31E9C00A19A28 /* UserServicesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F108CE2618E31E9C00A19A28 /* UserServicesTests.m */; };
 		F10E084418DA2B3600A70217 /* ServiceLocatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F10E084318DA2B3600A70217 /* ServiceLocatorTests.m */; };
@@ -80,7 +74,6 @@
 		5DDD6EAD14272A222A087208 /* libPods-CSF-OrderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSF-OrderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
-		C9FA512BEDDA99F4DDE4B2FF /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
 		C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extended.h"; sourceTree = "<group>"; };
 		C9FA519EA0F9CE3D8B61A911 /* UIImageView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Extended.h"; sourceTree = "<group>"; };
 		C9FA51EAF720A4BBFF09A641 /* InventoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InventoryItem.m; sourceTree = "<group>"; };
@@ -91,29 +84,24 @@
 		C9FA52D06BD7481A26257822 /* OrderDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataService.m; sourceTree = "<group>"; };
 		C9FA5305BDD4EAD4944DC8B2 /* UIColor+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extended.h"; sourceTree = "<group>"; };
 		C9FA530A9617B3B22B24B53D /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
-		C9FA531BBCB18950B7915A25 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
 		C9FA53544A686A4A124F2887 /* UILabel+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extended.m"; sourceTree = "<group>"; };
 		C9FA53D267F112EB8298509F /* UserServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserServices.m; sourceTree = "<group>"; };
 		C9FA53DA83129FF19B7F68FC /* NetworkingServiceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceConstants.h; sourceTree = "<group>"; };
 		C9FA53F35EA5A26414F4213D /* ServiceLocatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocatorProtocol.h; sourceTree = "<group>"; };
 		C9FA53FD1DE49414CD73EEF8 /* SlideToRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideToRightAnimationController.h; sourceTree = "<group>"; };
 		C9FA5440E552EC584FC6D83D /* UIImageView+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Extended.m"; sourceTree = "<group>"; };
-		C9FA549FA021130EB2E7031E /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
 		C9FA54CC16BEEC549BB6E116 /* InventoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryItem.h; sourceTree = "<group>"; };
 		C9FA5536808DA4E5BF559E59 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		C9FA5539D43064D050EA16EC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		C9FA55816860AF76FCEF09AC /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeManager.m; sourceTree = "<group>"; };
-		C9FA55B4D450D83D8357DEC9 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		C9FA561D2C375B64BCD8366E /* FBShimmeringView+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmeringView+Extended.h"; sourceTree = "<group>"; };
 		C9FA5687440B9DB7CF211B2F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C9FA569433E799F0C2BA8D3F /* TestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestConstants.h; sourceTree = "<group>"; };
-		C9FA56CFDC881A624129EC10 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
 		C9FA56D6A225E1B08D2AA972 /* FBShimmeringView+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBShimmeringView+Extended.m"; sourceTree = "<group>"; };
 		C9FA56F3A77BA0ECBEB9ED22 /* ServiceLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLocator.h; sourceTree = "<group>"; };
 		C9FA573953EFF1B5186F6511 /* ServiceLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceLocator.m; sourceTree = "<group>"; };
 		C9FA57890E6BF6B5146F5B0A /* UserServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServices.h; sourceTree = "<group>"; };
-		C9FA57CAB227E2F06726FEF4 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
 		C9FA58821501F91470DED679 /* ServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConstants.m; sourceTree = "<group>"; };
 		C9FA58A4E498348927754DCC /* NetworkingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		C9FA58F0FDF580FC25B2261E /* ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicator.m; sourceTree = "<group>"; };
@@ -123,24 +111,18 @@
 		C9FA59EE96903BE296CB3FA9 /* SlideFromRightAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideFromRightAnimationController.h; sourceTree = "<group>"; };
 		C9FA5A01D0283598EB3E5998 /* UserServicesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserServicesProtocol.h; sourceTree = "<group>"; };
 		C9FA5B198F2E0592EDD548BD /* TestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestConstants.m; sourceTree = "<group>"; };
-		C9FA5C0C98E43EDDCA9EF0AA /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
-		C9FA5C4D5F8C134EC554824E /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
 		C9FA5C5F5E599602ADCF8A29 /* NetworkingServiceConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingServiceConstants.m; sourceTree = "<group>"; };
 		C9FA5CBB38D521F75F5142D4 /* NetworkingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingService.m; sourceTree = "<group>"; };
-		C9FA5D00226E41962C45E6D0 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		C9FA5D08CDB2C072CDD8BC28 /* UIColor+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extended.m"; sourceTree = "<group>"; };
 		C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeManager.h; sourceTree = "<group>"; };
-		C9FA5DA7248439FB9959D3E1 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
 		C9FA5DDC7243DC90A655A792 /* FarmDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarmDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5DDD91150820D740438E /* OrderItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemTableViewCell.h; sourceTree = "<group>"; };
 		C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideToRightAnimationController.m; sourceTree = "<group>"; };
 		C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideFromRightAnimationController.m; sourceTree = "<group>"; };
 		C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
 		C9FA5EC0557B176A6F3014FB /* UITextField+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extended.m"; sourceTree = "<group>"; };
-		C9FA5EFEE16F1A3BE35F7439 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		C9FA5F0CBF974E1BAACEC263 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		C9FA5F1234EEB17F0F20CC2A /* NetworkingServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingServiceProtocol.h; sourceTree = "<group>"; };
-		C9FA5F8F66FF7FCCF1D781A4 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
 		C9FA5FCCDC976D97A52D1D0B /* OrderDataServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataServiceProtocol.h; sourceTree = "<group>"; };
 		C9FA5FD37705F1745D20A497 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		C9FA5FDB7F9BE9CF49EB1DCF /* OrderDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDataService.h; sourceTree = "<group>"; };
@@ -242,25 +224,6 @@
 				C9FA5E26A846E1A1FCF86303 /* SlideToRightAnimationController.m */,
 			);
 			path = "Animation Controllers";
-			sourceTree = "<group>";
-		};
-		C9FA54B175C9BCC00F3BC6D5 /* SWTableCellView */ = {
-			isa = PBXGroup;
-			children = (
-				C9FA5C0C98E43EDDCA9EF0AA /* SWCellScrollView.m */,
-				C9FA5D00226E41962C45E6D0 /* SWUtilityButtonTapGestureRecognizer.m */,
-				C9FA56CFDC881A624129EC10 /* SWUtilityButtonView.h */,
-				C9FA5F8F66FF7FCCF1D781A4 /* SWTableViewCell.h */,
-				C9FA5DA7248439FB9959D3E1 /* SWUtilityButtonView.m */,
-				C9FA55B4D450D83D8357DEC9 /* NSMutableArray+SWUtilityButtons.m */,
-				C9FA57CAB227E2F06726FEF4 /* SWLongPressGestureRecognizer.m */,
-				C9FA549FA021130EB2E7031E /* SWUtilityButtonTapGestureRecognizer.h */,
-				C9FA531BBCB18950B7915A25 /* SWCellScrollView.h */,
-				C9FA5EFEE16F1A3BE35F7439 /* NSMutableArray+SWUtilityButtons.h */,
-				C9FA5C4D5F8C134EC554824E /* SWTableViewCell.m */,
-				C9FA512BEDDA99F4DDE4B2FF /* SWLongPressGestureRecognizer.h */,
-			);
-			path = SWTableCellView;
 			sourceTree = "<group>";
 		};
 		C9FA5868CD01050643720730 /* Table Cells */ = {
@@ -379,7 +342,6 @@
 				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
 				C9FA5868CD01050643720730 /* Table Cells */,
 				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
-				C9FA54B175C9BCC00F3BC6D5 /* SWTableCellView */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -595,12 +557,6 @@
 				C9FA5C27A102BE295E2158F2 /* UILabel+Extended.m in Sources */,
 				C9FA59A87CF2C34B316D6F2A /* ActivityIndicator.m in Sources */,
 				F13746CD199E31FC008AE331 /* ItemViewController.m in Sources */,
-				C9FA5953EC6158AB54679245 /* SWCellScrollView.m in Sources */,
-				C9FA58E2B61A00F921B91F27 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
-				C9FA5339E21A41D55C00FC1C /* SWUtilityButtonView.m in Sources */,
-				C9FA5E28A4160E9BE94ED93A /* NSMutableArray+SWUtilityButtons.m in Sources */,
-				C9FA516EE53440A9099D409C /* SWLongPressGestureRecognizer.m in Sources */,
-				C9FA5EE1848737E66EAA1F76 /* SWTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

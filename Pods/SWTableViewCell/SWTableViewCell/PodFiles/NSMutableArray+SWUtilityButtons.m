@@ -7,22 +7,24 @@
 //
 
 #import "NSMutableArray+SWUtilityButtons.h"
-#import "ThemeManager.h"
 
 @implementation NSMutableArray (SWUtilityButtons)
 
 - (void)sw_addUtilityButtonWithColor:(UIColor *)color title:(NSString *)title
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-
     button.backgroundColor = color;
-    button.titleLabel.font = [ThemeManager sharedInstance].normalFont;
-
-    button.layer.cornerRadius = 3.0f;
-    button.layer.borderWidth  = 0.5f;
-    button.layer.borderColor  = color.CGColor;
-
     [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [self addObject:button];
+}
+
+- (void)sw_addUtilityButtonWithColor:(UIColor *)color attributedTitle:(NSAttributedString *)title
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.backgroundColor = color;
+    [button setAttributedTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addObject:button];
 }
