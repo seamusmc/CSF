@@ -148,7 +148,7 @@ const int kDeleteButtonIndex = 1;
         case kEditButtonIndex: {
             NSIndexPath *cellIndexPath = [self.orderItemsTableView indexPathForCell:cell];
             self.editOrderItem = self.order.items[cellIndexPath.row];
-            
+            [cell hideUtilityButtonsAnimated:NO];
             [self performEditItemSegue];
             break;
         }
