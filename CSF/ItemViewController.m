@@ -9,7 +9,6 @@
 #import <Shimmer/FBShimmeringView.h>
 #import "ItemViewController.h"
 #import "ThemeManager.h"
-#import "PickerView.h"
 #import "FarmDataService.h"
 #import "UserServices.h"
 #import "User.h"
@@ -286,9 +285,9 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
     // Only handle this notification if a UIPickerView is going to
     // be shown. We want to keep the picker and textField in sync.
     for (UIView *view in self.view.subviews) {
-        if ([view.inputView isMemberOfClass:[PickerView class]]) {
+        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
             if ([view isFirstResponder]) {
-                PickerView *pickerView = (PickerView *) view.inputView;
+                UIPickerView *pickerView = (UIPickerView *) view.inputView;
 
                 NSInteger index;
                 if (pickerView.tag == kItemsPickerViewTag) {
@@ -631,9 +630,8 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 }
 
 - (void)configureTypesPicker {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
-    UIPickerView *typesPicker = [[UIPickerView alloc] initWithFrame:rect];
-
+    
+    UIPickerView *typesPicker = [[UIPickerView alloc] init];
     typesPicker.delegate                = self;
     typesPicker.dataSource              = self;
     typesPicker.showsSelectionIndicator = YES;
@@ -642,9 +640,8 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
 }
 
 - (void)configureItemsPicker {
-    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 216.0f);
-    UIPickerView *itemsPicker = [[UIPickerView alloc] initWithFrame:rect];
     
+    UIPickerView *itemsPicker = [[UIPickerView alloc] init];
     itemsPicker.delegate                = self;
     itemsPicker.dataSource              = self;
     itemsPicker.showsSelectionIndicator = YES;

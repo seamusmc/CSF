@@ -15,7 +15,6 @@
 #import "ThemeManager.h"
 #import "SlideFromRightAnimationController.h"
 #import "SlideToRightAnimationController.h"
-#import "PickerView.h"
 #import "FBShimmeringView.h"
 #import "FBShimmeringView+Extended.h"
 #import "ActivityIndicator.h"
@@ -289,9 +288,9 @@ shouldChangeCharactersInRange:(NSRange)range
     // Only handle this notification if the farmsTextField inputView, a UIPickerView,
     // is being shown. We want to keep the picker and textField in sync.
     for (UIView *view in self.view.subviews) {
-        if ([view.inputView isMemberOfClass:[PickerView class]]) {
+        if ([view.inputView isMemberOfClass:[UIPickerView class]]) {
             if ([view isFirstResponder]) {
-                PickerView *pickerView = (PickerView *) view.inputView;
+                UIPickerView *pickerView = (UIPickerView *) view.inputView;
 
                 NSInteger index = [self.farms indexOfObject:self.farmField.text];
 
