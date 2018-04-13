@@ -15,7 +15,7 @@ profile
 DerivedData
 *.hmap
 *.ipa
-.DS_Store
+*.DS_Store
 
 # AppCode
 .idea/
