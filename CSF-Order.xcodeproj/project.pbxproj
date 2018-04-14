@@ -959,14 +959,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5477B4EF33F8DAC06A771F4C /* Pods-CSF-OrderTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CSF.app/CSF";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
+				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -974,7 +974,7 @@
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -984,18 +984,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F713B10C9B4CA4E7EE39D92 /* Pods-CSF-OrderTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CSF.app/CSF";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CSF/CSF-Prefix.pch";
+				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = xctest;
 			};

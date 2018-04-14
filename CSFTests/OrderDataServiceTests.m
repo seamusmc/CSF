@@ -76,7 +76,7 @@
         NSLog(@"Message: %@", tempMessage);
     }];
 
-    expect(message).will.equal(@"Something has gone wrong");
+    expect(message).will.equal(@"oops! something went wrong");
 }
 
 - (void)testGetOrderForBadUserForDateWithCompletionHandler {
@@ -114,7 +114,7 @@
         NSLog(@"Message: %@", tempMessage);
     }];
 
-    expect(message).will.equal(@"Something has gone wrong");
+    expect(message).will.equal(@"oops! something went wrong");
 }
 
 @end
