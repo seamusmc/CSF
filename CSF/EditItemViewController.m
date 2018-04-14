@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Seamus McGowan. All rights reserved.
 //
 
-#import <Shimmer/FBShimmeringView.h>
-#import <CocoaLumberjack/DDLogMacros.h>
+#import "FBShimmeringView.h"
 #import "EditItemViewController.h"
 #import "ThemeManager.h"
 #import "ActivityIndicator.h"

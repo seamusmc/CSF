@@ -13,6 +13,8 @@
 		AD49295B208108AB00A0BDE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD492959208108AB00A0BDE2 /* Info.plist */; };
 		AD77EA542081421C008EB16B /* House-in-a-field_ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */; };
 		AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA55208149FD008EB16B /* House-in-a-field.jpg */; };
+		AD77EA5E20824929008EB16B /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */; };
+		AD77EA5F20824929008EB16B /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA5D20824929008EB16B /* FBShimmeringView.m */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
@@ -81,6 +83,12 @@
 		AD492959208108AB00A0BDE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field_ipad.jpg"; sourceTree = "<group>"; };
 		AD77EA55208149FD008EB16B /* House-in-a-field.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field.jpg"; sourceTree = "<group>"; };
+		AD77EA5820824929008EB16B /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		AD77EA5920824929008EB16B /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
+		AD77EA5A20824929008EB16B /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
+		AD77EA5B20824929008EB16B /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		AD77EA5D20824929008EB16B /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extended.h"; sourceTree = "<group>"; };
@@ -226,6 +234,19 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		AD77EA5720824929008EB16B /* FBShimmering */ = {
+			isa = PBXGroup;
+			children = (
+				AD77EA5820824929008EB16B /* FBShimmering.h */,
+				AD77EA5920824929008EB16B /* FBShimmeringLayer.h */,
+				AD77EA5A20824929008EB16B /* FBShimmering-Prefix.pch */,
+				AD77EA5B20824929008EB16B /* FBShimmeringView.h */,
+				AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */,
+				AD77EA5D20824929008EB16B /* FBShimmeringView.m */,
+			);
+			path = FBShimmering;
+			sourceTree = "<group>";
+		};
 		C9FA51DA4B46C2DE291C220C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,11 +369,15 @@
 		F1A91A5818D39602008395EE /* CSF */ = {
 			isa = PBXGroup;
 			children = (
-				AD77EA52208141F1008EB16B /* Images */,
+				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
+				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
+				AD77EA5720824929008EB16B /* FBShimmering */,
 				AD492956208108AB00A0BDE2 /* FXKeychain */,
+				AD77EA52208141F1008EB16B /* Images */,
 				C9FA51DA4B46C2DE291C220C /* Model */,
 				C9FA5CBF3D3D7E405BCF8DD9 /* Services */,
 				F1A91A5918D39602008395EE /* Supporting Files */,
+				C9FA5868CD01050643720730 /* Table Cells */,
 				F1A91A6118D39602008395EE /* AppDelegate.h */,
 				F1A91A6218D39602008395EE /* AppDelegate.m */,
 				F166ECA3196B1325009AF9C4 /* BaseViewController.h */,
@@ -369,9 +394,6 @@
 				C9FA55AEF2FCF7CAC7A947B7 /* ThemeManager.m */,
 				C9FA5D7C8D92A14BAB46176C /* ThemeManager.h */,
 				C9FA59A5A3FAB921DC508DC4 /* ThemeManagerProtocol.h */,
-				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
-				C9FA5868CD01050643720730 /* Table Cells */,
-				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 			);
 			path = CSF;
 			sourceTree = "<group>";
@@ -561,11 +583,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1A91A6918D39602008395EE /* LoginViewController.m in Sources */,
+				AD77EA5F20824929008EB16B /* FBShimmeringView.m in Sources */,
 				F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */,
 				F1A91A6318D39602008395EE /* AppDelegate.m in Sources */,
 				F1A91A5F18D39602008395EE /* main.m in Sources */,
 				C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */,
 				C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */,
+				AD77EA5E20824929008EB16B /* FBShimmeringLayer.m in Sources */,
 				C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */,
 				C9FA529D3B1582A3337686AD /* NetworkingService.m in Sources */,
 				C9FA53EA297BA9295AE13E2F /* User.m in Sources */,

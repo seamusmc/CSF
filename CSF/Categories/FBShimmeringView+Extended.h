@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Shimmer/FBShimmeringView.h>
+#import "FBShimmeringView.h"
 
 @interface FBShimmeringView (Extended)
 

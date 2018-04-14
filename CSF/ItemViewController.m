@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Seamus McGowan. All rights reserved.
 //
 
-#import <Shimmer/FBShimmeringView.h>
+#import "FBShimmeringView.h"
 #import "ItemViewController.h"
 #import "ThemeManager.h"
 #import "FarmDataService.h"
@@ -14,7 +14,6 @@
 #import "User.h"
 #import "ActivityIndicator.h"
 #import "FBShimmeringView+Extended.h"
-#import "DDLogMacros.h"
 #import "InventoryItem.h"
 #import "NSDictionary+NSDictionary_Extended.h"
 #import "OrderDataService.h"
@@ -311,7 +310,7 @@ static NSString *const kGetItemsErrorMessage = @"request timed out";
           forComponent:(NSInteger)component
            reusingView:(UIView *)view {
     
-    // Customization needs to occur here, TODO: determine why? TODO: move code to method/extension
+    // Customization needs to occur here in this delegate method.
     pickerView.backgroundColor = [UIColor clearColor];
     
     UIView *temp = pickerView.subviews[1];

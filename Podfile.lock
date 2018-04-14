@@ -22,7 +22,6 @@ PODS:
     - CocoaLumberjack/Default
   - Expecta (1.0.6)
   - GoogleAnalytics (3.17.0)
-  - Shimmer (1.0.2)
   - SWTableViewCell (0.3.7)
   - Tweaks (2.2.0)
 
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - CocoaLumberjack (~> 3.4)
   - Expecta (~> 1.0)
   - GoogleAnalytics (~> 3.17)
-  - Shimmer (~> 1.0)
   - SWTableViewCell (~> 0.3.7)
   - Tweaks (~> 2.2)
 
@@ -41,7 +39,6 @@ SPEC REPOS:
     - CocoaLumberjack
     - Expecta
     - GoogleAnalytics
-    - Shimmer
     - SWTableViewCell
     - Tweaks
 
@@ -50,10 +47,9 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
 
-PODFILE CHECKSUM: 3861d86d4a8ec13ffc14c64da25e9098d4ad800b
+PODFILE CHECKSUM: 56d4090001b12531a21980ed0e0ec887f9d8416a
 
 COCOAPODS: 1.5.0
