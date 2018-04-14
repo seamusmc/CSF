@@ -23,7 +23,6 @@ PODS:
   - Expecta (1.0.6)
   - GoogleAnalytics (3.17.0)
   - SWTableViewCell (0.3.7)
-  - Tweaks (2.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - Expecta (~> 1.0)
   - GoogleAnalytics (~> 3.17)
   - SWTableViewCell (~> 0.3.7)
-  - Tweaks (~> 2.2)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -40,7 +38,6 @@ SPEC REPOS:
     - Expecta
     - GoogleAnalytics
     - SWTableViewCell
-    - Tweaks
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
@@ -48,8 +45,7 @@ SPEC CHECKSUMS:
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
-  Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
 
-PODFILE CHECKSUM: 56d4090001b12531a21980ed0e0ec887f9d8416a
+PODFILE CHECKSUM: 12d8f9c1a48758fa8d4656a0c3d014a836d8e833
 
 COCOAPODS: 1.5.0

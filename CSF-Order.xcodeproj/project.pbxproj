@@ -15,6 +15,28 @@
 		AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA55208149FD008EB16B /* House-in-a-field.jpg */; };
 		AD77EA5E20824929008EB16B /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */; };
 		AD77EA5F20824929008EB16B /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA5D20824929008EB16B /* FBShimmeringView.m */; };
+		AD77EA9120824E8A008EB16B /* _FBTweakCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6220824E8A008EB16B /* _FBTweakCategoryViewController.m */; };
+		AD77EA9220824E8A008EB16B /* FBTweakStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6520824E8A008EB16B /* FBTweakStore.m */; };
+		AD77EA9320824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6B20824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.m */; };
+		AD77EA9420824E8A008EB16B /* _FBTweakCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6C20824E8A008EB16B /* _FBTweakCollectionViewController.m */; };
+		AD77EA9520824E8A008EB16B /* FBTweakCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6D20824E8A008EB16B /* FBTweakCategory.m */; };
+		AD77EA9620824E8A008EB16B /* FBTweakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6E20824E8A008EB16B /* FBTweakViewController.m */; };
+		AD77EA9720824E8A008EB16B /* FBTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA6F20824E8A008EB16B /* FBTweak.m */; };
+		AD77EA9820824E8A008EB16B /* _FBTweakTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7320824E8A008EB16B /* _FBTweakTableViewCell.m */; };
+		AD77EA9920824E8A008EB16B /* FBTweakShakeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7420824E8A008EB16B /* FBTweakShakeWindow.m */; };
+		AD77EA9A20824E8A008EB16B /* _FBColorComponentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7520824E8A008EB16B /* _FBColorComponentCell.m */; };
+		AD77EA9B20824E8A008EB16B /* _FBTweakBindObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7A20824E8A008EB16B /* _FBTweakBindObserver.m */; };
+		AD77EA9C20824E8A008EB16B /* FBTweakInline.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7B20824E8A008EB16B /* FBTweakInline.m */; };
+		AD77EA9D20824E8A008EB16B /* _FBTweakArrayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA7D20824E8A008EB16B /* _FBTweakArrayViewController.m */; };
+		AD77EA9E20824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8220824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.m */; };
+		AD77EA9F20824E8A008EB16B /* _FBTweakDictionaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8420824E8A008EB16B /* _FBTweakDictionaryViewController.m */; };
+		AD77EAA020824E8A008EB16B /* _FBKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8620824E8A008EB16B /* _FBKeyboardManager.m */; };
+		AD77EAA120824E8A008EB16B /* FBTweakCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8720824E8A008EB16B /* FBTweakCollection.m */; };
+		AD77EAA220824E8A008EB16B /* _FBColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8820824E8A008EB16B /* _FBColorUtils.m */; };
+		AD77EAA320824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8B20824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.m */; };
+		AD77EAA420824E8A008EB16B /* _FBColorWheelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8C20824E8A008EB16B /* _FBColorWheelCell.m */; };
+		AD77EAA520824E8A008EB16B /* _FBSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8D20824E8A008EB16B /* _FBSliderView.m */; };
+		AD77EAA620824E8A008EB16B /* _FBTweakColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA8E20824E8A008EB16B /* _FBTweakColorViewController.m */; };
 		C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5EBF5B27F3BE67A2B3AE /* OrderItem.m */; };
 		C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA5E88F6393B0B20D9963F /* SlideFromRightAnimationController.m */; };
 		C9FA522CA00454882F890EBC /* UserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FA53D267F112EB8298509F /* UserServices.m */; };
@@ -89,6 +111,54 @@
 		AD77EA5B20824929008EB16B /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
 		AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
 		AD77EA5D20824929008EB16B /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		AD77EA6120824E8A008EB16B /* FBTweak-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBTweak-Prefix.pch"; sourceTree = "<group>"; };
+		AD77EA6220824E8A008EB16B /* _FBTweakCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakCategoryViewController.m; sourceTree = "<group>"; };
+		AD77EA6320824E8A008EB16B /* _FBTweakArrayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakArrayViewController.h; sourceTree = "<group>"; };
+		AD77EA6420824E8A008EB16B /* FBTweakInline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakInline.h; sourceTree = "<group>"; };
+		AD77EA6520824E8A008EB16B /* FBTweakStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakStore.m; sourceTree = "<group>"; };
+		AD77EA6620824E8A008EB16B /* _FBTweakBindObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakBindObserver.h; sourceTree = "<group>"; };
+		AD77EA6720824E8A008EB16B /* _FBTweakColorViewControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakColorViewControllerDataSource.h; sourceTree = "<group>"; };
+		AD77EA6820824E8A008EB16B /* FBTweakEnabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakEnabled.h; sourceTree = "<group>"; };
+		AD77EA6920824E8A008EB16B /* _FBTweakDictionaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakDictionaryViewController.h; sourceTree = "<group>"; };
+		AD77EA6A20824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakColorViewControllerHexDataSource.h; sourceTree = "<group>"; };
+		AD77EA6B20824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakColorViewControllerHSBDataSource.m; sourceTree = "<group>"; };
+		AD77EA6C20824E8A008EB16B /* _FBTweakCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakCollectionViewController.m; sourceTree = "<group>"; };
+		AD77EA6D20824E8A008EB16B /* FBTweakCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakCategory.m; sourceTree = "<group>"; };
+		AD77EA6E20824E8A008EB16B /* FBTweakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakViewController.m; sourceTree = "<group>"; };
+		AD77EA6F20824E8A008EB16B /* FBTweak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweak.m; sourceTree = "<group>"; };
+		AD77EA7020824E8A008EB16B /* _FBColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBColorUtils.h; sourceTree = "<group>"; };
+		AD77EA7120824E8A008EB16B /* FBTweakCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakCollection.h; sourceTree = "<group>"; };
+		AD77EA7220824E8A008EB16B /* _FBKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBKeyboardManager.h; sourceTree = "<group>"; };
+		AD77EA7320824E8A008EB16B /* _FBTweakTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakTableViewCell.m; sourceTree = "<group>"; };
+		AD77EA7420824E8A008EB16B /* FBTweakShakeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakShakeWindow.m; sourceTree = "<group>"; };
+		AD77EA7520824E8A008EB16B /* _FBColorComponentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBColorComponentCell.m; sourceTree = "<group>"; };
+		AD77EA7620824E8A008EB16B /* _FBTweakColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakColorViewController.h; sourceTree = "<group>"; };
+		AD77EA7720824E8A008EB16B /* _FBSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBSliderView.h; sourceTree = "<group>"; };
+		AD77EA7820824E8A008EB16B /* _FBColorWheelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBColorWheelCell.h; sourceTree = "<group>"; };
+		AD77EA7920824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakColorViewControllerRGBDataSource.h; sourceTree = "<group>"; };
+		AD77EA7A20824E8A008EB16B /* _FBTweakBindObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakBindObserver.m; sourceTree = "<group>"; };
+		AD77EA7B20824E8A008EB16B /* FBTweakInline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakInline.m; sourceTree = "<group>"; };
+		AD77EA7C20824E8A008EB16B /* FBTweakStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakStore.h; sourceTree = "<group>"; };
+		AD77EA7D20824E8A008EB16B /* _FBTweakArrayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakArrayViewController.m; sourceTree = "<group>"; };
+		AD77EA7E20824E8A008EB16B /* _FBTweakCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakCategoryViewController.h; sourceTree = "<group>"; };
+		AD77EA7F20824E8A008EB16B /* FBTweakInlineInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakInlineInternal.h; sourceTree = "<group>"; };
+		AD77EA8020824E8A008EB16B /* _FBTweakCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakCollectionViewController.h; sourceTree = "<group>"; };
+		AD77EA8120824E8A008EB16B /* FBTweakCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakCategory.h; sourceTree = "<group>"; };
+		AD77EA8220824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakColorViewControllerHexDataSource.m; sourceTree = "<group>"; };
+		AD77EA8320824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakColorViewControllerHSBDataSource.h; sourceTree = "<group>"; };
+		AD77EA8420824E8A008EB16B /* _FBTweakDictionaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakDictionaryViewController.m; sourceTree = "<group>"; };
+		AD77EA8520824E8A008EB16B /* _FBTweakTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBTweakTableViewCell.h; sourceTree = "<group>"; };
+		AD77EA8620824E8A008EB16B /* _FBKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBKeyboardManager.m; sourceTree = "<group>"; };
+		AD77EA8720824E8A008EB16B /* FBTweakCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTweakCollection.m; sourceTree = "<group>"; };
+		AD77EA8820824E8A008EB16B /* _FBColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBColorUtils.m; sourceTree = "<group>"; };
+		AD77EA8920824E8A008EB16B /* FBTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweak.h; sourceTree = "<group>"; };
+		AD77EA8A20824E8A008EB16B /* FBTweakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakViewController.h; sourceTree = "<group>"; };
+		AD77EA8B20824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakColorViewControllerRGBDataSource.m; sourceTree = "<group>"; };
+		AD77EA8C20824E8A008EB16B /* _FBColorWheelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBColorWheelCell.m; sourceTree = "<group>"; };
+		AD77EA8D20824E8A008EB16B /* _FBSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBSliderView.m; sourceTree = "<group>"; };
+		AD77EA8E20824E8A008EB16B /* _FBTweakColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FBTweakColorViewController.m; sourceTree = "<group>"; };
+		AD77EA8F20824E8A008EB16B /* _FBColorComponentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FBColorComponentCell.h; sourceTree = "<group>"; };
+		AD77EA9020824E8A008EB16B /* FBTweakShakeWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTweakShakeWindow.h; sourceTree = "<group>"; };
 		C9FA5028ABC406D04F291E30 /* FarmDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FarmDataService.m; sourceTree = "<group>"; };
 		C9FA5112C11E220355F313F3 /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		C9FA5162822E2F52A05131F8 /* UILabel+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extended.h"; sourceTree = "<group>"; };
@@ -247,6 +317,61 @@
 			path = FBShimmering;
 			sourceTree = "<group>";
 		};
+		AD77EA6020824E8A008EB16B /* FBTweak */ = {
+			isa = PBXGroup;
+			children = (
+				AD77EA6120824E8A008EB16B /* FBTweak-Prefix.pch */,
+				AD77EA6220824E8A008EB16B /* _FBTweakCategoryViewController.m */,
+				AD77EA6320824E8A008EB16B /* _FBTweakArrayViewController.h */,
+				AD77EA6420824E8A008EB16B /* FBTweakInline.h */,
+				AD77EA6520824E8A008EB16B /* FBTweakStore.m */,
+				AD77EA6620824E8A008EB16B /* _FBTweakBindObserver.h */,
+				AD77EA6720824E8A008EB16B /* _FBTweakColorViewControllerDataSource.h */,
+				AD77EA6820824E8A008EB16B /* FBTweakEnabled.h */,
+				AD77EA6920824E8A008EB16B /* _FBTweakDictionaryViewController.h */,
+				AD77EA6A20824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.h */,
+				AD77EA6B20824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.m */,
+				AD77EA6C20824E8A008EB16B /* _FBTweakCollectionViewController.m */,
+				AD77EA6D20824E8A008EB16B /* FBTweakCategory.m */,
+				AD77EA6E20824E8A008EB16B /* FBTweakViewController.m */,
+				AD77EA6F20824E8A008EB16B /* FBTweak.m */,
+				AD77EA7020824E8A008EB16B /* _FBColorUtils.h */,
+				AD77EA7120824E8A008EB16B /* FBTweakCollection.h */,
+				AD77EA7220824E8A008EB16B /* _FBKeyboardManager.h */,
+				AD77EA7320824E8A008EB16B /* _FBTweakTableViewCell.m */,
+				AD77EA7420824E8A008EB16B /* FBTweakShakeWindow.m */,
+				AD77EA7520824E8A008EB16B /* _FBColorComponentCell.m */,
+				AD77EA7620824E8A008EB16B /* _FBTweakColorViewController.h */,
+				AD77EA7720824E8A008EB16B /* _FBSliderView.h */,
+				AD77EA7820824E8A008EB16B /* _FBColorWheelCell.h */,
+				AD77EA7920824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.h */,
+				AD77EA7A20824E8A008EB16B /* _FBTweakBindObserver.m */,
+				AD77EA7B20824E8A008EB16B /* FBTweakInline.m */,
+				AD77EA7C20824E8A008EB16B /* FBTweakStore.h */,
+				AD77EA7D20824E8A008EB16B /* _FBTweakArrayViewController.m */,
+				AD77EA7E20824E8A008EB16B /* _FBTweakCategoryViewController.h */,
+				AD77EA7F20824E8A008EB16B /* FBTweakInlineInternal.h */,
+				AD77EA8020824E8A008EB16B /* _FBTweakCollectionViewController.h */,
+				AD77EA8120824E8A008EB16B /* FBTweakCategory.h */,
+				AD77EA8220824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.m */,
+				AD77EA8320824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.h */,
+				AD77EA8420824E8A008EB16B /* _FBTweakDictionaryViewController.m */,
+				AD77EA8520824E8A008EB16B /* _FBTweakTableViewCell.h */,
+				AD77EA8620824E8A008EB16B /* _FBKeyboardManager.m */,
+				AD77EA8720824E8A008EB16B /* FBTweakCollection.m */,
+				AD77EA8820824E8A008EB16B /* _FBColorUtils.m */,
+				AD77EA8920824E8A008EB16B /* FBTweak.h */,
+				AD77EA8A20824E8A008EB16B /* FBTweakViewController.h */,
+				AD77EA8B20824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.m */,
+				AD77EA8C20824E8A008EB16B /* _FBColorWheelCell.m */,
+				AD77EA8D20824E8A008EB16B /* _FBSliderView.m */,
+				AD77EA8E20824E8A008EB16B /* _FBTweakColorViewController.m */,
+				AD77EA8F20824E8A008EB16B /* _FBColorComponentCell.h */,
+				AD77EA9020824E8A008EB16B /* FBTweakShakeWindow.h */,
+			);
+			path = FBTweak;
+			sourceTree = "<group>";
+		};
 		C9FA51DA4B46C2DE291C220C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +497,7 @@
 				C9FA5383DFE90B3FDE5EE54A /* Animation Controllers */,
 				C9FA5EDF245F7E68ACF2F2DE /* Categories */,
 				AD77EA5720824929008EB16B /* FBShimmering */,
+				AD77EA6020824E8A008EB16B /* FBTweak */,
 				AD492956208108AB00A0BDE2 /* FXKeychain */,
 				AD77EA52208141F1008EB16B /* Images */,
 				C9FA51DA4B46C2DE291C220C /* Model */,
@@ -582,12 +708,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD77EAA620824E8A008EB16B /* _FBTweakColorViewController.m in Sources */,
+				AD77EAA320824E8A008EB16B /* _FBTweakColorViewControllerRGBDataSource.m in Sources */,
+				AD77EAA520824E8A008EB16B /* _FBSliderView.m in Sources */,
+				AD77EA9720824E8A008EB16B /* FBTweak.m in Sources */,
+				AD77EA9A20824E8A008EB16B /* _FBColorComponentCell.m in Sources */,
 				F1A91A6918D39602008395EE /* LoginViewController.m in Sources */,
 				AD77EA5F20824929008EB16B /* FBShimmeringView.m in Sources */,
 				F166ECA5196B1325009AF9C4 /* BaseViewController.m in Sources */,
 				F1A91A6318D39602008395EE /* AppDelegate.m in Sources */,
 				F1A91A5F18D39602008395EE /* main.m in Sources */,
+				AD77EA9820824E8A008EB16B /* _FBTweakTableViewCell.m in Sources */,
 				C9FA5DF873B38B60722DF306 /* ServiceLocator.m in Sources */,
+				AD77EA9320824E8A008EB16B /* _FBTweakColorViewControllerHSBDataSource.m in Sources */,
 				C9FA5C3F1C486A05A6C95D4D /* FarmDataService.m in Sources */,
 				AD77EA5E20824929008EB16B /* FBShimmeringLayer.m in Sources */,
 				C9FA5CD9FDF80CC6C7E0183A /* ServiceConstants.m in Sources */,
@@ -596,25 +729,40 @@
 				C9FA571CC95F01867C396445 /* OrderDataService.m in Sources */,
 				C9FA58F50414CABEF28B556B /* Order.m in Sources */,
 				C9FA5054B8C48E6A480575FB /* OrderItem.m in Sources */,
+				AD77EAA020824E8A008EB16B /* _FBKeyboardManager.m in Sources */,
 				C9FA57FF38AD151043F5CE2A /* InventoryItem.m in Sources */,
 				F10EA0E118EC7D7700CCBB0D /* OrderViewController.m in Sources */,
 				C9FA546C158B74E4B0F8E144 /* Item.m in Sources */,
+				AD77EA9B20824E8A008EB16B /* _FBTweakBindObserver.m in Sources */,
+				AD77EA9520824E8A008EB16B /* FBTweakCategory.m in Sources */,
 				F1CA1A151AA6148F006740E4 /* EditItemViewController.m in Sources */,
+				AD77EA9420824E8A008EB16B /* _FBTweakCollectionViewController.m in Sources */,
+				AD77EAA120824E8A008EB16B /* FBTweakCollection.m in Sources */,
+				AD77EA9F20824E8A008EB16B /* _FBTweakDictionaryViewController.m in Sources */,
 				C9FA522CA00454882F890EBC /* UserServices.m in Sources */,
 				C9FA5F8D212C1313A81A86C2 /* UITextField+Extended.m in Sources */,
+				AD77EA9220824E8A008EB16B /* FBTweakStore.m in Sources */,
+				AD77EA9120824E8A008EB16B /* _FBTweakCategoryViewController.m in Sources */,
 				C9FA5823E761EFA48F0D647A /* ThemeManager.m in Sources */,
 				AD49295A208108AB00A0BDE2 /* FXKeychain.m in Sources */,
+				AD77EA9920824E8A008EB16B /* FBTweakShakeWindow.m in Sources */,
+				AD77EAA420824E8A008EB16B /* _FBColorWheelCell.m in Sources */,
 				C9FA597B01FADAA998955CEF /* UIColor+Extended.m in Sources */,
 				C9FA52621EE162D4FA9BC9EA /* NetworkingServiceConstants.m in Sources */,
 				F19EAC4219A4E78C00C50063 /* NSDictionary+NSDictionary_Extended.m in Sources */,
 				C9FA5078177FF09CDBC1FFA4 /* SlideFromRightAnimationController.m in Sources */,
 				C9FA59B572F39DA7602D1597 /* SlideToRightAnimationController.m in Sources */,
+				AD77EA9C20824E8A008EB16B /* FBTweakInline.m in Sources */,
 				C9FA5A3439A0199813F7004A /* UIImageView+Extended.m in Sources */,
 				C9FA537AC74DE711D12D92FF /* FBShimmeringView+Extended.m in Sources */,
+				AD77EA9E20824E8A008EB16B /* _FBTweakColorViewControllerHexDataSource.m in Sources */,
 				C9FA5E68EAC61AEC1DF52870 /* OrderItemTableViewCell.m in Sources */,
+				AD77EAA220824E8A008EB16B /* _FBColorUtils.m in Sources */,
 				C9FA5C27A102BE295E2158F2 /* UILabel+Extended.m in Sources */,
 				C9FA59A87CF2C34B316D6F2A /* ActivityIndicator.m in Sources */,
 				F13746CD199E31FC008AE331 /* ItemViewController.m in Sources */,
+				AD77EA9620824E8A008EB16B /* FBTweakViewController.m in Sources */,
+				AD77EA9D20824E8A008EB16B /* _FBTweakArrayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

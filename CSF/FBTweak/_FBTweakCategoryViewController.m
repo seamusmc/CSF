@@ -101,7 +101,7 @@
     [alertController addAction:cancelAction];
 
     UIAlertAction *resetAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-      [_store reset];
+        [self->_store reset];
     }];
     [alertController addAction:resetAction];
 
