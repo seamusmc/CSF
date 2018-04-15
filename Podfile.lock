@@ -26,7 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2)
-  - CocoaLumberjack (~> 3.4)
+  - CocoaLumberjack (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`)
   - Expecta (~> 1.0)
   - GoogleAnalytics (~> 3.17)
   - SWTableViewCell (~> 0.3.7)
@@ -34,18 +34,26 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
-    - CocoaLumberjack
     - Expecta
     - GoogleAnalytics
     - SWTableViewCell
 
+EXTERNAL SOURCES:
+  CocoaLumberjack:
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+
+CHECKOUT OPTIONS:
+  CocoaLumberjack:
+    :commit: f36e4ae75f31ec41e88a3931604334585cb0c7b2
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
-  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
+  CocoaLumberjack: f848611df6de8023210a4e5811557aa5ba9fe778
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
 
-PODFILE CHECKSUM: 12d8f9c1a48758fa8d4656a0c3d014a836d8e833
+PODFILE CHECKSUM: 02061f8ada2e5021bbd73f91d3fa678e7932af6b
 
 COCOAPODS: 1.5.0
