@@ -960,11 +960,7 @@
 			baseConfigurationReference = 5477B4EF33F8DAC06A771F4C /* Pods-CSF-OrderTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -972,6 +968,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";
@@ -985,14 +982,11 @@
 			baseConfigurationReference = 4F713B10C9B4CA4E7EE39D92 /* Pods-CSF-OrderTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				INFOPLIST_FILE = "CSFTests/CSF-OrderTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";

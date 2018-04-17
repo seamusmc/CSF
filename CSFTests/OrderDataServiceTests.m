@@ -35,7 +35,7 @@
     [components setDay:20];
     [components setYear:2014];
 
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     _date = [gregorian dateFromComponents:components];
 }
 
