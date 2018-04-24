@@ -946,6 +946,7 @@
 				GCC_PREFIX_HEADER = "CSF/CSF-Order-Prefix.pch";
 				INFOPLIST_FILE = "CSF/CSF-Order-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-Order";
 				PROVISIONING_PROFILE = "";
