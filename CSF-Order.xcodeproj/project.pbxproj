@@ -10,7 +10,6 @@
 		1BAD99D317F556C819A2B576 /* libPods-CSF-OrderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDD6EAD14272A222A087208 /* libPods-CSF-OrderTests.a */; };
 		215A666FDCFB5EF39F418585 /* libPods-CSF-Order.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0045B1C3E78A83A6EE293931 /* libPods-CSF-Order.a */; };
 		AD49295A208108AB00A0BDE2 /* FXKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD492957208108AB00A0BDE2 /* FXKeychain.m */; };
-		AD49295B208108AB00A0BDE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD492959208108AB00A0BDE2 /* Info.plist */; };
 		AD77EA542081421C008EB16B /* House-in-a-field_ipad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */; };
 		AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD77EA55208149FD008EB16B /* House-in-a-field.jpg */; };
 		AD77EA5E20824929008EB16B /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD77EA5C20824929008EB16B /* FBShimmeringLayer.m */; };
@@ -102,7 +101,6 @@
 		5DDD6EAD14272A222A087208 /* libPods-CSF-OrderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSF-OrderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD492957208108AB00A0BDE2 /* FXKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXKeychain.m; sourceTree = "<group>"; };
 		AD492958208108AB00A0BDE2 /* FXKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXKeychain.h; sourceTree = "<group>"; };
-		AD492959208108AB00A0BDE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD77EA532081421C008EB16B /* House-in-a-field_ipad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field_ipad.jpg"; sourceTree = "<group>"; };
 		AD77EA55208149FD008EB16B /* House-in-a-field.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "House-in-a-field.jpg"; sourceTree = "<group>"; };
 		AD77EA5820824929008EB16B /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
@@ -290,7 +288,6 @@
 			children = (
 				AD492957208108AB00A0BDE2 /* FXKeychain.m */,
 				AD492958208108AB00A0BDE2 /* FXKeychain.h */,
-				AD492959208108AB00A0BDE2 /* Info.plist */,
 			);
 			path = FXKeychain;
 			sourceTree = "<group>";
@@ -646,7 +643,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD77EA56208149FD008EB16B /* House-in-a-field.jpg in Resources */,
-				AD49295B208108AB00A0BDE2 /* Info.plist in Resources */,
 				AD77EA542081421C008EB16B /* House-in-a-field_ipad.jpg in Resources */,
 				F1A91A6B18D39602008395EE /* Images.xcassets in Resources */,
 				F1A91A5D18D39602008395EE /* InfoPlist.strings in Resources */,
