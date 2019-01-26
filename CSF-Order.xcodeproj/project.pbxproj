@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -619,7 +619,7 @@
 				};
 			};
 			buildConfigurationList = F1A91A4A18D39602008395EE /* Build configuration list for PBXProject "CSF-Order" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -969,7 +969,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Pods\"/**",
+					"\"${PROJECT_DIR}/Pods\"/**",
+				);
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -987,7 +990,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.seamus.mcgowan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "CSF-OrderTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CSF-Order.app/CSF-Order";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Pods\"/**",
+					"\"${PROJECT_DIR}/Pods\"/**",
+				);
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
